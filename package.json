@@ -2,12 +2,13 @@
   "name": "paypot",
   "version": "0.1.0",
   "scripts": {
-    "format": "prettier --write \"src/**/*.{js,json,ts}\"",
+    "format": "prettier --write \"src/**/*.{js,json,ts,scss}\"",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "test": "vitest run --config ./test/vitest.config.ts",
+    "test:watch": "vitest --config ./test/vitest.config.ts",
     "serve:ssr:paypot": "node dist/paypot/server/server.mjs"
   },
   "private": true,
@@ -41,6 +42,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "prettier": "^3.2.5",
-    "typescript": "~5.4.2"
+    "typescript": "~5.4.2",
+    "vitest": "^1.6.0"
   }
 }

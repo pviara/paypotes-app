@@ -1,0 +1,24 @@
+section {
+    margin-left: 8%;
+    margin-right: 8%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vh;
+
+    user-select: none;
+
+    h3 {
+        font-size: 1.2rem;
+        color: #737373;
+    }
+
+    p {
+        font-size: 3rem;
+        color: #fff;
+
+        span.minus {
+            color: #ba4343;
+        }
+    }
+}

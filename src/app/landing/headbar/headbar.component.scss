@@ -1,0 +1,24 @@
+header {
+    margin-top: 15%;
+    margin-left: 8%;
+    margin-right: 8%;
+
+    display: flex;
+    justify-content: space-between;
+
+    .burger,
+    .avatar {
+        width: 16vw;
+        height: 16vw;
+
+        background-color: #202020;
+    }
+
+    .burger {
+        border-radius: 20%;
+    }
+
+    .avatar {
+        border-radius: 50%;
+    }
+}

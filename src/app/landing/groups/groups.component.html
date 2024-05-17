@@ -1,0 +1,12 @@
+<section>
+    @for (group of groups | async; track $index) {
+        <article>
+            <h3 class="bold">
+                {{ group.getName() }}
+            </h3>
+            <p>
+                {{ group.countMembers() }} personnes
+            </p>
+        </article>
+    }
+</section>

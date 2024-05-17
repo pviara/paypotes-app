@@ -7,9 +7,11 @@ export const HttpClientServiceToken = new InjectionToken<HttpClientService>(
     'HttpClientService',
 );
 
-export const DefaultHttpClientServiceProvider: Provider = {
+const httpClientServiceFactory = (httpClient: HttpClient) =>
+    new DefaultHttpClientService(httpClient);
+
+export const HttpClientServiceProvider: Provider = {
     provide: HttpClientServiceToken,
-    useFactory: (httpClient: HttpClient) =>
-        new DefaultHttpClientService(httpClient),
+    useFactory: httpClientServiceFactory,
     deps: [HttpClient],
 };

@@ -1,0 +1,47 @@
+article {
+    padding-left: 10%;
+    padding-bottom: 10%;
+
+    width: 35vw;
+    height: 25vw;
+
+    flex: 0 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    background-color: #202020;
+    border-radius: 1rem;
+
+    overflow-x: hidden;
+    text-wrap: nowrap;
+
+    scroll-snap-align: center;
+
+    &:first-child {
+        margin-left: 8%;
+    }
+
+    &:not(:first-child) {
+        scroll-snap-align: start;
+    }
+
+    &:last-child {
+        margin-right: 8%;
+    }
+
+    span.emoji {
+        font-size: 4rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+        color: #fff;
+    }
+
+    p {
+        font-size: 0.9rem;
+        color: #737373;
+    }
+}

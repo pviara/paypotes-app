@@ -1,10 +1,10 @@
-import { DefaultHttpClientServiceProvider } from './services/http-client/default-http-client.service.provider';
-import { GroupAPIServiceProvider } from './services/group/group.api-service.provider';
+import { HttpClientServiceProvider } from './services/http-client/http-client.service.provider';
+import { GroupServiceProvider } from './services/group/group.service.provider';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 @NgModule({
     imports: [HttpClientModule],
-    providers: [DefaultHttpClientServiceProvider, GroupAPIServiceProvider],
+    providers: [HttpClientServiceProvider, GroupServiceProvider],
 })
 export class CoreModule {}

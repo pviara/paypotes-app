@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { GroupAPIServiceToken } from '../../core/services/group/group.api-service.provider';
+import { GroupAPIServiceToken } from '../../core/services/group/group.service.provider';
 import { GroupService } from '../../core/services/group/group.service';
 
 @Component({

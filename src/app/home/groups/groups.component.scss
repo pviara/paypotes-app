@@ -7,6 +7,10 @@ section {
     scroll-snap-type: x mandatory;
     scroll-padding-inline-start: 8%;
 
+    &.loading {
+        overflow-x: hidden;
+    }
+
     &::-webkit-scrollbar {
         display: none;
     }
@@ -29,7 +33,6 @@ section {
 
         overflow-x: hidden;
         text-wrap: nowrap;
-
         scroll-snap-align: center;
 
         &:first-child {
@@ -44,10 +47,6 @@ section {
             margin-right: 8%;
         }
 
-        span.emoji {
-            font-size: 4rem;
-        }
-
         h3 {
             font-size: 1.2rem;
             color: #fff;
@@ -56,6 +55,39 @@ section {
         p {
             font-size: 0.9rem;
             color: #737373;
+        }
+
+        &.loading {
+            display: flex;
+            flex-direction: column;
+            gap: 1vh;
+
+            h3,
+            p {
+                background-color: #292929;
+                border-radius: 0.5rem;
+
+                background-color: #292929;
+                background: linear-gradient(
+                    90deg,
+                    #292929 25%,
+                    #3f3f3f 50%,
+                    #292929 75%
+                );
+                background-size: 200% 100%;
+
+                animation: skeletonLoading 1.5s infinite linear;
+            }
+
+            h3 {
+                width: 90%;
+                height: 18px;
+            }
+
+            p {
+                width: 70%;
+                height: 14px;
+            }
         }
     }
 }

@@ -1,12 +1,21 @@
-<section>
-    @for (group of groups | async; track $index) {
-        <article>
-            <h3 class="bold">
-                {{ group.getName() }}
-            </h3>
-            <p>
-                {{ group.countMembers() }} personnes
-            </p>
-        </article>
+<section [ngClass]="loadingClass">
+    @if (groups | async; as groups) {
+            @for (group of groups; track $index) {
+                <article>
+                    <h3 class="bold">
+                        {{ group.getName() }}
+                    </h3>
+                    <p>
+                        {{ group.countMembers() }} personnes
+                    </p>
+                </article>
+            }
+    } @else {
+        @for (loading of [null, null, null]; track $index) {
+            <article class="loading">
+                <h3></h3>
+                <p></p>
+            </article>
+        }
     }
 </section>

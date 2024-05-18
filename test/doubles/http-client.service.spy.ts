@@ -1,7 +1,8 @@
-import { HttpClientService } from "../../src/app/core/services/http-client/http-client.service";
-import { Observable, of } from "rxjs";
+import { HttpClientService } from '../../src/app/core/services/http-client/http-client.service';
+import { Observable, of } from 'rxjs';
+import { Spy } from '../model/spy';
 
-export class HttpClientServiceSpy implements HttpClientService {
+export class HttpClientServiceSpy implements Spy<HttpClientService> {
     calls = {
         get: {
             count: 0,

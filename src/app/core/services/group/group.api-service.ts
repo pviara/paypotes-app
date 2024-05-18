@@ -1,7 +1,7 @@
-import { Observable, map, of, shareReplay } from 'rxjs';
 import { Group, Groups } from '../../model/group';
 import { GroupService } from './group.service';
 import { HttpClientService } from '../http-client/http-client.service';
+import { Observable, map, shareReplay } from 'rxjs';
 
 export class GroupAPIService implements GroupService {
     private readonly dummyGroupList: Groups = [

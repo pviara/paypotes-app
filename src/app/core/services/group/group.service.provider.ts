@@ -4,15 +4,15 @@ import { HttpClientService } from '../http-client/http-client.service';
 import { HttpClientServiceToken } from '../http-client/http-client.service.provider';
 import { InjectionToken, Provider } from '@angular/core';
 
-export const GroupAPIServiceToken = new InjectionToken<GroupService>(
-    'GroupAPIService',
+export const GroupServiceToken = new InjectionToken<GroupService>(
+    'GroupService',
 );
 
 const groupServiceFactory = (httpClientService: HttpClientService) =>
     new GroupAPIService(httpClientService);
 
 export const GroupServiceProvider: Provider = {
-    provide: GroupAPIServiceToken,
+    provide: GroupServiceToken,
     useFactory: groupServiceFactory,
     deps: [HttpClientServiceToken],
 };

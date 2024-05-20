@@ -1,7 +1,7 @@
 import { Group, Groups } from '../../model/group';
 import { GroupService } from './group.service';
 import { HttpClientService } from '../http-client/http-client.service';
-import { Observable, map, shareReplay } from 'rxjs';
+import { map, shareReplay } from 'rxjs';
 
 export class GroupAPIService implements GroupService {
     private readonly dummyGroupList: Groups = [
@@ -22,12 +22,10 @@ export class GroupAPIService implements GroupService {
         }),
     ];
 
-    groups: Observable<Groups> = this.httpClientService
-        .get<unknown>('api_url_to_group')
-        .pipe(
-            map(() => this.dummyGroupList),
-            shareReplay(1),
-        );
+    groups = this.httpClientService.get<unknown>('api_url_to_group').pipe(
+        map(() => this.dummyGroupList),
+        shareReplay(1),
+    );
 
     constructor(private httpClientService: HttpClientService) {}
 }

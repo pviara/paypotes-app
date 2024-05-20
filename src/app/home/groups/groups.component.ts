@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { delay, tap } from 'rxjs';
-import { GroupAPIServiceToken } from '../../core/services/group/group.service.provider';
+import { GroupServiceToken } from '../../core/services/group/group.service.provider';
 import { GroupService } from '../../core/services/group/group.service';
 import { NgClass } from '@angular/common';
 
@@ -12,10 +12,10 @@ type TemplateClass = NgClass['ngClass'];
     styleUrls: ['./groups.component.scss'],
 })
 export class GroupsComponent {
-    private groupService = inject<GroupService>(GroupAPIServiceToken);
+    private groupService = inject<GroupService>(GroupServiceToken);
 
     groups = this.groupService.groups.pipe(
-        delay(1000),
+        // delay(1000),
         tap(() => this.stopLoading()),
     );
 

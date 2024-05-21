@@ -10,6 +10,8 @@ ul {
     scroll-snap-type: x mandatory;
     scroll-padding-inline-start: 30%;
 
+    animation: slighSlideInFromTop 1s ease-in-out;
+
     &::-webkit-scrollbar {
         display: none;
     }

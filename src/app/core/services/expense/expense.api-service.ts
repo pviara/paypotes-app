@@ -44,7 +44,7 @@ export class ExpenseAPIService implements ExpenseService {
 
     expenses = this.httpClientService
         .get<unknown>('api_url_to_group')
-        .pipe(delay(1000), map(this.mapDummyExpenseList()), shareReplay(1));
+        .pipe(delay(2000), map(this.mapDummyExpenseList()), shareReplay(1));
 
     constructor(private httpClientService: HttpClientService) {}
 

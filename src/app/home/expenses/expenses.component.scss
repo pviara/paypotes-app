@@ -9,6 +9,8 @@ section {
     justify-content: space-between;
     gap: 3vh;
 
+    animation: slighSlideInFromBottom 1.3s ease-in-out;
+
     header {
         padding-top: 5%;
         padding-left: 8%;

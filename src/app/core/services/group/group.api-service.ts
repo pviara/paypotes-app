@@ -33,7 +33,7 @@ export class GroupAPIService implements GroupService {
 
     groups = this.httpClientService
         .get<unknown>('api_url_to_group')
-        .pipe(delay(500), map(this.mapDummyGroupList()), shareReplay(1));
+        .pipe(delay(1500), map(this.mapDummyGroupList()), shareReplay(1));
 
     constructor(private httpClientService: HttpClientService) {}
 

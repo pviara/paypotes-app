@@ -6,10 +6,13 @@ ul {
     gap: 4vw;
 
     overflow-x: auto;
-    overflow-y: visible;
 
     scroll-snap-type: x mandatory;
     scroll-padding-inline-start: 30%;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 
     &.loading {
         overflow-x: hidden;

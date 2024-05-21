@@ -1,7 +1,7 @@
+import { delay, map, shareReplay } from 'rxjs';
 import { Expense, Expenses } from '../../model/expense/expense';
 import { ExpenseService } from './expense.service';
 import { HttpClientService } from '../http-client/http-client.service';
-import { map, shareReplay } from 'rxjs';
 
 export class ExpenseAPIService implements ExpenseService {
     private readonly dummyExpenseList: Expenses = [
@@ -42,10 +42,13 @@ export class ExpenseAPIService implements ExpenseService {
         }),
     ];
 
-    expenses = this.httpClientService.get<unknown>('api_url_to_group').pipe(
-        map(() => this.dummyExpenseList),
-        shareReplay(1),
-    );
+    expenses = this.httpClientService
+        .get<unknown>('api_url_to_group')
+        .pipe(delay(1000), map(this.mapDummyExpenseList()), shareReplay(1));
 
     constructor(private httpClientService: HttpClientService) {}
+
+    private mapDummyExpenseList(): () => Array<Expense> {
+        return () => this.dummyExpenseList;
+    }
 }

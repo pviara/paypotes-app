@@ -7,5 +7,7 @@ import { Expense } from '../../../core/model/expense/expense';
     styleUrls: ['./expense.component.scss'],
 })
 export class ExpenseComponent {
-    expense = input.required<Expense>();
+    expense = input<Expense | null>();
+
+    isLoading = input.required<boolean>();
 }

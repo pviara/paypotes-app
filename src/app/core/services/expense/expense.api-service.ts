@@ -1,4 +1,4 @@
-import { Expense, Expenses } from '../../model/expense';
+import { Expense, Expenses } from '../../model/expense/expense';
 import { ExpenseService } from './expense.service';
 import { HttpClientService } from '../http-client/http-client.service';
 import { map, shareReplay } from 'rxjs';
@@ -7,33 +7,38 @@ export class ExpenseAPIService implements ExpenseService {
     private readonly dummyExpenseList: Expenses = [
         new Expense({
             id: 'A',
-            name: 'le film était naze',
+            label: 'le film était naze',
             emoji: '🎥',
-            amount: 1490,
+            total: -1490,
+            origin: 'Diego',
         }),
         new Expense({
             id: 'B',
-            name: "rendez l'argent",
+            label: "rendez l'argent",
             emoji: '⛽',
-            amount: 8401,
+            total: 8401,
+            origin: 'Bretagne',
         }),
         new Expense({
             id: 'C',
-            name: 'paye tes verres',
+            label: 'paye tes verres',
             emoji: '🍺',
-            amount: 1600,
+            total: -1600,
+            origin: 'Ahmed',
         }),
         new Expense({
             id: 'D',
-            name: 'pizzzzaaaa',
+            label: 'pizzzzaaaa',
             emoji: '🍕',
-            amount: 1390,
+            total: 1390,
+            origin: 'Valentin',
         }),
         new Expense({
             id: 'E',
-            name: 'courses',
+            label: 'courses',
             emoji: '🛒',
-            amount: 1995,
+            total: -1995,
+            origin: 'Claire',
         }),
     ];
 

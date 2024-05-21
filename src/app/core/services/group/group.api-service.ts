@@ -1,4 +1,4 @@
-import { Group, Groups } from '../../model/group';
+import { Group, Groups } from '../../model/group/group';
 import { GroupService } from './group.service';
 import { HttpClientService } from '../http-client/http-client.service';
 import { map, shareReplay } from 'rxjs';

@@ -10,12 +10,23 @@
                     <span class="emoji">
                         {{ expense.getEmoji() }}
                     </span>
-                    <h4>
-                        {{ expense.getName() }}
-                    </h4>
+                    <div class="textes">
+                        <h4>
+                            {{ expense.getLabel() }}
+                        </h4>
+                        <p>
+                            {{ expense.getTotal() < 0 ? 'à' : 'de' }}
+                            <span class="bold">
+                                {{ expense.getOrigin() }}
+                            </span>
+                        </p>
+                    </div>
                 </div>
-                <h5>
-                    {{ expense.getAmount() }}€
+                <h5 class="bold">
+                    <span [ngClass]="{
+                        'debt': expense.isDebt(),
+                        'claim': !expense.isDebt()
+                    }">{{expense.isDebt() ? '-' : '+' }}</span>{{ expense.formatTotal() }}
                 </h5>
             </div>
         } 

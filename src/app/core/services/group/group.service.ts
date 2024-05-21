@@ -1,4 +1,4 @@
-import { Groups } from '../../model/group';
+import { Groups } from '../../model/group/group';
 import { Observable } from 'rxjs';
 
 export interface GroupService {

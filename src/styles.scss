@@ -23,11 +23,14 @@ h3,
 h4,
 h5,
 p,
-a {
-    all: unset;
-    display: block;
+a,
+span {
+    margin: 0;
+    padding: 0;
 
     font-family: 'regular';
+    font-size: 1em;
+    font-weight: normal;
 
     &.bold {
         font-family: 'bold';

@@ -1,7 +1,7 @@
+import { delay, map, shareReplay } from 'rxjs';
 import { Group, Groups } from '../../model/group/group';
 import { GroupService } from './group.service';
 import { HttpClientService } from '../http-client/http-client.service';
-import { map, shareReplay } from 'rxjs';
 
 export class GroupAPIService implements GroupService {
     private readonly dummyGroupList: Groups = [
@@ -20,12 +20,20 @@ export class GroupAPIService implements GroupService {
             name: 'Fiesta',
             members: Array.from({ length: 18 }),
         }),
+        new Group({
+            id: 'D',
+            name: 'Birthday',
+            members: Array.from({ length: 9 }),
+        }),
     ];
 
-    groups = this.httpClientService.get<unknown>('api_url_to_group').pipe(
-        map(() => this.dummyGroupList),
-        shareReplay(1),
-    );
+    groups = this.httpClientService
+        .get<unknown>('api_url_to_group')
+        .pipe(delay(3000), map(this.mapDummyGroupList()), shareReplay(1));
 
     constructor(private httpClientService: HttpClientService) {}
+
+    mapDummyGroupList(): () => Array<Group> {
+        return () => this.dummyGroupList;
+    }
 }

@@ -7,5 +7,7 @@ import { Group } from '../../../core/model/group/group';
     styleUrls: ['./group.component.scss'],
 })
 export class GroupComponent {
-    group = input.required<Group>();
+    group = input<Group | null>();
+
+    isLoading = input.required<boolean>();
 }

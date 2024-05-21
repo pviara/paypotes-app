@@ -6,6 +6,7 @@ section {
 
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 3vh;
 
     header {
@@ -32,8 +33,11 @@ section {
         padding-right: 8%;
         padding-bottom: 5%;
 
+        flex: 2;
+
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         gap: 2vh;
     }
 }

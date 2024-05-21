@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { ExpenseService } from '../../core/services/expense/expense.service';
 import { ExpenseServiceToken } from '../../core/services/expense/expense.service.provider';
 
 @Component({
@@ -8,7 +7,7 @@ import { ExpenseServiceToken } from '../../core/services/expense/expense.service
     styleUrls: ['./expenses.component.scss'],
 })
 export class ExpensesComponent {
-    private expenseService = inject<ExpenseService>(ExpenseServiceToken);
+    private expenseService = inject(ExpenseServiceToken);
 
     expenses = this.expenseService.expenses;
 }

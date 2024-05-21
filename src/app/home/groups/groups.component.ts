@@ -1,10 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { delay, tap } from 'rxjs';
+import { concat, of, tap } from 'rxjs';
 import { GroupServiceToken } from '../../core/services/group/group.service.provider';
-import { GroupService } from '../../core/services/group/group.service';
-import { NgClass } from '@angular/common';
 
-type TemplateClass = NgClass['ngClass'];
+const SKELETON_ARRAY = Array.from({ length: 5 }).map(() => null);
 
 @Component({
     selector: 'groups',
@@ -12,16 +10,16 @@ type TemplateClass = NgClass['ngClass'];
     styleUrls: ['./groups.component.scss'],
 })
 export class GroupsComponent {
-    private groupService = inject<GroupService>(GroupServiceToken);
+    private groupService = inject(GroupServiceToken);
 
-    groups = this.groupService.groups.pipe(
-        // delay(1000),
-        tap(() => this.stopLoading()),
+    groups = concat(
+        of(SKELETON_ARRAY),
+        this.groupService.groups.pipe(tap(this.stopLoading())),
     );
 
-    loadingClass: TemplateClass = { loading: true };
+    isLoading = true;
 
-    private stopLoading(): void {
-        this.loadingClass = { loading: false };
+    private stopLoading(): () => void {
+        return () => (this.isLoading = false);
     }
 }

@@ -1,7 +1,4 @@
-article {
-    padding-left: 10%;
-    padding-bottom: 10%;
-
+li {
     width: 35vw;
     height: 25vw;
 
@@ -14,25 +11,52 @@ article {
     background-color: #202020;
     border-radius: 1rem;
 
-    overflow-x: hidden;
-    text-wrap: nowrap;
-
     scroll-snap-align: center;
-
-    &:first-child {
-        margin-left: 8%;
-    }
 
     &:not(:first-child) {
         scroll-snap-align: start;
     }
 
-    &:last-child {
-        margin-right: 8%;
+    &.loading {
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+
+        h3,
+        p {
+            margin-left: 10%;
+
+            background-color: #292929;
+            border-radius: 0.5rem;
+
+            background-color: #292929;
+            background: linear-gradient(
+                90deg,
+                #292929 25%,
+                #3f3f3f 50%,
+                #292929 75%
+            );
+            background-size: 200% 100%;
+
+            animation: skeletonLoading 1.5s infinite linear;
+        }
+
+        h3 {
+            width: 70%;
+            height: 15%;
+        }
+
+        p {
+            margin-bottom: 10%;
+
+            width: 60%;
+            height: 5%;
+        }
     }
 
-    span.emoji {
-        font-size: 4rem;
+    h3,
+    p {
+        padding-left: 10%;
     }
 
     h3 {
@@ -41,6 +65,8 @@ article {
     }
 
     p {
+        padding-bottom: 10%;
+
         font-size: 0.9rem;
         color: #737373;
     }

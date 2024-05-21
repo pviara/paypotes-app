@@ -1,8 +1,13 @@
-<article>
-    <h3 class="bold">
-        {{ group().getName() }}
-    </h3>
-    <p>
-        {{ group().countMembers() }} personnes
-    </p>
-</article>
+<li [ngClass]="{ loading: isLoading() }">
+    @if (group(); as group) {
+        <h3 class="bold">
+            {{ group.getName() }}
+        </h3>
+        <p>
+            {{ group.countMembers() }} personnes
+        </p>
+    } @else {
+        <h3></h3>
+        <p></p>
+    }
+</li>

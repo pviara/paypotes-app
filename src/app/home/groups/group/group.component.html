@@ -1,5 +1,8 @@
 <li [ngClass]="{ loading: isLoading() }">
     @if (group(); as group) {
+        <div class="emoji">
+            {{ group.getEmoji() }}
+        </div>
         <h3 class="bold">
             {{ group.getName() }}
         </h3>

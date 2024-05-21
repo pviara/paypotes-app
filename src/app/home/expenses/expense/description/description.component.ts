@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { Emoji } from '../../../../core/model/expense/emoji';
+import { Emoji } from '../../../../core/model/emoji';
 
 @Component({
     selector: 'description',

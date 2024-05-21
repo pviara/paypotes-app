@@ -37,6 +37,12 @@ span {
     }
 }
 
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+
 @keyframes skeletonLoading {
     0% {
         background-position: 200% 0;

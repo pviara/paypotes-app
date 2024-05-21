@@ -27,7 +27,7 @@ section {
         }
     }
 
-    .content {
+    ul {
         padding-left: 8%;
         padding-right: 8%;
         padding-bottom: 5%;
@@ -35,54 +35,5 @@ section {
         display: flex;
         flex-direction: column;
         gap: 2vh;
-
-        .expense {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-
-            color: #fff;
-
-            padding-bottom: 1vh;
-            border-bottom: 2px solid #2c2c2c;
-
-            .description {
-                display: flex;
-                align-items: center;
-                gap: 2vw;
-
-                .emoji {
-                    font-size: 2rem;
-                }
-
-                .textes {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.2rem;
-
-                    p {
-                        font-size: 0.9rem;
-                        color: #737373;
-                    }
-                }
-            }
-
-            h5 {
-                font-size: 1.2rem;
-
-                .claim,
-                .debt {
-                    font-family: 'bold';
-                }
-
-                .claim {
-                    color: #43ba59;
-                }
-
-                .debt {
-                    color: #ba4343;
-                }
-            }
-        }
     }
 }

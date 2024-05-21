@@ -3,32 +3,9 @@
         <h3 class="bold">Dépenses</h3>
         <a>Tout voir</a>
     </header>
-    <div class="content">
+    <ul>
         @for (expense of expenses | async; track $index) {
-            <div class="expense">
-                <div class="description">
-                    <span class="emoji">
-                        {{ expense.getEmoji() }}
-                    </span>
-                    <div class="textes">
-                        <h4>
-                            {{ expense.getLabel() }}
-                        </h4>
-                        <p>
-                            {{ expense.getTotal() < 0 ? 'à' : 'de' }}
-                            <span class="bold">
-                                {{ expense.getOrigin() }}
-                            </span>
-                        </p>
-                    </div>
-                </div>
-                <h5 class="bold">
-                    <span [ngClass]="{
-                        'debt': expense.isDebt(),
-                        'claim': !expense.isDebt()
-                    }">{{expense.isDebt() ? '-' : '+' }}</span>{{ expense.formatTotal() }}
-                </h5>
-            </div>
-        } 
-    </div>
+            <expense [expense]="expense"/>
+        }
+    </ul>
 </section>

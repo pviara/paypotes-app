@@ -1,0 +1,12 @@
+<li>
+    <description
+        [emoji]="expense().getEmoji()"
+        [label]="expense().getLabel()"
+        [isDebt]="expense().isDebt()"
+        [origin]="expense().getOrigin()"
+    />
+    <total
+        [isDebt]="expense().isDebt()"
+        [total]="expense().formatTotal()"
+    />
+</li>

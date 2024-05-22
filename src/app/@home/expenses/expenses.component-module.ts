@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { DescriptionComponent } from './expense/description/description.component';
-import { ExpenseComponent } from './expense/expense.component';
-import { ExpensesComponent } from './expenses.component';
+import { DescriptionComponent } from '@home/expenses/expense/description/description.component';
+import { ExpenseComponent } from '@home/expenses/expense/expense.component';
+import { ExpensesComponent } from '@home/expenses/expenses.component';
 import { NgModule } from '@angular/core';
-import { TotalComponent } from './expense/total/total.component';
+import { TotalComponent } from '@home/expenses/expense/total/total.component';
 
 @NgModule({
     declarations: [

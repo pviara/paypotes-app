@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { GroupComponent } from './group/group.component';
-import { GroupsComponent } from './groups.component';
+import { GroupComponent } from '@home/groups/group/group.component';
+import { GroupsComponent } from '@home/groups/groups.component';
 import { NgModule } from '@angular/core';
 
 @NgModule({

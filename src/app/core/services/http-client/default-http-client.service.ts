@@ -6,6 +6,6 @@ export class DefaultHttpClientService implements HttpClientService {
     constructor(private httpClient: HttpClient) {}
 
     get<T>(url: string): Observable<T> {
-        return of(null) as Observable<T>;
+        return this.httpClient.get<T>(url);
     }
 }

@@ -79,9 +79,18 @@ section {
     }
 
     ul.expenses {
+        height: 53vh;
+
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
         gap: 2vh;
+
+        overflow-y: scroll;
+
+        scroll-snap-type: y mandatory;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 }

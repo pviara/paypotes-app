@@ -4,7 +4,7 @@ import { ExpenseServiceToken } from '@core/services/expense/expense.service.prov
 
 type Option = { label: string; value: string };
 
-const SKELETON_ARRAY = Array.from({ length: 5 }).map(() => null);
+const SKELETON_ARRAY = Array.from({ length: 15 }).map(() => null);
 
 @Component({
     selector: 'paginated-expenses',
@@ -16,7 +16,7 @@ export class ExpensesComponent {
 
     expenses = concat(
         of(SKELETON_ARRAY),
-        this.expenseService.expenses.pipe(tap(this.stopLoading())),
+        // this.expenseService.expenses.pipe(tap(this.stopLoading())),
     );
 
     isLoading = true;

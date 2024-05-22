@@ -1,6 +1,4 @@
 section {
-    height: 100%;
-
     background-color: #202020;
     border-radius: 2rem 2rem 0 0;
 
@@ -31,15 +29,22 @@ section {
     }
 
     ul {
+        height: 45vh;
+
         padding-left: 8%;
         padding-right: 8%;
         padding-bottom: 5%;
 
-        flex: 2;
-
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
         gap: 2vh;
+
+        overflow-y: scroll;
+
+        scroll-snap-type: y mandatory;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
     }
 }

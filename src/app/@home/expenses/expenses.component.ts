@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { concat, of, tap } from 'rxjs';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 
-const SKELETON_ARRAY = Array.from({ length: 5 }).map(() => null);
+const SKELETON_ARRAY = Array.from({ length: 10 }).map(() => null);
 
 @Component({
     selector: 'recent-expenses',

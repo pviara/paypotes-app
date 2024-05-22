@@ -1,7 +1,7 @@
-import { delay, map, shareReplay } from 'rxjs';
 import { Group, Groups } from '../../model/group/group';
 import { GroupService } from './group.service';
 import { HttpClientService } from '../http-client/http-client.service';
+import { map, shareReplay } from 'rxjs';
 
 export class GroupAPIService implements GroupService {
     private readonly dummyGroupList: Groups = [
@@ -33,7 +33,7 @@ export class GroupAPIService implements GroupService {
 
     groups = this.httpClientService
         .get<unknown>('api_url_to_group')
-        .pipe(delay(1500), map(this.mapDummyGroupList()), shareReplay(1));
+        .pipe(map(this.mapDummyGroupList()), shareReplay(1));
 
     constructor(private httpClientService: HttpClientService) {}
 

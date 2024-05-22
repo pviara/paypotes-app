@@ -10,6 +10,8 @@ li {
 
     width: 100%;
 
+    scroll-snap-align: start;
+
     &.loading {
         .skeleton {
             width: 100%;

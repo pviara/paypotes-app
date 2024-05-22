@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { concat, of, tap } from 'rxjs';
-import { GroupServiceToken } from '../../core/services/group/group.service.provider';
+import { GroupServiceToken } from '@core/services/group/group.service.provider';
 
 const SKELETON_ARRAY = Array.from({ length: 5 }).map(() => null);
 

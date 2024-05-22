@@ -1,5 +1,5 @@
 import { ExpenseAPIService } from './expense.api-service';
-import { HttpClientServiceSpy } from '../../../../../test/doubles/http-client.service.spy';
+import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
 
 describe('ExpenseAPIService', () => {
     let sut: ExpenseAPIService;

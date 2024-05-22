@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Expense } from '../../../core/model/expense/expense';
+import { Expense } from '@core/model/expense/expense';
 
 @Component({
     selector: 'expense',

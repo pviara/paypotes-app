@@ -1,4 +1,4 @@
-import { HttpClientService } from '../../src/app/core/services/http-client/http-client.service';
+import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, of } from 'rxjs';
 import { Spy } from '../model/spy';
 

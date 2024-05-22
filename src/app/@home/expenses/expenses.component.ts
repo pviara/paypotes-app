@@ -5,7 +5,7 @@ import { ExpenseServiceToken } from '@core/services/expense/expense.service.prov
 const SKELETON_ARRAY = Array.from({ length: 5 }).map(() => null);
 
 @Component({
-    selector: 'expenses',
+    selector: 'recent-expenses',
     templateUrl: './expenses.component.html',
     styleUrls: ['./expenses.component.scss'],
 })

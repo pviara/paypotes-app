@@ -1,1 +1,23 @@
-<section></section>
+<section>
+    <form>
+        <input
+            type="text"
+            placeholder="Rechercher..."
+        />
+        <ul>
+            @for (option of options; track $index) {
+                <li [ngClass]="selectedClassFor(option)">
+                    {{ option.label }}
+                </li>
+            }
+        </ul>
+    </form>
+    <ul class="expenses">
+        @for (expense of expenses | async; track $index) {
+            <expense
+                [expense]="expense"
+                [isLoading]="isLoading"
+            />
+        }
+    </ul>
+</section>

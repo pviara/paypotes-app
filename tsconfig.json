@@ -28,6 +28,7 @@
       "@expenses/*": [ "src/app/@expenses/*" ],
       "@home/*": [ "src/app/@home/*" ],
       "@landing/*": [ "src/app/@landing/*" ],
+      "@shared/*": [ "src/app/shared/*" ],
       "@test/*": [ "test/*" ],
     }
   },

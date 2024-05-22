@@ -1,18 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { DescriptionComponent } from '@home/expenses/expense/description/description.component';
-import { ExpenseComponent } from '@home/expenses/expense/expense.component';
+import { ExpenseComponentModule } from '@shared/expense/expense.component-module';
 import { ExpensesComponent } from '@home/expenses/expenses.component';
 import { NgModule } from '@angular/core';
-import { TotalComponent } from '@home/expenses/expense/total/total.component';
 
 @NgModule({
-    declarations: [
-        DescriptionComponent,
-        ExpenseComponent,
-        ExpensesComponent,
-        TotalComponent,
-    ],
+    declarations: [ExpensesComponent],
     exports: [ExpensesComponent],
-    imports: [CommonModule],
+    imports: [CommonModule, ExpenseComponentModule],
 })
 export class ExpensesComponentModule {}

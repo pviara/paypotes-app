@@ -1,0 +1,22 @@
+ul {
+    padding-left: 8%;
+    padding-right: 8%;
+
+    display: flex;
+    gap: 4vw;
+
+    overflow-x: auto;
+
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline-start: 30%;
+
+    animation: slighSlideInFromTop 1s ease-in-out;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &.loading {
+        overflow-x: hidden;
+    }
+}

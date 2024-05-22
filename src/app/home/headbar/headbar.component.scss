@@ -1,0 +1,33 @@
+header {
+    margin-top: 15%;
+    margin-left: 8%;
+    margin-right: 8%;
+
+    display: flex;
+    justify-content: space-between;
+
+    animation: slighSlideInFromTop 0.5s ease-in-out;
+
+    .burger,
+    .avatar {
+        width: 14vw;
+    }
+
+    .burger {
+        border-radius: 20%;
+        background-color: #202020;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 8vw;
+        }
+    }
+
+    .avatar {
+        border-radius: 50%;
+        outline: 4px solid #202020;
+    }
+}

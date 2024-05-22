@@ -1,0 +1,45 @@
+section {
+    height: 100%;
+
+    background-color: #202020;
+    border-radius: 2rem 2rem 0 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 3vh;
+
+    animation: slighSlideInFromBottom 1.3s ease-in-out;
+
+    header {
+        padding-top: 5%;
+        padding-left: 8%;
+        padding-right: 8%;
+
+        display: flex;
+        justify-content: space-between;
+
+        h3 {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: underline;
+        }
+    }
+
+    ul {
+        padding-left: 8%;
+        padding-right: 8%;
+        padding-bottom: 5%;
+
+        flex: 2;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 2vh;
+    }
+}

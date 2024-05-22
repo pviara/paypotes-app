@@ -1,1 +1,85 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: 'regular';
+    src: url('./assets/fonts/Inter-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'bold';
+    src: url('./assets/fonts/Inter-SemiBold.ttf');
+}
+
+html,
+body {
+    all: unset;
+
+    height: 100vh;
+
+    background-color: #121212;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+a,
+span {
+    margin: 0;
+    padding: 0;
+
+    font-family: 'regular';
+    font-size: 1em;
+    font-weight: normal;
+
+    &.bold {
+        font-family: 'bold';
+    }
+}
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}
+
+@keyframes skeletonLoading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+@keyframes slighSlideInFromBottom {
+    from {
+        transform: translateY(20%);
+        opacity: 0;
+
+        animation-timing-function: ease-in-out;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+
+        animation-timing-function: ease-in-out;
+    }
+}
+
+@keyframes slighSlideInFromTop {
+    from {
+        transform: translateY(-20%);
+        opacity: 0;
+
+        animation-timing-function: ease-in-out;
+    }
+
+    to {
+        transform: translateY(0%);
+        opacity: 1;
+
+        animation-timing-function: ease-in-out;
+    }
+}

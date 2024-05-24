@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit, inject } from '@angular/core';
-import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { DisplayedExpenses } from '@core/model/expense/displayed-expense';
+import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 
 @Component({
     selector: 'paginated-expenses',
@@ -11,15 +11,15 @@ import { DisplayedExpenses } from '@core/model/expense/displayed-expense';
 export class ExpensesComponent implements OnInit {
     private expenseService = inject(ExpenseServiceToken);
 
+    private lastScrollTop = 0;
+
     private skeletons: Array<null> = Array.from({ length: 20 }).map(() => null);
 
     $expenses = new BehaviorSubject<DisplayedExpenses>([]);
 
-    private lastScrollTop = 0;
-
     ngOnInit(): void {
         this.$expenses.next(this.skeletons);
-        this.expenseService.expenses.subscribe((expenses) =>
+        this.expenseService.getExpenses().subscribe((expenses) =>
             this.$expenses.next(expenses),
         );
     }
@@ -37,7 +37,7 @@ export class ExpensesComponent implements OnInit {
             this.$expenses.next(expenses);
 
             // todo: with pageIndex of course
-            this.expenseService.expenses.subscribe((newExpenses) => {
+            this.expenseService.getExpenses().subscribe((newExpenses) => {
                 let expenses = this.$expenses
                     .getValue()
                     .filter((expense) => !!expense);

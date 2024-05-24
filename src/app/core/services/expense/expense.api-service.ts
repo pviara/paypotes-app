@@ -1,49 +1,26 @@
-import { delay, map, shareReplay } from 'rxjs';
-import { Expense, Expenses } from '../../model/expense/expense';
+import { Emoji } from '@core/model/emoji';
+import { Expense } from '../../model/expense/expense';
 import { ExpenseService } from './expense.service';
 import { HttpClientService } from '../http-client/http-client.service';
+import { generateRandomString } from '@shared/utils/generate-random-string';
+import { getRandomEmoji } from '@shared/utils/get-random-emoji';
+import { map, shareReplay } from 'rxjs';
 
 export class ExpenseAPIService implements ExpenseService {
-    private readonly dummyExpenseList: Expenses = [
-        new Expense({
-            id: 'A',
-            label: 'le film était naze',
-            emoji: '🎥',
-            total: -1490,
-            origin: 'Diego',
-        }),
-        new Expense({
-            id: 'B',
-            label: "rendez l'argent",
-            emoji: '⛽',
-            total: 8401,
-            origin: 'Bretagne',
-        }),
-        new Expense({
-            id: 'C',
-            label: 'paye tes verres',
-            emoji: '🍺',
-            total: -1600,
-            origin: 'Ahmed',
-        }),
-        new Expense({
-            id: 'D',
-            label: 'pizzzzaaaa',
-            emoji: '🍕',
-            total: 1390,
-            origin: 'Valentin',
-        }),
-        new Expense({
-            id: 'E',
-            label: 'courses',
-            emoji: '🛒',
-            total: -1995,
-            origin: 'Claire',
-        }),
-    ];
+    private readonly randomExpenseList = Array.from({ length: 40 }).map(
+        (_, index) => {
+            return new Expense({
+                id: generateRandomString(),
+                label: `Dépense #${index}`,
+                emoji: getRandomEmoji() as Emoji,
+                origin: 'Claire',
+                total: Math.random() * (200 - -120) + -120,
+            });
+        },
+    );
 
     expenses = this.httpClientService.get<unknown>('api_url_to_expense').pipe(
-        map(() => this.dummyExpenseList),
+        map(() => this.randomExpenseList),
         shareReplay(1),
     );
 

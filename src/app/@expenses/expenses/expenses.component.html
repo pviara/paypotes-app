@@ -13,11 +13,22 @@
         </ul>
     </form>
     <ul class="expenses">
-        @for (expense of expenses | async; track $index) {
-            <expense
-                [expense]="expense"
-                [isLoading]="isLoading"
-            />
+        @if (expenses | async; as expenses) {
+            @for (expense of expenses; track $index) {
+                <expense
+                    class="expense"
+                    [expense]="expense"
+                    [isLoading]="isLoading"
+                    (expenseHovered)="onExpenseHovered($event)"
+                />
+            }
+        } @else {
+            @for (expenseLoading of [null, null, null]; track $index) {
+                <expense
+                    [expense]="expenseLoading"
+                    [isLoading]="true"
+                />
+            }
         }
     </ul>
 </section>

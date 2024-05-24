@@ -10,7 +10,7 @@
             <li>Dettes</li>
         </ul>
     </form>
-    <ul class="expenses">
+    <ul class="expenses" (scroll)="onScroll($event)">
         @for (expense of $expenses | async; track $index) {
             @if (expense !== null) {
                 <expense

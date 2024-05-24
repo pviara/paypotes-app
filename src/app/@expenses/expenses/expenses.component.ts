@@ -15,6 +15,8 @@ export class ExpensesComponent implements OnInit {
 
     $expenses = new BehaviorSubject<DisplayedExpenses>([]);
 
+    private lastScrollTop = 0;
+
     ngOnInit(): void {
         this.$expenses.next(this.skeletons);
         this.expenseService.expenses.subscribe((expenses) =>
@@ -43,5 +45,22 @@ export class ExpensesComponent implements OnInit {
                 this.$expenses.next(expenses);
             });
         }
+    }
+
+    onScroll(event: Event): void {
+        const element = event.target as HTMLElement;
+        element.classList.remove('scroll-top', 'scroll-bottom');
+
+        if (element.scrollTop >= this.lastScrollTop) {
+            const className = 'scroll-top';
+            element.classList.add(className);
+            setTimeout(() => element.classList.remove(className), 500);
+        } else {
+            const className = 'scroll-bottom';
+            element.classList.add(className);
+            setTimeout(() => element.classList.remove(className), 500);
+        }
+
+        this.lastScrollTop = element.scrollTop;
     }
 }

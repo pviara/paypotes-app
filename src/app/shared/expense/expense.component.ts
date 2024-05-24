@@ -24,12 +24,12 @@ export class ExpenseComponent implements AfterViewInit {
 
     expense = input<Expense | null>();
 
-    isLoading = input.required<boolean>();
+    isLoading = input<boolean>(false);
 
     randomId = generateRandomString();
 
     @Output()
-    expenseHovered = new EventEmitter<string>();
+    hovered = new EventEmitter<string>();
 
     ngAfterViewInit(): void {
         if (isPlatformBrowser(this.platformId)) {
@@ -68,7 +68,7 @@ export class ExpenseComponent implements AfterViewInit {
     private emitExpenseHovered(): void {
         const expense = this.expense();
         if (expense) {
-            this.expenseHovered.emit(expense.getId());
+            this.hovered.emit(expense.getId());
         }
     }
 

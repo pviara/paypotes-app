@@ -4,11 +4,12 @@
         <a>Tout voir</a>
     </header>
     <ul>
-        @for (expense of expenses | async; track $index) {
-            <expense
-                [expense]="expense"
-                [isLoading]="isLoading"
-            />
+        @for (expense of $expenses | async; track $index) {
+            @if (expense !== null) {
+                <expense [expense]="expense"/>
+            } @else {
+                <expense [isLoading]="true"/>
+            }
         }
     </ul>
 </section>

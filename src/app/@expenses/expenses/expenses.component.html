@@ -5,29 +5,20 @@
             placeholder="Rechercher..."
         />
         <ul>
-            @for (option of options; track $index) {
-                <li [ngClass]="selectedClassFor(option)">
-                    {{ option.label }}
-                </li>
-            }
+            <li class="selected">Tous</li>
+            <li>Créances</li>
+            <li>Dettes</li>
         </ul>
     </form>
     <ul class="expenses">
-        @if (expenses | async; as expenses) {
-            @for (expense of expenses; track $index) {
+        @for (expense of $expenses | async; track $index) {
+            @if (expense !== null) {
                 <expense
-                    class="expense"
                     [expense]="expense"
-                    [isLoading]="isLoading"
-                    (expenseHovered)="onExpenseHovered($event)"
+                    (hovered)="onExpenseHovered($event)"
                 />
-            }
-        } @else {
-            @for (expenseLoading of [null, null, null]; track $index) {
-                <expense
-                    [expense]="expenseLoading"
-                    [isLoading]="true"
-                />
+            } @else {
+                <expense [isLoading]="true"/>
             }
         }
     </ul>

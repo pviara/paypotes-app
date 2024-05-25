@@ -33,10 +33,16 @@ describe('ExpenseAPIService', () => {
 
     afterAll(() => subscription.unsubscribe());
 
-    describe('data was not fetched before', () => {
+    describe('no data was fetched before', () => {
         it('should get expenses from server', () => {
-            sut.getExpenses().subscribe();
-            expect(httpClientService.calls.get.count).toBe(1);
+            sut.getExpenses({}).subscribe(() => {
+                expect(httpClientService.calls.get.count).toBe(1);
+
+                const [call] = httpClientService.calls.get.history;
+                const clientHasNotBeenCalledWithAnySearchOrPage =
+                    !call.includes('search') && !call.includes('pageIndex');
+                expect(clientHasNotBeenCalledWithAnySearchOrPage).toBe(true);
+            });
         });
     });
 
@@ -44,13 +50,13 @@ describe('ExpenseAPIService', () => {
         it('should get the expense from cache when search points to a cached one', () => {
             stubGetInClientWith(dummyExpenses);
 
-            subscription.add(sut.getExpenses().subscribe());
+            subscription.add(sut.getExpenses({}).subscribe());
 
             const expenseToFind = dummyExpenses[0];
             const search = expenseToFind.getLabel();
 
             subscription.add(
-                sut.getExpenses(search).subscribe((expenses) => {
+                sut.getExpenses({ search }).subscribe((expenses) => {
                     const [result] = expenses;
                     expect(httpClientService.calls.get.count).toBe(1);
                     expect(result.getId()).toBe(expenseToFind.getId());
@@ -61,14 +67,49 @@ describe('ExpenseAPIService', () => {
         it('should get the expense from client when cache does not contain the right expense', () => {
             const search = 'labelXYZ';
             subscription.add(
-                sut.getExpenses(search).subscribe((expenses) => {
+                sut.getExpenses({ search }).subscribe(() => {
                     expect(httpClientService.calls.get.count).toBe(1);
 
                     const [call] = httpClientService.calls.get.history;
                     const clientHasBeenCalledWithSearch = call.includes(
-                        `search=${search}`,
+                        `?search=${search}`,
                     );
                     expect(clientHasBeenCalledWithSearch).toBe(true);
+                }),
+            );
+        });
+    });
+
+    describe('pageIndex', () => {
+        it('should get the expenses from server', () => {
+            const pageIndex = 1;
+            subscription.add(
+                sut.getExpenses({ pageIndex }).subscribe(() => {
+                    expect(httpClientService.calls.get.count).toBe(1);
+
+                    const [call] = httpClientService.calls.get.history;
+                    const clientHasBeenCalledWithSearch = call.includes(
+                        `?pageIndex=${pageIndex}`,
+                    );
+                    expect(clientHasBeenCalledWithSearch).toBe(true);
+                }),
+            );
+        });
+    });
+
+    describe('pageIndex and search', () => {
+        it('should get the expenses from server', () => {
+            const pageIndex = 1;
+            const search = 'ABC';
+            subscription.add(
+                sut.getExpenses({ pageIndex, search }).subscribe(() => {
+                    expect(httpClientService.calls.get.count).toBe(1);
+
+                    const [call] = httpClientService.calls.get.history;
+                    const clientCalledWithSearchAndPage = call.includes(
+                        `?pageIndex=${pageIndex}&search=${search}`,
+                    );
+                    expect(clientCalledWithSearchAndPage).toBe(true);
                 }),
             );
         });

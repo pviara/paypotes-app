@@ -12,6 +12,8 @@ export class FakeHttpInterceptor implements HttpInterceptor {
         req: HttpRequest<any>,
         next: HttpHandler,
     ): Observable<HttpEvent<unknown>> {
-        return of(new HttpResponse({ status: 200, body: [] })).pipe(delay(2000));
+        return of(new HttpResponse({ status: 200, body: [] })).pipe(
+            delay(2000),
+        );
     }
 }

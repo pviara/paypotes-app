@@ -1,7 +1,8 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 import { Component, OnInit, inject } from '@angular/core';
 import { DisplayedExpenses } from '@core/model/expense/displayed-expense';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
+import { Expenses } from '@core/model/expense/expense';
 
 @Component({
     selector: 'paginated-expenses',
@@ -9,6 +10,8 @@ import { ExpenseServiceToken } from '@core/services/expense/expense.service.prov
     styleUrls: ['./expenses.component.scss'],
 })
 export class ExpensesComponent implements OnInit {
+    private nextIndex = 0;
+
     private expenseService = inject(ExpenseServiceToken);
 
     private lastScrollTop = 0;
@@ -18,32 +21,13 @@ export class ExpensesComponent implements OnInit {
     $expenses = new BehaviorSubject<DisplayedExpenses>([]);
 
     ngOnInit(): void {
-        this.$expenses.next(this.skeletons);
-        this.expenseService
-            .getExpenses()
-            .subscribe((expenses) => this.$expenses.next(expenses));
+        this.initExpenses();
     }
 
     onExpenseHovered(expenseId: string): void {
-        let expenses = this.$expenses.getValue();
-
-        const index = expenses.findIndex(
-            (expense) => expense?.getId() === expenseId,
-        );
-
-        const isNearArrayEnd = index > expenses.length - 10;
-        if (isNearArrayEnd) {
-            expenses = expenses.concat(this.skeletons);
-            this.$expenses.next(expenses);
-
-            // todo: with pageIndex of course
-            this.expenseService.getExpenses().subscribe((newExpenses) => {
-                let expenses = this.$expenses
-                    .getValue()
-                    .filter((expense) => !!expense);
-                expenses = expenses.concat(newExpenses);
-                this.$expenses.next(expenses);
-            });
+        if (this.isExpenseNearListEnd(expenseId)) {
+            this.addSkeletonsToList();
+            this.getNextPageExpenses();
         }
     }
 
@@ -62,5 +46,46 @@ export class ExpensesComponent implements OnInit {
         }
 
         this.lastScrollTop = element.scrollTop;
+    }
+
+    private initExpenses(): void {
+        this.$expenses.next(this.skeletons);
+        this.expenseService
+            .getExpenses({ pageIndex: this.nextIndex })
+            .subscribe((expenses) => this.$expenses.next(expenses));
+    }
+
+    private addSkeletonsToList(): void {
+        const newExpenses = this.$expenses.getValue().concat(this.skeletons);
+        this.$expenses.next(newExpenses);
+    }
+
+    private getNextPageExpenses(): void {
+        this.nextIndex++;
+        this.expenseService
+            .getExpenses({ pageIndex: this.nextIndex })
+            .subscribe(this.appendExpensesToList());
+    }
+
+    private appendExpensesToList(): (expenses: Expenses) => void {
+        return (newExpenses: Expenses) => {
+            let expenses = this.$expenses
+                .getValue()
+                .filter((expense) => !!expense);
+            expenses = expenses.concat(newExpenses);
+            this.$expenses.next(expenses);
+        };
+    }
+
+    private isExpenseNearListEnd(expenseId: string): boolean {
+        const index = this.findExpenseIndexWith(expenseId);
+        const isNearArrayEnd = index > this.$expenses.getValue().length - 10;
+        return isNearArrayEnd;
+    }
+
+    private findExpenseIndexWith(expenseId: string): number {
+        return this.$expenses
+            .getValue()
+            .findIndex((expense) => expense?.getId() === expenseId);
     }
 }

@@ -18,7 +18,7 @@ export class ExpensesComponent implements OnInit {
     ngOnInit(): void {
         this.$expenses.next(this.skeletons);
         this.expenseService
-            .getExpenses()
+            .getExpenses({})
             .subscribe((expenses) => this.$expenses.next(expenses.slice(0, 6)));
     }
 }

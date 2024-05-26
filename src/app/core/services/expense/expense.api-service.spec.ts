@@ -72,7 +72,7 @@ describe('ExpenseAPIService', () => {
 
                     const [call] = httpClientService.calls.get.history;
                     const clientHasBeenCalledWithSearch = call.includes(
-                        `?search=${search}`,
+                        `search=${search}`,
                     );
                     expect(clientHasBeenCalledWithSearch).toBe(true);
                 }),
@@ -110,6 +110,24 @@ describe('ExpenseAPIService', () => {
                         `?pageIndex=${pageIndex}&search=${search}`,
                     );
                     expect(clientCalledWithSearchAndPage).toBe(true);
+                }),
+            );
+        });
+
+        it('should still get the expense from cache when search points to a cached one', () => {
+            stubGetInClientWith(dummyExpenses);
+
+            subscription.add(sut.getExpenses({}).subscribe());
+
+            const expenseToFind = dummyExpenses[0];
+            const search = expenseToFind.getLabel();
+            const pageIndex = 1;
+
+            subscription.add(
+                sut.getExpenses({ pageIndex, search }).subscribe((expenses) => {
+                    const [result] = expenses;
+                    expect(httpClientService.calls.get.count).toBe(1);
+                    expect(result.getId()).toBe(expenseToFind.getId());
                 }),
             );
         });

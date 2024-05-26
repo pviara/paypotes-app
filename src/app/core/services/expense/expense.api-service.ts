@@ -5,7 +5,7 @@ import { Filters } from '@core/model/expense/filters';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
-import { Observable, of, tap } from 'rxjs';
+import { Observable, map, of, tap } from 'rxjs';
 
 export class ExpenseAPIService implements ExpenseService {
     private cachedExpenses: Expenses = [];
@@ -15,21 +15,14 @@ export class ExpenseAPIService implements ExpenseService {
     constructor(private httpClientService: HttpClientService) {}
 
     getExpenses({ pageIndex, search }: Filters): Observable<Expenses> {
-        if (pageIndex) {
-            return this.getExpensesFromClient({ pageIndex, search });
-        }
-
         if (search) {
-            return this.getMatchesFor(search);
+            const matches = this.getFromCacheFor(search);
+            if (matches.length > 0) {
+                return of(matches);
+            }
         }
-        return this.getExpensesFromClient({});
-    }
 
-    private getMatchesFor(search: string) {
-        const matches = this.getFromCacheFor(search);
-        return matches.length > 0
-            ? of(matches)
-            : this.getExpensesFromClient({ search });
+        return this.getExpensesFromClientWith({ pageIndex, search });
     }
 
     private getFromCacheFor(search: string): Expenses {
@@ -38,20 +31,20 @@ export class ExpenseAPIService implements ExpenseService {
         );
     }
 
-    private getExpensesFromClient({
-        pageIndex,
-        search,
-    }: Filters): Observable<Expenses> {
-        const url = this.buildURLWith({ pageIndex, search });
+    private getExpensesFromClientWith(filters: Filters): Observable<Expenses> {
+        const url = this.buildURLWith(filters);
 
         return this.httpClientService.get<Expenses>(url).pipe(
             tap((expenses) => {
                 this.cachedExpenses = this.cachedExpenses.concat(expenses);
             }),
+            map(this.getRandomExpenses()),
         );
     }
 
-    private buildURLWith({ pageIndex, search }: Filters): string {
+    private buildURLWith(filters: Filters): string {
+        const { pageIndex, search } = filters;
+
         let url = this.endpoint;
         if (pageIndex && search) {
             url += `?pageIndex=${pageIndex}&search=${search}`;

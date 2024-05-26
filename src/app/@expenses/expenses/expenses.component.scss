@@ -8,6 +8,8 @@ section {
     flex-direction: column;
     gap: 5vh;
 
+    animation: slighSlideInFromBottom 1.3s ease-in-out;
+
     form {
         display: flex;
         flex-direction: column;

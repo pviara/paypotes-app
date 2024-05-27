@@ -1,5 +1,5 @@
 import { GroupAPIService } from './group.api-service';
-import { HttpClientServiceSpy } from '../../../../../test/doubles/http-client.service.spy';
+import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
 
 describe('GroupAPIService', () => {
     let sut: GroupAPIService;

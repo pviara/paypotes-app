@@ -21,6 +21,10 @@ export class Expense {
         return this.data.emoji;
     }
 
+    getId(): string {
+        return this.data.id;
+    }
+
     getLabel(): string {
         return this.data.label;
     }

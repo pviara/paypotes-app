@@ -1,6 +1,7 @@
 import { Expenses } from '../../model/expense/expense';
+import { Filters } from '@core/model/expense/filters';
 import { Observable } from 'rxjs';
 
 export interface ExpenseService {
-    expenses: Observable<Expenses>;
+    getExpenses(pageIndex?: number, filters?: Filters): Observable<Expenses>;
 }

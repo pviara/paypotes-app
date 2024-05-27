@@ -1,11 +1,12 @@
-export const generateRandomString = (): string => {
+export const generateRandomString = (length = 10): string => {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
     let result = '';
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < length; i++) {
         const randomIndex = Math.floor(Math.random() * chars.length);
         result += chars.at(randomIndex);
     }
 
-    return result;
+    const now = Date.now().toString();
+    return `${result}${now.slice(now.length - 3)}`;
 };

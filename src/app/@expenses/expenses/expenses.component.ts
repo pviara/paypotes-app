@@ -1,8 +1,8 @@
-import { BehaviorSubject, delay, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit, inject } from '@angular/core';
 import { DisplayedExpenses } from '@core/model/expense/displayed-expense';
-import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { Expenses } from '@core/model/expense/expense';
+import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { Filters } from '@core/model/expense/filters';
 
 @Component({
@@ -15,6 +15,8 @@ export class ExpensesComponent implements OnInit {
 
     private nextIndex = 0;
 
+    private savedFilters?: Filters;
+
     private skeletons: Array<null> = Array.from({ length: 20 }).map(() => null);
 
     $expenses = new BehaviorSubject<DisplayedExpenses>([]);
@@ -22,7 +24,7 @@ export class ExpensesComponent implements OnInit {
     filtering = false;
 
     ngOnInit(): void {
-        this.addSkeletonsToList();
+        this.prepareList();
         this.getExpenses();
     }
 
@@ -35,17 +37,21 @@ export class ExpensesComponent implements OnInit {
 
     onUpdatedFilters(filters: Filters): void {
         this.filtering = true;
+        this.resetNextIndex();
+        this.saveFilters(filters);
+        this.prepareList();
 
-        this.emptyList();
-        this.addSkeletonsToList();
-
-        this.nextIndex = 0;
         this.expenseService
             .getExpenses(this.nextIndex, filters)
             .subscribe((expenses) => {
                 this.$expenses.next(expenses);
                 this.filtering = false;
             });
+    }
+
+    private prepareList(): void {
+        this.emptyList();
+        this.addSkeletonsToList();
     }
 
     private addSkeletonsToList(): void {
@@ -55,7 +61,7 @@ export class ExpensesComponent implements OnInit {
 
     private getExpenses(): void {
         this.expenseService
-            .getExpenses(this.nextIndex)
+            .getExpenses(this.nextIndex, this.savedFilters)
             .subscribe(this.appendExpensesToList());
     }
 
@@ -84,6 +90,14 @@ export class ExpensesComponent implements OnInit {
         return this.$expenses
             .getValue()
             .findIndex((expense) => expense?.getId() === expenseId);
+    }
+
+    private resetNextIndex(): void {
+        this.nextIndex = 0;
+    }
+
+    private saveFilters(filters: Filters): void {
+        this.savedFilters = filters;
     }
 
     private emptyList(): void {

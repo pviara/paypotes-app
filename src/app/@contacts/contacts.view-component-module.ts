@@ -3,11 +3,17 @@ import { ContactsComponent } from '@contacts/contacts/contacts.component';
 import { ContactsViewComponent } from '@contacts/contacts.view-component';
 import { FiltersComponent } from '@shared/filters/filters.component';
 import { HeadbarComponent } from '@contacts/headbar/headbar.component';
+import { ListComponent } from '@contacts/contacts/list/list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [ContactsViewComponent, ContactsComponent, HeadbarComponent],
+    declarations: [
+        ContactsViewComponent,
+        ContactsComponent,
+        HeadbarComponent,
+        ListComponent,
+    ],
     imports: [FiltersComponent, RouterModule.forChild(contactRoutes)],
 })
 export class ContactsViewComponentModule {}

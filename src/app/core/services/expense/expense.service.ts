@@ -1,4 +1,4 @@
-import { Expenses } from '../../model/expense/expense';
+import { Expenses } from '@core/model/expense/expense';
 import { Filters } from '@core/model/expense/filters';
 import { Observable } from 'rxjs';
 

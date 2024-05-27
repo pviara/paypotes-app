@@ -1,6 +1,6 @@
-import { Group, Groups } from '../../model/group/group';
-import { GroupService } from './group.service';
-import { HttpClientService } from '../http-client/http-client.service';
+import { Group, Groups } from '@core/model/group/group';
+import { GroupService } from '@core/services/group/group.service';
+import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { map, shareReplay } from 'rxjs';
 
 export class GroupAPIService implements GroupService {

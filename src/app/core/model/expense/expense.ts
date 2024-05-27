@@ -1,4 +1,4 @@
-import { Emoji } from '../emoji';
+import { Emoji } from '@core/model/emoji';
 
 export class Expense {
     constructor(

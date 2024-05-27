@@ -1,6 +1,6 @@
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, of } from 'rxjs';
-import { Spy } from '../model/spy';
+import { Spy } from '@test/model/spy';
 
 export class HttpClientServiceSpy implements Spy<HttpClientService> {
     calls = {

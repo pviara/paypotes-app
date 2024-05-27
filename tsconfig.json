@@ -24,6 +24,7 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@contacts/*": [ "src/app/@contacts/*" ],
       "@core/*": [ "src/app/core/*" ],
       "@expenses/*": [ "src/app/@expenses/*" ],
       "@home/*": [ "src/app/@home/*" ],

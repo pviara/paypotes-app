@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { Component, EventEmitter, Output, input } from '@angular/core';
-import { DisplayedExpenses } from '@core/model/expense/displayed-expense';
+import { DisplayedExpenses } from '@core/model/expense/displayed-expenses';
 
 @Component({
     selector: 'list',

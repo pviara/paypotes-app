@@ -1,3 +1,4 @@
+import { ContactServiceProvider } from '@core/services/contact/contact.api-service.provider';
 import { ExpenseServiceProvider } from '@core/services/expense/expense.service.provider';
 import { GroupServiceProvider } from '@core/services/group/group.service.provider';
 import { HttpClientModule } from '@angular/common/http';
@@ -8,6 +9,7 @@ import { NgModule } from '@angular/core';
 @NgModule({
     imports: [HttpClientModule],
     providers: [
+        ContactServiceProvider,
         ExpenseServiceProvider,
         HttpClientServiceProvider,
         GroupServiceProvider,

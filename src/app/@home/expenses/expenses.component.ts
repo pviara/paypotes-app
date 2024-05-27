@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { Component, OnInit, inject } from '@angular/core';
-import { DisplayedExpenses } from '@core/model/expense/displayed-expense';
+import { DisplayedExpenses } from '@core/model/expense/displayed-expenses';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 
 @Component({

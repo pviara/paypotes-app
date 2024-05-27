@@ -4,6 +4,7 @@ export class Contact {
             readonly id: string;
             readonly firstname: string;
             readonly lastname: string;
+            readonly balance: number;
         },
     ) {}
 }

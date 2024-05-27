@@ -1,3 +1,8 @@
 <ul>
-    
+    @for (contact of $contacts() | async; track $index) {
+        <contact
+            [contact]="contact"
+            [isLoading]="contact === null"
+        />
+    }
 </ul>

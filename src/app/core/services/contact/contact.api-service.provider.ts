@@ -4,15 +4,15 @@ import { HttpClientService } from '@core/services/http-client/http-client.servic
 import { HttpClientServiceToken } from '@core/services/http-client/http-client.service.provider';
 import { InjectionToken, Provider } from '@angular/core';
 
-export const ExpenseServiceToken = new InjectionToken<ContactService>(
+export const ContactServiceToken = new InjectionToken<ContactService>(
     'ContactService',
 );
 
 const contactServiceFactory = (httpClientService: HttpClientService) =>
     new ContactAPIService(httpClientService);
 
-export const ExpenseServiceProvider: Provider = {
-    provide: ExpenseServiceToken,
+export const ContactServiceProvider: Provider = {
+    provide: ContactServiceToken,
     useFactory: contactServiceFactory,
     deps: [HttpClientServiceToken],
 };

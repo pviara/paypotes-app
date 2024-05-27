@@ -1,13 +1,38 @@
-import { Contacts } from '@core/model/contact/contact';
+import { Contact, Contacts } from '@core/model/contact/contact';
 import { ContactService } from '@core/services/contact/contact.service';
 import { Filters } from '@core/model/expense/filters';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
-import { Observable } from 'rxjs';
+import { Observable, delay, of } from 'rxjs';
 
 export class ContactAPIService implements ContactService {
     constructor(private httpClientService: HttpClientService) {}
 
     getContacts(filters?: Filters): Observable<Contacts> {
-        throw new Error('Method not implemented.');
+        return of([
+            new Contact({
+                id: 'A',
+                firstname: 'Claire',
+                lastname: 'Bellroche',
+                balance: 11812,
+            }),
+            new Contact({
+                id: 'B',
+                firstname: 'Ahmed',
+                lastname: 'Benjelloun',
+                balance: -3220,
+            }),
+            new Contact({
+                id: 'C',
+                firstname: 'Valentin',
+                lastname: 'Spyniack',
+                balance: -710,
+            }),
+            new Contact({
+                id: 'D',
+                firstname: 'Estelle',
+                lastname: 'Zhou',
+                balance: -9800,
+            }),
+        ]).pipe(delay(1000));
     }
 }

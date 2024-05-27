@@ -14,15 +14,15 @@ export class ExpenseAPIService implements ExpenseService {
 
     constructor(private httpClientService: HttpClientService) {}
 
-    getExpenses({ pageIndex, search }: Filters): Observable<Expenses> {
-        if (search) {
-            const matches = this.getFromCacheFor(search);
+    getExpenses(pageIndex = 0, filters?: Filters): Observable<Expenses> {
+        if (filters?.search) {
+            const matches = this.getFromCacheFor(filters.search);
             if (matches.length > 0) {
                 return of(matches);
             }
         }
 
-        return this.getExpensesFromClientWith({ pageIndex, search });
+        return this.getExpensesFromClientUsing(pageIndex, filters);
     }
 
     private getFromCacheFor(search: string): Expenses {
@@ -31,8 +31,11 @@ export class ExpenseAPIService implements ExpenseService {
         );
     }
 
-    private getExpensesFromClientWith(filters: Filters): Observable<Expenses> {
-        const url = this.buildURLWith(filters);
+    private getExpensesFromClientUsing(
+        pageIndex: number,
+        filters?: Filters,
+    ): Observable<Expenses> {
+        const url = this.buildURLWith(pageIndex, filters);
 
         return this.httpClientService.get<Expenses>(url).pipe(
             tap((expenses) => {
@@ -42,17 +45,29 @@ export class ExpenseAPIService implements ExpenseService {
         );
     }
 
-    private buildURLWith(filters: Filters): string {
-        const { pageIndex, search } = filters;
+    private buildURLWith(pageIndex: number, filters?: Filters): string {
+        const query: Record<string, string | undefined> = {
+            pageIndex: pageIndex.toString(),
+            search: filters?.search,
+            type: filters?.type,
+        };
 
-        let url = this.endpoint;
-        if (pageIndex && search) {
-            url += `?pageIndex=${pageIndex}&search=${search}`;
-        } else if (pageIndex) {
-            url += `?pageIndex=${pageIndex}`;
-        } else if (search) {
-            url += `?search=${search}`;
+        const isQueryEmpty = Object.values(query).every((value) => !value);
+        if (isQueryEmpty) {
+            return this.endpoint;
         }
+
+        let url = `${this.endpoint}?`;
+
+        Object.keys(query).forEach((key) => {
+            const value = query[key];
+
+            if (value) {
+                const prefix = url.endsWith('?') ? '' : '&';
+                url += `${prefix}${key}=${value}`;
+            }
+        });
+
         return url;
     }
 

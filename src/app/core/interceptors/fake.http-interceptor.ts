@@ -12,6 +12,7 @@ export class FakeHttpInterceptor implements HttpInterceptor {
         req: HttpRequest<any>,
         next: HttpHandler,
     ): Observable<HttpEvent<unknown>> {
+        console.log('🛜 Calling server |', req.url);
         return of(new HttpResponse({ status: 200, body: [] })).pipe(
             delay(2000),
         );

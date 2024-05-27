@@ -1,5 +1,8 @@
 <section>
-    <filters/>
+    <filters
+        [filtering]="filtering"
+        (updatedFilters)="onUpdatedFilters($event)"
+    />
     <list
         [$expenses]="$expenses"
         (expenseHovered)="onExpenseHovered($event)"

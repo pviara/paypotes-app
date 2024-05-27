@@ -6,6 +6,7 @@ import { FiltersComponent } from '@expenses/expenses/filters/filters.component';
 import { HeadbarComponent } from '@expenses/headbar/headbar.component';
 import { ListComponent } from '@expenses/expenses/list/list.component';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -15,6 +16,6 @@ import { NgModule } from '@angular/core';
         HeadbarComponent,
         ListComponent,
     ],
-    imports: [CommonModule, ExpenseComponentModule],
+    imports: [CommonModule, ExpenseComponentModule, ReactiveFormsModule],
 })
 export class ExpensesViewComponentModule {}

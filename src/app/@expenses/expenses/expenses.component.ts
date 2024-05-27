@@ -1,8 +1,9 @@
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, delay, tap } from 'rxjs';
 import { Component, OnInit, inject } from '@angular/core';
 import { DisplayedExpenses } from '@core/model/expense/displayed-expense';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { Expenses } from '@core/model/expense/expense';
+import { Filters } from '@core/model/expense/filters';
 
 @Component({
     selector: 'paginated-expenses',
@@ -18,9 +19,11 @@ export class ExpensesComponent implements OnInit {
 
     $expenses = new BehaviorSubject<DisplayedExpenses>([]);
 
+    filtering = false;
+
     ngOnInit(): void {
         this.addSkeletonsToList();
-        this.getNextPageExpenses();
+        this.getExpenses();
     }
 
     onExpenseHovered(expenseId: string): void {
@@ -30,16 +33,35 @@ export class ExpensesComponent implements OnInit {
         }
     }
 
+    onUpdatedFilters(filters: Filters): void {
+        this.filtering = true;
+
+        this.emptyList();
+        this.addSkeletonsToList();
+
+        this.nextIndex = 0;
+        this.expenseService
+            .getExpenses(this.nextIndex, filters)
+            .subscribe((expenses) => {
+                this.$expenses.next(expenses);
+                this.filtering = false;
+            });
+    }
+
     private addSkeletonsToList(): void {
         const newExpenses = this.$expenses.getValue().concat(this.skeletons);
         this.$expenses.next(newExpenses);
     }
 
+    private getExpenses(): void {
+        this.expenseService
+            .getExpenses(this.nextIndex)
+            .subscribe(this.appendExpensesToList());
+    }
+
     private getNextPageExpenses(): void {
         this.nextIndex++;
-        this.expenseService
-            .getExpenses({ pageIndex: this.nextIndex })
-            .subscribe(this.appendExpensesToList());
+        this.getExpenses();
     }
 
     private appendExpensesToList(): (expenses: Expenses) => void {
@@ -62,5 +84,9 @@ export class ExpensesComponent implements OnInit {
         return this.$expenses
             .getValue()
             .findIndex((expense) => expense?.getId() === expenseId);
+    }
+
+    private emptyList(): void {
+        this.$expenses.next([]);
     }
 }

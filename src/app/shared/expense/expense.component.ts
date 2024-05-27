@@ -44,10 +44,8 @@ export class ExpenseComponent implements AfterViewInit {
 
     private createViewportObserver(): void {
         this.observer = new IntersectionObserver(
-            (entries, observer) => {
-                entries.forEach((entry) =>
-                    this.revealIntersecting(entry, observer),
-                );
+            (entries) => {
+                entries.forEach((entry) => this.revealIntersecting(entry));
             },
             {
                 threshold: 0.2,
@@ -55,13 +53,9 @@ export class ExpenseComponent implements AfterViewInit {
         );
     }
 
-    private revealIntersecting(
-        entry: IntersectionObserverEntry,
-        observer: IntersectionObserver,
-    ): void {
+    private revealIntersecting(entry: IntersectionObserverEntry): void {
         if (entry.isIntersecting) {
             this.emitExpenseHovered();
-            observer.unobserve(entry.target);
         }
     }
 

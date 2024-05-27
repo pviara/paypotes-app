@@ -10,18 +10,19 @@ import { Expenses } from '@core/model/expense/expense';
     styleUrls: ['./expenses.component.scss'],
 })
 export class ExpensesComponent implements OnInit {
-    private nextIndex = 0;
-
     private expenseService = inject(ExpenseServiceToken);
 
     private lastScrollTop = 0;
+
+    private nextIndex = 0;
 
     private skeletons: Array<null> = Array.from({ length: 20 }).map(() => null);
 
     $expenses = new BehaviorSubject<DisplayedExpenses>([]);
 
     ngOnInit(): void {
-        this.initExpenses();
+        this.addSkeletonsToList();
+        this.getNextPageExpenses();
     }
 
     onExpenseHovered(expenseId: string): void {
@@ -46,13 +47,6 @@ export class ExpensesComponent implements OnInit {
         }
 
         this.lastScrollTop = element.scrollTop;
-    }
-
-    private initExpenses(): void {
-        this.$expenses.next(this.skeletons);
-        this.expenseService
-            .getExpenses({ pageIndex: this.nextIndex })
-            .subscribe((expenses) => this.$expenses.next(expenses));
     }
 
     private addSkeletonsToList(): void {

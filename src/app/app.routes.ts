@@ -1,3 +1,4 @@
+import { ContactsViewComponentModule } from '@contacts/contacts.view-component-module';
 import { ExpensesViewComponentModule } from '@expenses/expenses.view-component-module';
 import { HomeViewComponent } from '@home/home.view-component';
 import { LandingViewComponent } from '@landing/landing.view-component';
@@ -16,6 +17,10 @@ export const routes: Routes = [
         path: 'expenses',
         loadChildren: importExpensesView(),
     },
+    {
+        path: 'contacts',
+        loadChildren: importContactsView(),
+    },
 ];
 
 function importExpensesView(): () => Promise<
@@ -26,5 +31,16 @@ function importExpensesView(): () => Promise<
             '@expenses/expenses.view-component-module'
         );
         return imported.ExpensesViewComponentModule;
+    };
+}
+
+function importContactsView(): () => Promise<
+    typeof ContactsViewComponentModule
+> {
+    return async () => {
+        const imported = await import(
+            '@contacts/contacts.view-component-module'
+        );
+        return imported.ContactsViewComponentModule;
     };
 }

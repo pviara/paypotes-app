@@ -8,8 +8,14 @@ import {
     input,
 } from '@angular/core';
 import { debounceTime } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import {
+    FormBuilder,
+    FormControl,
+    FormGroup,
+    ReactiveFormsModule,
+} from '@angular/forms';
 import { Filters } from '@core/model/expense/filters';
+import { CommonModule } from '@angular/common';
 
 type ExpenseType = 'all' | 'claim' | 'debt';
 
@@ -27,6 +33,8 @@ type FiltersForm = {
     selector: 'filters',
     templateUrl: './filters.component.html',
     styleUrls: ['./filters.component.scss'],
+    standalone: true,
+    imports: [CommonModule, ReactiveFormsModule],
 })
 export class FiltersComponent implements OnChanges, OnInit {
     private formBuilder = inject(FormBuilder);

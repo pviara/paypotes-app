@@ -1,25 +1,7 @@
 <section>
-    <form>
-        <input
-            type="text"
-            placeholder="Rechercher..."
-        />
-        <ul>
-            <li class="selected">Tous</li>
-            <li>Créances</li>
-            <li>Dettes</li>
-        </ul>
-    </form>
-    <ul class="expenses" (scroll)="onScroll($event)">
-        @for (expense of $expenses | async; track $index) {
-            @if (expense !== null) {
-                <expense
-                    [expense]="expense"
-                    (hovered)="onExpenseHovered($event)"
-                />
-            } @else {
-                <expense [isLoading]="true"/>
-            }
-        }
-    </ul>
+    <filters/>
+    <list
+        [$expenses]="$expenses"
+        (expenseHovered)="onExpenseHovered($event)"
+    />
 </section>

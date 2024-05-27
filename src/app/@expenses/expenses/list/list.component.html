@@ -1,0 +1,9 @@
+<ul (scroll)="onScroll($event)">
+    @for (expense of $expenses() | async; track $index) {
+        <expense
+            [expense]="expense"
+            [isLoading]="expense === null"
+            (hovered)="onExpenseHovered($event)"
+        />
+    }
+</ul>

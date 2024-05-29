@@ -10,16 +10,16 @@ export const routes: Routes = [
         component: LandingViewComponent,
     },
     {
-        path: 'home',
-        component: HomeViewComponent,
+        path: 'contacts',
+        loadChildren: importContactsView(),
     },
     {
         path: 'expenses',
         loadChildren: importExpensesView(),
     },
     {
-        path: 'contacts',
-        loadChildren: importContactsView(),
+        path: 'home',
+        component: HomeViewComponent,
     },
 ];
 

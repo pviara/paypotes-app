@@ -1,27 +1,10 @@
-# Paypot
+<img src="https://user-images.githubusercontent.com/26920011/237743868-229e8b7e-0e66-4975-bbc6-f660e0390a5f.png" width="100" height="100">
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.7.
+I've been traveling a bit for the last few years especially with friends, and every time we use Tricount.
 
-## Development server
+Tricount is really useful and it fully does the job. But every time I use it I say to myself that it's ugly. It should be redesigned or something.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+And since I'm supposed to be a "fullstack" developer and I haven't worked on any side project for a while now, I guess I could make some Tricount-based PWA.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+At least I'll have the pleasure to use a well designed application that I can be proud of.
+That's the challenge.

@@ -12,6 +12,8 @@ import { Filters } from '@core/model/expense/filters';
 export class ContactsComponent implements OnInit {
     private contactService = inject(ContactServiceToken);
 
+    private savedFilters?: Filters;
+
     private skeletons: Array<null> = Array.from({ length: 5 }).map(() => null);
 
     $contacts = new BehaviorSubject<DisplayedContacts>([]);
@@ -20,15 +22,29 @@ export class ContactsComponent implements OnInit {
 
     ngOnInit(): void {
         this.prepareList();
+        this.getExpenses();
     }
 
     onUpdatedFilters(filters: Filters): void {
-        console.log(filters);
+        this.filtering = true;
+        this.saveFilters(filters);
+        this.prepareList();
+
+        this.contactService.getContacts(filters).subscribe((contacts) => {
+            this.$contacts.next(contacts);
+            this.filtering = false;
+        });
     }
 
     private prepareList(): void {
         this.emptyList();
         this.addSkeletonsToList();
+    }
+
+    private getExpenses(): void {
+        this.contactService
+            .getContacts(this.savedFilters)
+            .subscribe((contacts) => this.$contacts.next(contacts));
     }
 
     private emptyList(): void {
@@ -38,5 +54,9 @@ export class ContactsComponent implements OnInit {
     private addSkeletonsToList(): void {
         const newContacts = this.$contacts.getValue().concat(this.skeletons);
         this.$contacts.next(newContacts);
+    }
+
+    private saveFilters(filters: Filters): void {
+        this.savedFilters = filters;
     }
 }

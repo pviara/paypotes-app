@@ -12,27 +12,31 @@ export class ContactAPIService implements ContactService {
             new Contact({
                 id: 'A',
                 firstname: 'Claire',
-                lastname: 'Bellroche',
+                lastname: 'Belleroche',
+                avatarURL: 'claire.png',
                 balance: 11812,
             }),
             new Contact({
                 id: 'B',
                 firstname: 'Ahmed',
                 lastname: 'Benjelloun',
+                avatarURL: 'ahmed.png',
                 balance: -3220,
             }),
             new Contact({
                 id: 'C',
                 firstname: 'Valentin',
                 lastname: 'Spyniack',
+                avatarURL: 'valentin.png',
                 balance: -710,
             }),
             new Contact({
                 id: 'D',
                 firstname: 'Estelle',
                 lastname: 'Zhou',
+                avatarURL: 'estelle.png',
                 balance: -9800,
             }),
-        ]).pipe(delay(1000));
+        ]).pipe(delay(2000));
     }
 }

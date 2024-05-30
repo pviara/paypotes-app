@@ -1,5 +1,10 @@
 <li [ngClass]="{ loading: isLoading() }">
     @if (contact(); as contact) {
+        <description
+            [avatarURL]="contact.getAvatarURL()"
+            [firstname]="contact.getFirstname()"
+            [lastname]="contact.getLastname()"
+        />
     } @else {
       <skeleton/>
     }

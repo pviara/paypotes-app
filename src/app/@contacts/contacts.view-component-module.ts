@@ -4,6 +4,7 @@ import { contactRoutes } from '@contacts/contacts.routes';
 import { ContactsComponent } from '@contacts/contacts/contacts.component';
 import { ContactsViewComponent } from '@contacts/contacts.view-component';
 import { CoreModule } from '@core/core.module';
+import { DescriptionComponent } from '@contacts/contacts/list/contact/description/description.component';
 import { FiltersComponent } from '@shared/filters/filters.component';
 import { HeadbarComponent } from '@contacts/headbar/headbar.component';
 import { ListComponent } from '@contacts/contacts/list/list.component';
@@ -16,6 +17,7 @@ import { SkeletonComponent } from '@shared/skeleton/skeleton.component';
         ContactComponent,
         ContactsViewComponent,
         ContactsComponent,
+        DescriptionComponent,
         HeadbarComponent,
         ListComponent,
     ],

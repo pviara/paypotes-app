@@ -1,6 +1,4 @@
 div {
-    width: 100%;
-
     display: flex;
     justify-content: space-between;
     align-items: baseline;
@@ -36,7 +34,6 @@ div {
     .textes > .label,
     .textes > .origin,
     .total {
-        background-color: #292929;
         border-radius: 0.5rem;
 
         background-color: #292929;
@@ -49,6 +46,10 @@ div {
         background-size: 200% 100%;
 
         animation: skeletonLoading 1.5s infinite linear;
+    }
+
+    .emoji {
+        border-radius: 50%;
     }
 
     .total {

@@ -2,17 +2,12 @@ import { CommonModule } from '@angular/common';
 import { DescriptionComponent } from '@shared/expense/description/description.component';
 import { ExpenseComponent } from '@shared/expense/expense.component';
 import { NgModule } from '@angular/core';
-import { SkeletonComponent } from '@shared/expense/skeleton/skeleton.component';
+import { SkeletonComponent } from '@shared/skeleton/skeleton.component';
 import { TotalComponent } from '@shared/expense/total/total.component';
 
 @NgModule({
-    declarations: [
-        DescriptionComponent,
-        ExpenseComponent,
-        SkeletonComponent,
-        TotalComponent,
-    ],
+    declarations: [DescriptionComponent, ExpenseComponent, TotalComponent],
     exports: [ExpenseComponent],
-    imports: [CommonModule],
+    imports: [CommonModule, SkeletonComponent],
 })
 export class ExpenseComponentModule {}

@@ -9,6 +9,7 @@ import { HeadbarComponent } from '@contacts/headbar/headbar.component';
 import { ListComponent } from '@contacts/contacts/list/list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { SkeletonComponent } from '@shared/skeleton/skeleton.component';
 
 @NgModule({
     declarations: [
@@ -23,6 +24,7 @@ import { RouterModule } from '@angular/router';
         CoreModule,
         FiltersComponent,
         RouterModule.forChild(contactRoutes),
+        SkeletonComponent,
     ],
 })
 export class ContactsViewComponentModule {}

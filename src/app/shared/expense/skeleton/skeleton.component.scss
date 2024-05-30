@@ -1,0 +1,58 @@
+div {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    .description {
+        display: flex;
+        align-items: center;
+        gap: 2.5vw;
+
+        .emoji {
+            width: 42px;
+            height: 42px;
+        }
+
+        .textes {
+            display: flex;
+            flex-direction: column;
+            gap: 1vh;
+
+            .label {
+                width: 128px;
+                height: 17px;
+            }
+
+            .origin {
+                width: 128px;
+                height: 12px;
+            }
+        }
+    }
+
+    .emoji,
+    .textes > .label,
+    .textes > .origin,
+    .total {
+        background-color: #292929;
+        border-radius: 0.5rem;
+
+        background-color: #292929;
+        background: linear-gradient(
+            90deg,
+            #292929 25%,
+            #3f3f3f 50%,
+            #292929 75%
+        );
+        background-size: 200% 100%;
+
+        animation: skeletonLoading 1.5s infinite linear;
+    }
+
+    .total {
+        width: 48px;
+        height: 14px;
+    }
+}

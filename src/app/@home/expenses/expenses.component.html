@@ -5,10 +5,7 @@
     </header>
     <ul>
         @for (expense of $expenses | async; track $index) {
-            <expense
-                [expense]="expense"
-                [isLoading]="expense === null"
-            />
+            <expense [expense]="expense"/>
         }
     </ul>
 </section>

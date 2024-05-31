@@ -3,5 +3,8 @@
         [filtering]="filtering"
         (updatedFilters)="onUpdatedFilters($event)"
     />
-    <list [$contacts]="$contacts"/>
+    <list
+        [$contacts]="$contacts"
+        (contactHovered)="onContactHovered($event)"
+    />
 </section>

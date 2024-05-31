@@ -37,7 +37,7 @@ export class Expense {
         return this.data.total / 100;
     }
 
-    isDebt(): any {
+    isDebt(): boolean {
         return this.data.total < 0;
     }
 

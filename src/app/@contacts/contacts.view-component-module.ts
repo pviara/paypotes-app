@@ -11,6 +11,7 @@ import { ListComponent } from '@contacts/contacts/list/list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SkeletonComponent } from '@shared/skeleton/skeleton.component';
+import { TotalComponent } from '@contacts/contacts/list/contact/total/total.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { SkeletonComponent } from '@shared/skeleton/skeleton.component';
         ContactsComponent,
         DescriptionComponent,
         ListComponent,
+        TotalComponent,
     ],
     imports: [
         CommonModule,

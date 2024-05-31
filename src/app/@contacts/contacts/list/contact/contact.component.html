@@ -1,9 +1,13 @@
-<li [ngClass]="{ loading: isLoading() }">
+<li [id]="randomId">
     @if (contact(); as contact) {
         <description
             [avatarURL]="contact.getAvatarURL()"
             [firstname]="contact.getFirstname()"
             [lastname]="contact.getLastname()"
+        />
+        <balance
+            [isDebt]="contact.isDebt()"
+            [balance]="contact.formatBalance()"
         />
     } @else {
       <skeleton/>

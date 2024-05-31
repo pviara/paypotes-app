@@ -1,8 +1,8 @@
-<ul>
+<ul (scroll)="onScroll($event)">
     @for (contact of $contacts() | async; track $index) {
         <contact
             [contact]="contact"
-            [isLoading]="contact === null"
+            (hovered)="onContactHovered($event)"
         />
     }
 </ul>

@@ -27,6 +27,7 @@
       "@contacts/*": [ "src/app/@contacts/*" ],
       "@core/*": [ "src/app/core/*" ],
       "@expenses/*": [ "src/app/@expenses/*" ],
+      "@groups/*": [ "src/app/@groups/*" ],
       "@home/*": [ "src/app/@home/*" ],
       "@landing/*": [ "src/app/@landing/*" ],
       "@shared/*": [ "src/app/shared/*" ],

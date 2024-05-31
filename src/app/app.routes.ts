@@ -23,24 +23,16 @@ export const routes: Routes = [
     },
 ];
 
-function importExpensesView(): () => Promise<
-    typeof ExpensesViewModule
-> {
+function importExpensesView(): () => Promise<typeof ExpensesViewModule> {
     return async () => {
-        const imported = await import(
-            '@expenses/expenses.view-module'
-        );
+        const imported = await import('@expenses/expenses.view-module');
         return imported.ExpensesViewModule;
     };
 }
 
-function importContactsView(): () => Promise<
-    typeof ContactsComponentModule
-> {
+function importContactsView(): () => Promise<typeof ContactsComponentModule> {
     return async () => {
-        const imported = await import(
-            '@contacts/contacts.view-module'
-        );
+        const imported = await import('@contacts/contacts.view-module');
         return imported.ContactsComponentModule;
     };
 }

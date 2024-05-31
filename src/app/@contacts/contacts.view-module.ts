@@ -9,6 +9,7 @@ import { DescriptionComponent } from '@contacts/contacts/list/contact/descriptio
 import { FiltersComponent } from '@shared/filters/filters.component';
 import { HeadbarComponent } from '@shared/headbar/headbar.component';
 import { ListComponent } from '@contacts/contacts/list/list.component';
+import { ListElementComponent } from '@shared/list-element/list-element.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SkeletonComponent } from '@shared/skeleton/skeleton.component';
@@ -27,6 +28,7 @@ import { SkeletonComponent } from '@shared/skeleton/skeleton.component';
         CoreModule,
         FiltersComponent,
         HeadbarComponent,
+        ListElementComponent,
         RouterModule.forChild(contactRoutes),
         SkeletonComponent,
     ],

@@ -22,7 +22,7 @@ export class ListElementComponent implements AfterViewInit {
 
     private observer!: IntersectionObserver;
 
-    element = input.required<ListElement | null>();
+    element = input.required<ListElement>();
 
     randomId = generateRandomString();
 

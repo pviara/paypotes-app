@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { Component, EventEmitter, Output, input } from '@angular/core';
-import { DisplayedExpenses } from '@core/model/expense/displayed-expenses';
+import { ListElements } from '@core/model/list-element/list-element';
 
 @Component({
     selector: 'list',
@@ -10,13 +10,13 @@ import { DisplayedExpenses } from '@core/model/expense/displayed-expenses';
 export class ListComponent {
     private lastScrollTop = 0;
 
-    $expenses = input.required<BehaviorSubject<DisplayedExpenses>>();
+    $elements = input.required<BehaviorSubject<ListElements>>();
 
     @Output()
-    expenseHovered = new EventEmitter<string>();
+    elementHovered = new EventEmitter<string>();
 
-    onExpenseHovered(expenseId: string): void {
-        return this.expenseHovered.emit(expenseId);
+    onElementHovered(elementId: string): void {
+        return this.elementHovered.emit(elementId);
     }
 
     onScroll(event: Event): void {

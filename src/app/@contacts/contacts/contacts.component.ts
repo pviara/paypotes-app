@@ -4,6 +4,7 @@ import { ContactServiceToken } from '@core/services/contact/contact.api-service.
 import { DisplayedContacts } from '@core/model/contact/displayed-contacts';
 import { Filters } from '@core/model/expense/filters';
 import { Contacts } from '@core/model/contact/contact';
+import { ListElements } from '@core/model/list-element/list-element';
 
 @Component({
     selector: 'contacts',
@@ -19,7 +20,7 @@ export class ContactsComponent implements OnInit {
 
     private skeletons: Array<null> = Array.from({ length: 20 }).map(() => null);
 
-    $contacts = new BehaviorSubject<DisplayedContacts>([]);
+    $contacts = new BehaviorSubject<ListElements>([]);
 
     filtering = false;
 

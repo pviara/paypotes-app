@@ -1,0 +1,10 @@
+<section>
+    <filters
+        [filtering]="filtering"
+        (updatedFilters)="onUpdatedFilters($event)"
+    />
+    <list
+        [$elements]="$groups"
+        (elementHovered)="onGroupHovered($event)"
+    />
+</section>

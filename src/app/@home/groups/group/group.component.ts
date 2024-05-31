@@ -8,6 +8,4 @@ import { Group } from '@core/model/group/group';
 })
 export class GroupComponent {
     group = input<Group | null>();
-
-    isLoading = input.required<boolean>();
 }

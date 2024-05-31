@@ -13,3 +13,10 @@
         [origin]="expense.getOrigin()"
     />
 }
+@if (element() | group; as group) {
+    <group-description
+        [emoji]="group.getEmoji()"
+        [name]="group.getName()"
+        [membersCount]="group.countMembers()"
+    />
+}

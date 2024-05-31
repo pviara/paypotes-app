@@ -5,13 +5,17 @@ import { GroupsView } from '@groups/groups.view';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from '@core/core.module';
+import { FiltersComponent } from '@shared/filters/filters.component';
+import { ListComponentModule } from '@shared/list/list.component-module';
 
 @NgModule({
     declarations: [GroupsComponent, GroupsView],
     exports: [RouterModule],
     imports: [
         CoreModule,
+        FiltersComponent,
         HeadbarComponent,
+        ListComponentModule,
         RouterModule.forChild(groupsRoutes),
     ],
 })

@@ -1,5 +1,5 @@
 <div class="container">
-    <li [ngClass]="{ loading: isLoading() }">
+    <li>
         @if (group(); as group) {
             <div class="emoji">
                 {{ group.getEmoji() }}
@@ -11,8 +11,7 @@
                 {{ group.countMembers() }} personnes
             </p>
         } @else {
-            <h3></h3>
-            <p></p>
+            <skeleton/>
         }
     </li>
 </div>

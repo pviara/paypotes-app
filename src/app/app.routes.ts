@@ -1,5 +1,6 @@
 import { ContactsComponentModule } from '@contacts/contacts.view-module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
+import { GroupsViewModule } from '@groups/groups.view-module';
 import { HomeView } from '@home/home.view';
 import { LandingView } from '@landing/landing.view';
 import { Routes } from '@angular/router';
@@ -18,10 +19,21 @@ export const routes: Routes = [
         loadChildren: importExpensesView(),
     },
     {
+        path: 'groups',
+        loadChildren: importGroupsView(),
+    },
+    {
         path: 'home',
         component: HomeView,
     },
 ];
+
+function importContactsView(): () => Promise<typeof ContactsComponentModule> {
+    return async () => {
+        const imported = await import('@contacts/contacts.view-module');
+        return imported.ContactsComponentModule;
+    };
+}
 
 function importExpensesView(): () => Promise<typeof ExpensesViewModule> {
     return async () => {
@@ -30,9 +42,9 @@ function importExpensesView(): () => Promise<typeof ExpensesViewModule> {
     };
 }
 
-function importContactsView(): () => Promise<typeof ContactsComponentModule> {
+function importGroupsView(): () => Promise<typeof GroupsViewModule> {
     return async () => {
-        const imported = await import('@contacts/contacts.view-module');
-        return imported.ContactsComponentModule;
+        const imported = await import('@groups/groups.view-module');
+        return imported.GroupsViewModule;
     };
 }

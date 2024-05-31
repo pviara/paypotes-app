@@ -1,4 +1,4 @@
-<li [id]="randomId" [ngClass]="{ loading: isLoading() }">
+<li [id]="randomId">
     @if (expense(); as expense) {
         <description
             [emoji]="expense.getEmoji()"
@@ -6,20 +6,11 @@
             [isDebt]="expense.isDebt()"
             [origin]="expense.getOrigin()"
         />
-        <total
+        <balance
             [isDebt]="expense.isDebt()"
-            [total]="expense.formatTotal()"
+            [balance]="expense.formatBalance()"
         />
     } @else {
-        <div class="skeleton">
-            <div class="description">
-                <div class="emoji"></div>
-                <div class="textes">
-                    <div class="label"></div>
-                    <div class="origin"></div>
-                </div>
-            </div>
-            <div class="total"></div>
-        </div>
+        <skeleton/>
     }
 </li>

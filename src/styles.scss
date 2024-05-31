@@ -68,6 +68,22 @@ li {
     }
 }
 
+@keyframes slighSlideInFromRight {
+    from {
+        transform: translateX(20%);
+        opacity: 0;
+
+        animation-timing-function: ease-in-out;
+    }
+
+    to {
+        transform: translateX(0%);
+        opacity: 1;
+
+        animation-timing-function: ease-in-out;
+    }
+}
+
 @keyframes slighSlideInFromTop {
     from {
         transform: translateY(-20%);

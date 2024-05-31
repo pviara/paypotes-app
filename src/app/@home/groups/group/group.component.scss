@@ -1,82 +1,86 @@
-li {
-    position: relative;
-
-    width: 35vw;
-    height: 25vw;
-
-    flex: 0 0 auto;
+.container {
+    min-height: 130px;
 
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    align-items: flex-end;
 
-    background-color: #202020;
-    border-radius: 1rem;
+    li {
+        width: 35vw;
+        height: 25vw;
 
-    scroll-snap-align: center;
+        flex: 0 0 auto;
 
-    &:not(:first-child) {
-        scroll-snap-align: start;
-    }
-
-    &.loading {
         display: flex;
         flex-direction: column;
-        gap: 1vh;
+        justify-content: flex-end;
 
+        background-color: #202020;
+        border-radius: 1rem;
+
+        scroll-snap-align: center;
+
+        &:not(:first-child) {
+            scroll-snap-align: start;
+        }
+
+        &.loading {
+            display: flex;
+            flex-direction: column;
+            gap: 1vh;
+
+            h3,
+            p {
+                margin-left: 10%;
+
+                border-radius: 0.5rem;
+
+                background-color: #292929;
+                background: linear-gradient(
+                    90deg,
+                    #292929 25%,
+                    #3f3f3f 50%,
+                    #292929 75%
+                );
+                background-size: 200% 100%;
+
+                animation: skeletonLoading 1.5s infinite linear;
+            }
+
+            h3 {
+                width: 70%;
+                height: 15%;
+            }
+
+            p {
+                margin-bottom: 10%;
+
+                width: 60%;
+                height: 5%;
+            }
+        }
+
+        .emoji {
+            margin-bottom: 0.3rem;
+
+            font-size: 3.7rem;
+        }
+
+        .emoji,
         h3,
         p {
-            margin-left: 10%;
-
-            background-color: #292929;
-            border-radius: 0.5rem;
-
-            background-color: #292929;
-            background: linear-gradient(
-                90deg,
-                #292929 25%,
-                #3f3f3f 50%,
-                #292929 75%
-            );
-            background-size: 200% 100%;
-
-            animation: skeletonLoading 1.5s infinite linear;
+            padding-left: 10%;
         }
 
         h3 {
-            width: 70%;
-            height: 15%;
+            font-size: 1.2rem;
+            color: #fff;
         }
 
         p {
-            margin-bottom: 10%;
+            padding-bottom: 10%;
 
-            width: 60%;
-            height: 5%;
+            font-size: 0.9rem;
+            color: #737373;
         }
-    }
-
-    .emoji {
-        position: absolute;
-        top: -30%;
-
-        font-size: 3.2rem;
-    }
-
-    h3,
-    p {
-        padding-left: 10%;
-    }
-
-    h3 {
-        font-size: 1.2rem;
-        color: #fff;
-    }
-
-    p {
-        padding-bottom: 10%;
-
-        font-size: 0.9rem;
-        color: #737373;
     }
 }

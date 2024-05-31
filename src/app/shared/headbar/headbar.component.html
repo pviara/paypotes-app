@@ -6,9 +6,15 @@
                 src="../../../assets/icons/arrow.svg"
             />
         </div>
-        <h1 class="bold">Dépenses</h1>
+        <h1 class="bold">
+            {{ viewTitle }}
+        </h1>
     </div>
-    <div class="add">
-        +
-    </div>
+    @switch ($viewType | async) {
+        @case ('list') {
+            <div class="add">
+                +
+            </div>
+        }
+    }
 </header>

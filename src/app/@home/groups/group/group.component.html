@@ -1,16 +1,18 @@
-<li [ngClass]="{ loading: isLoading() }">
-    @if (group(); as group) {
-        <div class="emoji">
-            {{ group.getEmoji() }}
-        </div>
-        <h3 class="bold">
-            {{ group.getName() }}
-        </h3>
-        <p>
-            {{ group.countMembers() }} personnes
-        </p>
-    } @else {
-        <h3></h3>
-        <p></p>
-    }
-</li>
+<div class="container">
+    <li [ngClass]="{ loading: isLoading() }">
+        @if (group(); as group) {
+            <div class="emoji">
+                {{ group.getEmoji() }}
+            </div>
+            <h3 class="bold">
+                {{ group.getName() }}
+            </h3>
+            <p>
+                {{ group.countMembers() }} personnes
+            </p>
+        } @else {
+            <h3></h3>
+            <p></p>
+        }
+    </li>
+</div>

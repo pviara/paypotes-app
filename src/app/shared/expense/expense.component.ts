@@ -24,8 +24,6 @@ export class ExpenseComponent implements AfterViewInit {
 
     expense = input<Expense | null>();
 
-    isLoading = input<boolean>(false);
-
     randomId = generateRandomString();
 
     @Output()

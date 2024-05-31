@@ -25,3 +25,6 @@ jobs:
 
       - name: 👷 Build project
         run: yarn build
+
+      - name: 🧑‍🔬 Run unit tests
+        run: yarn test

@@ -1,14 +1,14 @@
-div {    
+div {
     display: flex;
     align-items: center;
     gap: 2vw;
 
-    animation: slighSlideInFromRight .5s;
-    
+    animation: slighSlideInFromRight 0.5s;
+
     &.hidden {
         visibility: hidden;
     }
-    
+
     .avatar {
         height: 48px;
 

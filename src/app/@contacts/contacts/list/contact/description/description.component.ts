@@ -8,7 +8,7 @@ import { DOCUMENT } from '@angular/common';
 })
 export class DescriptionComponent {
     private document = inject(DOCUMENT);
-    
+
     avatarURL = input.required<string>();
 
     firstname = input.required<string>();

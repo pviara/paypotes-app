@@ -6,6 +6,8 @@ export const contactRoutes: Routes = [
     {
         path: '',
         component: ContactsViewComponent,
-        children: [{ path: '', component: ContactsComponent }],
+        children: [
+            { path: '', component: ContactsComponent, title: 'Contacts' },
+        ],
     },
 ];

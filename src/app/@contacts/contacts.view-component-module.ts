@@ -6,7 +6,7 @@ import { ContactsViewComponent } from '@contacts/contacts.view-component';
 import { CoreModule } from '@core/core.module';
 import { DescriptionComponent } from '@contacts/contacts/list/contact/description/description.component';
 import { FiltersComponent } from '@shared/filters/filters.component';
-import { HeadbarComponent } from '@contacts/headbar/headbar.component';
+import { HeadbarComponent } from '@shared/headbar/headbar.component';
 import { ListComponent } from '@contacts/contacts/list/list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -18,13 +18,13 @@ import { SkeletonComponent } from '@shared/skeleton/skeleton.component';
         ContactsViewComponent,
         ContactsComponent,
         DescriptionComponent,
-        HeadbarComponent,
         ListComponent,
     ],
     imports: [
         CommonModule,
         CoreModule,
         FiltersComponent,
+        HeadbarComponent,
         RouterModule.forChild(contactRoutes),
         SkeletonComponent,
     ],

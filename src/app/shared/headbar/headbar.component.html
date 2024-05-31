@@ -10,7 +10,11 @@
             {{ viewTitle }}
         </h1>
     </div>
-    <div class="add">
-        +
-    </div>
+    @switch ($viewType | async) {
+        @case ('list') {
+            <div class="add">
+                +
+            </div>
+        }
+    }
 </header>

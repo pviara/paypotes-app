@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ExpenseComponentModule } from '@shared/expense/expense.component-module';
 import { ExpensesComponent } from '@home/expenses/expenses.component';
+import { ListElementComponentModule } from '@shared/list-element/list-element.component-module';
 import { NgModule } from '@angular/core';
 
 @NgModule({
     declarations: [ExpensesComponent],
     exports: [ExpensesComponent],
-    imports: [CommonModule, ExpenseComponentModule],
+    imports: [CommonModule, ListElementComponentModule],
 })
 export class ExpensesComponentModule {}

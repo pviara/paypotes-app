@@ -1,6 +1,5 @@
 import { CoreModule } from '@core/core.module';
 import { CommonModule } from '@angular/common';
-import { ExpenseComponentModule } from '@shared/expense/expense.component-module';
 import { expensesRoutes } from '@expenses/expenses.routes';
 import { ExpensesView } from '@expenses/expenses.view';
 import { ExpensesComponent } from '@expenses/expenses/expenses.component';
@@ -9,6 +8,7 @@ import { ListComponent } from '@expenses/expenses/list/list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeadbarComponent } from '@shared/headbar/headbar.component';
+import { ListElementComponentModule } from '@shared/list-element/list-element.component-module';
 
 @NgModule({
     declarations: [ExpensesView, ExpensesComponent, ListComponent],
@@ -16,9 +16,9 @@ import { HeadbarComponent } from '@shared/headbar/headbar.component';
     imports: [
         CommonModule,
         CoreModule,
-        ExpenseComponentModule,
         FiltersComponent,
         HeadbarComponent,
+        ListElementComponentModule,
         RouterModule.forChild(expensesRoutes),
     ],
 })

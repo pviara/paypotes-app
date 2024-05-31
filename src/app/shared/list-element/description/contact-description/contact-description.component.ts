@@ -2,11 +2,11 @@ import { Component, inject, input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
-    selector: 'description',
-    templateUrl: './description.component.html',
-    styleUrls: ['./description.component.scss'],
+    selector: 'contact-description',
+    templateUrl: './contact-description.component.html',
+    styleUrls: ['./contact-description.component.scss'],
 })
-export class DescriptionComponent {
+export class ContactDescriptionComponent {
     private document = inject(DOCUMENT);
 
     avatarURL = input.required<string>();

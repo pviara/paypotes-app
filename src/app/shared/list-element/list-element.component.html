@@ -1,13 +1,6 @@
 <li [id]="randomId">
     @if (element(); as element) {
-        @switch (elementType()) {
-            @case ('contact') {
-                contact description
-            }
-            @case ('expense') {
-                expense description
-            }
-        }
+        <description [element]="element"/>
         <balance
             [isDebt]="element.isDebt()"
             [balance]="element.formatBalance()"

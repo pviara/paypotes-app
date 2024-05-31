@@ -1,13 +1,13 @@
-import { ContactsViewComponentModule } from '@contacts/contacts.view-component-module';
-import { ExpensesViewComponentModule } from '@expenses/expenses.view-component-module';
-import { HomeViewComponent } from '@home/home.view-component';
-import { LandingViewComponent } from '@landing/landing.view-component';
+import { ContactsComponentModule } from '@contacts/contacts.view-module';
+import { ExpensesViewModule } from '@expenses/expenses.view-module';
+import { HomeView } from '@home/home.view';
+import { LandingView } from '@landing/landing.view';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
     {
         path: '',
-        component: LandingViewComponent,
+        component: LandingView,
     },
     {
         path: 'contacts',
@@ -19,28 +19,28 @@ export const routes: Routes = [
     },
     {
         path: 'home',
-        component: HomeViewComponent,
+        component: HomeView,
     },
 ];
 
 function importExpensesView(): () => Promise<
-    typeof ExpensesViewComponentModule
+    typeof ExpensesViewModule
 > {
     return async () => {
         const imported = await import(
-            '@expenses/expenses.view-component-module'
+            '@expenses/expenses.view-module'
         );
-        return imported.ExpensesViewComponentModule;
+        return imported.ExpensesViewModule;
     };
 }
 
 function importContactsView(): () => Promise<
-    typeof ContactsViewComponentModule
+    typeof ContactsComponentModule
 > {
     return async () => {
         const imported = await import(
-            '@contacts/contacts.view-component-module'
+            '@contacts/contacts.view-module'
         );
-        return imported.ContactsViewComponentModule;
+        return imported.ContactsComponentModule;
     };
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { ContactsViewComponentModule } from '@contacts/contacts.view-component-module';
+import { ContactsComponentModule } from '@contacts/contacts.view-module';
 import { CoreModule } from '@core/core.module';
-import { ExpensesViewComponentModule } from '@expenses/expenses.view-component-module';
-import { HomeViewComponentModule } from '@home/home.view-component-module';
+import { ExpensesViewModule } from '@expenses/expenses.view-module';
+import { HomeViewModule } from '@home/home.view-module';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -10,9 +10,9 @@ import { RouterOutlet } from '@angular/router';
     standalone: true,
     imports: [
         CoreModule,
-        ContactsViewComponentModule,
-        ExpensesViewComponentModule,
-        HomeViewComponentModule,
+        ContactsComponentModule,
+        ExpensesViewModule,
+        HomeViewModule,
         RouterOutlet,
     ],
     templateUrl: './app.component.html',

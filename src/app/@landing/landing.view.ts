@@ -4,11 +4,11 @@ import { isPlatformBrowser } from '@angular/common';
 
 @Component({
     selector: 'landing',
-    templateUrl: './landing.view-component.html',
-    styleUrls: ['./landing.view-component.scss'],
+    templateUrl: './landing.view.html',
+    styleUrls: ['./landing.view.scss'],
     standalone: true,
 })
-export class LandingViewComponent implements AfterViewInit {
+export class LandingView implements AfterViewInit {
     private platformId = inject(PLATFORM_ID);
 
     ngAfterViewInit(): void {

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ContactComponent } from '@contacts/contacts/list/contact/contact.component';
 import { contactRoutes } from '@contacts/contacts.routes';
 import { ContactsComponent } from '@contacts/contacts/contacts.component';
-import { ContactsViewComponent } from '@contacts/contacts.view-component';
+import { ContactsView } from '@contacts/contacts.view';
 import { CoreModule } from '@core/core.module';
 import { DescriptionComponent } from '@contacts/contacts/list/contact/description/description.component';
 import { FiltersComponent } from '@shared/filters/filters.component';
@@ -16,8 +16,8 @@ import { SkeletonComponent } from '@shared/skeleton/skeleton.component';
 @NgModule({
     declarations: [
         ContactComponent,
-        ContactsViewComponent,
         ContactsComponent,
+        ContactsView,
         DescriptionComponent,
         ListComponent,
     ],
@@ -31,4 +31,4 @@ import { SkeletonComponent } from '@shared/skeleton/skeleton.component';
         SkeletonComponent,
     ],
 })
-export class ContactsViewComponentModule {}
+export class ContactsComponentModule {}

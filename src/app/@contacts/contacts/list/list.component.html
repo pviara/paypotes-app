@@ -2,6 +2,7 @@
     @for (contact of $contacts() | async; track $index) {
         <list-element
             [element]="contact"
+            (hovered)="onContactHovered($event)"
         />
     }
 </ul>

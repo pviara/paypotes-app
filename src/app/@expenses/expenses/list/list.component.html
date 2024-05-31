@@ -2,7 +2,7 @@
     @for (expense of $expenses() | async; track $index) {
         <list-element
             [element]="expense"
+            (hovered)="onExpenseHovered($event)"
         />
-        <!-- (hovered)="onExpenseHovered($event)" -->
     }
 </ul>

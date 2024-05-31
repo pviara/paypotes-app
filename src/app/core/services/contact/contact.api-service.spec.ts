@@ -1,22 +1,22 @@
-import { ExpenseAPIService } from '@core/services/expense/expense.api-service';
+import { ContactAPIService } from './contact.api-service';
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
 import { Subscription } from 'rxjs';
 
-describe('ExpenseAPIService', () => {
-    let sut: ExpenseAPIService;
+describe('ContactAPIService', () => {
+    let sut: ContactAPIService;
     let httpClientService: HttpClientServiceSpy;
 
     const subscription = new Subscription();
 
     beforeEach(() => {
         httpClientService = new HttpClientServiceSpy();
-        sut = new ExpenseAPIService(httpClientService);
+        sut = new ContactAPIService(httpClientService);
     });
 
     afterAll(() => subscription.unsubscribe());
 
-    it('should get expenses from server', () => {
-        sut.getExpenses().subscribe(() => {
+    it('should get contacts from server', () => {
+        sut.getContacts().subscribe(() => {
             expect(httpClientService.calls.get.count).toBe(1);
 
             const [call] = httpClientService.calls.get.history;
@@ -27,10 +27,10 @@ describe('ExpenseAPIService', () => {
     });
 
     describe('search', () => {
-        it('should get the expenses from server', () => {
+        it('should get the contacts from server', () => {
             const search = 'labelXYZ';
             subscription.add(
-                sut.getExpenses(0, { search }).subscribe(() => {
+                sut.getContacts(0, { search }).subscribe(() => {
                     expect(httpClientService.calls.get.count).toBe(1);
 
                     const [call] = httpClientService.calls.get.history;
@@ -44,10 +44,10 @@ describe('ExpenseAPIService', () => {
     });
 
     describe('pageIndex', () => {
-        it('should get the expenses from server', () => {
+        it('should get the contacts from server', () => {
             const pageIndex = 1;
             subscription.add(
-                sut.getExpenses(pageIndex).subscribe(() => {
+                sut.getContacts(pageIndex).subscribe(() => {
                     expect(httpClientService.calls.get.count).toBe(1);
 
                     const [call] = httpClientService.calls.get.history;
@@ -61,11 +61,11 @@ describe('ExpenseAPIService', () => {
     });
 
     describe('pageIndex and search', () => {
-        it('should get the expenses from server', () => {
+        it('should get the contacts from server', () => {
             const pageIndex = 1;
             const search = 'ABC';
             subscription.add(
-                sut.getExpenses(pageIndex, { search }).subscribe(() => {
+                sut.getContacts(pageIndex, { search }).subscribe(() => {
                     expect(httpClientService.calls.get.count).toBe(1);
 
                     const [call] = httpClientService.calls.get.history;
@@ -79,10 +79,10 @@ describe('ExpenseAPIService', () => {
     });
 
     describe('type', () => {
-        it('should get the expenses from server', () => {
+        it('should get the contacts from server', () => {
             const type = 'debt';
             subscription.add(
-                sut.getExpenses(0, { type }).subscribe(() => {
+                sut.getContacts(0, { type }).subscribe(() => {
                     expect(httpClientService.calls.get.count).toBe(1);
 
                     const [call] = httpClientService.calls.get.history;

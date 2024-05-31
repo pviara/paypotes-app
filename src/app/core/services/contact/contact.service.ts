@@ -3,5 +3,5 @@ import { Filters } from '@core/model/expense/filters';
 import { Observable } from 'rxjs';
 
 export interface ContactService {
-    getContacts(filters?: Filters): Observable<Contacts>;
+    getContacts(pageIndex?: number, filters?: Filters): Observable<Contacts>;
 }

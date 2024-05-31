@@ -1,11 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component, computed, input } from '@angular/core';
 
 @Component({
     selector: 'balance',
-    templateUrl: './total.component.html',
-    styleUrls: ['./total.component.scss'],
+    templateUrl: './balance.component.html',
+    styleUrls: ['./balance.component.scss'],
+    standalone: true,
+    imports: [CommonModule],
 })
-export class TotalComponent {
+export class BalanceComponent {
     isClaim = computed(() => !this.isDebt());
 
     isDebt = input.required<boolean>();

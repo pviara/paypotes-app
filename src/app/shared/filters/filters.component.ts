@@ -14,10 +14,10 @@ import {
     FormGroup,
     ReactiveFormsModule,
 } from '@angular/forms';
-import { Filters } from '@core/model/expense/filters';
 import { CommonModule } from '@angular/common';
+import { Filters } from '@core/model/expense/filters';
 
-type ExpenseType = 'all' | 'claim' | 'debt';
+type ExpenseType = '' | 'claim' | 'debt';
 
 type ExpenseTypeOption = {
     label: string;
@@ -47,7 +47,7 @@ export class FiltersComponent implements OnChanges, OnInit {
     form!: FormGroup<FiltersForm>;
 
     options: Array<ExpenseTypeOption> = [
-        { label: 'Tous', type: 'all' },
+        { label: 'Tous', type: '' },
         { label: 'Créances', type: 'claim' },
         { label: 'Dettes', type: 'debt' },
     ];
@@ -88,7 +88,7 @@ export class FiltersComponent implements OnChanges, OnInit {
     private initForm(): void {
         this.form = this.formBuilder.group({
             search: this.formBuilder.nonNullable.control(''),
-            type: this.formBuilder.nonNullable.control<ExpenseType>('all'),
+            type: this.formBuilder.nonNullable.control<ExpenseType>(''),
         });
         this.handleFormChanges();
     }

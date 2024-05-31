@@ -6,15 +6,15 @@ export class Expense {
             readonly id: string;
             readonly label: string;
             readonly emoji: Emoji;
-            readonly total: number;
+            readonly balance: number;
             readonly origin: string;
         },
     ) {
-        this.throwIfNil(data.total);
+        this.throwIfNil(data.balance);
     }
 
-    formatTotal(): string {
-        return `${Math.abs(this.getTotal()).toFixed(2).replace('.', ',')}€`;
+    formatBalance(): string {
+        return `${Math.abs(this.getBalance()).toFixed(2).replace('.', ',')}€`;
     }
 
     getEmoji(): Emoji {
@@ -33,17 +33,17 @@ export class Expense {
         return this.data.origin;
     }
 
-    getTotal(): number {
-        return this.data.total / 100;
+    getBalance(): number {
+        return this.data.balance / 100;
     }
 
     isDebt(): boolean {
-        return this.data.total < 0;
+        return this.data.balance < 0;
     }
 
-    private throwIfNil(total: number): void {
-        if (total === 0) {
-            throw new Error('Total cannot be nil');
+    private throwIfNil(balance: number): void {
+        if (balance === 0) {
+            throw new Error('Balance cannot be nil');
         }
     }
 }

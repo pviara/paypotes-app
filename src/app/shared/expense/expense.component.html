@@ -6,9 +6,9 @@
             [isDebt]="expense.isDebt()"
             [origin]="expense.getOrigin()"
         />
-        <total
+        <balance
             [isDebt]="expense.isDebt()"
-            [total]="expense.formatTotal()"
+            [balance]="expense.formatBalance()"
         />
     } @else {
         <skeleton/>

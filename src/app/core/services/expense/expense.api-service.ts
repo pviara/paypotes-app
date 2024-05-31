@@ -54,7 +54,7 @@ export class ExpenseAPIService implements ExpenseService {
                     label: `Dépense #${index}`,
                     emoji: getRandomEmoji() as Emoji,
                     origin: 'Claire',
-                    total: Math.random() * (9999 - -9999 + 1) + -9999,
+                    balance: Math.random() * (9999 - -9999 + 1) + -9999,
                 });
             });
     }

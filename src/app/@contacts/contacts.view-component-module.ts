@@ -1,3 +1,4 @@
+import { BalanceComponent } from '@shared/balance/balance.component';
 import { CommonModule } from '@angular/common';
 import { ContactComponent } from '@contacts/contacts/list/contact/contact.component';
 import { contactRoutes } from '@contacts/contacts.routes';
@@ -11,7 +12,6 @@ import { ListComponent } from '@contacts/contacts/list/list.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SkeletonComponent } from '@shared/skeleton/skeleton.component';
-import { TotalComponent } from '@contacts/contacts/list/contact/total/total.component';
 
 @NgModule({
     declarations: [
@@ -20,9 +20,9 @@ import { TotalComponent } from '@contacts/contacts/list/contact/total/total.comp
         ContactsComponent,
         DescriptionComponent,
         ListComponent,
-        TotalComponent,
     ],
     imports: [
+        BalanceComponent,
         CommonModule,
         CoreModule,
         FiltersComponent,

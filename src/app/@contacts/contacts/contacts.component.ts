@@ -17,7 +17,7 @@ export class ContactsComponent implements OnInit {
 
     private savedFilters?: Filters;
 
-    private skeletons: Array<null> = Array.from({ length: 5 }).map(() => null);
+    private skeletons: Array<null> = Array.from({ length: 20 }).map(() => null);
 
     $contacts = new BehaviorSubject<DisplayedContacts>([]);
 
@@ -41,10 +41,12 @@ export class ContactsComponent implements OnInit {
         this.saveFilters(filters);
         this.prepareList();
 
-        this.contactService.getContacts(filters).subscribe((contacts) => {
-            this.$contacts.next(contacts);
-            this.filtering = false;
-        });
+        this.contactService
+            .getContacts(this.nextIndex, filters)
+            .subscribe((contacts) => {
+                this.$contacts.next(contacts);
+                this.filtering = false;
+            });
     }
 
     private prepareList(): void {
@@ -59,7 +61,7 @@ export class ContactsComponent implements OnInit {
 
     private getContacts(): void {
         this.contactService
-            .getContacts(this.savedFilters)
+            .getContacts(this.nextIndex, this.savedFilters)
             .subscribe(this.appendContactsToList());
     }
 

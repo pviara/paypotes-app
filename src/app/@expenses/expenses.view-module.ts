@@ -7,7 +7,7 @@ import { FiltersComponent } from '@shared/filters/filters.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeadbarComponent } from '@shared/headbar/headbar.component';
-import { ListElementComponentModule } from '@shared/list-element/list-element.component-module';
+import { ListElementComponentModule } from '@shared/list/list-element/list-element.component-module';
 import { ListComponentModule } from '@shared/list/list.component-module';
 
 @NgModule({

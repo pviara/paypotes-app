@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { concat, of, tap } from 'rxjs';
+import { BehaviorSubject, concat, of, tap } from 'rxjs';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
+import { Group } from '@core/model/group/group';
 
 const SKELETON_ARRAY = Array.from({ length: 5 }).map(() => null);
 
@@ -12,14 +13,14 @@ const SKELETON_ARRAY = Array.from({ length: 5 }).map(() => null);
 export class GroupsComponent {
     private groupService = inject(GroupServiceToken);
 
-    groups = concat(
-        of(SKELETON_ARRAY),
-        this.groupService.groups.pipe(tap(this.stopLoading())),
-    );
+    private skeletons: Array<null> = Array.from({ length: 6 }).map(() => null);
 
-    isLoading = true;
+    $groups = new BehaviorSubject<Array<Group | null>>([]);
 
-    private stopLoading(): () => void {
-        return () => (this.isLoading = false);
+    ngOnInit(): void {
+        this.$groups.next(this.skeletons);
+        this.groupService
+            .getGroups()
+            .subscribe((groups) => this.$groups.next(groups.slice(0, 6)));
     }
 }

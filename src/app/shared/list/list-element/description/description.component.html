@@ -1,0 +1,22 @@
+@if (element() | contact; as contact) {
+    <contact-description
+        [avatarURL]="contact.getAvatarURL()"
+        [firstname]="contact.getFirstname()"
+        [lastname]="contact.getLastname()"
+    />
+}
+@if (element() | expense; as expense) {
+    <expense-description
+        [emoji]="expense.getEmoji()"
+        [label]="expense.getLabel()"
+        [isDebt]="expense.isDebt()"
+        [origin]="expense.getOrigin()"
+    />
+}
+@if (element() | group; as group) {
+    <group-description
+        [emoji]="group.getEmoji()"
+        [name]="group.getName()"
+        [membersCount]="group.countMembers()"
+    />
+}

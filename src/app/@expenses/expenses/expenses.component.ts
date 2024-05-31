@@ -4,6 +4,7 @@ import { DisplayedExpenses } from '@core/model/expense/displayed-expenses';
 import { Expenses } from '@core/model/expense/expense';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { Filters } from '@core/model/expense/filters';
+import { ListElements } from '@core/model/list-element/list-element';
 
 @Component({
     selector: 'paginated-expenses',
@@ -19,7 +20,7 @@ export class ExpensesComponent implements OnInit {
 
     private skeletons: Array<null> = Array.from({ length: 20 }).map(() => null);
 
-    $expenses = new BehaviorSubject<DisplayedExpenses>([]);
+    $expenses = new BehaviorSubject<ListElements>([]);
 
     filtering = false;
 

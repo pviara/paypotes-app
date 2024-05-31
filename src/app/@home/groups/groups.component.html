@@ -1,8 +1,5 @@
-<ul [ngClass]="{ loading: isLoading }">
-    @for (group of groups | async; track $index) {
-        <group
-            [group]="group"
-            [isLoading]="isLoading"
-        />
+<ul>
+    @for (group of $groups | async; track $index) {
+        <group [group]="group"/>
     }
 </ul>

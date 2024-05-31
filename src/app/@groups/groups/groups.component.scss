@@ -1,0 +1,12 @@
+section {
+    padding: 8%;
+
+    background-color: #202020;
+    border-radius: 2rem 2rem 0 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+
+    animation: slighSlideInFromBottom 1.3s ease-in-out;
+}

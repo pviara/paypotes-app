@@ -1,0 +1,11 @@
+<li [id]="randomId">
+    @if (element(); as element) {
+        <description [element]="element"/>
+        <balance
+            [isDebt]="element.isDebt()"
+            [balance]="element.formatBalance()"
+        />
+    } @else {
+        <skeleton/>
+    }
+</li>

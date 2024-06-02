@@ -1,5 +1,13 @@
 import { BehaviorSubject } from 'rxjs';
-import { Component, EventEmitter, OnInit, Output, input } from '@angular/core';
+import {
+    Component,
+    EventEmitter,
+    OnInit,
+    Output,
+    inject,
+    input,
+} from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { Filters } from '@core/model/expense/filters';
 import { ListElements } from '@core/model/list-element/list-element';
 
@@ -11,6 +19,8 @@ const SKELETONS = Array.from({ length: 20 }).map(() => null);
     styleUrls: ['./explorer.component.scss'],
 })
 export class ExplorerComponent implements OnInit {
+    private document = inject(DOCUMENT);
+
     private nextPageIndex = 0;
     private savedFilters?: Filters;
     private lastFetchedGroupsCount = 0;
@@ -58,11 +68,21 @@ export class ExplorerComponent implements OnInit {
     }
 
     private handleElementsChange(): void {
-        this.$elements().subscribe((elements) => {
+        this.$elements().subscribe((newElements) => {
             this.filtering = false;
-            this.lastFetchedGroupsCount = elements.length;
-            this.$displayedElements.next(elements);
+            this.lastFetchedGroupsCount = newElements.length;
+
+            this.appendToDisplayedElements(newElements);
         });
+    }
+
+    private appendToDisplayedElements(newElements: ListElements): void {
+        let elements = this.$displayedElements
+            .getValue()
+            .filter((element) => !!element);
+            
+        elements = elements.concat(newElements);
+        this.$displayedElements.next(elements);
     }
 
     private prepareList(): void {
@@ -96,12 +116,13 @@ export class ExplorerComponent implements OnInit {
 
     private isElementNearListEnd(elementId: string): boolean {
         const index = this.findElementIndexWith(elementId);
-        const isNearArrayEnd = index > this.$elements().getValue().length - 10;
+        const isNearArrayEnd =
+            index > this.$displayedElements.getValue().length - 10;
         return isNearArrayEnd;
     }
 
     private findElementIndexWith(elementId: string): number {
-        return this.$elements()
+        return this.$displayedElements
             .getValue()
             .findIndex((element) => element?.getId() === elementId);
     }

@@ -1,6 +1,6 @@
 import { ExplorerComponent } from '@shared/explorer/explorer.component';
-import { FiltersComponent } from '@shared/filters/filters.component';
-import { ListComponentModule } from '@shared/list/list.component-module';
+import { FiltersComponent } from '@shared/explorer/filters/filters.component';
+import { ListComponentModule } from '@shared/explorer/list/list.component-module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 

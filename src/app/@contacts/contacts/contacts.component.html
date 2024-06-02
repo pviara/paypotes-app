@@ -1,10 +1,4 @@
-<section>
-    <filters
-        [filtering]="filtering"
-        (updatedFilters)="onUpdatedFilters($event)"
-    />
-    <list
-        [$elements]="$contacts"
-        (elementHovered)="onContactHovered($event)"
-    />
-</section>
+<explorer
+    [$elements]="$contacts"
+    (elementsRequested)="onContactsRequested($event)"
+/>

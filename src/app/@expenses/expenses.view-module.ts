@@ -3,12 +3,10 @@ import { CommonModule } from '@angular/common';
 import { expensesRoutes } from '@expenses/expenses.routes';
 import { ExpensesView } from '@expenses/expenses.view';
 import { ExpensesComponent } from '@expenses/expenses/expenses.component';
-import { FiltersComponent } from '@shared/filters/filters.component';
+import { ExplorerComponentModule } from '@shared/explorer/explorer.component-module';
+import { HeadbarComponent } from '@shared/headbar/headbar.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { HeadbarComponent } from '@shared/headbar/headbar.component';
-import { ListElementComponentModule } from '@shared/list/list-element/list-element.component-module';
-import { ListComponentModule } from '@shared/list/list.component-module';
 
 @NgModule({
     declarations: [ExpensesView, ExpensesComponent],
@@ -16,10 +14,8 @@ import { ListComponentModule } from '@shared/list/list.component-module';
     imports: [
         CommonModule,
         CoreModule,
-        FiltersComponent,
+        ExplorerComponentModule,
         HeadbarComponent,
-        ListComponentModule,
-        ListElementComponentModule,
         RouterModule.forChild(expensesRoutes),
     ],
 })

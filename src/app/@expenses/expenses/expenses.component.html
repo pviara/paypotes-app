@@ -1,10 +1,4 @@
-<section>
-    <filters
-        [filtering]="filtering"
-        (updatedFilters)="onUpdatedFilters($event)"
-    />
-    <list
-        [$elements]="$expenses"
-        (elementHovered)="onExpenseHovered($event)"
-    />
-</section>
+<explorer
+    [$elements]="$expenses"
+    (elementsRequested)="onExpensesRequested($event)"
+/>

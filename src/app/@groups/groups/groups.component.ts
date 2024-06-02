@@ -15,10 +15,7 @@ export class GroupsComponent {
 
     $groups = new BehaviorSubject<ListElements>([]);
 
-    onElementsRequested(event: {
-        pageIndex?: number;
-        filters?: Filters;
-    }): void {
+    onGroupsRequested(event: { pageIndex?: number; filters?: Filters }): void {
         this.groupService
             .getGroups(event.pageIndex, event.filters)
             .subscribe((groups) => {

@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { map } from 'rxjs';
@@ -9,7 +9,7 @@ import { Title } from '@angular/platform-browser';
     templateUrl: './headbar.component.html',
     styleUrls: ['./headbar.component.scss'],
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, RouterModule],
 })
 export class HeadbarComponent {
     private route = inject(ActivatedRoute);

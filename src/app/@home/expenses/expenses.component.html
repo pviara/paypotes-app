@@ -1,7 +1,7 @@
 <section>
     <header>
         <h3 class="bold">Dépenses</h3>
-        <a>Tout voir</a>
+        <a routerLink="/expenses">Tout voir</a>
     </header>
     <ul>
         @for (expense of $expenses | async; track $index) {

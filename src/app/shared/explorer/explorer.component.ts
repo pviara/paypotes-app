@@ -1,13 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
-import {
-    Component,
-    EventEmitter,
-    OnInit,
-    Output,
-    inject,
-    input,
-} from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, EventEmitter, OnInit, Output, input } from '@angular/core';
 import { Filters } from '@core/model/expense/filters';
 import { ListElements } from '@core/model/list-element/list-element';
 
@@ -19,8 +11,6 @@ const SKELETONS = Array.from({ length: 20 }).map(() => null);
     styleUrls: ['./explorer.component.scss'],
 })
 export class ExplorerComponent implements OnInit {
-    private document = inject(DOCUMENT);
-
     private nextPageIndex = 0;
     private savedFilters?: Filters;
     private lastFetchedGroupsCount = 0;

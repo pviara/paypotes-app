@@ -80,7 +80,7 @@ export class ExplorerComponent implements OnInit {
         let elements = this.$displayedElements
             .getValue()
             .filter((element) => !!element);
-            
+
         elements = elements.concat(newElements);
         this.$displayedElements.next(elements);
     }

@@ -12,6 +12,12 @@ export class ExpenseAPIService implements ExpenseService {
 
     constructor(private httpClientService: HttpClientService) {}
 
+    getExpense(id: string): Observable<Expense> {
+        return this.httpClientService
+            .get<Expense>(`${this.endpoint}/${id}`)
+            .pipe(map(() => this.getRandomExpense(999)));
+    }
+
     getExpenses(pageIndex = 0, filters?: Filters): Observable<Expenses> {
         const url = this.buildURLWith(pageIndex, filters);
 
@@ -48,14 +54,18 @@ export class ExpenseAPIService implements ExpenseService {
 
     private getRandomExpenses(): () => Expenses {
         return () =>
-            Array.from({ length: 20 }).map((_, index) => {
-                return new Expense({
-                    id: generateRandomString(),
-                    label: `Dépense #${index}`,
-                    emoji: getRandomEmoji() as Emoji,
-                    origin: 'Claire',
-                    balance: Math.random() * (9999 - -9999 + 1) + -9999,
-                });
-            });
+            Array.from({ length: 20 }).map((_, index) =>
+                this.getRandomExpense(index),
+            );
+    }
+
+    private getRandomExpense(index: number): Expense {
+        return new Expense({
+            id: generateRandomString(),
+            label: `Dépense #${index}`,
+            emoji: getRandomEmoji() as Emoji,
+            origin: 'Claire',
+            balance: Math.ceil(Math.random() * (9999 - -9999 + 1) + -9999),
+        });
     }
 }

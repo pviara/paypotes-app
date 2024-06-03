@@ -1,4 +1,6 @@
+import { CommonModule } from '@angular/common';
 import { CoreModule } from '@core/core.module';
+import { ExpenseComponent } from '@expenses/expense/expense.component';
 import { expensesRoutes } from '@expenses/expenses.routes';
 import { ExpensesView } from '@expenses/expenses.view';
 import { ExpensesComponent } from '@expenses/expenses/expenses.component';
@@ -8,9 +10,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [ExpensesView, ExpensesComponent],
+    declarations: [ExpensesView, ExpenseComponent, ExpensesComponent],
     exports: [RouterModule],
     imports: [
+        CommonModule,
         CoreModule,
         ExplorerComponentModule,
         HeadbarComponent,

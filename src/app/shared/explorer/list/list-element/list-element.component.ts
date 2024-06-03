@@ -46,23 +46,21 @@ export class ListElementComponent implements AfterViewInit {
     }
 
     redirectToDetail(): void {
+        const element = this.element();
+        if (!element) {
+            return;
+        }
+
         const type = {
-            isContact: this.element() instanceof Contact,
-            isExpense: this.element() instanceof Expense,
-            isGroup: this.element() instanceof Group,
+            isContact: element instanceof Contact,
+            isExpense: element instanceof Expense,
+            isGroup: element instanceof Group,
         };
 
         if (type.isContact) {
-            console.log('redirect to contact detail');
         } else if (type.isExpense) {
-            console.log('redirect to expense detail');
-            this.router.navigate([`/expenses/${this.element()?.getId()}`], {
-                state: {
-                    expense: this.element(),
-                },
-            });
+            this.router.navigate([`/expenses/${element.getId()}`]);
         } else if (type.isGroup) {
-            console.log('redirect to group detail');
         }
     }
 

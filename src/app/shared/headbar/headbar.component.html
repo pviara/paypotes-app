@@ -7,7 +7,7 @@
             />
         </a>
         <h1 class="bold">
-            {{ viewTitle }}
+            {{ $viewTitle | async }}
         </h1>
     </div>
     @switch ($viewType | async) {

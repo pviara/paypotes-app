@@ -1,4 +1,5 @@
 import { Component, computed, input } from '@angular/core';
+import { Contact } from '@core/model/contact/contact';
 import { Emoji } from '@core/model/emoji';
 
 @Component({
@@ -11,7 +12,7 @@ export class ExpenseDescriptionComponent {
 
     label = input.required<string>();
 
-    origin = input.required<string>();
+    origin = input.required<Contact>();
 
     prefix = computed(() => (this.isDebt() ? 'à' : 'de'));
 

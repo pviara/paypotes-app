@@ -6,6 +6,8 @@ import { generateRandomString } from '@shared/utils/generate-random-string';
 import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
+import { Contact } from '@core/model/contact/contact';
+import { generateRandomDate } from '@shared/utils/get-random-date';
 
 export class ExpenseAPIService implements ExpenseService {
     private readonly endpoint = 'api_url_to_expense';
@@ -63,8 +65,15 @@ export class ExpenseAPIService implements ExpenseService {
         return new Expense({
             id: generateRandomString(),
             label: `Dépense #${index}`,
+            date: generateRandomDate(),
             emoji: getRandomEmoji() as Emoji,
-            origin: 'Claire',
+            origin: new Contact({
+                id: generateRandomString(),
+                firstname: 'Claire',
+                lastname: 'Laroche',
+                avatarURL: 'claire.png',
+                balance: 9080,
+            }),
             balance: Math.ceil(Math.random() * (9999 - -9999 + 1) + -9999),
         });
     }

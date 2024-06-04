@@ -17,6 +17,10 @@ export class Contact {
         return this.data.avatarURL;
     }
 
+    getFullName(): string {
+        return `${this.getFirstname()} ${this.getLastname()}`;
+    }
+
     getFirstname(): string {
         return this.data.firstname;
     }

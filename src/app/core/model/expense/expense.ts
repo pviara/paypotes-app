@@ -1,13 +1,15 @@
 import { Emoji } from '@core/model/emoji';
+import { Contact } from '@core/model/contact/contact';
 
 export class Expense {
     constructor(
         private readonly data: {
             readonly id: string;
             readonly label: string;
+            readonly date: Date;
             readonly emoji: Emoji;
             readonly balance: number;
-            readonly origin: string;
+            readonly origin: Contact;
         },
     ) {
         this.throwIfNil(data.balance);
@@ -15,6 +17,10 @@ export class Expense {
 
     formatBalance(): string {
         return `${Math.abs(this.getBalance()).toFixed(2).replace('.', ',')}€`;
+    }
+
+    getDate(): Date {
+        return this.data.date;
     }
 
     getEmoji(): Emoji {
@@ -29,7 +35,7 @@ export class Expense {
         return this.data.label;
     }
 
-    getOrigin(): string {
+    getOrigin(): Contact {
         return this.data.origin;
     }
 

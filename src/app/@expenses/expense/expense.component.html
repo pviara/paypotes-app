@@ -1,3 +1,20 @@
-<section style="color: #fff; font-size: 1.5rem">
-    {{ $expense | async | json }}
+<section>
+    @if ($expense | async; as expense) {
+        <expense-header
+            [date]="expense.getDate()"
+            [origin]="expense.getOrigin()"
+        />
+        <expense-images
+            [avatarURL]="expense.getOrigin().getAvatarURL()"
+            [emoji]="expense.getEmoji()"
+        />
+        <expense-description
+            [balance]="expense.formatBalance()"
+            [date]="expense.getDate()"
+            [isDebt]="expense.isDebt()"
+            [name]="expense.getOrigin().getFullName()"
+        />
+    } @else {
+        <expense-skeleton/>
+    }
 </section>

@@ -1,3 +1,4 @@
+import { ActionComponent } from '@expenses/expense/action/action.component';
 import { CommonModule } from '@angular/common';
 import { CoreModule } from '@core/core.module';
 import { ExpenseDescriptionComponent } from '@expenses/expense/description/description.component';
@@ -10,6 +11,7 @@ import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
     declarations: [
+        ActionComponent,
         ExpenseDescriptionComponent,
         ExpenseHeaderComponent,
         ExpenseImagesComponent,

@@ -1,0 +1,19 @@
+button {
+    width: 100%;
+
+    padding: 3%;
+
+    border: none;
+    border-radius: 2rem;
+
+    background: rgb(103, 23, 205);
+    background: linear-gradient(
+        180deg,
+        rgba(103, 23, 205, 1) 0%,
+        rgba(40, 113, 250, 1) 100%
+    );
+
+    font-family: 'regular';
+    font-size: 1rem;
+    color: #fff;
+}

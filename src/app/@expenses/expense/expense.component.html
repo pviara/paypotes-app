@@ -14,6 +14,9 @@
             [isDebt]="expense.isDebt()"
             [name]="expense.getOrigin().getFullName()"
         />
+        <expense-action
+            [isDebt]="expense.isDebt()"
+        />
     } @else {
         <expense-skeleton/>
     }

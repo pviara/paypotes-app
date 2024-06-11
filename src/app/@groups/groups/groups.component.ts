@@ -1,7 +1,6 @@
 import { BehaviorSubject, tap } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import { Filters } from '@core/model/expense/filters';
-import { Groups } from '@core/model/group/group';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { ListElements } from '@core/model/list-element/list-element';
 

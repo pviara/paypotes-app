@@ -1,18 +1,17 @@
-import { ExplorerComponentModule } from '@shared/explorer/explorer.component-module';
 import { HeadbarComponent } from '@shared/headbar/headbar.component';
-import { GroupsComponent } from '@groups/groups/groups.component';
 import { groupsRoutes } from '@groups/groups.routes';
+import { GroupComponentModule } from '@groups/group/group.component-module';
+import { GroupsComponentModule } from '@groups/groups/groups.component-module';
 import { GroupsView } from '@groups/groups.view';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { CoreModule } from '@core/core.module';
 
 @NgModule({
-    declarations: [GroupsComponent, GroupsView],
+    declarations: [GroupsView],
     exports: [RouterModule],
     imports: [
-        CoreModule,
-        ExplorerComponentModule,
+        GroupsComponentModule,
+        GroupComponentModule,
         HeadbarComponent,
         RouterModule.forChild(groupsRoutes),
     ],

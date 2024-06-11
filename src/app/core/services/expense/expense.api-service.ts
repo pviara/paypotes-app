@@ -28,6 +28,12 @@ export class ExpenseAPIService implements ExpenseService {
             .pipe(map(this.getRandomExpenses()));
     }
 
+    payback(expenseId: string): Observable<void> {
+        return this.httpClientService.patch(
+            `${this.endpoint}/payback/${expenseId}`,
+        );
+    }
+
     private buildURLWith(pageIndex: number, filters?: Filters): string {
         const query: Record<string, string | undefined> = {
             pageIndex: pageIndex.toString(),

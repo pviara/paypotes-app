@@ -3,7 +3,9 @@ import { Injectable, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { ViewType } from '@core/model/view/view';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root',
+})
 export class ViewService {
     private router = inject(Router);
 

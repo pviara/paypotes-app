@@ -16,6 +16,7 @@
         />
         <expense-action
             [isDebt]="expense.isDebt()"
+            (payback)="onPayback()"
         />
     } @else {
         <expense-skeleton/>

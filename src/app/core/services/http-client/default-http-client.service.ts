@@ -8,4 +8,8 @@ export class DefaultHttpClientService implements HttpClientService {
     get<T>(url: string): Observable<T> {
         return this.httpClient.get<T>(url);
     }
+
+    patch(url: string): Observable<void> {
+        return this.httpClient.patch<void>(url, {});
+    }
 }

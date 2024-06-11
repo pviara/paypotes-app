@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { ContactsComponentModule } from '@contacts/contacts.view-module';
 import { CoreModule } from '@core/core.module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { HomeViewModule } from '@home/home.view-module';
+import { NotificationService } from '@core/services/notification/notification.service';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     imports: [
+        CommonModule,
         CoreModule,
         ContactsComponentModule,
         ExpensesViewModule,
@@ -16,5 +19,10 @@ import { RouterOutlet } from '@angular/router';
         RouterOutlet,
     ],
     templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {}
+export class AppComponent {
+    private notificationService = inject(NotificationService);
+
+    $notification = this.notificationService.$notification;
+}

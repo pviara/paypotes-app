@@ -1,0 +1,29 @@
+header {
+    margin-bottom: 4vh;
+
+    padding-bottom: 2vh;
+    border-bottom: 2px solid #2c2c2c;
+
+    display: flex;
+    justify-content: space-between;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+
+        &.origin {
+            text-align: right;
+        }
+
+        label {
+            font-family: 'bold';
+            color: #fff;
+        }
+
+        span {
+            font-family: 'regular';
+            color: #737373;
+        }
+    }
+}

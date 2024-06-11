@@ -1,0 +1,10 @@
+<button
+    [disabled]="clicked"
+    [ngClass]="{ 'disabled': clicked }"
+    (click)="onClick()">
+    @if (isDebt()) {
+        J'ai remboursé !
+    } @else {
+        On m'a remboursé !
+    }
+</button>

@@ -1,0 +1,14 @@
+<header>
+    <div>
+        <label>Date</label>
+        <span>
+            Le {{ date() | formatDate }}
+        </span>
+    </div>
+    <div class="origin">
+        <label>Contact</label>
+        <span>
+            {{ origin().getFullName() }}
+        </span>
+    </div>
+</header>

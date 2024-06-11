@@ -7,9 +7,13 @@ import {
     inject,
     input,
 } from '@angular/core';
+import { Contact } from '@core/model/contact/contact';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import { Expense } from '@core/model/expense/expense';
 import { generateRandomString } from '@shared/utils/generate-random-string';
+import { Group } from '@core/model/group/group';
 import { ListElement } from '@core/model/list-element/list-element';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'list-element',
@@ -19,6 +23,7 @@ import { ListElement } from '@core/model/list-element/list-element';
 export class ListElementComponent implements AfterViewInit {
     private document = inject(DOCUMENT);
     private platformId = inject(PLATFORM_ID);
+    private router = inject(Router);
 
     private observer!: IntersectionObserver;
 
@@ -37,6 +42,25 @@ export class ListElementComponent implements AfterViewInit {
 
             const targets = this.document.querySelectorAll(`#${this.randomId}`);
             this.observe(targets);
+        }
+    }
+
+    redirectToDetail(): void {
+        const element = this.element();
+        if (!element) {
+            return;
+        }
+
+        const type = {
+            isContact: element instanceof Contact,
+            isExpense: element instanceof Expense,
+            isGroup: element instanceof Group,
+        };
+
+        if (type.isContact) {
+        } else if (type.isExpense) {
+            this.router.navigate([`/expenses/${element.getId()}`]);
+        } else if (type.isGroup) {
         }
     }
 

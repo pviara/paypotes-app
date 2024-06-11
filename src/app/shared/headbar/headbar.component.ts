@@ -1,21 +1,18 @@
-import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { map } from 'rxjs';
-import { Title } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { ViewService } from '@core/services/view/view.service';
 
 @Component({
     selector: 'headbar',
     templateUrl: './headbar.component.html',
     styleUrls: ['./headbar.component.scss'],
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, RouterModule],
 })
 export class HeadbarComponent {
-    private route = inject(ActivatedRoute);
-    private title = inject(Title);
+    private viewService = inject(ViewService);
 
-    viewTitle = this.title.getTitle();
-
-    $viewType = this.route.firstChild?.data.pipe(map((data) => data['type']));
+    $viewTitle = this.viewService.$viewTitle;
+    $viewType = this.viewService.$viewType;
 }

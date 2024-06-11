@@ -1,18 +1,17 @@
-import { CoreModule } from '@core/core.module';
+import { ExpenseComponentModule } from '@expenses/expense/expense.component-module';
+import { ExpensesComponentModule } from '@expenses/expenses/expenses.component-module';
 import { expensesRoutes } from '@expenses/expenses.routes';
 import { ExpensesView } from '@expenses/expenses.view';
-import { ExpensesComponent } from '@expenses/expenses/expenses.component';
-import { ExplorerComponentModule } from '@shared/explorer/explorer.component-module';
 import { HeadbarComponent } from '@shared/headbar/headbar.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-    declarations: [ExpensesView, ExpensesComponent],
+    declarations: [ExpensesView],
     exports: [RouterModule],
     imports: [
-        CoreModule,
-        ExplorerComponentModule,
+        ExpenseComponentModule,
+        ExpensesComponentModule,
         HeadbarComponent,
         RouterModule.forChild(expensesRoutes),
     ],

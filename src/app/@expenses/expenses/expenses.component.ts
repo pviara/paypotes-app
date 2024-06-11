@@ -5,9 +5,7 @@ import { Filters } from '@core/model/expense/filters';
 import { ListElements } from '@core/model/list-element/list-element';
 
 @Component({
-    selector: 'paginated-expenses',
     templateUrl: './expenses.component.html',
-    styleUrls: ['./expenses.component.scss'],
 })
 export class ExpensesComponent {
     private expenseService = inject(ExpenseServiceToken);

@@ -1,4 +1,4 @@
-<li [id]="randomId">
+<li [id]="randomId" (click)="redirectToDetail()">
     @if (element(); as element) {
         <description [element]="element"/>
         <balance

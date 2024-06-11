@@ -1,0 +1,16 @@
+.notification {
+    position: absolute;
+    bottom: 0;
+
+    padding: 4%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #39944a;
+    border-radius: 1rem;
+
+    font-family: 'regular';
+    color: #fff;
+}

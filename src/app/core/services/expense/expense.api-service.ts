@@ -6,11 +6,19 @@ import { generateRandomString } from '@shared/utils/generate-random-string';
 import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
+import { Contact } from '@core/model/contact/contact';
+import { generateRandomDate } from '@shared/utils/get-random-date';
 
 export class ExpenseAPIService implements ExpenseService {
     private readonly endpoint = 'api_url_to_expense';
 
     constructor(private httpClientService: HttpClientService) {}
+
+    getExpense(id: string): Observable<Expense> {
+        return this.httpClientService
+            .get<Expense>(`${this.endpoint}/${id}`)
+            .pipe(map(() => this.getRandomExpense(999)));
+    }
 
     getExpenses(pageIndex = 0, filters?: Filters): Observable<Expenses> {
         const url = this.buildURLWith(pageIndex, filters);
@@ -18,6 +26,12 @@ export class ExpenseAPIService implements ExpenseService {
         return this.httpClientService
             .get<Expenses>(url)
             .pipe(map(this.getRandomExpenses()));
+    }
+
+    payback(expenseId: string): Observable<void> {
+        return this.httpClientService.patch(
+            `${this.endpoint}/payback/${expenseId}`,
+        );
     }
 
     private buildURLWith(pageIndex: number, filters?: Filters): string {
@@ -48,14 +62,25 @@ export class ExpenseAPIService implements ExpenseService {
 
     private getRandomExpenses(): () => Expenses {
         return () =>
-            Array.from({ length: 20 }).map((_, index) => {
-                return new Expense({
-                    id: generateRandomString(),
-                    label: `Dépense #${index}`,
-                    emoji: getRandomEmoji() as Emoji,
-                    origin: 'Claire',
-                    balance: Math.random() * (9999 - -9999 + 1) + -9999,
-                });
-            });
+            Array.from({ length: 20 }).map((_, index) =>
+                this.getRandomExpense(index),
+            );
+    }
+
+    private getRandomExpense(index: number): Expense {
+        return new Expense({
+            id: generateRandomString(),
+            label: `Dépense #${index}`,
+            date: generateRandomDate(),
+            emoji: getRandomEmoji() as Emoji,
+            origin: new Contact({
+                id: generateRandomString(),
+                firstname: 'Claire',
+                lastname: 'Laroche',
+                avatarURL: 'claire.png',
+                balance: 9080,
+            }),
+            balance: Math.ceil(Math.random() * (9999 - -9999 + 1) + -9999),
+        });
     }
 }

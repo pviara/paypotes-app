@@ -11,8 +11,8 @@ import { NgModule } from '@angular/core';
     providers: [
         ContactServiceProvider,
         ExpenseServiceProvider,
-        HttpClientServiceProvider,
         GroupServiceProvider,
+        HttpClientServiceProvider,
         HttpInterceptorProvider,
     ],
 })

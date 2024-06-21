@@ -6,15 +6,25 @@
                 src="../../../assets/icons/arrow.svg"
             />
         </a>
-        <h1 class="bold">
-            {{ $viewTitle | async }}
-        </h1>
-    </div>
-    @switch ($viewType | async) {
-        @case ('list') {
-            <div class="add">
-                +
+        @if (title(); as title) {
+            <div class="titles">
+              @if (subtitle(); as subtitle) {
+                  <h2>{{ subtitle }}</h2>
+              }
+              <h1 class="bold">
+                  {{ title }}
+              </h1>
+            </div>
+        } @else {
+            <div class="skeleton">
+                @if (subtitle(); as subtitle) {
+                    <h2>{{ subtitle }}</h2>
+                }
+                <h1></h1>
             </div>
         }
-    }
+    </div>
+    <div class="add">
+        +
+    </div>
 </header>

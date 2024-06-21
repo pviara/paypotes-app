@@ -1,11 +1,12 @@
 import { Filters } from '@core/model/expense/filters';
+import { generateRandomString } from '@shared/utils/generate-random-string';
 import { Group, Groups } from '@core/model/group/group';
 import { GroupService } from '@core/services/group/group.service';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
-import { Observable, map, of } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 export class GroupAPIService implements GroupService {
-    private readonly endpoint = 'http://localhost:3000/api/group';
+    private readonly endpoint = '/api/group';
 
     constructor(private httpClientService: HttpClientService) {}
 
@@ -64,28 +65,28 @@ export class GroupAPIService implements GroupService {
     private getDeterministicGroups(): () => Groups {
         return () => [
             new Group({
-                id: 'B',
+                id: generateRandomString(),
                 name: 'BBQ',
                 emoji: '🌭',
                 members: Array.from({ length: 4 }),
                 balance: 9845,
             }),
             new Group({
-                id: 'C',
+                id: generateRandomString(),
                 name: 'Fiesta',
                 emoji: '🍾',
                 members: Array.from({ length: 18 }),
                 balance: -1347,
             }),
             new Group({
-                id: 'D',
+                id: generateRandomString(),
                 name: 'Birthday',
                 emoji: '🎈',
                 members: Array.from({ length: 9 }),
                 balance: 3183,
             }),
             new Group({
-                id: 'A',
+                id: generateRandomString(),
                 name: 'Bretagne',
                 emoji: '🌊',
                 members: Array.from({ length: 6 }),

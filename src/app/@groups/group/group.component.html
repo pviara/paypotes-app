@@ -1,12 +1,16 @@
-@if ($group | async; as group) {
-  <div>
-    <balance
-      [balance]="group.formatBalance()"
-      [isDebt]="group.isDebt()"
-    />
+<headbar
+  [subtitle]="'Dépenses'"
+  [title]="($group | async)?.getName()"
+/>
+<div>
+    @if ($group | async; as group) {
+        <balance
+            [balance]="group.formatBalance()"
+            [isDebt]="group.isDebt()"
+        />
+    }
     <explorer
-      [$elements]="$expenses"
-      (elementsRequested)="onExpensesRequested($event)"
+        [$elements]="$expenses"
+        (elementsRequested)="onExpensesRequested($event)"
     />
-  </div>
-}
+</div>

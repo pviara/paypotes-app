@@ -1,8 +1,8 @@
+import { CommonModule } from '@angular/common';
 import { ExpenseComponentModule } from '@expenses/expense/expense.component-module';
 import { ExpensesComponentModule } from '@expenses/expenses/expenses.component-module';
 import { expensesRoutes } from '@expenses/expenses.routes';
 import { ExpensesView } from '@expenses/expenses.view';
-import { HeadbarComponent } from '@shared/headbar/headbar.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -10,9 +10,9 @@ import { RouterModule } from '@angular/router';
     declarations: [ExpensesView],
     exports: [RouterModule],
     imports: [
+        CommonModule,
         ExpenseComponentModule,
         ExpensesComponentModule,
-        HeadbarComponent,
         RouterModule.forChild(expensesRoutes),
     ],
 })

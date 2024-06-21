@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { switchMap, tap } from 'rxjs';
+import { shareReplay, switchMap, tap } from 'rxjs';
 
 @Component({
     selector: 'expense',
@@ -20,6 +20,7 @@ export class ExpenseComponent {
     $expense = this.route.params.pipe(
         tap((params) => (this.expenseId = params['expenseId'])),
         switchMap(() => this.expenseService.getExpense(this.expenseId)),
+        shareReplay(1),
     );
 
     onPayback(): void {

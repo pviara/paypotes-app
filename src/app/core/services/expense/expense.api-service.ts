@@ -10,7 +10,7 @@ import { HttpClientService } from '@core/services/http-client/http-client.servic
 import { Observable, map } from 'rxjs';
 
 export class ExpenseAPIService implements ExpenseService {
-    private readonly endpoint = 'http://localhost:3000/api/expense';
+    private readonly endpoint = '/api/expense';
 
     constructor(private httpClientService: HttpClientService) {}
 
@@ -25,7 +25,7 @@ export class ExpenseAPIService implements ExpenseService {
 
         return this.httpClientService
             .get<Expenses>(url)
-            .pipe(map(this.getRandomExpenses()));
+            .pipe(map(this.getRandomExpenses(filters?.type)));
     }
 
     getGroupExpenses(
@@ -37,7 +37,7 @@ export class ExpenseAPIService implements ExpenseService {
 
         return this.httpClientService
             .get<Expenses>(url)
-            .pipe(map(this.getRandomExpenses()));
+            .pipe(map(this.getRandomExpenses(filters?.type)));
     }
 
     payback(id: string): Observable<void> {
@@ -71,11 +71,27 @@ export class ExpenseAPIService implements ExpenseService {
         return url;
     }
 
-    private getRandomExpenses(): () => Expenses {
+    private getRandomExpenses(type: Filters['type']): () => Expenses {
         return () =>
-            Array.from({ length: 20 }).map((_, index) =>
-                this.getRandomExpense(index),
-            );
+            Array.from({ length: 20 })
+                .map((_, index) => this.getRandomExpense(index))
+                .map((expense) => {
+                    if (!type) {
+                        return expense;
+                    }
+
+                    return new Expense({
+                        id: expense.getId(),
+                        label: expense.getLabel(),
+                        date: expense.getDate(),
+                        emoji: expense.getEmoji(),
+                        balance:
+                            type === 'debt'
+                                ? -Math.abs(expense.getBalance() * 100)
+                                : Math.abs(expense.getBalance() * 100),
+                        origin: expense.getOrigin(),
+                    });
+                });
     }
 
     private getRandomExpense(index: number): Expense {

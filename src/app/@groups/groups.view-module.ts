@@ -1,4 +1,3 @@
-import { HeadbarComponent } from '@shared/headbar/headbar.component';
 import { groupsRoutes } from '@groups/groups.routes';
 import { GroupComponentModule } from '@groups/group/group.component-module';
 import { GroupsComponentModule } from '@groups/groups/groups.component-module';
@@ -12,7 +11,6 @@ import { RouterModule } from '@angular/router';
     imports: [
         GroupsComponentModule,
         GroupComponentModule,
-        HeadbarComponent,
         RouterModule.forChild(groupsRoutes),
     ],
 })

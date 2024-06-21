@@ -2,12 +2,25 @@ import { Filters } from '@core/model/expense/filters';
 import { Group, Groups } from '@core/model/group/group';
 import { GroupService } from '@core/services/group/group.service';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 
 export class GroupAPIService implements GroupService {
     private readonly endpoint = 'api_url_to_group';
 
     constructor(private httpClientService: HttpClientService) {}
+
+    getGroup(id: string): Observable<Group> {
+        return of(
+            new Group({
+                id,
+                name: 'Birthday',
+                emoji: '🎈',
+                members: Array.from({ length: 9 }),
+                balance: 3183,
+                expenses: [],
+            }),
+        );
+    }
 
     getGroups(pageIndex = 0, filters?: Filters): Observable<Groups> {
         const url = this.buildURLWith(pageIndex, filters);
@@ -51,6 +64,7 @@ export class GroupAPIService implements GroupService {
                 emoji: '🌭',
                 members: Array.from({ length: 4 }),
                 balance: 9845,
+                expenses: [],
             }),
             new Group({
                 id: 'C',
@@ -58,6 +72,7 @@ export class GroupAPIService implements GroupService {
                 emoji: '🍾',
                 members: Array.from({ length: 18 }),
                 balance: -1347,
+                expenses: [],
             }),
             new Group({
                 id: 'D',
@@ -65,6 +80,7 @@ export class GroupAPIService implements GroupService {
                 emoji: '🎈',
                 members: Array.from({ length: 9 }),
                 balance: 3183,
+                expenses: [],
             }),
             new Group({
                 id: 'A',
@@ -72,6 +88,7 @@ export class GroupAPIService implements GroupService {
                 emoji: '🌊',
                 members: Array.from({ length: 6 }),
                 balance: -6980,
+                expenses: [],
             }),
         ];
     }

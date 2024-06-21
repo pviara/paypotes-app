@@ -1,4 +1,5 @@
 import { Emoji } from '@core/model/emoji';
+import { Expense, Expenses } from '@core/model/expense/expense';
 
 export class Group {
     constructor(
@@ -8,6 +9,7 @@ export class Group {
             readonly emoji: Emoji;
             readonly members: Array<unknown>;
             readonly balance: number;
+            readonly expenses: Expenses;
         },
     ) {}
 
@@ -21,6 +23,10 @@ export class Group {
 
     getEmoji(): Emoji {
         return this.data.emoji;
+    }
+
+    getExpenses(): Expenses {
+        return this.data.expenses;
     }
 
     getId(): string {

@@ -1,4 +1,4 @@
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import { Filters } from '@core/model/expense/filters';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';

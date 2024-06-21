@@ -1,3 +1,4 @@
+import { GroupComponent } from '@groups/group/group.component';
 import { GroupsComponent } from '@groups/groups/groups.component';
 import { GroupsView } from '@groups/groups.view';
 import { Routes } from '@angular/router';
@@ -13,6 +14,12 @@ export const groupsRoutes: Routes = [
                 component: GroupsComponent,
                 title: 'Groupes',
                 data: { type: ViewType.List },
+            },
+            {
+                path: ':groupId',
+                component: GroupComponent,
+                title: 'Groupe',
+                data: { type: ViewType.Detail },
             },
         ],
     },

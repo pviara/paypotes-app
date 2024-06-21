@@ -40,10 +40,8 @@ export class ExpenseAPIService implements ExpenseService {
             .pipe(map(this.getRandomExpenses()));
     }
 
-    payback(expenseId: string): Observable<void> {
-        return this.httpClientService.patch(
-            `${this.endpoint}/payback/${expenseId}`,
-        );
+    payback(id: string): Observable<void> {
+        return this.httpClientService.patch(`${this.endpoint}/payback/${id}`);
     }
 
     private buildURLWith(query: Record<string, any>): string {

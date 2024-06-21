@@ -8,11 +8,19 @@ export class HttpClientServiceSpy implements Spy<HttpClientService> {
             count: 0,
             history: [] as string[],
         },
+        patch: {
+            count: 0,
+            history: [] as string[],
+        },
     };
 
     get<T>(url: string): Observable<T> {
         this.incrementCallsToGetWith(url);
         return of({}) as Observable<T>;
+    }
+
+    patch(url: string): Observable<void> {
+        return of();
     }
 
     incrementCallsToGetWith(url: string): void {

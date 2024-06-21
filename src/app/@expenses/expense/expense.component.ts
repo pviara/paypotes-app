@@ -15,13 +15,11 @@ export class ExpenseComponent {
     private route = inject(ActivatedRoute);
     private router = inject(Router);
 
-    private expenseId?: string;
+    private expenseId = '';
 
     $expense = this.route.params.pipe(
         tap((params) => (this.expenseId = params['expenseId'])),
-        switchMap((params) =>
-            this.expenseService.getExpense(params['expenseId']),
-        ),
+        switchMap((params) => this.expenseService.getExpense(this.expenseId)),
     );
 
     onPayback(): void {

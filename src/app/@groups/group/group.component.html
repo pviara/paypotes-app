@@ -1,0 +1,7 @@
+@if ($group | async; as group) {
+  {{ group.formatBalance() }}
+  <explorer
+    [$elements]="$expenses"
+    (elementsRequested)="onExpensesRequested($event)"
+  />
+}

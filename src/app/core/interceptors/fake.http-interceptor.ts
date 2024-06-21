@@ -1,6 +1,5 @@
 import {
     HttpEvent,
-    HttpHandler,
     HttpInterceptor,
     HttpRequest,
     HttpResponse,
@@ -8,11 +7,8 @@ import {
 import { Observable, delay, of, tap } from 'rxjs';
 
 export class FakeHttpInterceptor implements HttpInterceptor {
-    intercept(
-        req: HttpRequest<any>,
-        next: HttpHandler,
-    ): Observable<HttpEvent<unknown>> {
-        console.log('🛜 Calling server |', req.url);
+    intercept(req: HttpRequest<any>): Observable<HttpEvent<unknown>> {
+        console.log('🛜 Calling server at', req.method, req.url);
         return of(new HttpResponse({ status: 200, body: [] })).pipe(
             delay(2000),
         );

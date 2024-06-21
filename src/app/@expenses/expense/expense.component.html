@@ -1,3 +1,7 @@
+<headbar
+  [subtitle]="'Dépense'"
+  [title]="($expense | async)?.getLabel()"
+/>
 <section>
     @if ($expense | async; as expense) {
         <expense-header

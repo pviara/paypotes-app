@@ -6,7 +6,7 @@ import { HttpClientService } from '@core/services/http-client/http-client.servic
 import { Observable, map } from 'rxjs';
 
 export class ContactAPIService implements ContactService {
-    private readonly endpoint = 'api_url_to_contact';
+    private readonly endpoint = '/api/contact';
 
     constructor(private httpClientService: HttpClientService) {}
 

@@ -7,7 +7,7 @@ import { SkeletonComponent } from '@shared/explorer/list/list-element/skeleton/s
 
 @NgModule({
     declarations: [BalanceComponent, ListElementComponent, SkeletonComponent],
-    exports: [ListElementComponent],
+    exports: [ListElementComponent, BalanceComponent],
     imports: [CommonModule, DescriptionComponentModule],
 })
 export class ListElementComponentModule {}

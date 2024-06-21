@@ -1,4 +1,6 @@
 import { Expense } from './expense';
+import { Contact } from '@core/model/contact/contact';
+import { generateRandomString } from '@shared/utils/generate-random-string';
 
 describe('Expense', () => {
     it('should name the expense correctly', () => {
@@ -6,9 +8,16 @@ describe('Expense', () => {
         const sut = new Expense({
             id: '8911SPEA',
             label,
+            date: new Date('2024-10-09'),
             emoji: '🎥',
             balance: 800,
-            origin: 'Claire',
+            origin: new Contact({
+                id: generateRandomString(),
+                firstname: 'Claire',
+                lastname: 'Davis',
+                avatarURL: 'claire.png',
+                balance: -3421,
+            }),
         });
 
         expect(sut.getLabel()).toBe(label);
@@ -74,8 +83,15 @@ function createExpenseWith(data: { balance: number }): Expense {
     return new Expense({
         id: '8911SPEA',
         label: 'Courses',
+        date: new Date('2024-10-09'),
         emoji: '🛒',
         balance: data.balance,
-        origin: 'Ahmed',
+        origin: new Contact({
+            id: generateRandomString(),
+            firstname: 'Ahmed',
+            lastname: 'Benjelloun',
+            avatarURL: 'ahmed.png',
+            balance: -3421,
+        }),
     });
 }

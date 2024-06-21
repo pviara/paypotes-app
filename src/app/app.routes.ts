@@ -1,4 +1,4 @@
-import { ContactsComponentModule } from '@contacts/contacts.view-module';
+import { ContactsViewModule } from '@contacts/contacts.view-module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { GroupsViewModule } from '@groups/groups.view-module';
 import { HomeView } from '@home/home.view';
@@ -28,10 +28,10 @@ export const routes: Routes = [
     },
 ];
 
-function importContactsView(): () => Promise<typeof ContactsComponentModule> {
+function importContactsView(): () => Promise<typeof ContactsViewModule> {
     return async () => {
         const imported = await import('@contacts/contacts.view-module');
-        return imported.ContactsComponentModule;
+        return imported.ContactsViewModule;
     };
 }
 

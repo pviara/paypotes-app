@@ -29,6 +29,7 @@ export class ViewService {
                 }
 
                 const { data, title } = currentRoute;
+                console.log(data, title);
 
                 if (title) {
                     this.viewTitle$.next(title);

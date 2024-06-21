@@ -1,12 +1,15 @@
 import { Group } from './group';
+import { generateRandomString } from '@shared/utils/generate-random-string';
 
 describe('Group', () => {
     it('should name the group correctly', () => {
         const name = 'Bretagne';
         const sut = new Group({
-            id: '4532ddgk',
-            name,
+            id: generateRandomString(),
+            name: 'Bretagne',
+            emoji: '🌊',
             members: [],
+            balance: 280,
         });
 
         expect(sut.getName()).toBe(name);
@@ -15,9 +18,11 @@ describe('Group', () => {
     it('should count the right amount of people', () => {
         const members = ['Peter', 'Nicholas', 'Gia'];
         const sut = new Group({
-            id: '3819poa91',
+            id: generateRandomString(),
             name: 'Bretagne',
+            emoji: '🌊',
             members,
+            balance: 280,
         });
 
         expect(sut.countMembers()).toBe(members.length);

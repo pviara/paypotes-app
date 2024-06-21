@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ContactsComponentModule } from '@contacts/contacts.view-module';
+import { ContactsViewModule } from '@contacts/contacts.view-module';
 import { CoreModule } from '@core/core.module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { HomeViewModule } from '@home/home.view-module';
@@ -13,7 +13,7 @@ import { RouterOutlet } from '@angular/router';
     imports: [
         CommonModule,
         CoreModule,
-        ContactsComponentModule,
+        ContactsViewModule,
         ExpensesViewModule,
         HomeViewModule,
         RouterOutlet,

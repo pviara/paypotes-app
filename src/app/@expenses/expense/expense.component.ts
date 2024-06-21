@@ -19,7 +19,7 @@ export class ExpenseComponent {
 
     $expense = this.route.params.pipe(
         tap((params) => (this.expenseId = params['expenseId'])),
-        switchMap((params) => this.expenseService.getExpense(this.expenseId)),
+        switchMap(() => this.expenseService.getExpense(this.expenseId)),
     );
 
     onPayback(): void {

@@ -10,7 +10,7 @@ import { HttpClientService } from '@core/services/http-client/http-client.servic
 import { Observable, map } from 'rxjs';
 
 export class ExpenseAPIService implements ExpenseService {
-    private readonly endpoint = 'api_url_to_expense';
+    private readonly endpoint = 'http://localhost:3000/api/expense';
 
     constructor(private httpClientService: HttpClientService) {}
 

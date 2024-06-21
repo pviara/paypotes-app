@@ -1,10 +1,10 @@
+import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, switchMap, tap } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { Filters } from '@core/model/expense/filters';
-import { ListElements } from '@core/model/list-element/list-element';
-import { ActivatedRoute } from '@angular/router';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
+import { ListElements } from '@core/model/list-element/list-element';
 
 @Component({
     selector: 'group',
@@ -20,8 +20,7 @@ export class GroupComponent {
 
     $group = this.route.params.pipe(
         tap((params) => (this.groupId = params['groupId'])),
-        switchMap((params) => this.groupService.getGroup(this.groupId)),
-        tap((group) => this.$expenses.next(group.getExpenses())),
+        switchMap(() => this.groupService.getGroup(this.groupId)),
     );
 
     $expenses = new BehaviorSubject<ListElements>([]);

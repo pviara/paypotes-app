@@ -43,6 +43,21 @@ li {
     padding: 0;
 }
 
+span {
+    &.claim,
+    &.debt {
+        font-family: 'bold';
+    }
+
+    &.claim {
+        color: #43ba59;
+    }
+
+    &.debt {
+        color: #ba4343;
+    }
+}
+
 @keyframes skeletonLoading {
     0% {
         background-position: 200% 0;

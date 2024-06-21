@@ -103,13 +103,27 @@ describe('ExpenseAPIService', () => {
                         expect(httpClientService.calls.get.count).toBe(1);
 
                         const [call] = httpClientService.calls.get.history;
-                        console.log(call);
                         const clientHasBeenCalledWithType = call.includes(
                             `&type=${type}`,
                         );
                         expect(clientHasBeenCalledWithType).toBe(true);
                     }),
                 );
+            });
+        });
+    });
+
+    describe('getGroupExpenses', () => {
+        it('should get group expenses from server', () => {
+            const groupId = 'groupId';
+            sut.getGroupExpenses(groupId).subscribe(() => {
+                expect(httpClientService.calls.get.count).toBe(1);
+
+                const [call] = httpClientService.calls.get.history;
+                const clientHasBeenCalledWithGroupId = call.includes(
+                    `groupId=${groupId}`,
+                );
+                expect(clientHasBeenCalledWithGroupId).toBe(true);
             });
         });
     });

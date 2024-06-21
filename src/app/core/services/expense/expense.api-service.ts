@@ -1,13 +1,13 @@
+import { Contact } from '@core/model/contact/contact';
 import { Emoji } from '@core/model/emoji';
 import { Expense, Expenses } from '@core/model/expense/expense';
 import { ExpenseService } from '@core/services/expense/expense.service';
 import { Filters } from '@core/model/expense/filters';
+import { generateRandomDate } from '@shared/utils/get-random-date';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
-import { Contact } from '@core/model/contact/contact';
-import { generateRandomDate } from '@shared/utils/get-random-date';
 
 export class ExpenseAPIService implements ExpenseService {
     private readonly endpoint = 'api_url_to_expense';
@@ -21,7 +21,19 @@ export class ExpenseAPIService implements ExpenseService {
     }
 
     getExpenses(pageIndex = 0, filters?: Filters): Observable<Expenses> {
-        const url = this.buildURLWith(pageIndex, filters);
+        const url = this.buildURLWith({ pageIndex, filters });
+
+        return this.httpClientService
+            .get<Expenses>(url)
+            .pipe(map(this.getRandomExpenses()));
+    }
+
+    getGroupExpenses(
+        groupId: string,
+        pageIndex = 0,
+        filters?: Filters,
+    ): Observable<Expenses> {
+        const url = this.buildURLWith({ groupId, pageIndex, filters });
 
         return this.httpClientService
             .get<Expenses>(url)
@@ -34,29 +46,30 @@ export class ExpenseAPIService implements ExpenseService {
         );
     }
 
-    private buildURLWith(pageIndex: number, filters?: Filters): string {
-        const query: Record<string, string | undefined> = {
-            pageIndex: pageIndex.toString(),
-            search: filters?.search,
-            type: filters?.type,
-        };
-
+    private buildURLWith(query: Record<string, any>): string {
         const isQueryEmpty = Object.values(query).every((value) => !value);
         if (isQueryEmpty) {
             return this.endpoint;
         }
 
-        let url = `${this.endpoint}?`;
+        const url = `${this.endpoint}?`;
+        return this.appendElementsFrom(query, url);
+    }
 
-        Object.keys(query).forEach((key) => {
+    private appendElementsFrom(query: Record<string, any>, url = ''): string {
+        for (const key of Object.keys(query)) {
             const value = query[key];
 
             if (value) {
+                if (typeof value === 'object') {
+                    url += this.appendElementsFrom(value);
+                    continue;
+                }
+
                 const prefix = url.endsWith('?') ? '' : '&';
                 url += `${prefix}${key}=${value}`;
             }
-        });
-
+        }
         return url;
     }
 

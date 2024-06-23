@@ -8,11 +8,15 @@ import { generateRandomString } from '@shared/utils/generate-random-string';
 import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
+import { QueryService } from '@core/services/query/query.service';
 
 export class ExpenseAPIService implements ExpenseService {
     private readonly endpoint = '/api/expense';
 
-    constructor(private httpClientService: HttpClientService) {}
+    constructor(
+        private httpClientService: HttpClientService,
+        private queryService: QueryService,
+    ) {}
 
     getExpense(id: string): Observable<Expense> {
         return this.httpClientService
@@ -21,7 +25,7 @@ export class ExpenseAPIService implements ExpenseService {
     }
 
     getExpenses(pageIndex = 0, filters?: Filters): Observable<Expenses> {
-        const url = this.buildURLWith({ pageIndex, filters });
+        const url = this.queryService.buildQueryFrom({ pageIndex, filters });
 
         return this.httpClientService
             .get<Expenses>(url)
@@ -33,7 +37,11 @@ export class ExpenseAPIService implements ExpenseService {
         pageIndex = 0,
         filters?: Filters,
     ): Observable<Expenses> {
-        const url = this.buildURLWith({ groupId, pageIndex, filters });
+        const url = this.queryService.buildQueryFrom({
+            groupId,
+            pageIndex,
+            filters,
+        });
 
         return this.httpClientService
             .get<Expenses>(url)
@@ -42,33 +50,6 @@ export class ExpenseAPIService implements ExpenseService {
 
     payback(id: string): Observable<void> {
         return this.httpClientService.patch(`${this.endpoint}/payback/${id}`);
-    }
-
-    private buildURLWith(query: Record<string, any>): string {
-        const isQueryEmpty = Object.values(query).every((value) => !value);
-        if (isQueryEmpty) {
-            return this.endpoint;
-        }
-
-        const url = `${this.endpoint}?`;
-        return this.appendElementsFrom(query, url);
-    }
-
-    private appendElementsFrom(query: Record<string, any>, url = ''): string {
-        for (const key of Object.keys(query)) {
-            const value = query[key];
-
-            if (value) {
-                if (typeof value === 'object') {
-                    url += this.appendElementsFrom(value);
-                    continue;
-                }
-
-                const prefix = url.endsWith('?') ? '' : '&';
-                url += `${prefix}${key}=${value}`;
-            }
-        }
-        return url;
     }
 
     private getRandomExpenses(type: Filters['type']): () => Expenses {

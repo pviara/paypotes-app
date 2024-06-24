@@ -32,10 +32,10 @@ export class GroupAPIService implements GroupService {
     }
 
     getGroups(pageIndex = 0, filters?: Filters): Observable<Groups> {
-        const url = this.queryService.buildQueryFrom({ pageIndex, filters });
+        const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
         return this.httpClientService
-            .get<Groups>(url)
+            .get<Groups>(`${this.endpoint}${query}`)
             .pipe(map(this.getDeterministicGroups()));
     }
 

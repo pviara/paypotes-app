@@ -1,4 +1,4 @@
-import { ContactAPIService } from '@core/services/contact/contact.api-service';
+import { GroupAPIService } from '@core/services/group/group.api-service';
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
 import {
     QueryServiceSpy,
@@ -6,8 +6,8 @@ import {
 } from '@test/doubles/query.service.spy';
 import { Subscription } from 'rxjs';
 
-describe('ContactAPIService', () => {
-    let sut: ContactAPIService;
+describe('GroupAPIService', () => {
+    let sut: GroupAPIService;
 
     let httpClientService: HttpClientServiceSpy;
     let queryService: QueryServiceSpy;
@@ -18,13 +18,13 @@ describe('ContactAPIService', () => {
         httpClientService = new HttpClientServiceSpy();
         queryService = new QueryServiceSpy();
 
-        sut = new ContactAPIService(httpClientService, queryService);
+        sut = new GroupAPIService(httpClientService, queryService);
     });
 
     afterAll(() => subscription.unsubscribe());
 
-    it('should get contacts from server', () => {
-        sut.getContacts().subscribe(() => {
+    it('should get groups from server', () => {
+        sut.getGroups().subscribe(() => {
             expect(httpClientService.calls.get.count).toBe(1);
 
             const [call] = httpClientService.calls.get.history;
@@ -43,7 +43,7 @@ describe('ContactAPIService', () => {
             stubBuildQueryFrom(queryService, `search=${search}`);
 
             subscription.add(
-                sut.getContacts(0, { search }).subscribe(() => {
+                sut.getGroups(0, { search }).subscribe(() => {
                     expect(httpClientService.calls.get.count).toBe(1);
 
                     const [call] = httpClientService.calls.get.history;
@@ -64,7 +64,7 @@ describe('ContactAPIService', () => {
             stubBuildQueryFrom(queryService, `?pageIndex=${pageIndex}`);
 
             subscription.add(
-                sut.getContacts(pageIndex).subscribe(() => {
+                sut.getGroups(pageIndex).subscribe(() => {
                     expect(httpClientService.calls.get.count).toBe(1);
 
                     const [call] = httpClientService.calls.get.history;
@@ -86,7 +86,7 @@ describe('ContactAPIService', () => {
             stubBuildQueryFrom(queryService, expectedQueryString);
 
             subscription.add(
-                sut.getContacts(pageIndex, { search }).subscribe(() => {
+                sut.getGroups(pageIndex, { search }).subscribe(() => {
                     expect(httpClientService.calls.get.count).toBe(1);
 
                     const [call] = httpClientService.calls.get.history;
@@ -107,7 +107,7 @@ describe('ContactAPIService', () => {
             stubBuildQueryFrom(queryService, expectedQueryString);
 
             subscription.add(
-                sut.getContacts(0, { type }).subscribe(() => {
+                sut.getGroups(0, { type }).subscribe(() => {
                     expect(httpClientService.calls.get.count).toBe(1);
 
                     const [call] = httpClientService.calls.get.history;

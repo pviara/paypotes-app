@@ -4,11 +4,15 @@ import { Group, Groups } from '@core/model/group/group';
 import { GroupService } from '@core/services/group/group.service';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
+import { QueryService } from '@core/services/query/query.service';
 
 export class GroupAPIService implements GroupService {
     private readonly endpoint = '/api/group';
 
-    constructor(private httpClientService: HttpClientService) {}
+    constructor(
+        private httpClientService: HttpClientService,
+        private queryService: QueryService,
+    ) {}
 
     getGroup(id: string): Observable<Group> {
         return this.httpClientService.get<Group>(`${this.endpoint}/${id}`).pipe(
@@ -28,38 +32,11 @@ export class GroupAPIService implements GroupService {
     }
 
     getGroups(pageIndex = 0, filters?: Filters): Observable<Groups> {
-        const url = this.buildURLWith({ pageIndex, filters });
+        const url = this.queryService.buildQueryFrom({ pageIndex, filters });
 
         return this.httpClientService
             .get<Groups>(url)
             .pipe(map(this.getDeterministicGroups()));
-    }
-
-    private buildURLWith(query: Record<string, any>): string {
-        const isQueryEmpty = Object.values(query).every((value) => !value);
-        if (isQueryEmpty) {
-            return this.endpoint;
-        }
-
-        const url = `${this.endpoint}?`;
-        return this.appendElementsFrom(query, url);
-    }
-
-    private appendElementsFrom(query: Record<string, any>, url = ''): string {
-        for (const key of Object.keys(query)) {
-            const value = query[key];
-
-            if (value) {
-                if (typeof value === 'object') {
-                    url += this.appendElementsFrom(value);
-                    continue;
-                }
-
-                const prefix = url.endsWith('?') ? '' : '&';
-                url += `${prefix}${key}=${value}`;
-            }
-        }
-        return url;
     }
 
     private getDeterministicGroups(): () => Groups {

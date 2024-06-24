@@ -4,7 +4,7 @@ import { Filters } from '@core/model/expense/filters';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
-import { QueryService } from '../query/query.service';
+import { QueryService } from '@core/services/query/query.service';
 
 export class ContactAPIService implements ContactService {
     private readonly endpoint = '/api/contact';

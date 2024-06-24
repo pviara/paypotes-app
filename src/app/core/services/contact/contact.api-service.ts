@@ -14,6 +14,25 @@ export class ContactAPIService implements ContactService {
         private queryService: QueryService,
     ) {}
 
+    getContact(id: string): Observable<Contact> {
+        return this.httpClientService
+            .get<Contact>(`${this.endpoint}/${id}`)
+            .pipe(
+                map(
+                    () =>
+                        new Contact({
+                            id,
+                            firstname: 'Claire',
+                            lastname: 'Laroche',
+                            avatarURL: 'claire.png',
+                            balance: Math.ceil(
+                                Math.random() * (9999 - -9999 + 1) + -9999,
+                            ),
+                        }),
+                ),
+            );
+    }
+
     getContacts(pageIndex = 0, filters?: Filters): Observable<Contacts> {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 

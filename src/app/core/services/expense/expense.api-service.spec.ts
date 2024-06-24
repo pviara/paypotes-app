@@ -23,6 +23,25 @@ describe('ExpenseAPIService', () => {
 
     afterAll(() => subscription.unsubscribe());
 
+    describe('getContactExpenses', () => {
+        it('should get contact expenses from server', () => {
+            const contactId = 'contactId';
+
+            const expectedQueryString = `contactId=${contactId}`;
+            stubBuildQueryFrom(queryService, expectedQueryString);
+
+            sut.getContactExpenses(contactId).subscribe(() => {
+                expect(httpClientService.calls.get.count).toBe(1);
+
+                const [call] = httpClientService.calls.get.history;
+                const clientHasBeenCalledWithGroupId =
+                    call.includes(expectedQueryString);
+
+                expect(clientHasBeenCalledWithGroupId).toBe(true);
+            });
+        });
+    });
+
     describe('getExpense', () => {
         it('should get expense from server', () => {
             const expenseId = 'expenseId';

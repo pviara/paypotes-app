@@ -1,0 +1,13 @@
+<headbar [subtitle]="'Dépenses'" [title]="($contact | async)?.getFullName()" />
+<div>
+    @if ($contact | async; as contact) {
+        <balance
+            [balance]="contact.formatBalance()"
+            [isDebt]="contact.isDebt()"
+        />
+    }
+    <explorer
+        [$elements]="$expenses"
+        (elementsRequested)="onExpensesRequested($event)"
+    />
+</div>

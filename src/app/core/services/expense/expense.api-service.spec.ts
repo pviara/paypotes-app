@@ -1,6 +1,9 @@
 import { ExpenseAPIService } from '@core/services/expense/expense.api-service';
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
-import { QueryServiceSpy } from '@test/doubles/query.service.spy';
+import {
+    QueryServiceSpy,
+    stubBuildQueryFrom,
+} from '@test/doubles/query.service.spy';
 import { Subscription } from 'rxjs';
 
 describe('ExpenseAPIService', () => {
@@ -44,6 +47,7 @@ describe('ExpenseAPIService', () => {
                 const [call] = httpClientService.calls.get.history;
                 const clientHasNotBeenCalledWithAnyElement =
                     !call.includes('search') && !call.includes('type');
+
                 expect(clientHasNotBeenCalledWithAnyElement).toBe(true);
             });
         });
@@ -153,10 +157,3 @@ describe('ExpenseAPIService', () => {
         });
     });
 });
-
-function stubBuildQueryFrom(service: QueryServiceSpy, value: string): void {
-    service.buildQueryFrom = (object: Record<string, any>): string => {
-        service.incrementCallsWith(object);
-        return value;
-    };
-}

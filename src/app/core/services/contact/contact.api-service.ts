@@ -4,44 +4,22 @@ import { Filters } from '@core/model/expense/filters';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
+import { QueryService } from '../query/query.service';
 
 export class ContactAPIService implements ContactService {
     private readonly endpoint = '/api/contact';
 
-    constructor(private httpClientService: HttpClientService) {}
+    constructor(
+        private httpClientService: HttpClientService,
+        private queryService: QueryService,
+    ) {}
 
     getContacts(pageIndex = 0, filters?: Filters): Observable<Contacts> {
-        const url = this.buildURLWith(pageIndex, filters);
+        const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
         return this.httpClientService
-            .get<Contacts>(url)
+            .get<Contacts>(`${this.endpoint}${query}`)
             .pipe(map(this.getDeterministicContacts()));
-    }
-
-    private buildURLWith(pageIndex: number, filters?: Filters): string {
-        const query: Record<string, string | undefined> = {
-            pageIndex: pageIndex.toString(),
-            search: filters?.search,
-            type: filters?.type,
-        };
-
-        const isQueryEmpty = Object.values(query).every((value) => !value);
-        if (isQueryEmpty) {
-            return this.endpoint;
-        }
-
-        let url = `${this.endpoint}?`;
-
-        Object.keys(query).forEach((key) => {
-            const value = query[key];
-
-            if (value) {
-                const prefix = url.endsWith('?') ? '' : '&';
-                url += `${prefix}${key}=${value}`;
-            }
-        });
-
-        return url;
     }
 
     private getDeterministicContacts(): () => Contacts {

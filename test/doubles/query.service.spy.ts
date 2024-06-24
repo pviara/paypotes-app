@@ -19,3 +19,13 @@ export class QueryServiceSpy implements Spy<QueryService> {
         this.calls.buildQueryFrom.history.push(query);
     }
 }
+
+export function stubBuildQueryFrom(
+    service: QueryServiceSpy,
+    value: string,
+): void {
+    service.buildQueryFrom = (object: Record<string, any>): string => {
+        service.incrementCallsWith(object);
+        return value;
+    };
+}

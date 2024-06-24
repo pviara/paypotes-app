@@ -3,6 +3,11 @@ import { Filters } from '@core/model/expense/filters';
 import { Observable } from 'rxjs';
 
 export interface ExpenseService {
+    getContactExpenses(
+        groupId: string,
+        pageIndex?: number,
+        filters?: Filters,
+    ): Observable<Expenses>;
     getExpense(id: string): Observable<Expense>;
     getExpenses(pageIndex?: number, filters?: Filters): Observable<Expenses>;
     getGroupExpenses(

@@ -1,14 +1,11 @@
 <form [formGroup]="form">
-    <input
-        type="text"
-        placeholder="Rechercher..."
-        formControlName="search"
-    />
+    <input type="text" placeholder="Rechercher..." formControlName="search" />
     <ul>
         @for (option of options; track $index) {
             <li
                 [ngClass]="{ selected: selected(option) }"
-                (click)="onSelect(option)">
+                (click)="onSelect(option)"
+            >
                 {{ option.label }}
             </li>
         }

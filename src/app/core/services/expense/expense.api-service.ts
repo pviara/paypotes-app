@@ -18,6 +18,22 @@ export class ExpenseAPIService implements ExpenseService {
         private queryService: QueryService,
     ) {}
 
+    getContactExpenses(
+        contactId: string,
+        pageIndex = 0,
+        filters?: Filters,
+    ): Observable<Expenses> {
+        const query = this.queryService.buildQueryFrom({
+            contactId,
+            pageIndex,
+            filters,
+        });
+
+        return this.httpClientService
+            .get<Expenses>(`${this.endpoint}${query}`)
+            .pipe(map(this.getRandomExpenses(filters?.type)));
+    }
+
     getExpense(id: string): Observable<Expense> {
         return this.httpClientService
             .get<Expense>(`${this.endpoint}/${id}`)

@@ -58,6 +58,7 @@ export class ListElementComponent implements AfterViewInit {
         };
 
         if (type.isContact) {
+            this.router.navigate([`/contacts/${element.getId()}`]);
         } else if (type.isExpense) {
             this.router.navigate([`/expenses/${element.getId()}`]);
         } else if (type.isGroup) {

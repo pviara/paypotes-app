@@ -1,3 +1,4 @@
+import { ContactComponent } from '@contacts/contact/contact.component';
 import { ContactsComponent } from '@contacts/contacts/contacts.component';
 import { ContactsView } from '@contacts/contacts.view';
 import { Routes } from '@angular/router';
@@ -13,6 +14,12 @@ export const contactRoutes: Routes = [
                 component: ContactsComponent,
                 title: 'Contacts',
                 data: { type: ViewType.List },
+            },
+            {
+                path: ':contactId',
+                component: ContactComponent,
+                title: 'Contact',
+                data: { type: ViewType.Detail },
             },
         ],
     },

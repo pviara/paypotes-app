@@ -13,6 +13,16 @@ describe('QueryDefaultService', () => {
         expect(result).toBe('');
     });
 
+    it('should return empty string when given object only contains empty object', () => {
+        const object = {
+            filters: {
+                type: '',
+            },
+        };
+        const result = sut.buildQueryFrom(object);
+        expect(result).toBe('');
+    });
+
     describe('object is not empty', () => {
         it('should not return empty string', () => {
             const object = {

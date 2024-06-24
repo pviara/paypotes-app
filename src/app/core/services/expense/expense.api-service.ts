@@ -25,10 +25,10 @@ export class ExpenseAPIService implements ExpenseService {
     }
 
     getExpenses(pageIndex = 0, filters?: Filters): Observable<Expenses> {
-        const query = this.queryService.buildQueryFrom({ pageIndex, filters });
+        const url = this.queryService.buildQueryFrom({ pageIndex, filters });
 
         return this.httpClientService
-            .get<Expenses>(`${this.endpoint}${query}`)
+            .get<Expenses>(`${this.endpoint}${url}`)
             .pipe(map(this.getRandomExpenses(filters?.type)));
     }
 

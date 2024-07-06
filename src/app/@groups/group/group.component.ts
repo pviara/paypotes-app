@@ -2,7 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, delay, shareReplay, switchMap, tap } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
-import { Filters } from '@core/model/expense/filters';
+import { FiltersEvent } from '@core/model/filters/filters-event';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { ListElements } from '@core/model/list-element/list-element';
 
@@ -26,12 +26,9 @@ export class GroupComponent {
 
     $expenses = new BehaviorSubject<ListElements>([]);
 
-    onExpensesRequested(event: {
-        pageIndex?: number;
-        filters?: Filters;
-    }): void {
+    onExpensesRequested({ pageIndex, filters }: FiltersEvent): void {
         this.expenseService
-            .getGroupExpenses(this.groupId, event.pageIndex, event.filters)
+            .getGroupExpenses(this.groupId, pageIndex, filters)
             .subscribe((expenses) => {
                 this.$expenses.next(expenses);
             });

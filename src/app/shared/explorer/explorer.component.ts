@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { Component, EventEmitter, OnInit, Output, input } from '@angular/core';
-import { Filters } from '@core/model/expense/filters';
+import { Filters } from '@core/model/filters/filters';
 import { ListElements } from '@core/model/list-element/list-element';
 
 const SKELETONS = Array.from({ length: 20 }).map(() => null);
@@ -67,11 +67,11 @@ export class ExplorerComponent implements OnInit {
     }
 
     private appendToDisplayedElements(newElements: ListElements): void {
-        let elements = this.$displayedElements
-            .getValue()
-            .filter((element) => !!element);
+        const displayedElements = this.$displayedElements.getValue();
+        const elementsWithoutSkeleton =
+            this.removeSkeletonsFrom(displayedElements);
 
-        elements = elements.concat(newElements);
+        const elements = elementsWithoutSkeleton.concat(newElements);
         this.$displayedElements.next(elements);
     }
 
@@ -115,5 +115,9 @@ export class ExplorerComponent implements OnInit {
         return this.$displayedElements
             .getValue()
             .findIndex((element) => element?.getId() === elementId);
+    }
+
+    private removeSkeletonsFrom(elements: ListElements): ListElements {
+        return elements.filter((element) => !!element);
     }
 }

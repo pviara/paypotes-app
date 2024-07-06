@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
-import { Filters } from '@core/model/expense/filters';
+import { FiltersEvent } from '@core/model/filters/filters-event';
 import { ListElements } from '@core/model/list-element/list-element';
 
 @Component({
@@ -14,12 +14,9 @@ export class ContactsComponent {
 
     $contacts = new BehaviorSubject<ListElements>([]);
 
-    onContactsRequested(event: {
-        pageIndex?: number;
-        filters?: Filters;
-    }): void {
+    onContactsRequested({ pageIndex, filters }: FiltersEvent): void {
         this.contactService
-            .getContacts(event.pageIndex, event.filters)
+            .getContacts(pageIndex, filters)
             .subscribe((contacts) => {
                 this.$contacts.next(contacts);
             });

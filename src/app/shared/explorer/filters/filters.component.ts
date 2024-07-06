@@ -15,7 +15,7 @@ import {
     ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Filters } from '@core/model/expense/filters';
+import { Filters } from '@core/model/filters/filters';
 
 type ExpenseType = '' | 'claim' | 'debt';
 

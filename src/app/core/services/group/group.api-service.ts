@@ -1,4 +1,4 @@
-import { Filters } from '@core/model/expense/filters';
+import { Filters } from '@core/model/filters/filters';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { Group, Groups } from '@core/model/group/group';
 import { GroupService } from '@core/services/group/group.service';

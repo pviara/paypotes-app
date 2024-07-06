@@ -1,6 +1,6 @@
 import { Contact, Contacts } from '@core/model/contact/contact';
 import { ContactService } from '@core/services/contact/contact.service';
-import { Filters } from '@core/model/expense/filters';
+import { Filters } from '@core/model/filters/filters';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';

@@ -2,7 +2,7 @@ import { Contact } from '@core/model/contact/contact';
 import { Emoji } from '@core/model/emoji';
 import { Expense, Expenses } from '@core/model/expense/expense';
 import { ExpenseService } from '@core/services/expense/expense.service';
-import { Filters } from '@core/model/expense/filters';
+import { Filters } from '@core/model/filters/filters';
 import { generateRandomDate } from '@shared/utils/get-random-date';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { getRandomEmoji } from '@shared/utils/get-random-emoji';

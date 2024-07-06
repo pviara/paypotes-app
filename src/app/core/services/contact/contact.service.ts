@@ -1,5 +1,5 @@
 import { Contact, Contacts } from '@core/model/contact/contact';
-import { Filters } from '@core/model/expense/filters';
+import { Filters } from '@core/model/filters/filters';
 import { Observable } from 'rxjs';
 
 export interface ContactService {

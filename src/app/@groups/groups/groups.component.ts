@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { Component, inject } from '@angular/core';
-import { Filters } from '@core/model/expense/filters';
+import { FiltersEvent } from '@core/model/filters/filters-event';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { ListElements } from '@core/model/list-element/list-element';
 
@@ -14,11 +14,9 @@ export class GroupsComponent {
 
     $groups = new BehaviorSubject<ListElements>([]);
 
-    onGroupsRequested(event: { pageIndex?: number; filters?: Filters }): void {
-        this.groupService
-            .getGroups(event.pageIndex, event.filters)
-            .subscribe((groups) => {
-                this.$groups.next(groups);
-            });
+    onGroupsRequested({ pageIndex, filters }: FiltersEvent): void {
+        this.groupService.getGroups(pageIndex, filters).subscribe((groups) => {
+            this.$groups.next(groups);
+        });
     }
 }

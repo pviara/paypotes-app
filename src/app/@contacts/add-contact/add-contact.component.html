@@ -2,3 +2,10 @@
     [subtitle]="'Contacts'"
     [title]="'Ajouter'"
 />
+<form [formGroup]="addContactForm">
+    <input
+        type="tel"
+        formControlName="telephone"
+        phonePasteModifier
+    />
+</form>

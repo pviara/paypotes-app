@@ -7,14 +7,19 @@ describe('mapPhoneNumberOutOf', () => {
             expect(() => mapPhoneNumberOutOf('')).toThrow();
         });
 
-        it.each(['11111111111111', '11 11 11 11 11 11 11'])(
+        it.each([
+            '11111111111111',
+            '11 11 11 11 11 11 11',
+            '06712288339911',
+            '+33689704433269',
+        ])(
             'should throw an error when given value "%s" contains more than 13 figures',
             (value) => {
                 expect(() => mapPhoneNumberOutOf(value)).toThrow();
             },
         );
 
-        it.each(['a', 'b', '0s'])(
+        it.each(['a', 'b', '0s', '06kao931S9mqs', '+33785f698877'])(
             'should throw an error when given value "%s" contains letter(s)',
             (value) => {
                 expect(() => mapPhoneNumberOutOf(value)).toThrow();

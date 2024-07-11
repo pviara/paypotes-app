@@ -1,8 +1,12 @@
-export function mapPhoneNumberOutOf(value: string): string {
-    checkInvalid(value);
+export function mapPhoneNumberOutOf(text: string): string {
+    if (isInvalidPhoneNumber(text)) {
+        throw new Error(
+            `Given value "${text}" is not a valid french phone number`,
+        );
+    }
 
-    const cleanedValue = removeSpacesFrom(value);
-    if (cleanedValue.startsWith('+33')) {
+    const cleanedValue = removeSpacesFrom(text);
+    if (cleanedValue.startsWith(PREFIX_FR_COUNTRY_CODE)) {
         const index = indexAfterIndicatorIn(cleanedValue);
         const shortenedValue = cleanedValue.substring(index);
         return shortenedValue.startsWith('0')
@@ -13,89 +17,88 @@ export function mapPhoneNumberOutOf(value: string): string {
     return cleanedValue;
 }
 
-function checkInvalid(value: string): void {
-    checkFalsy(value);
-    checkInvalidIndicator(value);
-    checkInvalidCharacter(value);
-    checkInvalidLength(value);
+const PREFIX_FR_MOBILE_06 = '06';
+const PREFIX_FR_MOBILE_07 = '07';
+const PREFIX_FR_MOBILE_6 = '6';
+const PREFIX_FR_MOBILE_7 = '7';
+const PREFIX_FR_COUNTRY_CODE = '+33';
+
+function isInvalidPhoneNumber(phoneNumber: string): boolean {
+    return (
+        !phoneNumber ||
+        isLengthInvalid(phoneNumber) ||
+        containsInvalidCharacter(phoneNumber) ||
+        isInvalidFrenchMobileNumber(phoneNumber)
+    );
 }
 
-function checkInvalidIndicator(value: string): void {
-    if (value.startsWith('+33')) {
-        const cleanedValue = removeSpacesFrom(value);
-        if (cleanedValue.length < 12) {
-            throw new Error('Given value contains less than 12 figures');
+function isLengthInvalid(phoneNumber: string): boolean {
+    return isAboveMaxLength(phoneNumber) || isBelowMinLength(phoneNumber);
+}
+
+function isAboveMaxLength(phoneNumber: string): boolean {
+    return removeSpacesFrom(phoneNumber).length > 13;
+}
+
+function isBelowMinLength(phoneNumber: string): boolean {
+    return removeSpacesFrom(phoneNumber).length < 10;
+}
+
+function containsInvalidCharacter(phoneNumber: string): boolean {
+    return containsLetter(phoneNumber) || containsSymbol(phoneNumber);
+}
+
+function containsLetter(phoneNumber: string): boolean {
+    return new RegExp(/[A-Za-z]/).test(phoneNumber);
+}
+
+function containsSymbol(phoneNumber: string): boolean {
+    return new RegExp(/[^\w\s+]/).test(phoneNumber);
+}
+
+function isInvalidFrenchMobileNumber(phoneNumber: string): boolean {
+    if (startsWithUnknownPrefix(phoneNumber)) {
+        return true;
+    }
+
+    if (phoneNumber.startsWith(PREFIX_FR_COUNTRY_CODE)) {
+        const cleanedPhone = removeSpacesFrom(phoneNumber);
+        if (cleanedPhone.length < 12) {
+            return true;
         }
 
-        const valueAfterIndicator = cleanedValue.substring(
-            indexAfterIndicatorIn(cleanedValue),
-        );
-        console.log(valueAfterIndicator);
-        if (
-            !valueAfterIndicator.startsWith('06') &&
-            !valueAfterIndicator.startsWith('07') &&
-            !valueAfterIndicator.startsWith('6') &&
-            !valueAfterIndicator.startsWith('7')
-        ) {
-            throw new Error('Given value does not start with good indicator');
-        }
+        return isValueAfterPrefixInvalid(cleanedPhone);
     }
 
-    if (
-        !value.startsWith('06') &&
-        !value.startsWith('07') &&
-        !value.startsWith('+33')
-    ) {
-        throw new Error('Given value does not start by the right indicator');
-    }
+    return false;
 }
 
-function checkFalsy(value: string): void {
-    if (!value) {
-        throw new Error('Given value is empty');
-    }
+function startsWithUnknownPrefix(phoneNumber: string): boolean {
+    return (
+        !phoneNumber.startsWith(PREFIX_FR_MOBILE_06) &&
+        !phoneNumber.startsWith(PREFIX_FR_MOBILE_07) &&
+        !phoneNumber.startsWith(PREFIX_FR_COUNTRY_CODE)
+    );
 }
 
-function checkInvalidCharacter(value: string): void {
-    if (containsLetter(value)) {
-        throw new Error('Given value contains letter(s)');
-    }
-
-    if (containsSymbol(value)) {
-        throw new Error('Given value contains invalid symbol(s)');
-    }
+function removeSpacesFrom(phoneNumber: string): string {
+    return phoneNumber.replaceAll(' ', '');
 }
 
-function containsLetter(value: string): boolean {
-    return new RegExp(/[A-Za-z]/).test(value);
+function isValueAfterPrefixInvalid(phoneNumber: string): boolean {
+    const valueAfterPrefix = extractValueAfterPrefix(phoneNumber);
+    return (
+        !valueAfterPrefix.startsWith(PREFIX_FR_MOBILE_06) &&
+        !valueAfterPrefix.startsWith(PREFIX_FR_MOBILE_07) &&
+        !valueAfterPrefix.startsWith(PREFIX_FR_MOBILE_6) &&
+        !valueAfterPrefix.startsWith(PREFIX_FR_MOBILE_7)
+    );
 }
 
-function containsSymbol(value: string): boolean {
-    return new RegExp(/[^\w\s+]/).test(value);
+function extractValueAfterPrefix(cleanedPhone: string): string {
+    return cleanedPhone.substring(indexAfterIndicatorIn(cleanedPhone));
 }
 
-function checkInvalidLength(value: string): void {
-    if (isAboveMaxLength(value)) {
-        throw new Error('Given value contains more than 13 figures');
-    }
-
-    if (isBelowMinLength(value)) {
-        throw new Error('Given value contains less than 10 figures');
-    }
-}
-
-function isAboveMaxLength(value: string): boolean {
-    return removeSpacesFrom(value).length > 13;
-}
-
-function isBelowMinLength(value: string): boolean {
-    return removeSpacesFrom(value).length < 10;
-}
-
-function removeSpacesFrom(value: string): string {
-    return value.replaceAll(' ', '');
-}
-
-function indexAfterIndicatorIn(cleanedValue: string): number {
-    return cleanedValue.indexOf('+33') + '+33'.length;
+function indexAfterIndicatorIn(phoneNumber: string): number {
+    return phoneNumber.indexOf('+33') + '+33'.length;
 }

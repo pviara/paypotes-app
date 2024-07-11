@@ -1,27 +1,41 @@
-export function mapPhoneNumberOutOf(text: string): string {
-    if (isInvalidPhoneNumber(text)) {
-        throw new Error(
-            `Given value "${text}" is not a valid french phone number`,
-        );
-    }
-
-    const cleanedValue = removeSpacesFrom(text);
-    if (cleanedValue.startsWith(PREFIX_FR_COUNTRY_CODE)) {
-        const index = indexAfterIndicatorIn(cleanedValue);
-        const shortenedValue = cleanedValue.substring(index);
-        return shortenedValue.startsWith('0')
-            ? shortenedValue
-            : `0${shortenedValue}`;
-    }
-
-    return cleanedValue;
-}
-
 const PREFIX_FR_MOBILE_06 = '06';
 const PREFIX_FR_MOBILE_07 = '07';
 const PREFIX_FR_MOBILE_6 = '6';
 const PREFIX_FR_MOBILE_7 = '7';
 const PREFIX_FR_COUNTRY_CODE = '+33';
+
+export function mapPhoneNumberOutOf(text: string): string {
+    const phoneNumber = transformToPhoneNumber(text);
+
+    return phoneNumber.startsWith(PREFIX_FR_COUNTRY_CODE)
+        ? format(formatWithAppropriatePrefix(phoneNumber))
+        : format(phoneNumber);
+}
+
+function format(phoneWithPrefix: string): string {
+    return phoneWithPrefix
+        .split('')
+        .map((char, index) => (index % 2 === 1 ? `${char} ` : char))
+        .join('')
+        .trim();
+}
+
+function formatWithAppropriatePrefix(phoneNumber: string): string {
+    const index = getIndexAfterPrefixIn(phoneNumber);
+    const shortenedValue = phoneNumber.substring(index);
+    return shortenedValue.startsWith('0')
+        ? shortenedValue
+        : `0${shortenedValue}`;
+}
+
+function transformToPhoneNumber(text: string): string {
+    if (isInvalidPhoneNumber(text)) {
+        throw new Error(
+            `Given value "${text}" is not a valid french phone number`,
+        );
+    }
+    return removeSpacesFrom(text);
+}
 
 function isInvalidPhoneNumber(phoneNumber: string): boolean {
     return (
@@ -96,9 +110,12 @@ function isValueAfterPrefixInvalid(phoneNumber: string): boolean {
 }
 
 function extractValueAfterPrefix(cleanedPhone: string): string {
-    return cleanedPhone.substring(indexAfterIndicatorIn(cleanedPhone));
+    return cleanedPhone.substring(getIndexAfterPrefixIn(cleanedPhone));
 }
 
-function indexAfterIndicatorIn(phoneNumber: string): number {
-    return phoneNumber.indexOf('+33') + '+33'.length;
+function getIndexAfterPrefixIn(phoneNumber: string): number {
+    return (
+        phoneNumber.indexOf(PREFIX_FR_COUNTRY_CODE) +
+        PREFIX_FR_COUNTRY_CODE.length
+    );
 }

@@ -18,8 +18,8 @@ export class PhonePasteModifierDirective {
 
             const textToPaste = clipboardData.getData('text');
             try {
-                const formattedPhoneNumber = mapPhoneNumberOutOf(textToPaste);
-                control.setValue(formattedPhoneNumber);
+                const phoneNumber = mapPhoneNumberOutOf(textToPaste);
+                control.setValue(phoneNumber);
             } catch (error: unknown) {}
         }
     }

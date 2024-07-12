@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
     Component,
     EventEmitter,
@@ -14,19 +15,11 @@ import {
     FormGroup,
     ReactiveFormsModule,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { Filters } from '@core/model/filters/filters';
+import { PhonePasteModifierDirective } from '@shared/directives/phone-paste-modifier.directive';
+import { PickerFilter } from '@core/model/filters/picker-filter';
 
-type ExpenseType = '' | 'claim' | 'debt';
-
-type ExpenseTypeOption = {
-    label: string;
-    type: ExpenseType;
-};
-
-type FiltersForm = {
-    search: FormControl<string>;
-    type: FormControl<ExpenseType>;
+type FilterForm = {
+    phoneNumber: FormControl<string>;
 };
 
 @Component({
@@ -35,26 +28,19 @@ type FiltersForm = {
     templateUrl: './filters.component.html',
     styleUrls: ['./filters.component.scss'],
     standalone: true,
-    imports: [CommonModule, ReactiveFormsModule],
+    imports: [CommonModule, PhonePasteModifierDirective, ReactiveFormsModule],
 })
 export class FiltersComponent implements OnChanges, OnInit {
     private formBuilder = inject(FormBuilder);
 
-    private previousSearch?: string;
-    private previousType?: string;
+    private previousPhoneNumber?: string;
 
     filtering = input.required<boolean>();
 
-    form!: FormGroup<FiltersForm>;
-
-    options: Array<ExpenseTypeOption> = [
-        { label: 'Tous', type: '' },
-        { label: 'Créances', type: 'claim' },
-        { label: 'Dettes', type: 'debt' },
-    ];
+    form!: FormGroup<FilterForm>;
 
     @Output()
-    updatedFilters = new EventEmitter<Filters>();
+    updatedFilters = new EventEmitter<PickerFilter>();
 
     ngOnChanges(): void {
         if (!this.form) {
@@ -62,11 +48,9 @@ export class FiltersComponent implements OnChanges, OnInit {
         }
 
         if (this.filtering()) {
-            this.form.controls['search'].disable();
-            this.form.controls['type'].disable();
+            this.form.controls['phoneNumber'].disable();
         } else {
-            this.form.controls['search'].enable();
-            this.form.controls['type'].enable();
+            this.form.controls['phoneNumber'].enable();
         }
     }
 
@@ -74,22 +58,9 @@ export class FiltersComponent implements OnChanges, OnInit {
         this.initForm();
     }
 
-    onSelect(option: ExpenseTypeOption): void {
-        if (this.filtering()) {
-            return;
-        }
-
-        this.form.controls['type'].setValue(option.type);
-    }
-
-    selected(option: ExpenseTypeOption): boolean {
-        return this.form.getRawValue()['type'] === option.type;
-    }
-
     private initForm(): void {
         this.form = this.formBuilder.group({
-            search: this.formBuilder.nonNullable.control(''),
-            type: this.formBuilder.nonNullable.control<ExpenseType>(''),
+            phoneNumber: this.formBuilder.nonNullable.control(''),
         });
         this.handleFormChanges();
     }
@@ -97,16 +68,14 @@ export class FiltersComponent implements OnChanges, OnInit {
     private handleFormChanges(): void {
         this.form.valueChanges
             .pipe(debounceTime(300))
-            .subscribe(({ search, type }) => {
+            .subscribe(({ phoneNumber }) => {
                 const someFiltersHaveChanged =
-                    search !== this.previousSearch ||
-                    type !== this.previousType;
+                    phoneNumber !== this.previousPhoneNumber;
 
                 if (someFiltersHaveChanged) {
                     this.updatedFilters.emit(this.form.getRawValue());
 
-                    this.previousSearch = search;
-                    this.previousType = type;
+                    this.previousPhoneNumber = phoneNumber;
                 }
             });
     }

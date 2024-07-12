@@ -17,6 +17,7 @@ export class PhonePasteModifierDirective {
             event.preventDefault();
 
             const textToPaste = clipboardData.getData('text');
+            console.log('text to paste');
             try {
                 const phoneNumber = mapPhoneNumberOutOf(textToPaste);
                 control.setValue(phoneNumber);

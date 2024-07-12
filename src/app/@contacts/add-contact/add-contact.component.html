@@ -2,13 +2,7 @@
     [subtitle]="'Contacts'"
     [title]="'Ajouter'"
 />
-<section>
-    <form [formGroup]="addContactForm">
-        <input
-            type="tel"
-            formControlName="telephone"
-            placeholder="N° de téléphone"
-            phonePasteModifier
-        />
-    </form>
-</section>
+<picker-explorer
+    [$elements]="$users"
+    (elementsRequested)="onUsersRequested($event)"
+/>

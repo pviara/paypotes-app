@@ -1,17 +1,8 @@
 <form [formGroup]="form">
     <input
         type="text"
-        placeholder="Rechercher..."
-        formControlName="search"
+        placeholder="N° de téléphone"
+        formControlName="phoneNumber"
+        phonePasteModifier
     />
-    <ul>
-        @for (option of options; track $index) {
-            <li
-                [ngClass]="{ selected: selected(option) }"
-                (click)="onSelect(option)"
-            >
-                {{ option.label }}
-            </li>
-        }
-    </ul>
 </form>

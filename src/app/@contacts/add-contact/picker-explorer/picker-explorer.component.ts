@@ -2,6 +2,8 @@ import { BehaviorSubject } from 'rxjs';
 import { Component, EventEmitter, OnInit, Output, input } from '@angular/core';
 import { Filters } from '@core/model/filters/filters';
 import { ListElements } from '@core/model/list-element/list-element';
+import { PickerFilterEvent } from '@core/model/filters/picker-filter-event';
+import { PickerFilter } from '@core/model/filters/picker-filter';
 
 const SKELETONS = Array.from({ length: 20 }).map(() => null);
 
@@ -12,7 +14,7 @@ const SKELETONS = Array.from({ length: 20 }).map(() => null);
 })
 export class PickerExplorerComponent implements OnInit {
     private nextPageIndex = 0;
-    private savedFilters?: Filters;
+    private savedFilters?: PickerFilter;
     private lastFetchedGroupsCount = 0;
 
     $elements = input.required<BehaviorSubject<ListElements>>();
@@ -20,15 +22,11 @@ export class PickerExplorerComponent implements OnInit {
 
     filtering = false;
 
-    @Output() elementsRequested = new EventEmitter<{
-        pageIndex?: number;
-        filters?: Filters;
-    }>();
+    @Output() elementsRequested = new EventEmitter<PickerFilterEvent>();
 
     ngOnInit(): void {
         this.handleElementsChange();
         this.prepareList();
-        this.requestElements();
     }
 
     onElementHovered(groupId: string): void {
@@ -41,7 +39,7 @@ export class PickerExplorerComponent implements OnInit {
         }
     }
 
-    onUpdatedFilters(filters: Filters): void {
+    onUpdatedFilters(filters: PickerFilter): void {
         this.filtering = true;
         this.resetNextPageIndex();
         this.saveFilters(filters);
@@ -53,7 +51,7 @@ export class PickerExplorerComponent implements OnInit {
         this.nextPageIndex = 0;
     }
 
-    private saveFilters(filters: Filters): void {
+    private saveFilters(filters: PickerFilter): void {
         this.savedFilters = filters;
     }
 
@@ -94,8 +92,7 @@ export class PickerExplorerComponent implements OnInit {
 
     private requestElements(): void {
         this.elementsRequested.emit({
-            pageIndex: this.nextPageIndex,
-            filters: this.savedFilters,
+            phoneNumber: this.savedFilters?.phoneNumber,
         });
     }
 

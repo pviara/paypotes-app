@@ -1,10 +1,10 @@
 <li [id]="randomId" (click)="redirectToDetail()">
     @if (element(); as element) {
         <description [element]="element"/>
-        <balance
+        <!-- <balance
             [isDebt]="element.isDebt()"
             [balance]="element.formatBalance()"
-        />
+        /> -->
     } @else {
         <skeleton/>
     }

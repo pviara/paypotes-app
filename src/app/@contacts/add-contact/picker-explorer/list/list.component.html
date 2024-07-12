@@ -1,0 +1,8 @@
+<ul (scroll)="onScroll($event)">
+    @for (expense of $elements() | async; track $index) {
+        <list-element
+            [element]="expense"
+            (hovered)="onElementHovered($event)"
+        />
+    }
+</ul>

@@ -1,0 +1,11 @@
+import { Component, input } from '@angular/core';
+import { ListElement } from '@core/model/list-element/list-element';
+
+@Component({
+    selector: 'description',
+    host: { collisionId: 'picker-description' },
+    templateUrl: './description.component.html',
+})
+export class DescriptionComponent {
+    element = input.required<ListElement>();
+}

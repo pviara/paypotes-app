@@ -91,6 +91,9 @@ export class PickerExplorerComponent implements OnInit {
     }
 
     private requestElements(): void {
+        if (!this.savedFilters?.phoneNumber) {
+            return;
+        }
         this.elementsRequested.emit({
             phoneNumber: this.savedFilters?.phoneNumber,
         });

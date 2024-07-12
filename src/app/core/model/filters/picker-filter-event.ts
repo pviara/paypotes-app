@@ -1,3 +1,3 @@
 export type PickerFilterEvent = {
-    phoneNumber?: string;
+    phoneNumber: string;
 };

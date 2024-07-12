@@ -1,6 +1,6 @@
 import { BalanceComponent } from '@shared/balance/balance.component';
+import { BrowserExplorerComponentModule } from '@shared/browser-explorer/browser-explorer.component-module';
 import { CommonModule } from '@angular/common';
-import { ExplorerComponentModule } from '@shared/explorer/explorer.component-module';
 import { GroupComponent } from '@groups/group/group.component';
 import { HeadbarComponent } from '@shared/headbar/headbar.component';
 import { NgModule } from '@angular/core';
@@ -9,8 +9,8 @@ import { NgModule } from '@angular/core';
     declarations: [GroupComponent],
     imports: [
         BalanceComponent,
+        BrowserExplorerComponentModule,
         CommonModule,
-        ExplorerComponentModule,
         HeadbarComponent,
     ],
 })

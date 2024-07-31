@@ -1,3 +1,4 @@
+import { AddExpenseComponent } from '@expenses/add-expense/add-expense.component';
 import { ExpenseComponent } from '@expenses/expense/expense.component';
 import { ExpensesComponent } from '@expenses/expenses/expenses.component';
 import { ExpensesView } from '@expenses/expenses.view';
@@ -12,6 +13,11 @@ export const expensesRoutes: Routes = [
                 path: '',
                 component: ExpensesComponent,
                 title: 'Dépenses',
+            },
+            {
+                path: 'add',
+                component: AddExpenseComponent,
+                title: 'Ajouter une dépense',
             },
             {
                 path: ':expenseId',

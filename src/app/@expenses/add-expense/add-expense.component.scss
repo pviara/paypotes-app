@@ -1,0 +1,23 @@
+form {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    input {
+        size: 0;
+
+        background: none;
+        border: none;
+
+        font-family: 'bold';
+
+        color: #fff;
+    }
+
+    .checkbox {
+        display: flex;
+    }
+}

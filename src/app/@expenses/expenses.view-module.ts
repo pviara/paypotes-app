@@ -1,3 +1,4 @@
+import { AddExpenseComponentModule } from '@expenses/add-expense/add-expense.component-module';
 import { CommonModule } from '@angular/common';
 import { ExpenseComponentModule } from '@expenses/expense/expense.component-module';
 import { ExpensesComponentModule } from '@expenses/expenses/expenses.component-module';
@@ -10,6 +11,7 @@ import { RouterModule } from '@angular/router';
     declarations: [ExpensesView],
     exports: [RouterModule],
     imports: [
+        AddExpenseComponentModule,
         CommonModule,
         ExpenseComponentModule,
         ExpensesComponentModule,

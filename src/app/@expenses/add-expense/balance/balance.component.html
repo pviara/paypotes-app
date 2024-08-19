@@ -1,14 +1,15 @@
 <div class="container">
-    <span>
-        {{ balance().value }}
-    </span>
-    <ul class="keyboard">
-        @for (key of keyboard; track $index) {
-            <li
-                class="key"
-                (click)="onKeyClicked(key)">
-                {{ key }}
-            </li>
+    <div class="balance">
+        @if (balance().value; as balance) {
+            <span>{{ balance }}</span>
+            <span>€</span>
+        } @else {
+            <span class="placeholder">00,00</span>
+            <span class="placeholder">€</span>
         }
-    </ul>
+    </div>
+    <keyboard
+        [keyboard]="formatter.getKeyboard()"
+        (keyClicked)="onKeyClicked($event)"
+    />
 </div>

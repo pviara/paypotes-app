@@ -2,4 +2,9 @@
     <balance
         [balance]="form.controls.balance"
     />
+    <button
+        [disabled]="form.invalid"
+        [ngClass]="{ 'disabled': form.invalid }">
+        OK
+    </button>
 </form>

@@ -1,6 +1,6 @@
 import { AddExpenseForm } from '@expenses/add-expense/model/add-expense-form';
-import { Component, input } from '@angular/core';
-import { BalanceFormatter } from './balance-formatter';
+import { BalanceFormatter } from '@expenses/add-expense/balance/model/balance-formatter';
+import { Component, computed, input } from '@angular/core';
 
 type BalanceFormControl = AddExpenseForm['balance'];
 
@@ -10,11 +10,9 @@ type BalanceFormControl = AddExpenseForm['balance'];
     styleUrls: ['./balance.component.scss'],
 })
 export class BalanceComponent {
-    private formatter = new BalanceFormatter();
-
     balance = input.required<BalanceFormControl>();
 
-    keyboard = this.formatter.getKeyboard();
+    formatter = new BalanceFormatter();
 
     onKeyClicked(key: string): void {
         this.formatter.append(key);

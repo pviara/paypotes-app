@@ -1,0 +1,26 @@
+ul {
+    padding-bottom: 10%;
+
+    width: 100vw;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    row-gap: 2vh;
+
+    background: linear-gradient(180deg, #121212, #51515133);
+
+    li {
+        justify-self: center;
+
+        list-style-type: none;
+
+        font-family: 'bold';
+        font-size: 3rem;
+        color: #fff;
+
+        img {
+            width: 48px;
+        }
+    }
+}

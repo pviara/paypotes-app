@@ -1,11 +1,6 @@
+import { AddExpenseForm } from '@expenses/add-expense/model/add-expense-form';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-
-type AddExpenseForm = {
-    balance: FormControl<string>;
-    name: FormControl<string>;
-    isCurrentPayer: FormControl<boolean>;
-};
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'add-expense',

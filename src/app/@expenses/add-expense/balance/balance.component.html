@@ -1,1 +1,14 @@
-wessssh
+<div class="container">
+    <span>
+        {{ balance().value }}
+    </span>
+    <ul class="keyboard">
+        @for (key of keyboard; track $index) {
+            <li
+                class="key"
+                (click)="onKeyClicked(key)">
+                {{ key }}
+            </li>
+        }
+    </ul>
+</div>

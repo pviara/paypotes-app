@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    flex-direction: column;
+
+    span {
+        display: block;
+
+        color: #fff;
+        font-size: 2rem;
+    }
+
+    .keyboard {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        row-gap: 2vh;
+        column-gap: 20vw;
+
+        .key {
+            justify-self: center;
+
+            list-style-type: none;
+
+            font-family: 'bold';
+            font-size: 3rem;
+            color: #fff;
+        }
+    }
+}

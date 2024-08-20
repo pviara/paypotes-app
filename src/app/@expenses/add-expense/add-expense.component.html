@@ -1,10 +1,24 @@
 <form [formGroup]="form">
-    <balance
-        [balance]="form.controls.balance"
-    />
+    @switch (currentStep) {
+        @case ('balance') {
+            <balance
+                [balance]="form.controls.balance"
+            />
+        }
+        @case ('details') {
+            details
+        }
+        @case ('contact') {
+            contact
+        }
+        @case ('summary') {
+            summary
+        }
+    }
     <button
         [disabled]="form.invalid"
-        [ngClass]="{ 'disabled': form.invalid }">
+        [ngClass]="{ 'disabled': form.invalid }"
+        (click)="onSubmit()">
         OK
     </button>
 </form>

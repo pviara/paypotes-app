@@ -2,6 +2,8 @@ import { AddExpenseForm } from '@expenses/add-expense/model/add-expense-form';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+type Step = 'balance' | 'details' | 'contact' | 'summary';
+
 @Component({
     selector: 'add-expense',
     templateUrl: './add-expense.component.html',
@@ -9,6 +11,16 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class AddExpenseComponent implements OnInit {
     private formBuilder = inject(FormBuilder);
+
+    private currentStepIndex = 0;
+    private readonly steps: Array<Step> = [
+        'balance',
+        'details',
+        'contact',
+        'summary',
+    ];
+
+    currentStep = this.steps[this.currentStepIndex];
 
     form!: FormGroup<AddExpenseForm>;
 
@@ -21,7 +33,12 @@ export class AddExpenseComponent implements OnInit {
             name: this.formBuilder.nonNullable.control(''),
             isCurrentPayer: this.formBuilder.nonNullable.control(false),
         });
+    }
 
-        this.form.valueChanges.subscribe((changes) => console.log(changes));
+    onSubmit(): void {
+        const nextStep = this.steps[this.currentStepIndex + 1];
+        if (nextStep) {
+            this.currentStep = nextStep;
+        }
     }
 }

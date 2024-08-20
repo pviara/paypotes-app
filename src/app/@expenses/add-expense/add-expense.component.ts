@@ -30,9 +30,25 @@ export class AddExpenseComponent implements OnInit {
                 Validators.required,
                 Validators.minLength(1),
             ]),
-            name: this.formBuilder.nonNullable.control(''),
+            name: this.formBuilder.nonNullable.control('', [
+                Validators.required,
+            ]),
+            emoji: this.formBuilder.nonNullable.control('🔍'),
             isCurrentPayer: this.formBuilder.nonNullable.control(false),
         });
+    }
+
+    isCurrentFormStepInvalid(): boolean {
+        switch (this.currentStep) {
+            case 'balance':
+                return this.isBalanceFormStepInvalid();
+
+            case 'details':
+                return this.isInfoFormStepInvalid();
+
+            default:
+                return true;
+        }
     }
 
     onSubmit(): void {
@@ -40,5 +56,15 @@ export class AddExpenseComponent implements OnInit {
         if (nextStep) {
             this.currentStep = nextStep;
         }
+    }
+
+    private isBalanceFormStepInvalid(): boolean {
+        const { balance } = this.form.controls;
+        return balance.invalid;
+    }
+
+    private isInfoFormStepInvalid(): boolean {
+        const { emoji, isCurrentPayer, name } = this.form.controls;
+        return name.invalid && emoji.invalid && isCurrentPayer.invalid;
     }
 }

@@ -6,7 +6,11 @@
             />
         }
         @case ('details') {
-            <info/>
+            <info
+                [emoji]="form.controls.emoji"
+                [isCurrentPayer]="form.controls.isCurrentPayer"
+                [name]="form.controls.name"
+            />
         }
         @case ('contact') {
             contact
@@ -16,8 +20,8 @@
         }
     }
     <button
-        [disabled]="form.invalid"
-        [ngClass]="{ 'disabled': form.invalid }"
+        [disabled]="isCurrentFormStepInvalid()"
+        [ngClass]="{ 'disabled': isCurrentFormStepInvalid() }"
         (click)="onSubmit()">
         OK
     </button>

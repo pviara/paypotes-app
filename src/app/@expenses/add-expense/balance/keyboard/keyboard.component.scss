@@ -10,6 +10,8 @@ ul {
 
     background: linear-gradient(180deg, #121212, #51515133);
 
+    animation: slighSlideInFromBottom 0.5s ease-in-out;
+
     li {
         justify-self: center;
 

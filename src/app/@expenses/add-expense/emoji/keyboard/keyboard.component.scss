@@ -1,7 +1,6 @@
 ul {
-    padding-bottom: 10%;
-
     width: 100vw;
+    max-height: 40vh;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -11,6 +10,25 @@ ul {
 
     animation: slighSlideInFromBottom 0.5s ease-in-out;
 
+    overflow-y: scroll;
+
+    scroll-snap-type: y mandatory;
+    scroll-padding-block-end: 5rem;
+
+    transition: box-shadow 0.2s;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &.scroll-top {
+        box-shadow: inset 0px 25px 20px -15px #121212;
+    }
+
+    &.scroll-bottom {
+        box-shadow: inset 0px -20px 10px 0px rgba(0, 0, 0, 0.4);
+    }
+
     li {
         justify-self: center;
 
@@ -19,6 +37,12 @@ ul {
         font-family: 'bold';
         font-size: 3rem;
         color: #fff;
+
+        scroll-snap-align: center;
+
+        &:not(:first-child) {
+            scroll-snap-align: start;
+        }
 
         img {
             width: 48px;

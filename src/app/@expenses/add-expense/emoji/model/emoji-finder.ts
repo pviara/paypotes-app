@@ -5,6 +5,10 @@ export class EmojiFinder {
 
     filterFor(keyword: string): string[] {
         const emojis = Object.keys(this.keywords);
+        if (!keyword) {
+            return emojis;
+        }
+
         return emojis.filter((emoji) => {
             const emojiKeywords = this.keywords[emoji];
             return this.doMatch(keyword, emojiKeywords);

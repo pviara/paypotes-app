@@ -1,12 +1,15 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
+import { EMOJIS } from '@core/model/emojis';
 
 @Component({
-    selector: 'balance-keyboard',
+    selector: 'emoji-keyboard',
     templateUrl: './keyboard.component.html',
     styleUrls: ['./keyboard.component.scss'],
 })
 export class KeyboardComponent {
-    keyboard = input.required<string[]>();
+    invalid = input<boolean>(true);
+
+    keyboard = Object.keys(EMOJIS);
 
     @Output()
     keyClicked = new EventEmitter<string>();

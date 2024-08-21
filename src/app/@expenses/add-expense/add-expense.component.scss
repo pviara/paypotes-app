@@ -3,7 +3,14 @@ form {
 
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+
+    balance,
+    emoji,
+    info,
+    contact,
+    summary {
+        flex-grow: 1;
+    }
 
     button {
         width: 100%;

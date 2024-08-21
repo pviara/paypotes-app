@@ -1,8 +1,15 @@
 import { AddExpenseForm } from '@expenses/add-expense/model/add-expense-form';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+    AbstractControl,
+    FormBuilder,
+    FormGroup,
+    ValidationErrors,
+    ValidatorFn,
+    Validators,
+} from '@angular/forms';
 
-type Step = 'balance' | 'details' | 'contact' | 'summary';
+type Step = 'balance' | 'emoji' | 'info' | 'contact' | 'summary';
 
 @Component({
     selector: 'add-expense',
@@ -15,7 +22,8 @@ export class AddExpenseComponent implements OnInit {
     private currentStepIndex = 0;
     private readonly steps: Array<Step> = [
         'balance',
-        'details',
+        'emoji',
+        'info',
         'contact',
         'summary',
     ];
@@ -33,7 +41,10 @@ export class AddExpenseComponent implements OnInit {
             name: this.formBuilder.nonNullable.control('', [
                 Validators.required,
             ]),
-            emoji: this.formBuilder.nonNullable.control('🔍'),
+            emoji: this.formBuilder.nonNullable.control('🔍', [
+                Validators.required,
+                this.forbiddenEmojiValidator(),
+            ]),
             isCurrentPayer: this.formBuilder.nonNullable.control(false),
         });
     }
@@ -43,7 +54,10 @@ export class AddExpenseComponent implements OnInit {
             case 'balance':
                 return this.isBalanceFormStepInvalid();
 
-            case 'details':
+            case 'emoji':
+                return this.isEmojiFormStepInvalid();
+
+            case 'info':
                 return this.isInfoFormStepInvalid();
 
             default:
@@ -58,9 +72,21 @@ export class AddExpenseComponent implements OnInit {
         }
     }
 
+    private forbiddenEmojiValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const forbidden = control.value === '🔍';
+            return forbidden ? { emoji: { value: control.value } } : null;
+        };
+    }
+
     private isBalanceFormStepInvalid(): boolean {
         const { balance } = this.form.controls;
         return balance.invalid;
+    }
+
+    private isEmojiFormStepInvalid(): boolean {
+        const { emoji } = this.form.controls;
+        return emoji.invalid;
     }
 
     private isInfoFormStepInvalid(): boolean {

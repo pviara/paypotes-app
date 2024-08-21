@@ -5,7 +5,12 @@
                 [balance]="form.controls.balance"
             />
         }
-        @case ('details') {
+        @case ('emoji') {
+            <emoji
+                [emoji]="form.controls.emoji"
+            />
+        }
+        @case ('info') {
             <info
                 [emoji]="form.controls.emoji"
                 [isCurrentPayer]="form.controls.isCurrentPayer"

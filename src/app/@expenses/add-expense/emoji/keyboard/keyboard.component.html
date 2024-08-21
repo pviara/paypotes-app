@@ -1,0 +1,7 @@
+<ul>
+    @for (key of keyboard; track $index) {
+        <li (click)="onKeyClicked(key)">
+            {{ key }}
+        </li>
+    }
+</ul>

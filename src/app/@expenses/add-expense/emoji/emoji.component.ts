@@ -10,4 +10,8 @@ type EmojiFormControl = AddExpenseForm['emoji'];
 })
 export class EmojiComponent {
     emoji = input.required<EmojiFormControl>();
+
+    onKeyClicked(key: string): void {
+        this.emoji().setValue(key);
+    }
 }

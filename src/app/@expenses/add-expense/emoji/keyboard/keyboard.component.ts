@@ -17,7 +17,6 @@ export class KeyboardComponent {
     keyClicked = new EventEmitter<string>();
 
     onKeyClicked(key: string): void {
-        console.log('clicked', key);
         this.keyClicked.emit(key);
     }
 

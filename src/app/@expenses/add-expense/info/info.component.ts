@@ -11,9 +11,16 @@ type NameFormControl = AddExpenseForm['name'];
     styleUrls: ['./info.component.scss'],
 })
 export class InfoComponent {
+    checkboxClicked = false;
+
     emoji = input.required<EmojiFormControl>();
     isCurrentPayer = input.required<IsCurrentPayerFormControl>();
     name = input.required<NameFormControl>();
+
+    onCheckboxClicked(): void {
+        this.checkboxClicked = !this.checkboxClicked;
+        this.isCurrentPayer().setValue(this.checkboxClicked);
+    }
 
     onNameChange(event: any): void {
         this.name().setValue(event.target.value);

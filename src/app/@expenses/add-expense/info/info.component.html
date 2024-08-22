@@ -1,6 +1,27 @@
 <div class="container">
-  <textarea
-      placeholder="Entrez un nom..."
-      (change)="onNameChange($event)">
-  </textarea>
+    <input
+        type="text"
+        placeholder="Entrez un nom..."
+        (change)="onNameChange($event)"
+    />
+    <div
+        class="checkbox" 
+        (click)="onCheckboxClicked()">
+        <div class="input">
+            <div
+                class="circle"
+                [ngClass]="{ clicked: checkboxClicked }">
+            </div>
+            <div
+                class="struct"
+                [ngClass]="{ clicked: checkboxClicked }">
+            </div>
+        </div>
+        <label [ngClass]="{ clicked: checkboxClicked }">
+            Payé par moi 💰
+        </label>
+        <!--<label (click)="on">
+            Payé par moi 💰
+        </label>-->
+    </div>
 </div>

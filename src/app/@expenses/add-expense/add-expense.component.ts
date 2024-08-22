@@ -19,7 +19,7 @@ type Step = 'balance' | 'emoji' | 'info' | 'contact' | 'summary';
 export class AddExpenseComponent implements OnInit {
     private formBuilder = inject(FormBuilder);
 
-    private currentStepIndex = 0;
+    private currentStepIndex = 2;
     private readonly steps: Array<Step> = [
         'balance',
         'emoji',

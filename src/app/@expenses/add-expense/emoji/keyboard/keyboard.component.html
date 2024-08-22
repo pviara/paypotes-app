@@ -1,7 +1,17 @@
-<ul (scroll)="onScroll($event)">
-    @for (key of keyboard; track $index) {
-        <li (click)="onKeyClicked(key)">
-            {{ key }}
-        </li>
-    }
-</ul>
+<div class="container">
+    <form [formGroup]="form">
+        <input
+            type="text"
+            placeholder="Rechercher..."
+            formControlName="search"
+        />
+    </form>
+    <ul (scroll)="onScroll($event)">
+        @for (key of filteredKeyboard; track $index) {
+            <li (click)="onKeyClicked(key)">
+                {{ key }}
+            </li>
+        }
+    </ul>
+    
+</div>

@@ -15,6 +15,10 @@ export class EmojiFinder {
         });
     }
 
+    getAllEmojis(): string[] {
+        return Object.keys(this.keywords);
+    }
+
     private doMatch(keyword: string, emojiKeywords: string[]): boolean {
         return emojiKeywords.some((emojiKeyword) =>
             emojiKeyword.includes(keyword),

@@ -68,7 +68,7 @@ export class AddExpenseComponent implements OnInit {
     }
 
     onSubmit(): void {
-        const nextStep = this.steps[this.currentStepIndex + 1];
+        const nextStep = this.steps[++this.currentStepIndex];
         if (nextStep) {
             this.currentStep = nextStep;
         }

@@ -19,10 +19,13 @@ describe('EmojiFinder', () => {
         }
     });
 
-    function expectToHaveBeenReturnedIn(returnedEmojis: string[], emojis: string[]): void {
-      console.log(returnedEmojis, emojis);
-      const result = emojis.every(emoji => existsIn(returnedEmojis, emoji));
-      expect(result).toBe(true);
+    function expectToHaveBeenReturnedIn(
+        returnedEmojis: string[],
+        emojis: string[],
+    ): void {
+        console.log(returnedEmojis, emojis);
+        const result = emojis.every((emoji) => existsIn(returnedEmojis, emoji));
+        expect(result).toBe(true);
     }
 
     function existsIn(returnedEmojis: string[], emoji: string): boolean {

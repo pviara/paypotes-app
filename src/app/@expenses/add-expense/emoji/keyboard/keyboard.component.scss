@@ -1,51 +1,85 @@
-ul {
-    width: 100vw;
-    max-height: 40vh;
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
 
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 2vh;
+    form {
+        display: flex;
+        justify-content: center;
 
-    background: linear-gradient(180deg, #121212, #51515133);
+        input {
+            width: 90vw;
 
-    animation: slighSlideInFromBottom 0.5s ease-in-out;
+            padding: 6%;
 
-    overflow-y: scroll;
+            box-sizing: border-box;
 
-    scroll-snap-type: y mandatory;
-    scroll-padding-block-end: 5rem;
+            background-color: #1d1d1d;
+            border-radius: 1rem;
+            border: none;
 
-    transition: box-shadow 0.2s;
+            font-family: 'regular';
+            font-size: 1rem;
+            color: #fff;
 
-    &::-webkit-scrollbar {
-        display: none;
+            outline: none;
+
+            &::placeholder {
+                font-family: 'regular';
+            }
+        }
     }
 
-    &.scroll-top {
-        box-shadow: inset 0px 25px 20px -15px #121212;
-    }
+    ul {
+        width: 100vw;
+        min-height: 40vh;
+        max-height: 40vh;
 
-    &.scroll-bottom {
-        box-shadow: inset 0px -20px 10px 0px rgba(0, 0, 0, 0.4);
-    }
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: 2vh;
 
-    li {
-        justify-self: center;
+        background: linear-gradient(180deg, #121212, #63636333);
 
-        list-style-type: none;
+        animation: slighSlideInFromBottom 0.5s ease-in-out;
 
-        font-family: 'bold';
-        font-size: 3rem;
-        color: #fff;
+        overflow-y: scroll;
 
-        scroll-snap-align: center;
+        scroll-snap-type: y mandatory;
+        scroll-padding-block-end: 5rem;
 
-        &:not(:first-child) {
-            scroll-snap-align: start;
+        transition: box-shadow 0.2s;
+
+        &::-webkit-scrollbar {
+            display: none;
         }
 
-        img {
-            width: 48px;
+        &.scroll-top {
+            box-shadow: inset 0px 25px 20px -15px rgba(0, 0, 0, 0.3);
+        }
+
+        &.scroll-bottom {
+            box-shadow: inset 0px -20px 10px 0px rgba(0, 0, 0, 0.3);
+        }
+
+        li {
+            justify-self: center;
+
+            list-style-type: none;
+
+            font-family: 'bold';
+            font-size: 3rem;
+            color: #fff;
+
+            scroll-snap-align: center;
+
+            &:not(:first-child) {
+                scroll-snap-align: start;
+            }
+
+            img {
+                width: 48px;
+            }
         }
     }
 }

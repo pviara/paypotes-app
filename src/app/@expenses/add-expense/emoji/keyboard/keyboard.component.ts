@@ -1,20 +1,40 @@
-import { Component, EventEmitter, input, Output } from '@angular/core';
-import { EMOJIS } from '@core/model/emojis';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import { EmojiFinder } from '../model/emoji-finder';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+
+type FilterForm = {
+    search: FormControl<string>;
+};
 
 @Component({
     selector: 'emoji-keyboard',
     templateUrl: './keyboard.component.html',
     styleUrls: ['./keyboard.component.scss'],
 })
-export class KeyboardComponent {
+export class KeyboardComponent implements OnInit {
+    private formBuilder = inject(FormBuilder);
+
+    private emojiFinder = new EmojiFinder();
+
     private lastScrollTop = 0;
 
-    invalid = input<boolean>(true);
+    form!: FormGroup<FilterForm>;
 
-    keyboard = Object.keys(EMOJIS);
+    initialKeyboard = this.emojiFinder.getAllEmojis();
+    filteredKeyboard = this.initialKeyboard;
 
     @Output()
     keyClicked = new EventEmitter<string>();
+
+    ngOnInit(): void {
+        this.form = this.formBuilder.group({
+            search: this.formBuilder.nonNullable.control(''),
+        });
+
+        this.form.valueChanges.subscribe(({ search }) => {
+            this.filteredKeyboard = this.emojiFinder.filterFor(search || '');
+        });
+    }
 
     onKeyClicked(key: string): void {
         this.keyClicked.emit(key);

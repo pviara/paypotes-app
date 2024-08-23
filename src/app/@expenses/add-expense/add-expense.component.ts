@@ -19,7 +19,7 @@ type Step = 'balance' | 'emoji' | 'info' | 'contact' | 'summary';
 export class AddExpenseComponent implements OnInit {
     private formBuilder = inject(FormBuilder);
 
-    private currentStepIndex = 2;
+    private currentStepIndex = 3;
     private readonly steps: Array<Step> = [
         'balance',
         'emoji',
@@ -46,6 +46,11 @@ export class AddExpenseComponent implements OnInit {
                 Validators.required,
             ]),
             isCurrentPayer: this.formBuilder.nonNullable.control(false),
+            phone: this.formBuilder.nonNullable.control('', [
+                Validators.required,
+                Validators.maxLength(10),
+                Validators.minLength(10),
+            ]),
         });
 
         this.form.valueChanges.subscribe((changes) => console.log(changes));
@@ -61,6 +66,9 @@ export class AddExpenseComponent implements OnInit {
 
             case 'info':
                 return this.isInfoFormStepInvalid();
+
+            case 'contact':
+                return this.isContactFormStepInvalid();
 
             default:
                 return true;
@@ -94,5 +102,10 @@ export class AddExpenseComponent implements OnInit {
     private isInfoFormStepInvalid(): boolean {
         const { emoji, isCurrentPayer, name } = this.form.controls;
         return name.invalid && emoji.invalid && isCurrentPayer.invalid;
+    }
+
+    private isContactFormStepInvalid(): boolean {
+        const { phone } = this.form.controls;
+        return phone.invalid;
     }
 }

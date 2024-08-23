@@ -18,7 +18,9 @@
             />
         }
         @case ('contact') {
-            contact
+            <contact
+                [phone]="form.controls.phone"
+            />
         }
         @case ('summary') {
             summary

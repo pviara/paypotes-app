@@ -1,9 +1,9 @@
+import { generateRandomString } from '@shared/utils/generate-random-string';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { map, Observable } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
-import { User, Users } from '@core/model/user/user';
+import { User } from '@core/model/user/user';
 import { UserService } from '@core/services/user/user.service';
-import { generateRandomString } from '@shared/utils/generate-random-string';
 
 export class UserAPIService implements UserService {
     private readonly endpoint = '/api/user';

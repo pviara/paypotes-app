@@ -5,4 +5,5 @@ export type AddExpenseForm = {
     name: FormControl<string>;
     emoji: FormControl<string>;
     isCurrentPayer: FormControl<boolean>;
+    phone: FormControl<string>;
 };

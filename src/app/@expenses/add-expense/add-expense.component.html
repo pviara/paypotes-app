@@ -20,6 +20,7 @@
         @case ('contact') {
             <contact
                 [phone]="form.controls.phone"
+                (load)="onLoad($event)"
             />
         }
         @case ('summary') {

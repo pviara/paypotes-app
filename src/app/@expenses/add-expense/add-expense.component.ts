@@ -48,12 +48,11 @@ export class AddExpenseComponent implements OnInit {
             isCurrentPayer: this.formBuilder.nonNullable.control(false),
             phone: this.formBuilder.nonNullable.control('', [
                 Validators.required,
-                Validators.maxLength(10),
-                Validators.minLength(10),
+                Validators.maxLength(14),
+                Validators.minLength(14),
+                this.forbiddenPhoneValidator(),
             ]),
         });
-
-        this.form.valueChanges.subscribe((changes) => console.log(changes));
     }
 
     isCurrentFormStepInvalid(): boolean {
@@ -75,6 +74,10 @@ export class AddExpenseComponent implements OnInit {
         }
     }
 
+    onLoad(loading: boolean): void {
+        console.log('is loading', loading);
+    }
+
     onSubmit(): void {
         const nextStep = this.steps[++this.currentStepIndex];
         if (nextStep) {
@@ -87,6 +90,17 @@ export class AddExpenseComponent implements OnInit {
             const forbidden = control.value === '🔍';
             return forbidden ? { emoji: { value: control.value } } : null;
         };
+    }
+
+    private forbiddenPhoneValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const forbidden = this.isInvalidPhoneNumber(control.value);
+            return forbidden ? { emoji: { value: control.value } } : null;
+        };
+    }
+
+    private isInvalidPhoneNumber(value: string): boolean {
+        return !value.startsWith('06') && !value.startsWith('07');
     }
 
     private isBalanceFormStepInvalid(): boolean {

@@ -7,7 +7,7 @@ import { mapPhoneNumberOutOf } from '@shared/directives/formatter';
 })
 export class PhonePasteModifierDirective {
     @HostListener('paste', ['$event'])
-    onPaste(event: ClipboardEvent) {
+    onPaste(event: ClipboardEvent): void {
         const { clipboardData } = event;
         if (clipboardData) {
             event.preventDefault();

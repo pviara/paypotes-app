@@ -1,8 +1,19 @@
 <div class="container">
-    <input
-        type="text"
-        placeholder="Entrez un N°..."
-        phonePasteModifier
-        (input)="onPhoneInput($event)"
-    />
+    @if (notFoundUser) {
+        <p class="error">Numéro introuvable</p>
+    }
+    <div class="input">
+        <input
+            type="tel"
+            maxlength="14"
+            placeholder="Entrez un N°..."
+            phoneFormatModifier
+            phonePasteModifier
+            [disabled]="isLoading"
+            (input)="onPhoneInput($event)"
+        />
+        @if (isLoading) {
+            <span class="loader"></span>
+        }
+    </div>
 </div>

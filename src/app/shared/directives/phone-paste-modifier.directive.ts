@@ -1,27 +1,30 @@
-import { Directive, HostListener, inject } from '@angular/core';
+import { Directive, HostListener } from '@angular/core';
 import { mapPhoneNumberOutOf } from '@shared/directives/formatter';
-import { NgControl } from '@angular/forms';
 
 @Directive({
     selector: '[phonePasteModifier]',
     standalone: true,
 })
 export class PhonePasteModifierDirective {
-    private ngControl = inject(NgControl);
-
     @HostListener('paste', ['$event'])
     onPaste(event: ClipboardEvent) {
         const { clipboardData } = event;
-        const { control } = this.ngControl;
-        if (clipboardData && control) {
+        if (clipboardData) {
             event.preventDefault();
 
-            const textToPaste = clipboardData.getData('text');
-            console.log('text to paste');
             try {
-                const phoneNumber = mapPhoneNumberOutOf(textToPaste);
-                control.setValue(phoneNumber);
+                const textToPaste = clipboardData.getData('text');
+                const phoneNumber = mapPhoneNumberOutOf(textToPaste.trim());
+                this.changeValueOf(event, phoneNumber);
             } catch (error: unknown) {}
         }
+    }
+
+    private changeValueOf(event: ClipboardEvent, phoneNumber: string): void {
+        const target = event.target as HTMLInputElement;
+        target.value = phoneNumber;
+
+        const changeEvent = new Event('change');
+        target?.dispatchEvent(changeEvent);
     }
 }

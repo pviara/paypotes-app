@@ -19,18 +19,19 @@
         }
         @case ('contact') {
             <contact
-                [phone]="form.controls.phone"
-                (load)="onLoad($event)"
+                [user]="form.controls.user"
             />
         }
         @case ('summary') {
             summary
         }
     }
-    <button
-        [disabled]="isCurrentFormStepInvalid()"
-        [ngClass]="{ 'disabled': isCurrentFormStepInvalid() }"
-        (click)="onSubmit()">
-        OK
-    </button>
+    @if (currentStep !== 'contact' && currentStep !== 'summary') {
+        <button
+            [disabled]="isCurrentFormStepInvalid()"
+            [ngClass]="{ 'disabled': isCurrentFormStepInvalid() }"
+            (click)="onSubmit()">
+            OK
+        </button>
+    }
 </form>

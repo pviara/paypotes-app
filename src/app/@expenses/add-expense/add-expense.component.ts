@@ -8,6 +8,7 @@ import {
     ValidatorFn,
     Validators,
 } from '@angular/forms';
+import { User } from '@core/model/user/user';
 
 type Step = 'balance' | 'emoji' | 'info' | 'contact' | 'summary';
 
@@ -19,7 +20,7 @@ type Step = 'balance' | 'emoji' | 'info' | 'contact' | 'summary';
 export class AddExpenseComponent implements OnInit {
     private formBuilder = inject(FormBuilder);
 
-    private currentStepIndex = 0;
+    private currentStepIndex = 3;
     private readonly steps: Array<Step> = [
         'balance',
         'emoji',
@@ -44,15 +45,13 @@ export class AddExpenseComponent implements OnInit {
             ]),
             name: this.formBuilder.nonNullable.control('', [
                 Validators.required,
+                Validators.minLength(1),
             ]),
             isCurrentPayer: this.formBuilder.nonNullable.control(false),
-            phone: this.formBuilder.nonNullable.control('', [
-                Validators.required,
-                Validators.maxLength(14),
-                Validators.minLength(14),
-                this.forbiddenPhoneValidator(),
-            ]),
+            user: this.formBuilder.control<User | null>(null),
         });
+
+        this.form.controls.user.valueChanges.subscribe(() => this.goNextStep());
     }
 
     isCurrentFormStepInvalid(): boolean {
@@ -66,19 +65,16 @@ export class AddExpenseComponent implements OnInit {
             case 'info':
                 return this.isInfoFormStepInvalid();
 
-            case 'contact':
-                return this.isContactFormStepInvalid();
-
             default:
                 return true;
         }
     }
 
-    onLoad(loading: boolean): void {
-        console.log('is loading', loading);
+    onSubmit(): void {
+        this.goNextStep();
     }
 
-    onSubmit(): void {
+    private goNextStep(): void {
         const nextStep = this.steps[++this.currentStepIndex];
         if (nextStep) {
             this.currentStep = nextStep;
@@ -90,17 +86,6 @@ export class AddExpenseComponent implements OnInit {
             const forbidden = control.value === '🔍';
             return forbidden ? { emoji: { value: control.value } } : null;
         };
-    }
-
-    private forbiddenPhoneValidator(): ValidatorFn {
-        return (control: AbstractControl): ValidationErrors | null => {
-            const forbidden = this.isInvalidPhoneNumber(control.value);
-            return forbidden ? { emoji: { value: control.value } } : null;
-        };
-    }
-
-    private isInvalidPhoneNumber(value: string): boolean {
-        return !value.startsWith('06') && !value.startsWith('07');
     }
 
     private isBalanceFormStepInvalid(): boolean {
@@ -116,10 +101,5 @@ export class AddExpenseComponent implements OnInit {
     private isInfoFormStepInvalid(): boolean {
         const { emoji, isCurrentPayer, name } = this.form.controls;
         return name.invalid && emoji.invalid && isCurrentPayer.invalid;
-    }
-
-    private isContactFormStepInvalid(): boolean {
-        const { phone } = this.form.controls;
-        return phone.invalid;
     }
 }

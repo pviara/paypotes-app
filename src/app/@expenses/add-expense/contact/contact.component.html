@@ -1,4 +1,4 @@
-<div class="container">
+<form [formGroup]="form">
     @if (notFoundUser) {
         <p class="error">Numéro introuvable</p>
     }
@@ -7,13 +7,12 @@
             type="tel"
             maxlength="14"
             placeholder="Entrez un N°..."
+            formControlName="phone"
             phoneFormatModifier
             phonePasteModifier
-            [disabled]="isLoading"
-            (input)="onPhoneInput($event)"
         />
         @if (isLoading) {
             <span class="loader"></span>
         }
     </div>
-</div>
+</form>

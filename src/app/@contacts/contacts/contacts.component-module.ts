@@ -1,10 +1,10 @@
+import { BrowserExplorerComponentModule } from '@shared/browser-explorer/browser-explorer.component-module';
 import { ContactsComponent } from '@contacts/contacts/contacts.component';
-import { ExplorerComponentModule } from '@shared/explorer/explorer.component-module';
 import { HeadbarComponent } from '@shared/headbar/headbar.component';
 import { NgModule } from '@angular/core';
 
 @NgModule({
     declarations: [ContactsComponent],
-    imports: [ExplorerComponentModule, HeadbarComponent],
+    imports: [BrowserExplorerComponentModule, HeadbarComponent],
 })
 export class ContactsComponentModule {}

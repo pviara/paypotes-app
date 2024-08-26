@@ -1,5 +1,5 @@
 {
-    "name": "paypot",
+    "name": "paypot-app",
     "version": "0.8.0",
     "scripts": {
         "format": "prettier --write \"{src,test}/**/*.{js,json,ts,scss}\"",
@@ -9,7 +9,7 @@
         "watch": "ng build --watch --configuration development",
         "test": "vitest run --config ./test/vitest.config.ts",
         "test:watch": "vitest --config ./test/vitest.config.ts",
-        "serve:ssr:paypot": "node dist/paypot/server/server.mjs"
+        "serve:ssr:paypot": "node dist/paypot-app/server/server.mjs"
     },
     "private": true,
     "dependencies": {

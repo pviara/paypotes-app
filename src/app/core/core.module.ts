@@ -6,6 +6,7 @@ import { HttpClientServiceProvider } from '@core/services/http-client/http-clien
 import { HttpInterceptorProvider } from '@core/interceptors/fake.http-interceptor.provider';
 import { NgModule } from '@angular/core';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
+import { UserServiceProvider } from '@core/services/user/user.api-service.provider';
 
 @NgModule({
     imports: [HttpClientModule],
@@ -16,6 +17,7 @@ import { QueryServiceProvider } from '@core/services/query/query.service.provide
         HttpClientServiceProvider,
         HttpInterceptorProvider,
         QueryServiceProvider,
+        UserServiceProvider,
     ],
 })
 export class CoreModule {}

@@ -1,0 +1,8 @@
+<headbar
+    [subtitle]="'Contacts'"
+    [title]="'Ajouter'"
+/>
+<picker-explorer
+    [$elements]="$users"
+    (elementsRequested)="onUsersRequested($event)"
+/>

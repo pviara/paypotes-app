@@ -12,6 +12,10 @@ export class HttpClientServiceSpy implements Spy<HttpClientService> {
             count: 0,
             history: [] as string[],
         },
+        post: {
+            count: 0,
+            history: [] as string[],
+        },
     };
 
     get<T>(url: string): Observable<T> {
@@ -20,6 +24,11 @@ export class HttpClientServiceSpy implements Spy<HttpClientService> {
     }
 
     patch(url: string): Observable<void> {
+        return of();
+    }
+
+    post(url: string): Observable<void> {
+        this.calls.post.count++;
         return of();
     }
 

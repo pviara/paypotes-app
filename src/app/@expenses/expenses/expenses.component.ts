@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
-import { Filters } from '@core/model/expense/filters';
+import { FiltersEvent } from '@core/model/filters/filters-event';
 import { ListElements } from '@core/model/list-element/list-element';
 
 @Component({
@@ -12,12 +12,9 @@ export class ExpensesComponent {
 
     $expenses = new BehaviorSubject<ListElements>([]);
 
-    onExpensesRequested(event: {
-        pageIndex?: number;
-        filters?: Filters;
-    }): void {
+    onExpensesRequested({ pageIndex, filters }: FiltersEvent): void {
         this.expenseService
-            .getExpenses(event.pageIndex, event.filters)
+            .getExpenses(pageIndex, filters)
             .subscribe((expenses) => {
                 this.$expenses.next(expenses);
             });

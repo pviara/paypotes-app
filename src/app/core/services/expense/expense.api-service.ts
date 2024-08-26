@@ -1,8 +1,11 @@
+import {
+    AddExpenseDTO,
+    ExpenseService,
+} from '@core/services/expense/expense.service';
 import { Contact } from '@core/model/contact/contact';
 import { Emoji } from '@core/model/emoji';
 import { Expense, Expenses } from '@core/model/expense/expense';
-import { ExpenseService } from '@core/services/expense/expense.service';
-import { Filters } from '@core/model/expense/filters';
+import { Filters } from '@core/model/filters/filters';
 import { generateRandomDate } from '@shared/utils/get-random-date';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { getRandomEmoji } from '@shared/utils/get-random-emoji';
@@ -17,6 +20,10 @@ export class ExpenseAPIService implements ExpenseService {
         private httpClientService: HttpClientService,
         private queryService: QueryService,
     ) {}
+
+    addExpense(payload: AddExpenseDTO): Observable<void> {
+        return this.httpClientService.post(this.endpoint, payload);
+    }
 
     getContactExpenses(
         contactId: string,
@@ -65,7 +72,9 @@ export class ExpenseAPIService implements ExpenseService {
     }
 
     payback(id: string): Observable<void> {
-        return this.httpClientService.patch(`${this.endpoint}/payback/${id}`);
+        return this.httpClientService.patch(
+            `${this.endpoint}/payback?expenseId=${id}`,
+        );
     }
 
     private getRandomExpenses(type: Filters['type']): () => Expenses {

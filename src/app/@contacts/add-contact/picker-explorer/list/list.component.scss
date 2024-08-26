@@ -1,0 +1,29 @@
+ul {
+    height: 53vh;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+
+    border-radius: 0.5rem;
+    padding-top: 0.5rem;
+
+    overflow-y: scroll;
+
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 1rem;
+
+    transition: box-shadow 0.2s;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &.scroll-top {
+        box-shadow: inset 0px 25px 20px -15px rgba(0, 0, 0, 0.4);
+    }
+
+    &.scroll-bottom {
+        box-shadow: inset 0px -20px 10px 0px rgba(0, 0, 0, 0.4);
+    }
+}

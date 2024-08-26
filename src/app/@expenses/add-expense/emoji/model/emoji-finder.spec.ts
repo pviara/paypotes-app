@@ -23,7 +23,6 @@ describe('EmojiFinder', () => {
         returnedEmojis: string[],
         emojis: string[],
     ): void {
-        console.log(returnedEmojis, emojis);
         const result = emojis.every((emoji) => existsIn(returnedEmojis, emoji));
         expect(result).toBe(true);
     }

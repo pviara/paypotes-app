@@ -8,6 +8,14 @@ export class User {
         },
     ) {}
 
+    getAvatarURL(): string {
+        return this.data.avatarURL;
+    }
+
+    getFullName(): string {
+        return `${this.data.firstname} ${this.data.lastname}`;
+    }
+
     getId(): string {
         return this.data.id;
     }

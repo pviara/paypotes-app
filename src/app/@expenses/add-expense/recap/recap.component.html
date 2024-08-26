@@ -1,0 +1,14 @@
+<div class="container">
+    <img
+        id="image"
+        class="avatar"
+        [src]="'../../../../../../assets/images/' + avatarURL()"
+    />
+    <h1 class="bold">{{ fullName() }}</h1>
+    <span class="bold">
+        {{ isCurrentPayer().getRawValue() ? 'vous doit' : 'vous a avancé' }}
+    </span>
+    <h1 class="bold balance">
+        {{ balance().getRawValue() }}€
+    </h1>
+</div>

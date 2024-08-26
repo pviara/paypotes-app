@@ -20,7 +20,7 @@ type Step = 'balance' | 'emoji' | 'info' | 'contact' | 'summary';
 export class AddExpenseComponent implements OnInit {
     private formBuilder = inject(FormBuilder);
 
-    private currentStepIndex = 3;
+    private currentStepIndex = 0;
     private readonly steps: Array<Step> = [
         'balance',
         'emoji',
@@ -65,6 +65,9 @@ export class AddExpenseComponent implements OnInit {
             case 'info':
                 return this.isInfoFormStepInvalid();
 
+            case 'summary':
+                return false;
+
             default:
                 return true;
         }
@@ -78,6 +81,8 @@ export class AddExpenseComponent implements OnInit {
         const nextStep = this.steps[++this.currentStepIndex];
         if (nextStep) {
             this.currentStep = nextStep;
+        } else {
+            // todo -> add expense using service
         }
     }
 

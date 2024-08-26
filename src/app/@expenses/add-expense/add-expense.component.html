@@ -23,15 +23,19 @@
             />
         }
         @case ('summary') {
-            summary
+            <recap
+                [balance]="form.controls.balance"
+                [isCurrentPayer]="form.controls.isCurrentPayer"
+                [user]="form.controls.user"
+            />
         }
     }
-    @if (currentStep !== 'contact' && currentStep !== 'summary') {
+    @if (currentStep !== 'contact') {
         <button
             [disabled]="isCurrentFormStepInvalid()"
             [ngClass]="{ 'disabled': isCurrentFormStepInvalid() }"
             (click)="onSubmit()">
-            OK
+            {{ currentStep !== 'summary' ? 'OK' : 'Ajouter la dépense' }}
         </button>
     }
 </form>

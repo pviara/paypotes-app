@@ -1,0 +1,38 @@
+.container {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3vh;
+
+    .avatar {
+        height: 128px;
+
+        border-radius: 50%;
+        border: 3px solid #2e2e2e;
+
+        animation: slighSlideInFromTop 1s ease-in-out;
+    }
+
+    h1 {
+        font-size: 2rem;
+        color: #fff;
+
+        animation: slighSlideInFromTop 1s ease-in-out;
+
+        &.balance {
+            font-size: 3rem;
+
+            animation: slighSlideInFromBottom 1s ease-in-out;
+        }
+    }
+
+    span {
+        font-size: 1.5rem;
+        color: #737373;
+
+        animation: slighSlideInFromTop 1s ease-in-out;
+    }
+}

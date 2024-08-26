@@ -6,6 +6,7 @@ import { EmojiComponentModule } from '@expenses/add-expense/emoji/emoji.componen
 import { InfoComponentModule } from '@expenses/add-expense/info/info-component.module';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RecapComponentModule } from '@expenses/add-expense/recap/recap.component-module';
 
 @NgModule({
     declarations: [AddExpenseComponent],
@@ -16,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         EmojiComponentModule,
         InfoComponentModule,
         ReactiveFormsModule,
+        RecapComponentModule,
     ],
 })
 export class AddExpenseComponentModule {}

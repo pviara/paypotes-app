@@ -30,15 +30,17 @@ describe('ExpenseAPIService', () => {
             const expectedQueryString = `contactId=${contactId}`;
             stubBuildQueryFrom(queryService, expectedQueryString);
 
-            sut.getContactExpenses(contactId).subscribe(() => {
-                expect(httpClientService.calls.get.count).toBe(1);
+            subscription.add(
+                sut.getContactExpenses(contactId).subscribe(() => {
+                    expect(httpClientService.calls.get.count).toBe(1);
 
-                const [call] = httpClientService.calls.get.history;
-                const clientHasBeenCalledWithGroupId =
-                    call.includes(expectedQueryString);
+                    const [call] = httpClientService.calls.get.history;
+                    const clientHasBeenCalledWithGroupId =
+                        call.includes(expectedQueryString);
 
-                expect(clientHasBeenCalledWithGroupId).toBe(true);
-            });
+                    expect(clientHasBeenCalledWithGroupId).toBe(true);
+                }),
+            );
         });
     });
 
@@ -46,29 +48,33 @@ describe('ExpenseAPIService', () => {
         it('should get expense from server', () => {
             const expenseId = 'expenseId';
 
-            sut.getExpense(expenseId).subscribe(() => {
-                expect(httpClientService.calls.get.count).toBe(1);
+            subscription.add(
+                sut.getExpense(expenseId).subscribe(() => {
+                    expect(httpClientService.calls.get.count).toBe(1);
 
-                const [call] = httpClientService.calls.get.history;
-                const clientHasBeenCalledWithParam = call.includes(
-                    `/${expenseId}`,
-                );
-                expect(clientHasBeenCalledWithParam).toBe(true);
-            });
+                    const [call] = httpClientService.calls.get.history;
+                    const clientHasBeenCalledWithParam = call.includes(
+                        `/${expenseId}`,
+                    );
+                    expect(clientHasBeenCalledWithParam).toBe(true);
+                }),
+            );
         });
     });
 
     describe('getExpenses', () => {
         it('should get expenses from server', () => {
-            sut.getExpenses().subscribe(() => {
-                expect(httpClientService.calls.get.count).toBe(1);
+            subscription.add(
+                sut.getExpenses().subscribe(() => {
+                    expect(httpClientService.calls.get.count).toBe(1);
 
-                const [call] = httpClientService.calls.get.history;
-                const clientHasNotBeenCalledWithAnyElement =
-                    !call.includes('search') && !call.includes('type');
+                    const [call] = httpClientService.calls.get.history;
+                    const clientHasNotBeenCalledWithAnyElement =
+                        !call.includes('search') && !call.includes('type');
 
-                expect(clientHasNotBeenCalledWithAnyElement).toBe(true);
-            });
+                    expect(clientHasNotBeenCalledWithAnyElement).toBe(true);
+                }),
+            );
         });
 
         describe('search', () => {

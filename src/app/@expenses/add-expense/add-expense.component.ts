@@ -1,5 +1,3 @@
-import { AddExpenseForm } from '@expenses/add-expense/model/add-expense-form';
-import { Component, inject, OnInit } from '@angular/core';
 import {
     AbstractControl,
     FormBuilder,
@@ -8,6 +6,12 @@ import {
     ValidatorFn,
     Validators,
 } from '@angular/forms';
+import { AddExpenseForm } from '@expenses/add-expense/model/add-expense-form';
+import { Component, inject, OnInit } from '@angular/core';
+import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
+import { NotificationService } from '@core/services/notification/notification.service';
+import { Router } from '@angular/router';
+import { tap } from 'rxjs';
 import { User } from '@core/model/user/user';
 
 type Step = 'balance' | 'emoji' | 'info' | 'contact' | 'summary';
@@ -18,7 +22,10 @@ type Step = 'balance' | 'emoji' | 'info' | 'contact' | 'summary';
     styleUrls: ['./add-expense.component.scss'],
 })
 export class AddExpenseComponent implements OnInit {
+    private expenseService = inject(ExpenseServiceToken);
     private formBuilder = inject(FormBuilder);
+    private notificationServivce = inject(NotificationService);
+    private router = inject(Router);
 
     private currentStepIndex = 0;
     private readonly steps: Array<Step> = [
@@ -32,6 +39,8 @@ export class AddExpenseComponent implements OnInit {
     currentStep = this.steps[this.currentStepIndex];
 
     form!: FormGroup<AddExpenseForm>;
+
+    loading = false;
 
     ngOnInit(): void {
         this.form = this.formBuilder.group({
@@ -82,7 +91,27 @@ export class AddExpenseComponent implements OnInit {
         if (nextStep) {
             this.currentStep = nextStep;
         } else {
-            // todo -> add expense using service
+            this.loading = true;
+
+            const formValue = this.form.getRawValue();
+            this.expenseService
+                .addExpense({
+                    balance: formValue.balance,
+                    userId: formValue.user?.getId() as string,
+                    emoji: formValue.emoji,
+                    isCurrentPayer: formValue.isCurrentPayer,
+                    name: formValue.name,
+                })
+                .pipe(
+                    tap(() => {
+                        this.notificationServivce.notify({
+                            type: 'success',
+                            message: 'Dépense ajoutée !',
+                        });
+                        this.router.navigate(['/expenses']);
+                    }),
+                )
+                .subscribe();
         }
     }
 

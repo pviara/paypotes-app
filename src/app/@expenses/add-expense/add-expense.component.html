@@ -32,8 +32,8 @@
     }
     @if (currentStep !== 'contact') {
         <button
-            [disabled]="isCurrentFormStepInvalid()"
-            [ngClass]="{ 'disabled': isCurrentFormStepInvalid() }"
+            [disabled]="isCurrentFormStepInvalid() || loading"
+            [ngClass]="{ 'disabled': isCurrentFormStepInvalid() ||loading  }"
             (click)="onSubmit()">
             {{ currentStep !== 'summary' ? 'OK' : 'Ajouter la dépense' }}
         </button>

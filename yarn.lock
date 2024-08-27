@@ -222,6 +222,13 @@
   dependencies:
     tslib "^2.3.0"
 
+"@angular/service-worker@^17.3.0":
+  version "17.3.12"
+  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-17.3.12.tgz#85b9361172812f5ca5f6cd85bf4f564e8afe07cc"
+  integrity sha512-Y83+oTZ2XPO7P2Yok78JNlXDDXbP7Qr+HN6ifpPXWmUS4MwFEyXByCl3Hlz9VMxnrKvPYWvzHKWfT0S20XZsvA==
+  dependencies:
+    tslib "^2.3.0"
+
 "@angular/ssr@^17.3.7":
   version "17.3.7"
   resolved "https://registry.npmjs.org/@angular/ssr/-/ssr-17.3.7.tgz"

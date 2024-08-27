@@ -6,10 +6,10 @@ import { LandingView } from '@landing/landing.view';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-    {
-        path: '',
-        component: LandingView,
-    },
+  {
+      path: '',
+      component: HomeView,
+  },
     {
         path: 'contacts',
         loadChildren: importContactsView(),
@@ -21,10 +21,6 @@ export const routes: Routes = [
     {
         path: 'groups',
         loadChildren: importGroupsView(),
-    },
-    {
-        path: 'home',
-        component: HomeView,
     },
 ];
 

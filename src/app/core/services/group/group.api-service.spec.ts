@@ -36,7 +36,7 @@ describe('GroupAPIService', () => {
     });
 
     describe('search', () => {
-        it('should get the contacts from server', () => {
+        it('should get the groups from server', () => {
             const search = 'labelXYZ';
 
             const expectedQueryString = `search=${search}`;
@@ -57,7 +57,7 @@ describe('GroupAPIService', () => {
     });
 
     describe('pageIndex', () => {
-        it('should get the contacts from server', () => {
+        it('should get the groups from server', () => {
             const pageIndex = 1;
 
             const expectedQueryString = `?pageIndex=${pageIndex}`;
@@ -78,7 +78,7 @@ describe('GroupAPIService', () => {
     });
 
     describe('pageIndex and search', () => {
-        it('should get the contacts from server', () => {
+        it('should get the groups from server', () => {
             const pageIndex = 1;
             const search = 'ABC';
 
@@ -100,7 +100,7 @@ describe('GroupAPIService', () => {
     });
 
     describe('type', () => {
-        it('should get the contacts from server', () => {
+        it('should get the groups from server', () => {
             const type = 'debt';
 
             const expectedQueryString = `&type=${type}`;

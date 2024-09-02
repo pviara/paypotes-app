@@ -6,10 +6,10 @@ import { LandingView } from '@landing/landing.view';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
-  {
-      path: '',
-      component: HomeView,
-  },
+    {
+        path: '',
+        component: HomeView,
+    },
     {
         path: 'contacts',
         loadChildren: importContactsView(),

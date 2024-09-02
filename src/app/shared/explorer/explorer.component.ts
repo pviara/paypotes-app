@@ -6,11 +6,11 @@ import { ListElements } from '@core/model/list-element/list-element';
 const SKELETONS = Array.from({ length: 20 }).map(() => null);
 
 @Component({
-    selector: 'browser-explorer',
-    templateUrl: './browser-explorer.component.html',
-    styleUrls: ['./browser-explorer.component.scss'],
+    selector: 'explorer',
+    templateUrl: './explorer.component.html',
+    styleUrls: ['./explorer.component.scss'],
 })
-export class BrowserExplorerComponent implements OnInit {
+export class ExplorerComponent implements OnInit {
     private nextPageIndex = 0;
     private savedFilters?: Filters;
     private lastFetchedGroupsCount = 0;

@@ -8,8 +8,13 @@ import {
 } from '@angular/forms';
 import { AddExpenseForm } from '@expenses/add-expense/model/add-expense-form';
 import { Component, inject, OnInit } from '@angular/core';
-import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
+import {
+    ExpenseServiceProvider,
+    ExpenseServiceToken,
+} from '@core/services/expense/expense.service.provider';
+import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
+import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { User } from '@core/model/user/user';
@@ -20,6 +25,11 @@ type Step = 'balance' | 'emoji' | 'info' | 'contact' | 'summary';
     selector: 'add-expense',
     templateUrl: './add-expense.component.html',
     styleUrls: ['./add-expense.component.scss'],
+    providers: [
+        ExpenseServiceProvider,
+        HttpClientServiceProvider,
+        QueryServiceProvider,
+    ],
 })
 export class AddExpenseComponent implements OnInit {
     private expenseService = inject(ExpenseServiceToken);

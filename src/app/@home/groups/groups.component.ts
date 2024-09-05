@@ -1,14 +1,22 @@
 import { Component, inject } from '@angular/core';
-import { BehaviorSubject, concat, of, tap } from 'rxjs';
-import { GroupServiceToken } from '@core/services/group/group.service.provider';
+import { BehaviorSubject } from 'rxjs';
 import { Group } from '@core/model/group/group';
-
-const SKELETON_ARRAY = Array.from({ length: 5 }).map(() => null);
+import {
+    GroupServiceProvider,
+    GroupServiceToken,
+} from '@core/services/group/group.service.provider';
+import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
+import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 
 @Component({
     selector: 'groups',
     templateUrl: './groups.component.html',
     styleUrls: ['./groups.component.scss'],
+    providers: [
+        GroupServiceProvider,
+        HttpClientServiceProvider,
+        QueryServiceProvider,
+    ],
 })
 export class GroupsComponent {
     private groupService = inject(GroupServiceToken);

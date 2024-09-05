@@ -18,10 +18,10 @@ jobs:
                   passphrase: ${{ secrets.SERVER_PASSPHRASE }}
                   port: 22
                   script: |
-                      export PATH="$PATH:/home/reginald/.nvm/versions/node/v20.9.0/bin/"
+                      export PATH="$PATH:/home/reginald/.nvm/versions/node/v20.11.1/bin/"
                       export NVM_DIR=~/.nvm
                       source ~/.nvm/nvm.sh
-                      nvm use --lts
+                      nvm install 20.11.1
                       cd ~/dev/repos/paypot/paypot-app
                       git checkout main
                       git fetch --all

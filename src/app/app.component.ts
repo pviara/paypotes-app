@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { ContactsViewModule } from '@contacts/contacts.view-module';
-import { CoreModule } from '@core/core.module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { HomeViewModule } from '@home/home.view-module';
 import { NotificationService } from '@core/services/notification/notification.service';

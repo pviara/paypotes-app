@@ -1,15 +1,23 @@
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, delay, shareReplay, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, shareReplay, switchMap, tap } from 'rxjs';
 import { Component, inject } from '@angular/core';
-import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
+import { ExpenseServiceProvider, ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { FiltersEvent } from '@core/model/filters/filters-event';
-import { GroupServiceToken } from '@core/services/group/group.service.provider';
+import { GroupServiceProvider, GroupServiceToken } from '@core/services/group/group.service.provider';
+import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { ListElements } from '@core/model/list-element/list-element';
+import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 
 @Component({
     selector: 'group',
     templateUrl: './group.component.html',
     styleUrls: ['./group.component.scss'],
+    providers: [
+        ExpenseServiceProvider,
+        GroupServiceProvider,
+        HttpClientServiceProvider,
+        QueryServiceProvider,
+    ]
 })
 export class GroupComponent {
     private expenseService = inject(ExpenseServiceToken);

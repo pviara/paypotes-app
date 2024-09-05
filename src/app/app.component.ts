@@ -12,7 +12,6 @@ import { RouterOutlet } from '@angular/router';
     standalone: true,
     imports: [
         CommonModule,
-        CoreModule,
         ContactsViewModule,
         ExpensesViewModule,
         HomeViewModule,

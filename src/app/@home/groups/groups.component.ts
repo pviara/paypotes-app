@@ -1,7 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Group } from '@core/model/group/group';
-import { GroupServiceProvider, GroupServiceToken } from '@core/services/group/group.service.provider';
+import {
+    GroupServiceProvider,
+    GroupServiceToken,
+} from '@core/services/group/group.service.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 
@@ -13,7 +16,7 @@ import { QueryServiceProvider } from '@core/services/query/query.service.provide
         GroupServiceProvider,
         HttpClientServiceProvider,
         QueryServiceProvider,
-    ]
+    ],
 })
 export class GroupsComponent {
     private groupService = inject(GroupServiceToken);

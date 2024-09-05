@@ -1,6 +1,9 @@
 import { BehaviorSubject } from 'rxjs';
 import { Component, inject } from '@angular/core';
-import { ExpenseServiceProvider, ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
+import {
+    ExpenseServiceProvider,
+    ExpenseServiceToken,
+} from '@core/services/expense/expense.service.provider';
 import { FiltersEvent } from '@core/model/filters/filters-event';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { ListElements } from '@core/model/list-element/list-element';
@@ -12,7 +15,7 @@ import { QueryServiceProvider } from '@core/services/query/query.service.provide
         ExpenseServiceProvider,
         HttpClientServiceProvider,
         QueryServiceProvider,
-    ]
+    ],
 })
 export class ExpensesComponent {
     private expenseService = inject(ExpenseServiceToken);

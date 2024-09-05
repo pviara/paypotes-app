@@ -1,15 +1,29 @@
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, shareReplay, switchMap, tap } from 'rxjs';
 import { Component, inject } from '@angular/core';
-import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
-import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
+import {
+    ContactServiceProvider,
+    ContactServiceToken,
+} from '@core/services/contact/contact.api-service.provider';
+import {
+    ExpenseServiceProvider,
+    ExpenseServiceToken,
+} from '@core/services/expense/expense.service.provider';
 import { FiltersEvent } from '@core/model/filters/filters-event';
+import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { ListElements } from '@core/model/list-element/list-element';
+import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 
 @Component({
     selector: 'contact',
     templateUrl: './contact.component.html',
     styleUrls: ['./contact.component.scss'],
+    providers: [
+        ExpenseServiceProvider,
+        ContactServiceProvider,
+        HttpClientServiceProvider,
+        QueryServiceProvider,
+    ],
 })
 export class ContactComponent {
     private expenseService = inject(ExpenseServiceToken);

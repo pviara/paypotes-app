@@ -6,7 +6,7 @@ import { expensesRoutes } from '@expenses/expenses.routes';
 import { ExpensesView } from '@expenses/expenses.view';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ServicesModule } from '@core/services.module';
+import { ServicesModule } from '@core/services/services.module';
 
 @NgModule({
     declarations: [ExpensesView],

@@ -4,7 +4,7 @@ import { groupsRoutes } from '@groups/groups.routes';
 import { GroupsView } from '@groups/groups.view';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ServicesModule } from '@core/services.module';
+import { ServicesModule } from '@core/services/services.module';
 
 @NgModule({
     declarations: [GroupsView],

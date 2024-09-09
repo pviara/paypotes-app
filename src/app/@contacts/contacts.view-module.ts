@@ -4,7 +4,7 @@ import { ContactsComponentModule } from '@contacts/contacts/contacts.component-m
 import { ContactsView } from '@contacts/contacts.view';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ServicesModule } from '@core/services.module';
+import { ServicesModule } from '@core/services/services.module';
 
 @NgModule({
     declarations: [ContactsView],

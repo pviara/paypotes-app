@@ -6,6 +6,7 @@ import { expensesRoutes } from '@expenses/expenses.routes';
 import { ExpensesView } from '@expenses/expenses.view';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ServicesModule } from '@core/services.module';
 
 @NgModule({
     declarations: [ExpensesView],
@@ -16,6 +17,7 @@ import { RouterModule } from '@angular/router';
         ExpenseComponentModule,
         ExpensesComponentModule,
         RouterModule.forChild(expensesRoutes),
+        ServicesModule,
     ],
 })
 export class ExpensesViewModule {}

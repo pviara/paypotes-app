@@ -1,23 +1,13 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
-import {
-    ExpenseServiceProvider,
-    ExpenseServiceToken,
-} from '@core/services/expense/expense.service.provider';
-import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
+import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { shareReplay, switchMap, tap } from 'rxjs';
 
 @Component({
     selector: 'expense',
     templateUrl: './expense.component.html',
     styleUrls: ['./expense.component.scss'],
-    providers: [
-        ExpenseServiceProvider,
-        HttpClientServiceProvider,
-        QueryServiceProvider,
-    ],
 })
 export class ExpenseComponent {
     private expenseService = inject(ExpenseServiceToken);

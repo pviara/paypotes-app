@@ -1,0 +1,31 @@
+@switch (currentStep()) {
+    @case ('balance') {
+        <balance
+            [balance]="form().controls.balance"
+        />
+    }
+    @case ('emoji') {
+        <emoji
+            [emoji]="form().controls.emoji"
+        />
+    }
+    @case ('info') {
+        <info
+            [emoji]="form().controls.emoji"
+            [isCurrentPayer]="form().controls.isCurrentPayer"
+            [name]="form().controls.name"
+        />
+    }
+    @case ('contact') {
+        <contact
+            [user]="form().controls.user"
+        />
+    }
+    @case ('summary') {
+        <recap
+            [balance]="form().controls.balance"
+            [isCurrentPayer]="form().controls.isCurrentPayer"
+            [user]="form().controls.user"
+        />
+    }
+}

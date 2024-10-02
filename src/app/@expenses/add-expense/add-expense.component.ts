@@ -19,10 +19,9 @@ import { HttpClientServiceProvider } from '@core/services/http-client/http-clien
 import { NotificationService } from '@core/services/notification/notification.service';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { Router } from '@angular/router';
-import { catchError, tap } from 'rxjs';
+import { Step } from '@expenses/add-expense/model/step';
+import { tap } from 'rxjs';
 import { User } from '@core/model/user/user';
-
-type Step = 'balance' | 'emoji' | 'info' | 'contact' | 'summary';
 
 @Component({
     selector: 'add-expense',
@@ -76,23 +75,8 @@ export class AddExpenseComponent implements OnInit {
         this.form.controls.user.valueChanges.subscribe(() => this.goNextStep());
     }
 
-    isCurrentFormStepInvalid(): boolean {
-        switch (this.currentStep) {
-            case 'balance':
-                return this.isBalanceFormStepInvalid();
-
-            case 'emoji':
-                return this.isEmojiFormStepInvalid();
-
-            case 'info':
-                return this.isInfoFormStepInvalid();
-
-            case 'summary':
-                return false;
-
-            default:
-                return true;
-        }
+    isLoadingOrCurrentStepInvalid(): boolean {
+        return this.loading || this.isCurrentStepInvalid();
     }
 
     onSubmit(): void {
@@ -147,6 +131,25 @@ export class AddExpenseComponent implements OnInit {
             const forbidden = control.value === '🔍';
             return forbidden ? { emoji: { value: control.value } } : null;
         };
+    }
+
+    private isCurrentStepInvalid(): boolean {
+        switch (this.currentStep) {
+            case 'balance':
+                return this.isBalanceFormStepInvalid();
+
+            case 'emoji':
+                return this.isEmojiFormStepInvalid();
+
+            case 'info':
+                return this.isInfoFormStepInvalid();
+
+            case 'summary':
+                return false;
+
+            default:
+                return true;
+        }
     }
 
     private isBalanceFormStepInvalid(): boolean {

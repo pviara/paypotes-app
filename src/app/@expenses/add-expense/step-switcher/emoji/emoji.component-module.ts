@@ -1,5 +1,5 @@
-import { EmojiComponent } from '@expenses/add-expense/emoji/emoji.component';
-import { KeyboardComponent } from '@expenses/add-expense/emoji/keyboard/keyboard.component';
+import { EmojiComponent } from '@expenses/add-expense/step-switcher/emoji/emoji.component';
+import { KeyboardComponent } from '@expenses/add-expense/step-switcher/emoji/keyboard/keyboard.component';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 

@@ -1,23 +1,17 @@
 import { AddExpenseComponent } from '@expenses/add-expense/add-expense.component';
-import { BalanceComponentModule } from '@expenses/add-expense/balance/balance.component-module';
+import { ButtonComponentModule } from '@expenses/add-expense/button/button.component-module';
 import { CommonModule } from '@angular/common';
-import { ContactComponentModule } from '@expenses/add-expense/contact/contact.component-module';
-import { EmojiComponentModule } from '@expenses/add-expense/emoji/emoji.component-module';
-import { InfoComponentModule } from '@expenses/add-expense/info/info-component.module';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RecapComponentModule } from '@expenses/add-expense/recap/recap.component-module';
+import { StepSwitcherComponentModule } from '@expenses/add-expense/step-switcher/step-switcher.component-module';
 
 @NgModule({
     declarations: [AddExpenseComponent],
     imports: [
-        BalanceComponentModule,
+        ButtonComponentModule,
         CommonModule,
-        ContactComponentModule,
-        EmojiComponentModule,
-        InfoComponentModule,
         ReactiveFormsModule,
-        RecapComponentModule,
+        StepSwitcherComponentModule,
     ],
 })
 export class AddExpenseComponentModule {}

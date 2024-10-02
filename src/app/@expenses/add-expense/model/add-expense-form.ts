@@ -8,3 +8,11 @@ export type AddExpenseForm = {
     isCurrentPayer: FormControl<boolean>;
     user: FormControl<User | null>;
 };
+
+export type AddExpenseFormRawValue = {
+    balance: string;
+    name: string;
+    emoji: string;
+    isCurrentPayer: boolean;
+    user: User;
+};

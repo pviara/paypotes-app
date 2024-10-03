@@ -1,4 +1,4 @@
-import { AddExpenseForm } from '../model/add-expense-form';
+import { AddExpenseForm } from '../../model/add-expense-form';
 import { Component, computed, input } from '@angular/core';
 
 type BalanceFormControl = AddExpenseForm['balance'];

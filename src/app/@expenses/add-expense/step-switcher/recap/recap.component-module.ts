@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RecapComponent } from '@expenses/add-expense/recap/recap.component';
+import { RecapComponent } from '@expenses/add-expense/step-switcher/recap/recap.component';
 
 @NgModule({
     declarations: [RecapComponent],

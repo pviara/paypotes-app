@@ -1,5 +1,5 @@
 import { AddExpenseForm } from '@expenses/add-expense/model/add-expense-form';
-import { BalanceFormatter } from '@expenses/add-expense/balance/model/balance-formatter';
+import { BalanceFormatter } from '@expenses/add-expense/step-switcher/balance/model/balance-formatter';
 import { Component, computed, input } from '@angular/core';
 
 type BalanceFormControl = AddExpenseForm['balance'];

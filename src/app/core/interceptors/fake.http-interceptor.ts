@@ -11,6 +11,10 @@ export const fakeHttpInterceptor: HttpInterceptorFn = (
     req: HttpRequest<unknown>,
     next: HttpHandlerFn,
 ): Observable<HttpEvent<unknown>> => {
-    console.log('🛜 Calling server at', req.method, req.url, req.body);
+    console.log('🛜 [HttpClient] Calling server at', req.method, req.url);
+    if (req.body) {
+        console.log(req.body);
+    }
+
     return of(new HttpResponse({ status: 200, body: [] })).pipe(delay(2000));
 };

@@ -1,4 +1,10 @@
-import { Component, EventEmitter, input, Output } from '@angular/core';
+import {
+    Component,
+    computed,
+    EventEmitter,
+    input,
+    Output,
+} from '@angular/core';
 import { Step } from '@expenses/add-expense/model/step';
 
 @Component({
@@ -9,6 +15,7 @@ import { Step } from '@expenses/add-expense/model/step';
 export class ButtonComponent {
     currentStep = input.required<Step>();
     disabled = input.required<boolean>();
+    mustBeHidden = computed(() => this.currentStep() === 'contact');
 
     @Output()
     clicked = new EventEmitter<never>();

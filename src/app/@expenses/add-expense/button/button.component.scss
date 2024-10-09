@@ -18,4 +18,8 @@ button {
         background: #6f6f6f;
         background: linear-gradient(180deg, #484848 0%, #6f6f6f 100%);
     }
+
+    &.hidden {
+        display: none;
+    }
 }

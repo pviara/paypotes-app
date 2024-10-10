@@ -10,6 +10,7 @@ export default defineConfig({
     resolve: {
         alias: {
             '@core': path.resolve(__dirname, '/src/app/core'),
+            '@expenses': path.resolve(__dirname, '/src/app/expenses'),
             '@shared': path.resolve(__dirname, '/src/app/shared'),
             '@test': path.resolve(__dirname, '/test'),
         },

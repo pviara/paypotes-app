@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest';
-import { mapPhoneNumberOutOf } from '@expenses/add-expense/step-switcher/contact/formatter/formatter';
+import { mapPhoneNumberOutOf } from './formatter';
 
 describe('mapPhoneNumberOutOf', () => {
     describe('invalid value', () => {

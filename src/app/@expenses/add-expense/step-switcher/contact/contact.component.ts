@@ -1,15 +1,8 @@
-import {
-    AbstractControl,
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    ValidationErrors,
-    ValidatorFn,
-    Validators,
-} from '@angular/forms';
 import { AddExpenseForm } from '@expenses/add-expense/model/add-expense-form';
 import { Component, inject, input, OnInit } from '@angular/core';
-import { Observable, of, switchMap, tap } from 'rxjs';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { mapPhoneNumberOutOf } from '@expenses/add-expense/step-switcher/contact/formatter/formatter';
+import { Observable, tap } from 'rxjs';
 import { User } from '@core/model/user/user';
 import { UserServiceToken } from '@core/services/user/user.api-service.provider';
 
@@ -34,43 +27,31 @@ export class ContactComponent implements OnInit {
 
     ngOnInit(): void {
         this.form = this.formBuilder.nonNullable.group({
-            phone: this.formBuilder.nonNullable.control('', [
-                Validators.required,
-                Validators.maxLength(14),
-                Validators.minLength(14),
-                this.forbiddenPhoneValidator(),
-            ]),
+            phone: this.formBuilder.nonNullable.control(''),
         });
-
-        const phoneControl = this.form.controls.phone;
-        phoneControl.valueChanges
-            .pipe(
-                switchMap(() => {
-                    if (phoneControl.valid) {
-                        phoneControl.disable();
-                        this.changeLoadingStatus();
-
-                        return this.getUserUsing(phoneControl);
-                    }
-                    return of(null);
-                }),
-            )
-            .subscribe();
     }
 
-    private forbiddenPhoneValidator(): ValidatorFn {
-        return (control: AbstractControl): ValidationErrors | null => {
-            const forbidden = this.isInvalidPhoneNumber(control.value);
-            return forbidden ? { emoji: { value: control.value } } : null;
-        };
+    onChange(event: Event): void {
+        if (this.isLoading) {
+            return;
+        }
+
+        try {
+            const phoneNumber = this.mapPhoneNumberOutOf(event);
+            this.getUserUsing(phoneNumber).subscribe();
+        } catch (error: unknown) {}
     }
 
-    private isInvalidPhoneNumber(value: string): boolean {
-        return !value.startsWith('06') && !value.startsWith('07');
+    private mapPhoneNumberOutOf(event: Event) {
+        const input = event.target as HTMLInputElement;
+        const phoneNumber = mapPhoneNumberOutOf(input.value);
+        return phoneNumber;
     }
 
-    private getUserUsing(phoneControl: FormControl<string>): Observable<User> {
-        const cleanedPhone = this.removeSpacesFrom(phoneControl.getRawValue());
+    private getUserUsing(phoneNumber: string): Observable<User> {
+        this.changeLoadingStatus();
+
+        const cleanedPhone = this.removeSpacesFrom(phoneNumber);
         return this.userService.getUser(cleanedPhone).pipe(
             tap((user) => {
                 if (!user) {
@@ -80,13 +61,19 @@ export class ContactComponent implements OnInit {
                 }
 
                 this.changeLoadingStatus();
-                phoneControl.enable({ emitEvent: false });
             }),
         );
     }
 
     private changeLoadingStatus(): void {
         this.isLoading = !this.isLoading;
+
+        const phoneControl = this.form.controls.phone;
+        if (phoneControl.enabled) {
+            phoneControl.disable();
+        } else {
+            phoneControl.enable();
+        }
     }
 
     private removeSpacesFrom(value: string): string {

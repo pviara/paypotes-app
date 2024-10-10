@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest';
-import { mapPhoneNumberOutOf } from '@shared/directives/formatter';
+import { mapPhoneNumberOutOf } from './formatter';
 
 describe('mapPhoneNumberOutOf', () => {
     describe('invalid value', () => {

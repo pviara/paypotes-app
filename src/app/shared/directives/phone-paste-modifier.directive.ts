@@ -1,4 +1,5 @@
-import { Directive, HostListener } from '@angular/core';
+import { Directive, forwardRef, Host, HostListener, Self } from '@angular/core';
+import { ContactComponent } from '@contacts/contact/contact.component';
 import { mapPhoneNumberOutOf } from '@shared/directives/formatter';
 
 @Directive({
@@ -25,6 +26,7 @@ export class PhonePasteModifierDirective {
         target.value = phoneNumber;
 
         const changeEvent = new Event('change');
+        console.log(target);
         target?.dispatchEvent(changeEvent);
     }
 }

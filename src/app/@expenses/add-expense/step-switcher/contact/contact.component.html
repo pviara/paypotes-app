@@ -9,7 +9,8 @@
             placeholder="Entrez un N°..."
             formControlName="phone"
             phoneFormatModifier
-            phonePasteModifier
+            (change)="onChange($event)"
+            (input)="onChange($event)"
         />
         @if (isLoading) {
             <span class="loader"></span>

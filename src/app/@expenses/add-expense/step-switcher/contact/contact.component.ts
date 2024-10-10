@@ -1,7 +1,7 @@
 import { AddExpenseForm } from '@expenses/add-expense/model/add-expense-form';
 import { Component, inject, input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { mapPhoneNumberOutOf } from '@shared/directives/formatter';
+import { mapPhoneNumberOutOf } from '@expenses/add-expense/step-switcher/contact/formatter/formatter';
 import { Observable, tap } from 'rxjs';
 import { User } from '@core/model/user/user';
 import { UserServiceToken } from '@core/services/user/user.api-service.provider';

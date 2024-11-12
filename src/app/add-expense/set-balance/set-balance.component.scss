@@ -9,26 +9,41 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: flex-end;
-        gap: 10vh;
+        row-gap: 5vh;
 
-        .balance {
+        background: linear-gradient(180deg, #121212, #51515133);
+
+        form {
             display: flex;
-            gap: 1vw;
+            flex-direction: column;
+            align-items: center;
+            gap: 10vh;
 
-            animation: slighSlideInFromTop 1s ease-in-out;
+            .balance {
+                display: flex;
+                gap: 1vw;
 
-            span {
-                display: block;
+                animation: slighSlideInFromTop 1s ease-in-out;
 
-                font-family: 'bold';
-                font-size: 4rem;
-                color: #fff;
+                span {
+                    display: block;
 
-                &.placeholder {
-                    color: #737373;
+                    font-family: 'bold';
+                    font-size: 4rem;
+                    color: #fff;
+
+                    &.placeholder {
+                        color: #737373;
+                    }
                 }
             }
+        }
+
+        form-button {
+            width: 100%;
+
+            display: flex;
+            justify-content: center;
         }
     }
 }

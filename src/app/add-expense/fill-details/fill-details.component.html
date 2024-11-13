@@ -11,6 +11,10 @@
                 formControlName="name"
                 [placeholder]="placeholder"
             />
+            <form-checkbox
+                [active]="form.controls.isCurrentPayer.value"
+                (changed)="onCheckboxChanged($event)"
+            />
         </div>
         <form-button
             [disabled]="form.controls.name.invalid"

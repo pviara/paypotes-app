@@ -60,4 +60,8 @@ export class FillDetailsComponent {
             this.router.navigate(['add-expense', 'person']);
         }
     }
+
+    onCheckboxChanged(active: boolean): void {
+        this.form.controls.isCurrentPayer.setValue(active);
+    }
 }

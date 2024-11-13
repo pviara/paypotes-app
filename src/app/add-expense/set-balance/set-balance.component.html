@@ -5,15 +5,9 @@
     />
     <form [formGroup]="form">
         <div class="content">
-            <div class="balance">
-                @if (form.controls.balance.value; as balance) {
-                    <span>{{ balance }}</span>
-                    <span>€</span>
-                } @else {
-                    <span class="placeholder">00,00</span>
-                    <span class="placeholder">€</span>
-                }
-            </div>
+            <balance-displayer
+                [balance]="form.controls.balance.value"
+            />
             <balance-keyboard
                 [keyboard]="formatter.getKeyboard()"
                 (keyClicked)="onKeyClicked($event)"

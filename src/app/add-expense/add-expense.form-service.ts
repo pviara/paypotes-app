@@ -5,11 +5,17 @@ import { User } from '@core/model/user/user';
 
 @Injectable()
 export class AddExpenseFormService {
-    private balance?: string;
-    private emoji?: string;
-    private name?: string;
-    private isCurrentPayer = false;
-    private person?: Contact | User;
+    balance?: string = '8,50';
+    emoji?: string = '🍵';
+    name?: string = 'coffejojo';
+    isCurrentPayer = false;
+    person?: Contact | User = new Contact({
+        avatarURL: 'ahmed.png',
+        balance: 0,
+        firstname: 'Ahmed',
+        lastname: 'Benjelloun',
+        id: 'id',
+    });
 
     extractPayload(): AddExpenseDTO {
         if (!this.balance || !this.emoji || !this.name || !this.person) {

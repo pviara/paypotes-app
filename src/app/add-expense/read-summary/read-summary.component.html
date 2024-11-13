@@ -4,6 +4,33 @@
         [subtitle]="'Nouvelle dépense'"
         [title]="'Lire le résumé'"
     />
+    <div class="content">
+        <h1 class="bold">
+            “{{ getName() }}”
+        </h1>
+        <expense-images
+            [avatarURL]="getPersonAvatarURL()"
+            [emoji]="getEmoji()"
+        />
+        <p>
+            @if (getIsCurrentPayer()) {
+                Vous avez avancé à
+                <br>
+                <span class="bold">
+                    {{ getPersonFullname() }}
+                </span>
+            } @else {
+                <span class="bold">
+                    {{ getPersonFullname() }}
+                </span>
+                <br>
+                vous a avancé
+            }
+        </p>
+        <h2 class="bold balance">
+            {{ getBalance() }}€
+        </h2>
+    </div>
     <form-button
         [text]="'Ajouter la dépense'"
         (clicked)="addExpense()"

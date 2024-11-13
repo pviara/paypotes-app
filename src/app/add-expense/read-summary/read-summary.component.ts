@@ -41,4 +41,28 @@ export class ReadSummaryComponent {
             )
             .subscribe();
     }
+
+    getBalance(): string {
+        return this.formService.balance || '';
+    }
+
+    getEmoji(): string {
+        return this.formService.emoji || '';
+    }
+
+    getIsCurrentPayer(): boolean {
+        return this.formService.isCurrentPayer;
+    }
+
+    getName(): string {
+        return this.formService.name || '';
+    }
+
+    getPersonAvatarURL(): string {
+        return this.formService.person?.getAvatarURL() || '';
+    }
+
+    getPersonFullname(): string {
+        return this.formService.person?.getFullName() || '';
+    }
 }

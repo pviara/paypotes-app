@@ -26,6 +26,8 @@ const EXPENSE_NAME_SUGGESTIONS = [
     'Picnic au parc',
 ];
 
+const LETTERS_AND_SPACES_ONLY_PATTERN = /^[a-zA-ZÀ-ÿ\s]+$/;
+
 @Component({
     selector: 'fill-details',
     templateUrl: './fill-details.component.html',
@@ -40,6 +42,7 @@ export class FillDetailsComponent {
         name: this.formBuilder.nonNullable.control('', [
             Validators.required,
             Validators.minLength(1),
+            Validators.pattern(LETTERS_AND_SPACES_ONLY_PATTERN),
         ]),
         isCurrentPayer: this.formBuilder.nonNullable.control(true),
     });

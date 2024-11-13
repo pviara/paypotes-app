@@ -76,7 +76,7 @@ describe('BalanceFormatter', () => {
             [['3', '6', '1'], '361'],
             [['2', '0', ',', '9'], '20,9'],
             [['0', '5', '4'], '54'],
-            [['2', '0', '4', '7', ',', '5', '3'], '2047,53'],
+            [['2', '4', '7', ',', '5', '3'], '247,53'],
             [['2', '9', 'delete', '1'], '21'],
             [['6', '7', '4', 'delete', '8'], '678'],
             [['delete'], ''],
@@ -104,6 +104,14 @@ describe('BalanceFormatter', () => {
             sut.append('1');
             sut.append('5');
             expect(sut.getBalance()).toBe('9,31');
+        });
+
+        it('should not append any more than three digits before comma', () => {
+            sut.append('4');
+            sut.append('3');
+            sut.append('6');
+            sut.append('8');
+            expect(sut.getBalance()).toBe('436');
         });
     });
 });

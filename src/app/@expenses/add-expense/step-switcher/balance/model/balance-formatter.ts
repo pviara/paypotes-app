@@ -24,11 +24,6 @@ export class BalanceFormatter {
         this.handle(key);
     }
 
-    balanceHasMaxDecimals(): boolean {
-        const decimals = this.getBalanceDecimals();
-        return decimals.length > 1;
-    }
-
     getBalance() {
         return this.balance;
     }
@@ -51,17 +46,33 @@ export class BalanceFormatter {
             return;
         }
 
-        if (this.balanceHasComma()) {
-            if (this.isComma(key)) {
-                return;
-            }
+        if (this.balanceHasComma() && this.isComma(key)) {
+            return;
+        }
 
-            if (this.balanceHasMaxDecimals()) {
-                return;
-            }
+        if (this.balanceHasComma() && this.balanceHasMaxDecimals()) {
+            return;
+        }
+
+        if (
+            this.balanceHasNoComma() &&
+            this.isNotComma(key) &&
+            this.balanceHasMaxIntegers()
+        ) {
+            return;
         }
 
         this.balance += key;
+    }
+
+    private balanceHasMaxIntegers(): boolean {
+        const integers = this.balance.slice(0, 3);
+        return integers.length > 2;
+    }
+
+    private balanceHasMaxDecimals(): boolean {
+        const decimals = this.getBalanceDecimals();
+        return decimals.length > 1;
     }
 
     private getBalanceDecimals(): string {
@@ -77,12 +88,20 @@ export class BalanceFormatter {
         return key === '0' || this.isComma(key) || this.isDelete(key);
     }
 
+    private isNotComma(key: string): boolean {
+        return key !== ',';
+    }
+
     private isComma(key: string): boolean {
         return key === ',';
     }
 
     private isDelete(key: string): boolean {
         return key === 'delete';
+    }
+
+    private balanceHasNoComma(): boolean {
+        return !this.balanceHasComma();
     }
 
     private balanceHasComma(): boolean {

@@ -58,8 +58,10 @@ export class FillDetailsComponent {
     }
 
     onButtonClicked(): void {
-        const { name } = this.form.controls;
+        const { name, isCurrentPayer } = this.form.controls;
         if (name.valid) {
+            this.formService.setName(name.value);
+            this.formService.setIsCurrentPayer(isCurrentPayer.value);
             this.router.navigate(['add-expense', 'person']);
         }
     }

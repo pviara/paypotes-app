@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
+import { AddExpenseFormService } from '../add-expense.form-service';
 
 type SelectPersonForm = {
     phone: FormControl<string>;
@@ -14,6 +15,7 @@ type SelectPersonForm = {
 })
 export class SelectPersonComponent {
     private formBuilder = inject(FormBuilder);
+    private formService = inject(AddExpenseFormService);
     private router = inject(Router);
 
     form = this.formBuilder.group<SelectPersonForm>({
@@ -27,7 +29,7 @@ export class SelectPersonComponent {
     }
 
     onUserFound(user: User): void {
-        console.log('🚨 found user:', user);
+        this.formService.setPerson(user);
         this.router.navigate(['add-expense', 'summary']);
     }
 }

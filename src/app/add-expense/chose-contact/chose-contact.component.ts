@@ -7,6 +7,7 @@ import {
 } from '@core/services/contact/contact.api-service.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
+import { AddExpenseFormService } from '../add-expense.form-service';
 
 @Component({
     selector: 'chose-contact',
@@ -20,6 +21,7 @@ import { QueryServiceProvider } from '@core/services/query/query.service.provide
 })
 export class ChoseContactComponent {
     private contactService = inject(ContactServiceToken);
+    private formService = inject(AddExpenseFormService);
     private router = inject(Router);
 
     $contacts = this.contactService.getContacts();
@@ -29,7 +31,7 @@ export class ChoseContactComponent {
     }
 
     onContactSelected(contact: Contact): void {
-        console.log('clicked contact:', contact);
+        this.formService.setPerson(contact);
         this.router.navigate(['add-expense', 'summary']);
     }
 }

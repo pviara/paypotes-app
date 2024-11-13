@@ -1,6 +1,6 @@
 <button
+    type="submit"
     [disabled]="disabled()"
-    [ngClass]="{ 'disabled': disabled() }"
-    (click)="onClicked()">
+    [ngClass]="{ 'disabled': disabled() }">
     {{ text() }}
 </button>

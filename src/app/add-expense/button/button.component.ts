@@ -11,11 +11,4 @@ import { Component, EventEmitter, input, Output } from '@angular/core';
 export class ButtonComponent {
     disabled = input.required<boolean>();
     text = input<string>('Suivant');
-
-    @Output()
-    clicked = new EventEmitter<never>();
-
-    onClicked(): void {
-        this.clicked.emit();
-    }
 }

@@ -3,12 +3,14 @@ import { AddExpenseView } from './add-expense.view';
 import { AddExpenseFormService } from './add-expense.form-service';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { SelectEmojiComponentModule } from './select-emoji/select-emoji.component-module';
 import { SetBalanceComponentModule } from './set-balance/set-balance.component-module';
 
 @NgModule({
     declarations: [AddExpenseView],
     imports: [
         RouterModule.forChild(addExpenseRoutes),
+        SelectEmojiComponentModule,
         SetBalanceComponentModule,
     ],
     providers: [AddExpenseFormService],

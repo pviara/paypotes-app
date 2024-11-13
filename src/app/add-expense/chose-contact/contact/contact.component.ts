@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
 
 @Component({
@@ -9,4 +9,11 @@ import { Contact } from '@core/model/contact/contact';
 export class ContactComponent {
     contact = input.required<Contact>();
     last = input<boolean>(false);
+
+    @Output()
+    contactSelected = new EventEmitter<Contact>();
+
+    onClicked(): void {
+        this.contactSelected.emit(this.contact());
+    }
 }

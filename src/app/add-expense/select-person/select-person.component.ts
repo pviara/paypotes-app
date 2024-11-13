@@ -28,6 +28,6 @@ export class SelectPersonComponent {
 
     onUserFound(user: User): void {
         console.log('🚨 found user:', user);
-        this.router.navigate(['add-expense', 'person']);
+        this.router.navigate(['add-expense', 'summary']);
     }
 }

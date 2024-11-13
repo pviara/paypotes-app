@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Contact } from '@core/model/contact/contact';
 import {
     ContactServiceProvider,
@@ -19,10 +20,16 @@ import { QueryServiceProvider } from '@core/services/query/query.service.provide
 })
 export class ChoseContactComponent {
     private contactService = inject(ContactServiceToken);
+    private router = inject(Router);
 
     $contacts = this.contactService.getContacts();
 
     isLastFrom(contacts: Contact[], index: number): boolean {
         return index === contacts.length - 1;
+    }
+
+    onContactSelected(contact: Contact): void {
+        console.log('clicked contact:', contact);
+        this.router.navigate(['add-expense', 'summary']);
     }
 }

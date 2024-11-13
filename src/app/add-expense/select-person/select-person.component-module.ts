@@ -4,6 +4,7 @@ import { HeadbarComponent } from '../common/headbar/headbar.component';
 import { ManualPhoneInputComponentModule } from './manual-phone-input/manual-phone-input.component-module';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { SelectPersonComponent } from './select-person.component';
 
 @NgModule({
@@ -14,6 +15,7 @@ import { SelectPersonComponent } from './select-person.component';
         HeadbarComponent,
         ManualPhoneInputComponentModule,
         ReactiveFormsModule,
+        RouterModule,
     ],
 })
 export class SelectPersonComponentModule {}

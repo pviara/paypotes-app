@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { SelectEmojiComponent } from './select-emoji/select-emoji.component';
 import { SetBalanceComponent } from './set-balance/set-balance.component';
 import { SelectPersonComponent } from './select-person/select-person.component';
+import { ChoseContactComponent } from './chose-contact/chose-contact.component';
 
 export const addExpenseRoutes: Routes = [
     {
@@ -20,6 +21,10 @@ export const addExpenseRoutes: Routes = [
     {
         path: 'person',
         component: SelectPersonComponent,
+    },
+    {
+        path: 'contact',
+        component: ChoseContactComponent,
     },
     {
         path: '**',

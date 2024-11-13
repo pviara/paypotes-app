@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
     imports: [RouterModule],
 })
 export class HeadbarComponent {
+    route = input<string>('..');
     subtitle = input<string>();
     title = input<string>();
 }

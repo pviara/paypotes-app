@@ -1,6 +1,6 @@
-import { ButtonComponent } from '../button/button.component';
+import { ButtonComponent } from '../common/button/button.component';
 import { DisplayerComponent } from './displayer/displayer.component';
-import { HeadbarComponent } from '../headbar/headbar.component';
+import { HeadbarComponent } from '../common/headbar/headbar.component';
 import { KeyboardComponent } from './keyboard/keyboard.component';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';

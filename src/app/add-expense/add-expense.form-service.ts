@@ -12,8 +12,13 @@ export class AddExpenseFormService {
     ];
 
     private balance = '';
+    private emoji = '';
 
     setBalance(balance: string): void {
         this.balance = balance;
+    }
+
+    setEmoji(emoji: string) {
+        this.emoji = emoji;
     }
 }

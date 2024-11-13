@@ -1,5 +1,5 @@
 import { AddExpenseFormService } from '../add-expense.form-service';
-import { BalanceFormatter } from '@expenses/add-expense/step-switcher/balance/model/balance-formatter';
+import { BalanceFormatter } from './model/balance-formatter';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -7,8 +7,6 @@ import { Router } from '@angular/router';
 type SetBalanceForm = {
     balance: FormControl<string>;
 };
-
-const BALANCE_FORMAT_PATTERN = /^0$|^[1-9]\d{0,2}(?:,\d{1,2})?$/;
 
 @Component({
     selector: 'set-balance',
@@ -24,7 +22,6 @@ export class SetBalanceComponent {
         balance: this.formBuilder.nonNullable.control('', [
             Validators.required,
             Validators.minLength(1),
-            Validators.pattern(BALANCE_FORMAT_PATTERN),
         ]),
     });
 

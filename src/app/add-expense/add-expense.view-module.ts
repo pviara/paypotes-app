@@ -1,6 +1,6 @@
 import { addExpenseRoutes } from './add-expense.routes';
 import { AddExpenseView } from './add-expense.view';
-import { AddExpenseViewService } from './add-expense.view-service';
+import { AddExpenseFormService } from './add-expense.form-service';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SetBalanceComponentModule } from './set-balance/set-balance.component-module';
@@ -11,6 +11,6 @@ import { SetBalanceComponentModule } from './set-balance/set-balance.component-m
         RouterModule.forChild(addExpenseRoutes),
         SetBalanceComponentModule,
     ],
-    providers: [AddExpenseViewService],
+    providers: [AddExpenseFormService],
 })
 export class AddExpenseViewModule {}

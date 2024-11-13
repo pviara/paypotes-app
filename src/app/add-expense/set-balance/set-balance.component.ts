@@ -1,7 +1,7 @@
+import { AddExpenseFormService } from '../add-expense.form-service';
 import { BalanceFormatter } from '@expenses/add-expense/step-switcher/balance/model/balance-formatter';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { AddExpenseViewService } from '../add-expense.view-service';
 
 type SetBalanceForm = {
     balance: FormControl<string>;
@@ -13,8 +13,8 @@ type SetBalanceForm = {
     styleUrls: ['./set-balance.component.scss'],
 })
 export class SetBalanceComponent {
-    private addExpenseViewService = inject(AddExpenseViewService);
     private formBuilder = inject(FormBuilder);
+    private formService = inject(AddExpenseFormService);
 
     form = this.formBuilder.group<SetBalanceForm>({
         balance: this.formBuilder.nonNullable.control('', [
@@ -29,14 +29,12 @@ export class SetBalanceComponent {
         console.log('clicked');
     }
 
-    onKeyClicked(key: unknown): void {
-        if (typeof key === 'string') {
-            this.formatter.append(key);
+    onKeyClicked(key: string): void {
+        this.formatter.append(key);
 
-            const balance = this.formatter.getBalance();
+        const balance = this.formatter.getBalance();
 
-            this.form.controls.balance.setValue(balance);
-            this.addExpenseViewService.setBalance(balance);
-        }
+        this.form.controls.balance.setValue(balance);
+        this.formService.setBalance(balance);
     }
 }

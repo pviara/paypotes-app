@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class AddExpenseViewService {
+export class AddExpenseFormService {
     private balance = '';
 
     setBalance(balance: string): void {

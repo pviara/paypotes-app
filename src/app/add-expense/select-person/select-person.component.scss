@@ -1,0 +1,76 @@
+.container {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    row-gap: 5vh;
+
+    background: linear-gradient(180deg, #121212, #51515133);
+
+    form {
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2vh;
+
+        .content {
+            flex-grow: 1;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2vh;
+
+            div {
+                width: 100%;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 2vw;
+
+                animation: slighSlideInFromBottom 0.5s ease-in-out;
+
+                span {
+                    font-family: 'regular';
+                    font-size: 1.5rem;
+                    color: #737373;
+                }
+
+                button {
+                    padding-top: 3%;
+                    padding-bottom: 3%;
+                    padding-left: 4%;
+                    padding-right: 4%;
+
+                    border: none;
+                    border-radius: 1rem;
+
+                    background-color: #202020;
+
+                    font-family: 'bold';
+                    font-size: 1.2rem;
+                    color: #fff;
+                }
+
+                transition-property: opacity;
+                transition-duration: 0.2s;
+
+                &.searching {
+                    opacity: 0;
+                }
+            }
+        }
+
+        form-button {
+            width: 100%;
+
+            display: flex;
+            justify-content: center;
+        }
+    }
+}

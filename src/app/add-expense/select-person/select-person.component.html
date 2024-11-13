@@ -4,4 +4,21 @@
         [subtitle]="'Nouvelle dépense'"
         [title]="'Choisir la personne'"
     />
+    <form>
+        <div class="content">
+            <manual-phone-input
+                (searching)="onSearching($event)"
+                (userFound)="onUserFound($event)"
+            />
+            <div [ngClass]="{ searching }">
+                <span>ou</span>
+                <button type="button">
+                    🙋 Choisir un contact
+                </button>
+            </div>
+        </div>
+        <form-button
+            [disabled]="true"
+        />
+    </form>
 </div>

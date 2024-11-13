@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, input, Output } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
     selector: 'form-button',

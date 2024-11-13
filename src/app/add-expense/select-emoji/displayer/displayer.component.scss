@@ -1,4 +1,7 @@
 div {
+    display: flex;
+    justify-content: center;
+
     animation: slighSlideInFromTop 0.5s ease-in-out;
 
     span {

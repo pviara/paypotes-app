@@ -20,8 +20,7 @@ export class SelectEmojiComponent {
     form = this.formBuilder.group<SelectEmojiForm>({
         emoji: this.formBuilder.nonNullable.control('', [
             Validators.required,
-            Validators.minLength(1),
-            Validators.maxLength(1),
+            Validators.pattern(/\p{Emoji}/u),
         ]),
     });
 

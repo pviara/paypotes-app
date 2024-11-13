@@ -3,8 +3,8 @@
         [subtitle]="'Nouvelle dépense'"
         [title]="'Fixer le montant'"
     />
-    <section>
-        <form [formGroup]="form">
+    <form [formGroup]="form">
+        <div class="content">
             <div class="balance">
                 @if (form.controls.balance.value; as balance) {
                     <span>{{ balance }}</span>
@@ -18,10 +18,10 @@
                 [keyboard]="formatter.getKeyboard()"
                 (keyClicked)="onKeyClicked($event)"
             />
-        </form>
+        </div>
         <form-button
             [disabled]="form.controls.balance.invalid"
             (clicked)="onButtonClicked()"
         />
-    </section>
+    </form>
 </div>

@@ -1,5 +1,5 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, inject, input, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { mapPhoneNumberOutOf } from './formatter/formatter';
 import { Observable, tap } from 'rxjs';
@@ -9,10 +9,6 @@ import {
     UserServiceProvider,
     UserServiceToken,
 } from '@core/services/user/user.api-service.provider';
-
-type ManualPhoneForm = {
-    phone: FormControl<string>;
-};
 
 @Component({
     selector: 'manual-phone-input',
@@ -24,13 +20,12 @@ type ManualPhoneForm = {
         QueryServiceProvider,
     ],
 })
-export class ManualPhoneInputComponent implements OnInit {
-    private formBuilder = inject(FormBuilder);
+export class ManualPhoneInputComponent {
     private userService = inject(UserServiceToken);
 
-    isLoading = false;
+    control = input.required<FormControl>();
 
-    manualPhoneForm!: FormGroup<ManualPhoneForm>;
+    isLoading = false;
 
     notFoundUser = false;
 
@@ -39,12 +34,6 @@ export class ManualPhoneInputComponent implements OnInit {
 
     @Output()
     userFound = new EventEmitter<User>();
-
-    ngOnInit(): void {
-        this.manualPhoneForm = this.formBuilder.group({
-            phone: this.formBuilder.nonNullable.control(''),
-        });
-    }
 
     onChange(event: Event): void {
         if (this.isLoading) {
@@ -85,7 +74,7 @@ export class ManualPhoneInputComponent implements OnInit {
     private changeLoadingStatus(): void {
         this.isLoading = !this.isLoading;
 
-        const phoneControl = this.manualPhoneForm.controls.phone;
+        const phoneControl = this.control();
         if (phoneControl.enabled) {
             phoneControl.disable();
         } else {

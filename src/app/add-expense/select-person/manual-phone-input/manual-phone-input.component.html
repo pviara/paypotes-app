@@ -1,14 +1,14 @@
-<form [formGroup]="manualPhoneForm">
+<div>
     @if (notFoundUser && !isLoading) {
-        <p class="error">🤔 Numéro introuvable</p>
+        <p class="error">Numéro introuvable...</p>
     }
     <div class="input">
         <input
             type="tel"
             maxlength="14"
             placeholder="Entrer un N°..."
-            formControlName="phone"
             phoneFormatModifier
+            [formControl]="control()"
             (change)="onChange($event)"
             (input)="onChange($event)"
         />
@@ -16,4 +16,4 @@
             <span class="loader"></span>
         }
     </div>
-</form>
+</div>

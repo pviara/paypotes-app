@@ -4,9 +4,10 @@
         [subtitle]="'Nouvelle dépense'"
         [title]="'Choisir la personne'"
     />
-    <form>
+    <form [formGroup]="form">
         <div class="content">
             <manual-phone-input
+                [control]="form.controls.phone"
                 (searching)="onSearching($event)"
                 (userFound)="onUserFound($event)"
             />
@@ -17,8 +18,5 @@
                 </button>
             </div>
         </div>
-        <form-button
-            [disabled]="true"
-        />
     </form>
 </div>

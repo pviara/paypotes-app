@@ -16,5 +16,5 @@ export const fakeHttpInterceptor: HttpInterceptorFn = (
         console.log(req.body);
     }
 
-    return of(new HttpResponse({ status: 200, body: [] })).pipe(delay(0));
+    return of(new HttpResponse({ status: 200, body: [] })).pipe(delay(2000));
 };

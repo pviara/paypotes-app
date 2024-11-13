@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 
 @Component({
     selector: 'form-button',
@@ -9,6 +9,13 @@ import { Component, input } from '@angular/core';
     imports: [CommonModule],
 })
 export class ButtonComponent {
-    disabled = input.required<boolean>();
+    disabled = input<boolean>(false);
     text = input<string>('Suivant');
+
+    @Output()
+    clicked = new EventEmitter<never>();
+
+    onClicked(): void {
+        this.clicked.emit();
+    }
 }

@@ -1,0 +1,11 @@
+<div class="container">
+    <headbar
+        [route]="'person'"
+        [subtitle]="'Nouvelle dépense'"
+        [title]="'Lire le résumé'"
+    />
+    <form-button
+        [text]="'Ajouter la dépense'"
+        (clicked)="addExpense()"
+    />
+</div>

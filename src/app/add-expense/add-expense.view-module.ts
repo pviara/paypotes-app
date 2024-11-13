@@ -5,6 +5,7 @@ import { FillDetailsComponentModule } from './fill-details/fill-details.componen
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SelectEmojiComponentModule } from './select-emoji/select-emoji.component-module';
+import { SelectPersonComponentModule } from './select-person/select-person.component-module';
 import { SetBalanceComponentModule } from './set-balance/set-balance.component-module';
 
 @NgModule({
@@ -13,6 +14,7 @@ import { SetBalanceComponentModule } from './set-balance/set-balance.component-m
         FillDetailsComponentModule,
         RouterModule.forChild(addExpenseRoutes),
         SelectEmojiComponentModule,
+        SelectPersonComponentModule,
         SetBalanceComponentModule,
     ],
     providers: [AddExpenseFormService],

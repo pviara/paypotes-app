@@ -3,6 +3,14 @@
         [subtitle]="'Nouvelle dépense'"
         [title]="'Choisir un emoji'"
     />
-    <form>
+    <form [formGroup]="form">
+        <div class="content">
+            <emoji-displayer 
+                [emoji]="form.controls.emoji.value"
+            />
+        </div>
+        <form-button
+            [disabled]="form.controls.emoji.invalid"
+        />
     </form>
 </div>

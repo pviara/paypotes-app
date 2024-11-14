@@ -1,0 +1,23 @@
+<div class="container">
+    <headbar
+        [route]="'/expenses/add/emoji'"
+        [subtitle]="'Nouvelle dépense'"
+        [title]="'Saisir un nom'"
+    />
+    <form [formGroup]="form" (submit)="onButtonClicked()">
+        <div class="content">
+            <input
+                type="text"
+                formControlName="name"
+                [placeholder]="placeholder"
+            />
+            <form-checkbox
+                [active]="form.controls.isCurrentPayer.value"
+                (changed)="onCheckboxChanged($event)"
+            />
+        </div>
+        <form-button
+            [disabled]="form.controls.name.invalid"
+        />
+    </form>
+</div>

@@ -1,8 +1,8 @@
+import { AddExpenseViewModule } from './@expenses/add-expense/add-expense.view-module';
 import { ContactsViewModule } from '@contacts/contacts.view-module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { GroupsViewModule } from '@groups/groups.view-module';
 import { HomeView } from '@home/home.view';
-import { LandingView } from '@landing/landing.view';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [

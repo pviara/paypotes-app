@@ -1,9 +1,0 @@
-<button
-    [disabled]="disabled()"
-    [ngClass]="{
-        'hidden': mustBeHidden(),
-        'disabled': disabled()
-    }"
-    (click)="onClicked()">
-    {{ isCurrentStepSummary() ? 'Ajouter la dépense' : 'Suivant' }}
-</button>

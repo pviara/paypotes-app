@@ -1,0 +1,24 @@
+<div class="container">
+    <headbar
+        [route]="'/expenses/add/details'"
+        [subtitle]="'Nouvelle dépense'"
+        [title]="'Choisir la personne'"
+    />
+    <form [formGroup]="form">
+        <div class="content">
+            <manual-phone-input
+                [control]="form.controls.phone"
+                (searching)="onSearching($event)"
+                (userFound)="onUserFound($event)"
+            />
+            <div [ngClass]="{ searching }">
+                <span>ou</span>
+                <button
+                    routerLink="/expenses/add/contact"
+                    type="button">
+                    🙋 Choisir un contact
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

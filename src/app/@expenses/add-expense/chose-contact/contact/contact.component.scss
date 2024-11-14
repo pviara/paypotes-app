@@ -1,0 +1,61 @@
+li {
+    margin-left: 8%;
+    margin-right: 8%;
+
+    padding: 4%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    list-style-type: none;
+
+    border-radius: 1rem;
+    background-color: #202020;
+
+    font-family: 'bold';
+    font-size: 1.1rem;
+    color: #fff;
+
+    scroll-snap-align: start;
+
+    &.last {
+        margin-bottom: 3vh;
+    }
+
+    .info {
+        display: flex;
+        align-items: center;
+        gap: 3vw;
+
+        .avatar {
+            height: 48px;
+
+            border-radius: 50%;
+            border: 2px solid #2e2e2e;
+        }
+
+        .name {
+            display: flex;
+            flex-direction: column;
+
+            .lastname {
+                font-family: 'bold';
+            }
+        }
+    }
+
+    button {
+        height: 45px;
+        width: 45px;
+
+        font-family: 'bold';
+        font-size: 1.5rem;
+        color: #fff;
+
+        border: none;
+        border-radius: 1rem;
+
+        background: linear-gradient(#6717cd, #2871fa);
+    }
+}

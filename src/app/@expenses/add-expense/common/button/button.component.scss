@@ -1,0 +1,24 @@
+button {
+    margin-bottom: 4vh;
+
+    padding: 3%;
+
+    width: 90%;
+
+    border: none;
+    border-radius: 2rem;
+
+    background: #6717cd;
+    background: linear-gradient(180deg, #6717cd 0%, #2871fa 100%);
+
+    font-family: 'bold';
+    font-size: 1.3rem;
+    color: #fff;
+
+    animation: slighSlideInFromBottom 1s ease-in-out;
+
+    &.disabled {
+        background: #6f6f6f;
+        background: linear-gradient(180deg, #484848 0%, #6f6f6f 100%);
+    }
+}

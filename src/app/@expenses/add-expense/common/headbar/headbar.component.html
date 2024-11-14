@@ -1,0 +1,16 @@
+<header>
+    <a [routerLink]="route() || defaultRoute">
+        <img
+            draggable="false"
+            src="../../../assets/icons/arrow.svg"
+        />
+    </a>
+    <div class="titles">
+        <h2>
+            {{ subtitle() }}
+        </h2>
+        <h1 class="bold">
+            {{ title() }}
+        </h1>
+    </div>
+</header>

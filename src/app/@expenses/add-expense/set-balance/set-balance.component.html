@@ -1,0 +1,20 @@
+<div class="container">
+    <headbar
+        [subtitle]="'Nouvelle dépense'"
+        [title]="'Fixer le montant'"
+    />
+    <form [formGroup]="form" (submit)="onButtonClicked()">
+        <div class="content">
+            <balance-displayer
+                [balance]="form.controls.balance.value"
+            />
+            <balance-keyboard
+                [keyboard]="formatter.getKeyboard()"
+                (keyClicked)="onKeyClicked($event)"
+            />
+        </div>
+        <form-button
+            [disabled]="form.controls.balance.invalid"
+        />
+    </form>
+</div>

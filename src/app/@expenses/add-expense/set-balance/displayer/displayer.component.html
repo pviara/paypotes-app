@@ -1,0 +1,9 @@
+<div>
+    @if (balance(); as balance) {
+        <span>{{ balance }}</span>
+        <span>€</span>
+    } @else {
+        <span class="placeholder">00,00</span>
+        <span class="placeholder">€</span>
+    }
+</div>

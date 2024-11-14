@@ -26,7 +26,10 @@ export class ReadSummaryComponent {
     private notificationService = inject(NotificationService);
     private router = inject(Router);
 
+    loading = false;
+
     addExpense(): void {
+        this.changeLoadingStatus();
         const payload = this.formService.extractPayload();
         this.expenseService
             .addExpense(payload)
@@ -64,5 +67,9 @@ export class ReadSummaryComponent {
 
     getPersonFullname(): string {
         return this.formService.person?.getFullName() || '';
+    }
+
+    private changeLoadingStatus(): void {
+        this.loading = !this.loading;
     }
 }

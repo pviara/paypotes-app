@@ -1,5 +1,5 @@
 <header>
-    <a [routerLink]="['..', route()]">
+    <a [routerLink]="route() || defaultRoute">
         <img
             draggable="false"
             src="../../../assets/icons/arrow.svg"

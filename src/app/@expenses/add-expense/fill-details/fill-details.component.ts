@@ -26,7 +26,7 @@ const EXPENSE_NAME_SUGGESTIONS = [
     'Picnic au parc',
 ];
 
-const LETTERS_AND_SPACES_ONLY_PATTERN = /^[a-zA-ZÀ-ÿ\s]+$/;
+const LETTERS_AND_SPACES_ONLY_PATTERN = /^(?!\s+$)[a-zA-ZÀ-ÿ\s]+$/;
 
 @Component({
     selector: 'fill-details',

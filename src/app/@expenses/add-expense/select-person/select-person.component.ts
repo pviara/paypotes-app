@@ -30,6 +30,6 @@ export class SelectPersonComponent {
 
     onUserFound(user: User): void {
         this.formService.setPerson(user);
-        this.router.navigate(['add-expense', 'summary']);
+        this.router.navigate(['expenses', 'add', 'summary']);
     }
 }

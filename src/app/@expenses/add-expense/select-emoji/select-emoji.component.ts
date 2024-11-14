@@ -26,7 +26,7 @@ export class SelectEmojiComponent {
 
     onButtonClicked(): void {
         if (this.form.controls.emoji.valid) {
-            this.router.navigate(['add-expense', 'details']);
+            this.router.navigate(['expenses', 'add', 'details']);
         }
     }
 

@@ -62,7 +62,7 @@ export class FillDetailsComponent {
         if (name.valid) {
             this.formService.setName(name.value);
             this.formService.setIsCurrentPayer(isCurrentPayer.value);
-            this.router.navigate(['add-expense', 'person']);
+            this.router.navigate(['expenses', 'add', 'person']);
         }
     }
 

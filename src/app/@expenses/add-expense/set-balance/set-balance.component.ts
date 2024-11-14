@@ -29,7 +29,7 @@ export class SetBalanceComponent {
 
     onButtonClicked(): void {
         if (this.form.controls.balance.valid) {
-            this.router.navigate(['add-expense', 'emoji']);
+            this.router.navigate(['expenses', 'add', 'emoji']);
         }
     }
 

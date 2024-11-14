@@ -1,4 +1,4 @@
-import { AddExpenseComponent } from '@expenses/add-expense/add-expense.component';
+import { AddExpenseViewModule } from '@expenses/add-expense/add-expense.view-module';
 import { ExpenseComponent } from '@expenses/expense/expense.component';
 import { ExpensesComponent } from '@expenses/expenses/expenses.component';
 import { ExpensesView } from '@expenses/expenses.view';
@@ -16,8 +16,7 @@ export const expensesRoutes: Routes = [
             },
             {
                 path: 'add',
-                component: AddExpenseComponent,
-                title: 'Ajouter une dépense',
+                loadChildren: importAddExpenseView(),
             },
             {
                 path: ':expenseId',
@@ -27,3 +26,12 @@ export const expensesRoutes: Routes = [
         ],
     },
 ];
+
+function importAddExpenseView(): () => Promise<typeof AddExpenseViewModule> {
+    return async () => {
+        const imported = await import(
+            '@expenses/add-expense/add-expense.view-module'
+        );
+        return imported.AddExpenseViewModule;
+    };
+}

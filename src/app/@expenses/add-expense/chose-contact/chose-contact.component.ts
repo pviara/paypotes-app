@@ -32,6 +32,6 @@ export class ChoseContactComponent {
 
     onContactSelected(contact: Contact): void {
         this.formService.setPerson(contact);
-        this.router.navigate(['add-expense', 'summary']);
+        this.router.navigate(['expenses', 'add', 'summary']);
     }
 }

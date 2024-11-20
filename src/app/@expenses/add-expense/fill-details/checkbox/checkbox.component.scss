@@ -60,8 +60,11 @@ div {
         transition-property: color;
         transition-duration: 0.2s;
 
-        &.clicked {
+        filter: grayscale(1);
+
+        &.active {
             color: #fff;
+            filter: grayscale(0);
         }
     }
 }

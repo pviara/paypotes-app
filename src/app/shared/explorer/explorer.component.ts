@@ -13,7 +13,7 @@ const SKELETONS = Array.from({ length: 20 }).map(() => null);
 export class ExplorerComponent implements OnInit {
     private nextPageIndex = 0;
     private savedFilters?: Filters;
-    private lastFetchedGroupsCount = 0;
+    private lastFetchedElementsCount = 0;
 
     $elements = input.required<BehaviorSubject<ListElements>>();
     $displayedElements = new BehaviorSubject<ListElements>([]);
@@ -31,10 +31,10 @@ export class ExplorerComponent implements OnInit {
         this.requestElements();
     }
 
-    onElementHovered(groupId: string): void {
+    onElementHovered(elementId: string): void {
         if (
-            this.isElementNearListEnd(groupId) &&
-            this.lastFetchedGroupsCount === 20
+            this.isElementNearListEnd(elementId) &&
+            this.lastFetchedElementsCount === 20
         ) {
             this.addSkeletonsToList();
             this.requestNextElements();
@@ -60,7 +60,7 @@ export class ExplorerComponent implements OnInit {
     private handleElementsChange(): void {
         this.$elements().subscribe((newElements) => {
             this.filtering = false;
-            this.lastFetchedGroupsCount = newElements.length;
+            this.lastFetchedElementsCount = newElements.length;
 
             this.appendToDisplayedElements(newElements);
         });

@@ -10,5 +10,5 @@ import { SkeletonComponent } from '@shared/headbar/titles/skeleton/skeleton.comp
 })
 export class TitlesComponent {
     subhead = input<string>();
-    title = input<string>();
+    title = input<string | null>();
 }

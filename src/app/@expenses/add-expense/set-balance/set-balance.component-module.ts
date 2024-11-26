@@ -1,4 +1,4 @@
-import { ButtonComponent } from '@shared/form/button/button.component';
+import { ButtonComponent } from '@shared/button/button.component';
 import { DisplayerComponent } from '@expenses/add-expense/set-balance/displayer/displayer.component';
 import { HeadbarComponent } from '@shared/headbar/headbar.component';
 import { KeyboardComponent } from '@expenses/add-expense/set-balance/keyboard/keyboard.component';

@@ -1,4 +1,4 @@
-import { ButtonComponent } from '@shared/form/button/button.component';
+import { ButtonComponent } from '@shared/button/button.component';
 import { ExpenseImagesComponent } from '@shared/expense/images/images.component';
 import { HeadbarComponent } from '@shared/headbar/headbar.component';
 import { NgModule } from '@angular/core';

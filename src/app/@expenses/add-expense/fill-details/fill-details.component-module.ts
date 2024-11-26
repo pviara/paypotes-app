@@ -1,4 +1,4 @@
-import { ButtonComponent } from '@shared/form/button/button.component';
+import { ButtonComponent } from '@shared/button/button.component';
 import { CheckboxComponent } from './checkbox/checkbox.component';
 import { CommonModule } from '@angular/common';
 import { FillDetailsComponent } from './fill-details.component';

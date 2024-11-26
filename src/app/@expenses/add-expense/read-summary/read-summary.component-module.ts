@@ -1,8 +1,8 @@
 import { ButtonComponent } from '@shared/form/button/button.component';
 import { ExpenseImagesComponent } from '@shared/expense/images/images.component';
-import { HeadbarComponent } from '@shared/form/headbar/headbar.component';
+import { HeadbarComponent } from '@shared/headbar/headbar.component';
 import { NgModule } from '@angular/core';
-import { ReadSummaryComponent } from './read-summary.component';
+import { ReadSummaryComponent } from '@expenses/add-expense/read-summary/read-summary.component';
 
 @NgModule({
     declarations: [ReadSummaryComponent],

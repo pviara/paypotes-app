@@ -1,6 +1,7 @@
 <div class="container">
     <headbar
-        [subtitle]="'Nouvelle dépense'"
+        [route]="'/expenses'"
+        [subhead]="'Nouvelle dépense'"
         [title]="'Fixer le montant'"
     />
     <form [formGroup]="form" (submit)="onButtonClicked()">

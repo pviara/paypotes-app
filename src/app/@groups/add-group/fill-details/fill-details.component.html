@@ -1,0 +1,19 @@
+<div class="container">
+    <headbar
+        [route]="'/groups/add/emoji'"
+        [subtitle]="'Nouveau groupe'"
+        [title]="'Saisir un nom'"
+    />
+    <form [formGroup]="form" (submit)="onButtonClicked()">
+        <div class="content">
+            <input
+                type="text"
+                formControlName="name"
+                [placeholder]="placeholder"
+            />
+        </div>
+        <form-button
+            [disabled]="form.controls.name.invalid"
+        />
+    </form>
+</div>

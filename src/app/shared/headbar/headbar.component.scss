@@ -13,56 +13,5 @@ header {
         display: flex;
         align-items: center;
         gap: 5vw;
-
-        .titles {
-            display: flex;
-            flex-direction: column;
-
-            h1 {
-                font-size: 1.5rem;
-                color: #fff;
-            }
-        }
-
-        .skeleton {
-            display: flex;
-            flex-direction: column;
-            gap: 0.7vh;
-
-            h1 {
-                width: 140px;
-                height: 15px;
-
-                border-radius: 1rem;
-
-                background-color: #292929;
-                background: linear-gradient(
-                    90deg,
-                    #292929 25%,
-                    #3f3f3f 50%,
-                    #292929 75%
-                );
-                background-size: 200% 100%;
-
-                animation: skeletonLoading 1.5s infinite linear;
-            }
-        }
-
-        .titles,
-        .skeleton {
-            h2 {
-                color: #737373;
-            }
-        }
-    }
-
-    .add {
-        border-radius: 20%;
-        background-color: #202020;
-
-        color: #fff;
-        font-family: 'bold';
-        font-size: 2rem;
-        text-decoration: none;
     }
 }

@@ -1,6 +1,7 @@
 <headbar
-  [subtitle]="'Dépenses'"
-  [title]="($group | async)?.getName()"
+    [route]="''"
+    [subtitle]="'Dépenses'"
+    [title]="($group | async)?.getName()"
 />
 <div>
     @if ($group | async; as group) {

@@ -9,32 +9,10 @@ header {
 
     animation: slighSlideInFromTop 0.5s ease-in-out;
 
-    .left-side > .back,
-    .add {
-        width: 14vw;
-        height: 14vw;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .left-side {
+    div {
         display: flex;
         align-items: center;
         gap: 5vw;
-
-        .back {
-            border-radius: 20%;
-            background-color: #202020;
-
-            img {
-                filter: invert(1);
-                transform: rotate(90deg);
-
-                width: 6vw;
-            }
-        }
 
         .titles {
             display: flex;

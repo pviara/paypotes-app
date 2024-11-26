@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, shareReplay, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, map, shareReplay, switchMap, tap } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
@@ -22,6 +22,10 @@ export class ContactComponent {
         tap((params) => (this.contactId = params['contactId'])),
         switchMap(() => this.contactService.getContact(this.contactId)),
         shareReplay(1),
+    );
+
+    $contactFullname = this.$contact.pipe(
+        map((contact) => contact.getFullName()),
     );
 
     $expenses = new BehaviorSubject<ListElements>([]);

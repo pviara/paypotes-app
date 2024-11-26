@@ -1,3 +1,4 @@
+import { Action } from '@shared/headbar/action-button/action-button.component';
 import { BehaviorSubject } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
@@ -9,6 +10,8 @@ import { ListElements } from '@core/model/list-element/list-element';
 })
 export class ExpensesComponent {
     private expenseService = inject(ExpenseServiceToken);
+
+    action: Action = { char: '+', route: '/expenses/add' };
 
     $expenses = new BehaviorSubject<ListElements>([]);
 

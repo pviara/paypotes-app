@@ -8,7 +8,10 @@
             [title]="title()"
         />
     </div>
-    <action-button
-        [action]="{ char: '+', route: '' }"
-    />
+    @if (action(); as action) {
+        <action-button
+            [action]="action"
+        />
+    }
 </header>
+local

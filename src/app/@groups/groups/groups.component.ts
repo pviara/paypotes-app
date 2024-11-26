@@ -1,3 +1,4 @@
+import { Action } from '@shared/headbar/action-button/action-button.component';
 import { BehaviorSubject } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import { FiltersEvent } from '@core/model/filters/filters-event';
@@ -11,6 +12,8 @@ import { ListElements } from '@core/model/list-element/list-element';
 })
 export class GroupsComponent {
     private groupService = inject(GroupServiceToken);
+
+    action: Action = { char: '+', route: '/groups/add' };
 
     $groups = new BehaviorSubject<ListElements>([]);
 

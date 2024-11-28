@@ -1,0 +1,20 @@
+<div class="container">
+    <headbar
+        [route]="'/groups/add/details'"
+        [subhead]="'Nouveau groupe'"
+        [title]="'Choisir un emoji'"
+    />
+    <form [formGroup]="form" (submit)="onButtonClicked()">
+        <div class="content">
+            <emoji-displayer 
+                [emoji]="form.controls.emoji.value"
+            />
+            <emoji-keyboard
+                (keyClicked)="onKeyClicked($event)"
+            />
+        </div>
+        <form-button
+            [disabled]="form.controls.emoji.invalid"
+        />
+    </form>
+</div>

@@ -61,7 +61,7 @@ export class FillDetailsComponent {
         const { name } = this.form.controls;
         if (name.valid) {
             this.formService.setName(name.value);
-            this.router.navigate(['groups', 'add', 'person']);
+            this.router.navigate(['groups', 'add', 'emoji']);
         }
     }
 

@@ -4,10 +4,12 @@ type FieldInput = {
     constraint?: RegExp;
 };
 
-export class Form {
-    private fields = new Map<FieldInput['label'], FieldInput>();
+type Label = string;
 
-    get(label: string): FieldInput | null {
+export class Form {
+    private fields = new Map<Label, Field>();
+
+    get(label: string): Field | null {
         return this.fields.get(label) ?? null;
     }
 
@@ -16,29 +18,27 @@ export class Form {
     }
 
     addField({ label, value, constraint }: FieldInput): void {
-        this.throwIfInvalid(label);
-        this.throwIfExists(label);
-        this.fields.set(label, { label, value, constraint });
-    }
-
-    setField({ label, value }: FieldInput): void {
-        this.throwIfNotFound(label);
-        this.fields.set(label, { label, value });
-        return;
-    }
-
-    valid(label: string): any {
-        const field = this.fields.get(label);
-        if (!field) throw new LabelNotFoundError(label);
-
-        const { value, constraint } = field;
-        return constraint ? constraint.test(`${value}`) : true;
-    }
-
-    private throwIfInvalid(label: string): void {
         if (this.isInvalid(label)) {
             throw new InvalidLabelError(label);
         }
+        if (this.exists(label)) {
+            throw new LabelExistsError(label);
+        }
+        this.fields.set(label, new Field(value, constraint));
+    }
+
+    private exists(label: string) {
+        return this.fields.has(label);
+    }
+
+    setField({ label, value }: FieldInput): void {
+        const field = this.getStrict(label).setValue(value);
+        this.fields.set(label, field);
+    }
+
+    valid(label: string): boolean {
+        const field = this.getStrict(label);
+        return field.valid();
     }
 
     private isInvalid(label: string): boolean {
@@ -46,16 +46,10 @@ export class Form {
         return !onlyAlphabeticPattern.test(label);
     }
 
-    private throwIfExists(label: string): void {
-        if (this.fields.has(label)) {
-            throw new LabelExistsError(label);
-        }
-    }
-
-    private throwIfNotFound(label: string): void {
-        if (!this.fields.has(label)) {
-            throw new LabelNotFoundError(label);
-        }
+    private getStrict(label: string): Field {
+        const field = this.get(label);
+        if (field) return field;
+        throw new LabelNotFoundError(label);
     }
 }
 
@@ -74,5 +68,21 @@ export class LabelExistsError extends Error {
 export class LabelNotFoundError extends Error {
     constructor(label: string) {
         super(`Given label "${label}" does not exist`);
+    }
+}
+
+class Field {
+    constructor(
+        public value?: unknown,
+        private constraint?: RegExp,
+    ) {}
+
+    setValue(value: unknown): this {
+        this.value = value;
+        return this;
+    }
+
+    valid(): boolean {
+        return this.constraint ? this.constraint.test(`${this.value}`) : true;
     }
 }

@@ -1,7 +1,7 @@
+import { AddGroupFormService } from '@groups/add-group/add-group.form-service';
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AddGroupFormService } from '../add-group.form-service';
 
 type SelectEmojiForm = {
     emoji: FormControl<string>;
@@ -26,11 +26,12 @@ export class SelectEmojiComponent {
 
     onButtonClicked(): void {
         if (this.form.controls.emoji.valid) {
-            this.router.navigate(['expenses', 'add', 'details']);
+            this.router.navigate(['group', 'add', 'person']);
         }
     }
 
     onKeyClicked(key: string): void {
+        console.log(key);
         this.form.controls.emoji.setValue(key);
         this.formService.setEmoji(key);
     }

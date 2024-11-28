@@ -1,0 +1,13 @@
+<form [formGroup]="form" (submit)="onButtonClicked()">
+    <div class="content">
+        <emoji-displayer 
+            [emoji]="form.controls.emoji.value"
+        />
+        <emoji-keyboard
+            (keyClicked)="onKeyClicked($event)"
+        />
+    </div>
+    <form-button
+        [disabled]="form.controls.emoji.invalid"
+    />
+</form>

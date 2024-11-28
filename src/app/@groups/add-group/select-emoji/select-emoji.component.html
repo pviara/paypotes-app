@@ -4,17 +4,8 @@
         [subhead]="'Nouveau groupe'"
         [title]="'Choisir un emoji'"
     />
-    <form [formGroup]="form" (submit)="onButtonClicked()">
-        <div class="content">
-            <emoji-displayer 
-                [emoji]="form.controls.emoji.value"
-            />
-            <emoji-keyboard
-                (keyClicked)="onKeyClicked($event)"
-            />
-        </div>
-        <form-button
-            [disabled]="form.controls.emoji.invalid"
-        />
-    </form>
+    <emoji-selector
+        (buttonClicked)="onButtonClicked()"
+        (keyClicked)="onKeyClicked($event)"
+    />
 </div>

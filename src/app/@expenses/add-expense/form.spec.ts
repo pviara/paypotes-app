@@ -34,7 +34,7 @@ describe('Form', () => {
             'should add a new field given valid label "%s"',
             (label) => {
                 sut.addField({ label });
-                expect(sut.getFieldLabels()).toContain(label);
+                expect(sut.getFieldFrom(label)).toBeDefined();
             },
         );
 
@@ -54,7 +54,7 @@ describe('Form', () => {
             'should add a new field given valid label "%s" and value "%s"',
             (label, value) => {
                 sut.addField({ label, value });
-                expect(sut.get(label)?.value).toBe(value);
+                expect(sut.getFieldFrom(label).getValue()).toBe(value);
             },
         );
     });
@@ -81,9 +81,9 @@ describe('Form', () => {
         ])('should update field "%s" value to "%s"', (label, value) => {
             sut.addField({ label });
 
-            const initialValue = sut.get(label)?.value;
+            const initialValue = sut.getFieldFrom(label).getValue();
             sut.setField({ label, value });
-            const newValue = sut.get(label)?.value;
+            const newValue = sut.getFieldFrom(label).getValue();
 
             expect(initialValue).not.toBe(newValue);
             expect(newValue).toBe(value);

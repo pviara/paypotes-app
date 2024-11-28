@@ -9,14 +9,6 @@ type Label = string;
 export class Form {
     private fields = new Map<Label, Field>();
 
-    get(label: string): Field | null {
-        return this.fields.get(label) ?? null;
-    }
-
-    getFieldLabels(): Array<string> {
-        return Array.from(this.fields.entries()).map(([key]) => key);
-    }
-
     addField({ label, value, constraint }: FieldInput): void {
         if (this.isInvalid(label)) {
             throw new InvalidLabelError(label);
@@ -27,17 +19,19 @@ export class Form {
         this.fields.set(label, new Field(value, constraint));
     }
 
-    private exists(label: string) {
-        return this.fields.has(label);
+    getFieldFrom(label: string): Field {
+        const field = this.fields.get(label);
+        if (field) return field;
+        throw new LabelNotFoundError(label);
     }
 
     setField({ label, value }: FieldInput): void {
-        const field = this.getStrict(label).setValue(value);
+        const field = this.getFieldFrom(label).setValue(value);
         this.fields.set(label, field);
     }
 
     valid(label: string): boolean {
-        const field = this.getStrict(label);
+        const field = this.getFieldFrom(label);
         return field.valid();
     }
 
@@ -46,10 +40,8 @@ export class Form {
         return !onlyAlphabeticPattern.test(label);
     }
 
-    private getStrict(label: string): Field {
-        const field = this.get(label);
-        if (field) return field;
-        throw new LabelNotFoundError(label);
+    private exists(label: string) {
+        return this.fields.has(label);
     }
 }
 
@@ -73,9 +65,13 @@ export class LabelNotFoundError extends Error {
 
 class Field {
     constructor(
-        public value?: unknown,
+        private value?: unknown,
         private constraint?: RegExp,
     ) {}
+
+    getValue(): unknown {
+        return this.value;
+    }
 
     setValue(value: unknown): this {
         this.value = value;

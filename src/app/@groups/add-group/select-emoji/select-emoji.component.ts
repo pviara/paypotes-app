@@ -26,12 +26,11 @@ export class SelectEmojiComponent {
 
     onButtonClicked(): void {
         if (this.form.controls.emoji.valid) {
-            this.router.navigate(['group', 'add', 'person']);
+            this.router.navigate(['groups', 'add', 'members']);
         }
     }
 
     onKeyClicked(key: string): void {
-        console.log(key);
         this.form.controls.emoji.setValue(key);
         this.formService.setEmoji(key);
     }

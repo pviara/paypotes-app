@@ -1,20 +1,20 @@
-<li (click)="onClicked()" [ngClass]="{ last: last() }">
+<li>
     <div class="info">
         <img
             id="image"
             class="avatar"
-            [src]="'assets/images/' + contact().getAvatarURL()"
+            [src]="'assets/images/' + 'ahmed.png'"
         />
         <div class="name">
             <span class="firstname">
-                {{ contact().getFirstname() }}
+                Ahmed
             </span>
             <span class="lastname">
-                {{ contact().getLastname() }}
+                Benjelloun
             </span>
         </div>
     </div>
     <button>
-        <img id="image" src="assets/icons/arrow.svg"/>
+        <img id="image" src="assets/icons/trash.png"/>
     </button>
 </li>

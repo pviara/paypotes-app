@@ -1,4 +1,4 @@
-type FieldInput = {
+type FieldData = {
     label: string;
     value?: unknown;
     constraint?: RegExp;
@@ -9,7 +9,7 @@ type Label = string;
 export class Form {
     private fields = new Map<Label, Field>();
 
-    addField({ label, value, constraint }: FieldInput): void {
+    addField({ label, value, constraint }: FieldData): void {
         if (this.isInvalid(label)) {
             throw new InvalidLabelError(label);
         }
@@ -25,7 +25,7 @@ export class Form {
         throw new LabelNotFoundError(label);
     }
 
-    setField({ label, value }: FieldInput): void {
+    setField({ label, value }: FieldData): void {
         const field = this.getFieldFrom(label).setValue(value);
         this.fields.set(label, field);
     }

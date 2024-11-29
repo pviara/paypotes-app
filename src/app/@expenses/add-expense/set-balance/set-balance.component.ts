@@ -1,7 +1,8 @@
 import { BalanceFormatter } from './model/balance-formatter';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, ValidatorFn } from '@angular/forms';
 import { Field } from '@core/model/form/form';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { FormControlBuilder } from '@core/model/form/form-control-builder';
 import { FormServiceToken } from '@core/services/form/form.service.provider';
 import { Router } from '@angular/router';
 
@@ -57,20 +58,8 @@ export class SetBalanceComponent implements OnInit {
     }
 
     private setFormControlFor(field: Field): void {
-        this.formGroup.setControl(this.label, this.createControlFrom(field));
-    }
-
-    private createControlFrom(field: Field): FormControl<string> {
-        return this.formBuilder.nonNullable.control(`${field.getValue()}`, [
-            this.isControlValid(),
-        ]);
-    }
-
-    private isControlValid(): ValidatorFn {
-        return () => {
-            const valid = this.form.getFieldFrom(this.label).valid();
-            return valid ? null : { invalid: true };
-        };
+        const control = new FormControlBuilder(field).build();
+        this.formGroup.setControl(this.label, control);
     }
 
     private addFormField(): Field {

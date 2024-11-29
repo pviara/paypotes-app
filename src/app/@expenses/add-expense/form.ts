@@ -91,10 +91,9 @@ class Field {
     }
 
     valid(): boolean {
-        return this.constraints.every((constraint) => {
-            const stringifiedValue = `${this.value}`;
-            constraint.observedBy(stringifiedValue);
-        });
+        return this.constraints.every((constraint) =>
+            this.value ? constraint.observedBy(`${this.value}`) : false,
+        );
     }
 }
 

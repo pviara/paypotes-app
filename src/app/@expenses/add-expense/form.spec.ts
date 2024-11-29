@@ -157,6 +157,31 @@ describe('Form', () => {
                     expect(sut.valid(label)).toBe(false);
                 },
             );
+
+            it.each([
+                [false, ''],
+                [false, ' '],
+                [true, 'short name phrase'],
+                [false, 0],
+                [false, 491],
+                [false, 'test123'],
+                [false, 'symbol#'],
+                [false, null],
+                [false, undefined],
+                [false, NaN],
+            ])('should return "%s" for given value "%s"', (expected, value) => {
+                const LETTERS_AND_SPACES_PATTERN = /^(?!\s+$)[a-zA-ZÀ-ÿ\s]+$/;
+                const STRING_DEFINED_PATTERN = /^(?!\s*$).+/;
+
+                const label = 'name';
+                const regexps = [
+                    LETTERS_AND_SPACES_PATTERN,
+                    STRING_DEFINED_PATTERN,
+                ];
+
+                sut.addField({ label, value, regexps });
+                expect(sut.valid(label)).toBe(expected);
+            });
         });
     });
 });

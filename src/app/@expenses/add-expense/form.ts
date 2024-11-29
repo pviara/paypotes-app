@@ -1,7 +1,7 @@
 type FieldData = {
     label: string;
     value?: unknown;
-    constraint?: RegExp;
+    regexps?: Array<RegExp>;
 };
 
 type Label = string;
@@ -9,14 +9,15 @@ type Label = string;
 export class Form {
     private fields = new Map<Label, Field>();
 
-    addField({ label, value, constraint }: FieldData): void {
+    addField({ label, value, regexps: constraints }: FieldData): void {
         if (this.isInvalid(label)) {
             throw new InvalidLabelError(label);
         }
         if (this.exists(label)) {
             throw new LabelExistsError(label);
         }
-        this.fields.set(label, new Field(value, constraint));
+        const field = this.createFieldFrom(value, constraints);
+        this.fields.set(label, field);
     }
 
     getFieldFrom(label: string): Field {
@@ -43,6 +44,17 @@ export class Form {
     private exists(label: string) {
         return this.fields.has(label);
     }
+
+    private createFieldFrom(value: unknown, regexps?: Array<RegExp>): Field {
+        const constraints = this.mapConstraintsFrom(regexps);
+        return new Field(value, constraints);
+    }
+
+    private mapConstraintsFrom(
+        regexps?: Array<RegExp>,
+    ): Array<Constraint> | undefined {
+        return regexps?.map((regexp) => new Constraint(regexp));
+    }
 }
 
 export class InvalidLabelError extends Error {
@@ -66,7 +78,7 @@ export class LabelNotFoundError extends Error {
 class Field {
     constructor(
         private value?: unknown,
-        private constraint?: RegExp,
+        private constraints: Array<Constraint> = [],
     ) {}
 
     getValue(): unknown {
@@ -79,6 +91,17 @@ class Field {
     }
 
     valid(): boolean {
-        return this.constraint ? this.constraint.test(`${this.value}`) : true;
+        return this.constraints.every((constraint) => {
+            const stringifiedValue = `${this.value}`;
+            constraint.observedBy(stringifiedValue);
+        });
+    }
+}
+
+class Constraint {
+    constructor(private regexp: RegExp) {}
+
+    observedBy(value: string): boolean {
+        return this.regexp.test(value);
     }
 }

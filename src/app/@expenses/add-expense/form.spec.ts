@@ -109,28 +109,54 @@ describe('Form', () => {
             },
         );
 
-        const onlyNumericWithOptionalDecimals = /^\d+(\.\d{1,2})?$/;
-        const onlyTenDigits = /^0[1-9]\d{8}$/;
-        const onlyAlphabeticCharacters = /^[a-zA-Z]+$/;
+        describe('one regexp', () => {
+            const onlyNumericWithOptionalDecimals = /^\d+(\.\d{1,2})?$/;
+            const onlyTenDigits = /^0[1-9]\d{8}$/;
+            const onlyAlphabeticCharacters = /^[a-zA-Z]+$/;
 
-        it.each([
-            ['firstname', 'T est', onlyAlphabeticCharacters],
-            ['firstname', 'invalid123', onlyAlphabeticCharacters],
-            ['firstname', '', onlyAlphabeticCharacters],
-            ['firstname', ' ', onlyAlphabeticCharacters],
-            ['telephone', '+33612345678', onlyTenDigits],
-            ['telephone', '124', onlyTenDigits],
-            ['telephone', '', onlyTenDigits],
-            ['amount', NaN, onlyNumericWithOptionalDecimals],
-            ['amount', 'test', onlyNumericWithOptionalDecimals],
-            ['amount', 'invalid', onlyNumericWithOptionalDecimals],
-            ['amount', ' ', onlyNumericWithOptionalDecimals],
-        ])(
-            'should return false when given constraint is not fulfilled',
-            (label, value, constraint) => {
-                sut.addField({ label, value, constraint });
-                expect(sut.valid(label)).toBe(false);
-            },
-        );
+            it.each([
+                ['firstname', 'T est', onlyAlphabeticCharacters],
+                ['firstname', 'invalid123', onlyAlphabeticCharacters],
+                ['firstname', '', onlyAlphabeticCharacters],
+                ['firstname', ' ', onlyAlphabeticCharacters],
+                ['telephone', '+33612345678', onlyTenDigits],
+                ['telephone', '124', onlyTenDigits],
+                ['telephone', '', onlyTenDigits],
+                ['amount', NaN, onlyNumericWithOptionalDecimals],
+                ['amount', 'test', onlyNumericWithOptionalDecimals],
+                ['amount', 'invalid', onlyNumericWithOptionalDecimals],
+                ['amount', ' ', onlyNumericWithOptionalDecimals],
+            ])(
+                'should return false when given regexp is not fulfilled',
+                (label, value, regexp) => {
+                    sut.addField({ label, value, regexps: [regexp] });
+                    expect(sut.valid(label)).toBe(false);
+                },
+            );
+        });
+
+        describe('several regexps', () => {
+            const onlyThreeCharacterLength = /^.{3}$/;
+            const onlyAlphaNumericCharacters = /^[a-zA-Z0-9]+$/;
+
+            it.each([
+                [
+                    'firstname',
+                    'ab@',
+                    [onlyThreeCharacterLength, onlyAlphaNumericCharacters],
+                ],
+                [
+                    'firstname',
+                    'abcd',
+                    [onlyAlphaNumericCharacters, onlyThreeCharacterLength],
+                ],
+            ])(
+                'should return false when at least one regexp is not fulfilled',
+                (label, value, regexps) => {
+                    sut.addField({ label, value, regexps });
+                    expect(sut.valid(label)).toBe(false);
+                },
+            );
+        });
     });
 });

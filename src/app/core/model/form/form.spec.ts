@@ -2,10 +2,9 @@ import { describe, expect, it } from 'vitest';
 import {
     Form,
     InvalidLabelError,
-    LabeledField,
     LabelExistsError,
     LabelNotFoundError,
-} from './form';
+} from '@core/model/form/form';
 
 describe('Form', () => {
     let sut: Form;

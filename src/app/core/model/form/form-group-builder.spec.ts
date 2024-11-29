@@ -1,5 +1,5 @@
-import { Form } from './form';
-import { FormGroupBuilder } from './form-group-builder';
+import { Form } from '@core/model/form/form';
+import { FormGroupBuilder } from '@core/model/form/form-group-builder';
 
 describe('FormGroupBuilder', () => {
     let sut: FormGroupBuilder;

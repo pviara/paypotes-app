@@ -1,6 +1,6 @@
-import { ButtonComponent } from '@shared/button/button.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
 import { CommonModule } from '@angular/common';
-import { HeadbarComponent } from '@shared/headbar/headbar.component';
+import { HeadbarComponent } from '@shared/components/headbar/headbar.component';
 import { ManualPhoneInputComponentModule } from '@expenses/add-expense/select-person/manual-phone-input/manual-phone-input.component-module';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { EmojiFinder } from '@shared/model/emoji-finder';
+import { EmojiFinder } from '@core/model/emoji-finder/emoji-finder';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 type FilterForm = {

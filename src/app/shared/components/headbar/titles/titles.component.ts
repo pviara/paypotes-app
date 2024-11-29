@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { SkeletonComponent } from '@shared/headbar/titles/skeleton/skeleton.component';
+import { SkeletonComponent } from '@shared/components/headbar/titles/skeleton/skeleton.component';
 
 @Component({
     selector: 'titles',

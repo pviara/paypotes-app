@@ -1,6 +1,6 @@
-import { ExplorerComponentModule } from '@shared/explorer/explorer.component-module';
+import { ExplorerComponentModule } from '@shared/components/explorer/explorer.component-module';
 import { ExpensesComponent } from '@expenses/expenses/expenses.component';
-import { HeadbarComponent } from '@shared/headbar/headbar.component';
+import { HeadbarComponent } from '@shared/components/headbar/headbar.component';
 import { NgModule } from '@angular/core';
 
 @NgModule({

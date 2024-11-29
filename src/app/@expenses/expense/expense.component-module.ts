@@ -5,7 +5,7 @@ import { ExpenseHeaderComponent } from '@expenses/expense/header/header.componen
 import { ExpenseImagesComponent } from '@expenses/expense/images/images.component';
 import { ExpenseComponent } from '@expenses/expense/expense.component';
 import { ExpenseSkeletonComponent } from '@expenses/expense/skeleton/skeleton.component';
-import { HeadbarComponent } from '@shared/headbar/headbar.component';
+import { HeadbarComponent } from '@shared/components/headbar/headbar.component';
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 

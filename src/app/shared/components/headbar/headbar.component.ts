@@ -1,11 +1,11 @@
 import {
     Action,
     ActionButtonComponent,
-} from '@shared/headbar/action-button/action-button.component';
-import { BackButtonComponent } from '@shared/headbar/back-button/back-button.component';
+} from '@shared/components/headbar/action-button/action-button.component';
+import { BackButtonComponent } from '@shared/components/headbar/back-button/back-button.component';
 import { Component, input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { TitlesComponent } from '@shared/headbar/titles/titles.component';
+import { TitlesComponent } from '@shared/components/headbar/titles/titles.component';
 
 @Component({
     selector: 'headbar',

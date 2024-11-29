@@ -101,10 +101,17 @@ describe('Form', () => {
             expect(() => sut.valid(label)).not.toThrow();
         });
 
-        it.each(['firstname', 'lastname', 'birthDate', 'age', 'isCool'])(
+        it.each([
+            ['firstname', ' '],
+            ['lastname', ''],
+            ['birthDate', null],
+            ['age', 991],
+            ['isCool', false],
+            ['isCool', true],
+        ])(
             'should always return true when no constraint has been given',
-            (label) => {
-                sut.addField({ label });
+            (label, value) => {
+                sut.addField({ label, value });
                 expect(sut.valid(label)).toBe(true);
             },
         );

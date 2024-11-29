@@ -1,5 +1,4 @@
 import { Component, input } from '@angular/core';
-import { Emoji } from '@core/model/emoji';
 
 @Component({
     selector: 'group-description',
@@ -7,7 +6,7 @@ import { Emoji } from '@core/model/emoji';
     styleUrls: ['./group-description.component.scss'],
 })
 export class GroupDescriptionComponent {
-    emoji = input.required<Emoji>();
+    emoji = input.required<string>();
 
     name = input.required<string>();
 

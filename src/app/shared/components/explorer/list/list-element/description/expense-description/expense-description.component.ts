@@ -1,6 +1,5 @@
 import { Component, computed, input } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
-import { Emoji } from '@core/model/emoji';
 
 @Component({
     selector: 'expense-description',
@@ -8,7 +7,7 @@ import { Emoji } from '@core/model/emoji';
     styleUrls: ['./expense-description.component.scss'],
 })
 export class ExpenseDescriptionComponent {
-    emoji = input.required<Emoji>();
+    emoji = input.required<string>();
 
     label = input.required<string>();
 

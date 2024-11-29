@@ -6,6 +6,7 @@ export default defineConfig({
         globals: true,
         root: './',
         reporters: ['verbose'],
+        setupFiles: ['/test/angular-test-setup.ts'],
     },
     resolve: {
         alias: {

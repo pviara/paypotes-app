@@ -6,10 +6,15 @@ type FieldData = {
 
 type Label = string;
 
+export type LabeledField = {
+    label: Label;
+    field: Field;
+};
+
 export class Form {
     private fields = new Map<Label, Field>();
 
-    addField({ label, value, regexps }: FieldData): Field {
+    addField({ label, value, regexps }: FieldData): void {
         if (this.isInvalid(label)) {
             throw new InvalidLabelError(label);
         }
@@ -18,8 +23,6 @@ export class Form {
         }
         const field = this.createFieldFrom(value, regexps);
         this.fields.set(label, field);
-
-        return this.getFieldFrom(label);
     }
 
     exists(label: string) {
@@ -30,6 +33,10 @@ export class Form {
         const field = this.fields.get(label);
         if (field) return field;
         throw new LabelNotFoundError(label);
+    }
+
+    getFieldEntries(): Array<[Label, Field]> {
+        return Array.from(this.fields.entries());
     }
 
     setField({ label, value }: FieldData): void {

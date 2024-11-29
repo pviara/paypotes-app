@@ -1,14 +1,7 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { Field } from '@core/model/form/form';
-import { FormBuilder, FormControl } from '@angular/forms';
-import { FormControlBuilder } from '@core/model/form/form-control-builder';
+import { FormGroup } from '@angular/forms';
+import { FormGroupBuilder } from '@core/model/form/form-group-builder';
 import { FormServiceToken } from '@core/services/form/form.service.provider';
-
-type SelectEmojiForm = {
-    [x: string]: FormControl<string>;
-};
-
-const VALID_EMOJI_REGEXP = /\p{Emoji}/u;
 
 @Component({
     selector: 'emoji-selector',
@@ -17,11 +10,9 @@ const VALID_EMOJI_REGEXP = /\p{Emoji}/u;
 })
 export class EmojiSelectorComponent implements OnInit {
     private form = inject(FormServiceToken);
-    private formBuilder = inject(FormBuilder);
 
     label = 'emoji';
-
-    formGroup = this.formBuilder.group<SelectEmojiForm>({});
+    formGroup!: FormGroup;
 
     @Output()
     buttonClicked = new EventEmitter<never>();
@@ -30,7 +21,12 @@ export class EmojiSelectorComponent implements OnInit {
     keyClicked = new EventEmitter<string>();
 
     ngOnInit(): void {
-        this.initForm();
+        if (this.form.exists(this.label)) {
+            this.initFormGroup();
+        } else {
+            this.addFormField();
+            this.initFormGroup();
+        }
     }
 
     onButtonClicked(): void {
@@ -43,23 +39,13 @@ export class EmojiSelectorComponent implements OnInit {
         this.keyClicked.emit(key);
     }
 
-    private initForm(): void {
-        if (this.form.exists(this.label)) {
-            const field = this.form.getFieldFrom(this.label);
-            this.setFormControlFor(field);
-        } else {
-            const field = this.addFormField();
-            this.setFormControlFor(field);
-        }
+    private initFormGroup(): void {
+        this.formGroup = new FormGroupBuilder(this.form).build();
     }
 
-    private setFormControlFor(field: Field): void {
-        const control = new FormControlBuilder(field).build();
-        this.formGroup.setControl(this.label, control);
-    }
-
-    private addFormField(): Field {
-        return this.form.addField({
+    private addFormField(): void {
+        const VALID_EMOJI_REGEXP = /\p{Emoji}/u;
+        this.form.addField({
             label: this.label,
             value: '',
             regexps: [VALID_EMOJI_REGEXP],

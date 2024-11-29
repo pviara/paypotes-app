@@ -6,5 +6,5 @@ import { Component, input } from '@angular/core';
     styleUrls: ['./displayer.component.scss'],
 })
 export class DisplayerComponent {
-    balance = input<string>();
+    balance = input<unknown>();
 }

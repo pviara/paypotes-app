@@ -9,15 +9,21 @@ type Label = string;
 export class Form {
     private fields = new Map<Label, Field>();
 
-    addField({ label, value, regexps: constraints }: FieldData): void {
+    addField({ label, value, regexps }: FieldData): Field {
         if (this.isInvalid(label)) {
             throw new InvalidLabelError(label);
         }
         if (this.exists(label)) {
             throw new LabelExistsError(label);
         }
-        const field = this.createFieldFrom(value, constraints);
+        const field = this.createFieldFrom(value, regexps);
         this.fields.set(label, field);
+
+        return this.getFieldFrom(label);
+    }
+
+    exists(label: string) {
+        return this.fields.has(label);
     }
 
     getFieldFrom(label: string): Field {
@@ -39,10 +45,6 @@ export class Form {
     private isInvalid(label: string): boolean {
         const onlyAlphabeticPattern = new RegExp(/^[a-zA-Z]+$/);
         return !onlyAlphabeticPattern.test(label);
-    }
-
-    private exists(label: string) {
-        return this.fields.has(label);
     }
 
     private createFieldFrom(value: unknown, regexps?: Array<RegExp>): Field {
@@ -75,7 +77,7 @@ export class LabelNotFoundError extends Error {
     }
 }
 
-class Field {
+export class Field {
     constructor(
         private value?: unknown,
         private constraints: Array<Constraint> = [],

@@ -32,6 +32,10 @@ export class BalanceFormatter {
         return this.keyboard;
     }
 
+    setBalance(balance: string): void {
+        this.balance = balance;
+    }
+
     private isInvalid(key: string): boolean {
         return !this.keyboard.includes(key);
     }

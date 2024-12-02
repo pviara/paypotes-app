@@ -1,6 +1,7 @@
-import { Field, Form } from './form';
+import { Field } from '@core/model/form/field';
+import { Form } from '@core/model/form/form';
 import { FormControl, FormGroup } from '@angular/forms';
-import { FormControlBuilder } from './form-control-builder';
+import { FormControlBuilder } from '@core/model/form/form-control-builder';
 
 type AnyForm = {
     [x: string]: FormControl<unknown>;

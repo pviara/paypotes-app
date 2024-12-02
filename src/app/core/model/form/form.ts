@@ -1,3 +1,6 @@
+import { Constraint } from '@core/model/form/constraint';
+import { Field } from '@core/model/form/field';
+
 type FieldData = {
     label: string;
     value?: unknown;
@@ -81,35 +84,5 @@ export class LabelExistsError extends Error {
 export class LabelNotFoundError extends Error {
     constructor(label: string) {
         super(`Given label "${label}" does not exist`);
-    }
-}
-
-export class Field {
-    constructor(
-        private value?: unknown,
-        private constraints: Array<Constraint> = [],
-    ) {}
-
-    getValue(): unknown {
-        return this.value;
-    }
-
-    setValue(value: unknown): this {
-        this.value = value;
-        return this;
-    }
-
-    valid(): boolean {
-        return this.constraints.every((constraint) =>
-            this.value ? constraint.observedBy(`${this.value}`) : false,
-        );
-    }
-}
-
-class Constraint {
-    constructor(private regexp: RegExp) {}
-
-    observedBy(value: string): boolean {
-        return this.regexp.test(value);
     }
 }

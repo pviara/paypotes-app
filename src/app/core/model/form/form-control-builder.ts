@@ -1,4 +1,4 @@
-import { Field } from '@core/model/form/form';
+import { Field } from '@core/model/form/field';
 import { FormControl, ValidatorFn } from '@angular/forms';
 
 export class FormControlBuilder {

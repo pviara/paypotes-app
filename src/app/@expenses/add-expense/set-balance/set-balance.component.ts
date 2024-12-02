@@ -19,7 +19,7 @@ export class SetBalanceComponent implements OnInit {
     formGroup!: FormGroup;
 
     ngOnInit(): void {
-        if (this.form.exists(this.label)) {
+        if (this.form.exist(this.label)) {
             this.initFormGroup();
         } else {
             this.addFormField();

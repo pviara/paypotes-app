@@ -18,15 +18,15 @@ export class Form {
         if (this.isInvalid(label)) {
             throw new InvalidLabelError(label);
         }
-        if (this.exists(label)) {
+        if (this.exist(label)) {
             throw new LabelExistsError(label);
         }
         const field = this.createFieldFrom(value, regexps);
         this.fields.set(label, field);
     }
 
-    exists(label: string) {
-        return this.fields.has(label);
+    exist(...labels: Array<string>) {
+        return labels.every((label) => this.fields.has(label));
     }
 
     getFieldFrom(label: string): Field {

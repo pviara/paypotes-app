@@ -15,7 +15,7 @@ export type LabeledField = {
 };
 
 export class Form {
-    private fields = new Map<Label, Field>();
+    fields = new Map<Label, Field>();
 
     addField({ label, value, regexps }: FieldData): void {
         if (this.labelInvalid(label)) {
@@ -30,6 +30,15 @@ export class Form {
 
     exist(...labels: Array<string>) {
         return labels.every((label) => this.fields.has(label));
+    }
+
+    focus(label: Label): void {
+        const entries = this.getFieldEntries();
+        entries.forEach(([entryLabel]) => {
+            if (entryLabel !== label) {
+                this.fields.delete(entryLabel);
+            }
+        });
     }
 
     getFieldFrom(label: string): Field {

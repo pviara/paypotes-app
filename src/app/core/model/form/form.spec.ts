@@ -5,6 +5,7 @@ import {
     LabelExistsError,
     LabelNotFoundError,
 } from '@core/model/form/form';
+import { Field } from './field';
 
 describe('Form', () => {
     let sut: Form;
@@ -189,6 +190,27 @@ describe('Form', () => {
                 sut.addField({ label, value, regexps });
                 expect(sut.valid(label)).toBe(expected);
             });
+        });
+    });
+
+    describe('cleaning the form', () => {
+        it('should get rid of all fields except given one', () => {
+            const uninterestingLabels = ['nickname', 'lastname'];
+            uninterestingLabels.forEach((label) => sut.addField({ label }));
+
+            const targetLabel = 'birthdate';
+            sut.addField({ label: targetLabel });
+
+            sut.focus(targetLabel);
+
+            expect(sut.getFieldFrom(targetLabel)).toBeInstanceOf(Field);
+
+            expect(() => sut.getFieldFrom(uninterestingLabels[0])).toThrow(
+                LabelNotFoundError,
+            );
+            expect(() => sut.getFieldFrom(uninterestingLabels[1])).toThrow(
+                LabelNotFoundError,
+            );
         });
     });
 });

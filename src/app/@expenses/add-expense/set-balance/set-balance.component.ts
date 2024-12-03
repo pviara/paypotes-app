@@ -42,5 +42,6 @@ export class SetBalanceComponent implements OnInit {
             value: '',
             regexps: [VALID_BALANCE_REGEXP],
         });
+        this.form.focus(this.label);
     }
 }

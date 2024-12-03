@@ -36,11 +36,11 @@ export class SetBalanceComponent implements OnInit {
     }
 
     private addFormField(): void {
-        const VALID_BALANCE_REGEXP = /^(?:\d{1,2}|\d{1,2},\d{1,2})$/;
+        const VALID_BALANCE_RANGE_REGEXP = /^(?:\d{1,2}|\d{1,2},\d{1,2})$/;
         this.form.addField({
             label: this.label,
             value: '',
-            regexps: [VALID_BALANCE_REGEXP],
+            regexps: [VALID_BALANCE_RANGE_REGEXP],
         });
         this.form.focus(this.label);
     }

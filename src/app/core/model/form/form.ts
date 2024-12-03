@@ -28,14 +28,15 @@ export class Form {
         this.fields.set(label, field);
     }
 
-    exist(...labels: Array<string>) {
+    exist(...labels: Array<Label>) {
         return labels.every((label) => this.fields.has(label));
     }
 
-    focus(label: Label): void {
+    focus(...labels: Array<Label>): void {
         const entries = this.getFieldEntries();
         entries.forEach(([entryLabel]) => {
-            if (entryLabel !== label) {
+            const notFocused = labels.every((label) => entryLabel !== label);
+            if (notFocused) {
                 this.fields.delete(entryLabel);
             }
         });

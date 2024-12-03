@@ -194,16 +194,18 @@ describe('Form', () => {
     });
 
     describe('cleaning the form', () => {
-        it('should get rid of all fields except given one', () => {
+        it('should get rid of all fields except target ones', () => {
             const uninterestingLabels = ['nickname', 'lastname'];
             uninterestingLabels.forEach((label) => sut.addField({ label }));
 
-            const targetLabel = 'birthdate';
-            sut.addField({ label: targetLabel });
+            const targetLabels = ['birthdate', 'age', 'coolness'];
+            targetLabels.forEach((label) => sut.addField({ label }));
 
-            sut.focus(targetLabel);
+            sut.focus(...targetLabels);
 
-            expect(sut.getFieldFrom(targetLabel)).toBeInstanceOf(Field);
+            targetLabels.forEach((label) =>
+                expect(sut.getFieldFrom(label)).toBeInstanceOf(Field),
+            );
 
             expect(() => sut.getFieldFrom(uninterestingLabels[0])).toThrow(
                 LabelNotFoundError,

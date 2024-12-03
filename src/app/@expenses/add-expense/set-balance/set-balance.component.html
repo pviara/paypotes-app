@@ -4,10 +4,10 @@
         [subhead]="'Nouvelle dépense'"
         [title]="'Fixer le montant'"
     />
-    <form [formGroup]="formGroup" (submit)="onButtonClicked()">
+    <form (submit)="onButtonClicked()">
         <div class="content">
             <balance-displayer
-                [balance]="formGroup.controls[label].value"
+                [balance]="form.getFieldFrom(label).getValue()"
             />
             <balance-keyboard
                 [keyboard]="formatter.getKeyboard()"
@@ -15,7 +15,7 @@
             />
         </div>
         <form-button
-            [disabled]="formGroup.controls[label].invalid"
+            [disabled]="!form.valid(label)"
         />
     </form>
 </div>

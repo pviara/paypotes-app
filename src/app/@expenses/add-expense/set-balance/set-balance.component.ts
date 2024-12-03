@@ -1,7 +1,5 @@
 import { BalanceFormatter } from './model/balance-formatter';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormGroupBuilder } from '@core/model/form/form-group-builder';
 import { FormServiceToken } from '@core/services/form/form.service.provider';
 import { Router } from '@angular/router';
 
@@ -11,24 +9,21 @@ import { Router } from '@angular/router';
     styleUrls: ['./set-balance.component.scss'],
 })
 export class SetBalanceComponent implements OnInit {
-    private form = inject(FormServiceToken);
     private router = inject(Router);
+
+    form = inject(FormServiceToken);
 
     label = 'balance';
     formatter = new BalanceFormatter();
-    formGroup!: FormGroup;
 
     ngOnInit(): void {
-        if (this.form.exist(this.label)) {
-            this.initFormGroup();
-        } else {
+        if (!this.form.exist(this.label)) {
             this.addFormField();
-            this.initFormGroup();
         }
     }
 
     onButtonClicked(): void {
-        if (this.formGroup.controls[this.label].valid) {
+        if (this.form.valid(this.label)) {
             this.router.navigate(['expenses', 'add', 'emoji']);
         }
     }
@@ -38,7 +33,6 @@ export class SetBalanceComponent implements OnInit {
         const balance = this.formatter.getBalance();
 
         this.form.setField({ label: this.label, value: balance });
-        this.formGroup.controls[this.label].setValue(balance);
     }
 
     private addFormField(): void {
@@ -48,9 +42,5 @@ export class SetBalanceComponent implements OnInit {
             value: '',
             regexps: [VALID_BALANCE_REGEXP],
         });
-    }
-
-    private initFormGroup(): void {
-        this.formGroup = new FormGroupBuilder(this.form).build();
     }
 }

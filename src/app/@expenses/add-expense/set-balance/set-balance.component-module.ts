@@ -8,6 +8,6 @@ import { SetBalanceComponent } from '@expenses/add-expense/set-balance/set-balan
 
 @NgModule({
     declarations: [DisplayerComponent, KeyboardComponent, SetBalanceComponent],
-    imports: [ButtonComponent, HeadbarComponent, ReactiveFormsModule],
+    imports: [ButtonComponent, HeadbarComponent],
 })
 export class SetBalanceComponentModule {}

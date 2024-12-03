@@ -18,7 +18,7 @@ export class Form {
     private fields = new Map<Label, Field>();
 
     addField({ label, value, regexps }: FieldData): void {
-        if (this.isInvalid(label)) {
+        if (this.labelInvalid(label)) {
             throw new InvalidLabelError(label);
         }
         if (this.exist(label)) {
@@ -42,6 +42,12 @@ export class Form {
         return Array.from(this.fields.entries());
     }
 
+    invalid(): boolean {
+        return this.getFieldEntries()
+            .map(this.mapEntryToField())
+            .some((field) => field.invalid());
+    }
+
     setField({ label, value }: FieldData): void {
         const field = this.getFieldFrom(label).setValue(value);
         this.fields.set(label, field);
@@ -52,7 +58,7 @@ export class Form {
         return field.valid();
     }
 
-    private isInvalid(label: string): boolean {
+    private labelInvalid(label: string): boolean {
         const onlyAlphabeticPattern = new RegExp(/^[a-zA-Z]+$/);
         return !onlyAlphabeticPattern.test(label);
     }
@@ -66,6 +72,10 @@ export class Form {
         regexps?: Array<RegExp>,
     ): Array<Constraint> | undefined {
         return regexps?.map((regexp) => new Constraint(regexp));
+    }
+
+    private mapEntryToField(): (entry: [Label, Field]) => Field {
+        return ([, field]) => field;
     }
 }
 

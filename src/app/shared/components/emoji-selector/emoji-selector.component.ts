@@ -1,6 +1,4 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { FormGroupBuilder } from '@core/model/form/form-group-builder';
 import { FormServiceToken } from '@core/services/form/form.service.provider';
 
 @Component({
@@ -9,10 +7,9 @@ import { FormServiceToken } from '@core/services/form/form.service.provider';
     styleUrls: ['./emoji-selector.component.scss'],
 })
 export class EmojiSelectorComponent implements OnInit {
-    private form = inject(FormServiceToken);
+    form = inject(FormServiceToken);
 
     label = 'emoji';
-    formGroup!: FormGroup;
 
     @Output()
     buttonClicked = new EventEmitter<never>();
@@ -21,11 +18,8 @@ export class EmojiSelectorComponent implements OnInit {
     keyClicked = new EventEmitter<string>();
 
     ngOnInit(): void {
-        if (this.form.exists(this.label)) {
-            this.initFormGroup();
-        } else {
+        if (!this.form.exist(this.label)) {
             this.addFormField();
-            this.initFormGroup();
         }
     }
 
@@ -35,12 +29,7 @@ export class EmojiSelectorComponent implements OnInit {
 
     onKeyClicked(key: string): void {
         this.form.setField({ label: this.label, value: key });
-        this.formGroup.controls[this.label].setValue(key);
         this.keyClicked.emit(key);
-    }
-
-    private initFormGroup(): void {
-        this.formGroup = new FormGroupBuilder(this.form).build();
     }
 
     private addFormField(): void {

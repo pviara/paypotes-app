@@ -6,6 +6,12 @@ export class Field {
         private constraints: Array<Constraint> = [],
     ) {}
 
+    invalid(): boolean {
+        return this.constraints.some(
+            (constraint) => !constraint.observedBy(`${this.value}`),
+        );
+    }
+
     getValue(): unknown {
         return this.value;
     }

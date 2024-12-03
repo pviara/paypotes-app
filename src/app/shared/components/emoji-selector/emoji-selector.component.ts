@@ -14,9 +14,6 @@ export class EmojiSelectorComponent implements OnInit {
     @Output()
     buttonClicked = new EventEmitter<never>();
 
-    @Output()
-    keyClicked = new EventEmitter<string>();
-
     ngOnInit(): void {
         if (!this.form.exist(this.label)) {
             this.addFormField();
@@ -29,7 +26,6 @@ export class EmojiSelectorComponent implements OnInit {
 
     onKeyClicked(key: string): void {
         this.form.setField({ label: this.label, value: key });
-        this.keyClicked.emit(key);
     }
 
     private addFormField(): void {

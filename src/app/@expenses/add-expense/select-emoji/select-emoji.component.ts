@@ -8,14 +8,9 @@ import { Router } from '@angular/router';
     styleUrls: ['./select-emoji.component.scss'],
 })
 export class SelectEmojiComponent {
-    private formService = inject(AddExpenseFormService);
     private router = inject(Router);
 
     onButtonClicked(): void {
         this.router.navigate(['expenses', 'add', 'details']);
-    }
-
-    onKeyClicked(key: string): void {
-        this.formService.setEmoji(key);
     }
 }

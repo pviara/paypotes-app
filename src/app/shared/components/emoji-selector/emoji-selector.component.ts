@@ -35,6 +35,5 @@ export class EmojiSelectorComponent implements OnInit {
             value: '',
             regexps: [VALID_EMOJI_REGEXP],
         });
-        this.form.focus(this.label);
     }
 }

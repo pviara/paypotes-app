@@ -1,6 +1,8 @@
 <div>
-    @if (notFoundUser && !isLoading) {
-        <p class="error">Numéro introuvable...</p>
+    @if (error(); as error) {
+        <p class="error">
+            {{ error }}
+        </p>
     }
     <div class="input">
         <input
@@ -8,11 +10,11 @@
             maxlength="14"
             placeholder="Entrer un N°..."
             phoneFormatModifier
-            [formControl]="control()"
+            [disabled]="isLoading()"
             (change)="onChange($event)"
             (input)="onChange($event)"
         />
-        @if (isLoading) {
+        @if (isLoading()) {
             <span class="loader"></span>
         }
     </div>

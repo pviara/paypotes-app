@@ -3,7 +3,6 @@ import { DisplayerComponent } from '@shared/components/emoji-selector/displayer/
 import { EmojiSelectorComponent } from '@shared/components/emoji-selector/emoji-selector.component';
 import { KeyboardComponent } from '@shared/components/emoji-selector/keyboard/keyboard.component';
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     exports: [EmojiSelectorComponent],
@@ -12,6 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
         EmojiSelectorComponent,
         KeyboardComponent,
     ],
-    imports: [ButtonComponent, ReactiveFormsModule],
+    imports: [ButtonComponent],
 })
 export class EmojiSelectorComponentModule {}

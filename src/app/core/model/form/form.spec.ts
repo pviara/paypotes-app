@@ -193,26 +193,18 @@ describe('Form', () => {
         });
     });
 
-    describe('cleaning the form', () => {
-        it('should get rid of all fields except target ones', () => {
-            const uninterestingLabels = ['nickname', 'lastname'];
-            uninterestingLabels.forEach((label) => sut.addField({ label }));
+    describe('extracting raw values', () => {
+        it('should extract all fields as plain object', () => {
+            sut.addField({ label: 'firstname', value: 'Pedro' });
+            sut.addField({ label: 'lastname', value: 'Pascal' });
+            sut.addField({ label: 'nickname', value: 'El Hombre' });
+            sut.addField({ label: 'isCool', value: true });
 
-            const targetLabels = ['birthdate', 'age', 'coolness'];
-            targetLabels.forEach((label) => sut.addField({ label }));
-
-            sut.focus(...targetLabels);
-
-            targetLabels.forEach((label) =>
-                expect(sut.getFieldFrom(label)).toBeInstanceOf(Field),
-            );
-
-            expect(() => sut.getFieldFrom(uninterestingLabels[0])).toThrow(
-                LabelNotFoundError,
-            );
-            expect(() => sut.getFieldFrom(uninterestingLabels[1])).toThrow(
-                LabelNotFoundError,
-            );
+            const rawValues = sut.raw();
+            expect(rawValues['firstname']).toBe('Pedro');
+            expect(rawValues['lastname']).toBe('Pascal');
+            expect(rawValues['nickname']).toBe('El Hombre');
+            expect(rawValues['isCool']).toBe(true);
         });
     });
 });

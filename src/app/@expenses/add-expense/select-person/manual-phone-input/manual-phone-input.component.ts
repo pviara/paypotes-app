@@ -1,5 +1,4 @@
 import { Component, EventEmitter, inject, input, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { mapPhoneNumberOutOf } from './formatter/formatter';
 import { Observable, tap } from 'rxjs';
@@ -14,36 +13,23 @@ import {
     selector: 'manual-phone-input',
     templateUrl: './manual-phone-input.component.html',
     styleUrls: ['./manual-phone-input.component.scss'],
-    providers: [
-        UserServiceProvider,
-        HttpClientServiceProvider,
-        QueryServiceProvider,
-    ],
 })
 export class ManualPhoneInputComponent {
-    private userService = inject(UserServiceToken);
+    isLoading = input<boolean>(false);
 
-    control = input.required<FormControl>();
-
-    isLoading = false;
-
-    notFoundUser = false;
+    error = input<string>();
 
     @Output()
-    searching = new EventEmitter<boolean>();
-
-    @Output()
-    userFound = new EventEmitter<User>();
+    searching = new EventEmitter<string>();
 
     onChange(event: Event): void {
-        if (this.isLoading) {
+        if (this.isLoading()) {
             return;
         }
 
         try {
             const phoneNumber = this.mapPhoneNumberOutOf(event);
-            this.searching.emit(true);
-            this.getUserUsing(phoneNumber).subscribe();
+            this.searching.emit(this.removeSpacesFrom(phoneNumber));
         } catch (error: unknown) {}
     }
 
@@ -53,7 +39,11 @@ export class ManualPhoneInputComponent {
         return phoneNumber;
     }
 
-    private getUserUsing(phoneNumber: string): Observable<User> {
+    private removeSpacesFrom(value: string): string {
+        return value.replaceAll(' ', '');
+    }
+
+    /*private getUserUsing(phoneNumber: string): Observable<User> {
         this.changeLoadingStatus();
 
         const cleanedPhone = this.removeSpacesFrom(phoneNumber);
@@ -63,7 +53,7 @@ export class ManualPhoneInputComponent {
                     this.notFoundUser = true;
                     this.searching.emit(false);
                 } else {
-                    this.userFound.emit(user);
+                    this.userFound.emit();
                 }
 
                 this.changeLoadingStatus();
@@ -73,16 +63,5 @@ export class ManualPhoneInputComponent {
 
     private changeLoadingStatus(): void {
         this.isLoading = !this.isLoading;
-
-        const phoneControl = this.control();
-        if (phoneControl.enabled) {
-            phoneControl.disable();
-        } else {
-            phoneControl.enable();
-        }
-    }
-
-    private removeSpacesFrom(value: string): string {
-        return value.replaceAll(' ', '');
-    }
+    }*/
 }

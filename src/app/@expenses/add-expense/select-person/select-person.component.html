@@ -4,12 +4,12 @@
         [subhead]="'Nouvelle dépense'"
         [title]="'Choisir la personne'"
     />
-    <form [formGroup]="form">
+    <form>
         <div class="content">
             <manual-phone-input
-                [control]="form.controls.phone"
+                [error]="error"
+                [isLoading]="searching"
                 (searching)="onSearching($event)"
-                (userFound)="onUserFound($event)"
             />
             <div [ngClass]="{ searching }">
                 <span>ou</span>

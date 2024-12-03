@@ -15,7 +15,7 @@
             />
         </div>
         <form-button
-            [disabled]="form.invalid()"
+            [disabled]="form.getFieldFrom(label).invalid()"
             (clicked)="onButtonClicked()"
         />
     </form>

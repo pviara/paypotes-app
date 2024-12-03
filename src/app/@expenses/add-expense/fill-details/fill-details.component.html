@@ -9,6 +9,7 @@
             <input
                 type="text"
                 [placeholder]="placeholder"
+                [value]="form.getFieldFrom(labels.name).getValue()"
                 (input)="onInput($event)"
             />
             <form-checkbox
@@ -17,7 +18,7 @@
             />
         </div>
         <form-button
-            [disabled]="form.invalid()"
+            [disabled]="form.getFieldFrom(labels.name).invalid()"
             (clicked)="onButtonClicked()"
         />
     </form>

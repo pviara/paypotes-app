@@ -75,7 +75,5 @@ export class FillDetailsComponent implements OnInit {
             value: '',
             regexps: [LETTERS_AND_SPACES_ONLY_PATTERN],
         });
-
-        this.form.focus(this.labels.isCurrentPayer, this.labels.name);
     }
 }

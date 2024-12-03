@@ -32,16 +32,6 @@ export class Form {
         return labels.every((label) => this.fields.has(label));
     }
 
-    focus(...labels: Array<Label>): void {
-        const entries = this.getFieldEntries();
-        entries.forEach(([entryLabel]) => {
-            const notFocused = labels.every((label) => entryLabel !== label);
-            if (notFocused) {
-                this.fields.delete(entryLabel);
-            }
-        });
-    }
-
     getFieldFrom(label: string): Field {
         const field = this.fields.get(label);
         if (field) return field;
@@ -56,6 +46,14 @@ export class Form {
         return this.getFieldEntries()
             .map(this.mapEntryToField())
             .some((field) => field.invalid());
+    }
+
+    raw(): Record<Label, any> {
+        const entries = this.getFieldEntries().map(([label, field]) => [
+            label,
+            field.getValue(),
+        ]);
+        return Object.fromEntries(entries);
     }
 
     setField({ label, value }: FieldData): void {

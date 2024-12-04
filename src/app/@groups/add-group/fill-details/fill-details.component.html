@@ -4,16 +4,18 @@
         [subhead]="'Nouveau groupe'"
         [title]="'Saisir un nom'"
     />
-    <form [formGroup]="form" (submit)="onButtonClicked()">
+    <form>
         <div class="content">
             <input
                 type="text"
-                formControlName="name"
                 [placeholder]="placeholder"
+                [value]="form.getFieldFrom(label).getValue()"
+                (input)="onInput($event)"
             />
         </div>
         <form-button
-            [disabled]="form.controls.name.invalid"
+            [disabled]="form.getFieldFrom(label).invalid()"
+            (clicked)="onButtonClicked()"
         />
     </form>
 </div>

@@ -6,6 +6,7 @@ import { MembersComponentModule } from '@groups/add-group/members/members.compon
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SelectEmojiComponentModule } from '@groups/add-group/select-emoji/select-emoji.component-module';
+import { SelectPersonsComponentModule } from '@groups/add-group/select-persons/select-persons.component-module';
 
 @NgModule({
     declarations: [AddGroupView],
@@ -14,6 +15,7 @@ import { SelectEmojiComponentModule } from '@groups/add-group/select-emoji/selec
         MembersComponentModule,
         RouterModule.forChild(addGroupRoutes),
         SelectEmojiComponentModule,
+        SelectPersonsComponentModule,
     ],
     providers: [AddGroupFormService],
 })

@@ -1,0 +1,24 @@
+<div class="container">
+    <headbar
+        [route]="'/groups/add/members'"
+        [subhead]="'Nouveau groupe'"
+        [title]="'Choisir la personne'"
+    />
+    <form>
+        <div class="content">
+            <manual-phone-input
+                [error]="error"
+                [isLoading]="searching"
+                (searching)="onSearching($event)"
+            />
+            <div [ngClass]="{ searching }">
+                <span>ou</span>
+                <button
+                    routerLink="/expenses/add/contact"
+                    type="button">
+                    🙋 Choisir des contacts
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

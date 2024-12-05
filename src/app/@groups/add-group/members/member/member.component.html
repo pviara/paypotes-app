@@ -7,14 +7,14 @@
         />
         <div class="name">
             <span class="firstname">
-                Ahmed
+                {{ data().getFirstname() }}
             </span>
             <span class="lastname">
-                Benjelloun
+                {{ data().getLastname() }}
             </span>
         </div>
     </div>
-    <button>
+    <button (click)="delete()">
         <img id="image" src="assets/icons/trash.png"/>
     </button>
 </li>

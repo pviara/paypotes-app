@@ -14,7 +14,9 @@
             flex-direction: column;
             gap: 2vh;
 
-            overflow: scroll;
+            overflow-y: scroll;
+
+            scroll-snap-type: y mandatory;
 
             animation: slighSlideInFromTop 0.5s ease-in-out;
         }

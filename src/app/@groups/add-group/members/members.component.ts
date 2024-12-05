@@ -24,7 +24,18 @@ export class MembersComponent implements OnInit {
         }
     }
 
-    getMembers(): Array<User | Contact> {
-        return [];
+    getMembers(): Array<Contact | User> {
+        return this.form.getFieldFrom(this.label).getValue() as Array<
+            Contact | User
+        >;
+    }
+
+    onDeleteMember(id: string): void {
+        const members = this.getMembers();
+        const index = members.findIndex((member) => member.getId() === id);
+        if (index > -1) {
+            members.splice(index, 1);
+            this.form.getFieldFrom(this.label).setValue(members);
+        }
     }
 }

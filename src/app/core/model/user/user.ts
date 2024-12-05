@@ -16,6 +16,14 @@ export class User {
         return `${this.data.firstname} ${this.data.lastname}`;
     }
 
+    getFirstname(): string {
+        return this.data.firstname;
+    }
+
+    getLastname(): string {
+        return this.data.lastname;
+    }
+
     getId(): string {
         return this.data.id;
     }

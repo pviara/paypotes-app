@@ -8,7 +8,10 @@
         <ul>
             <add-member-button/>
             @for (member of getMembers(); track $index) {
-                <member/>
+                <member
+                    [data]="member"
+                    (deleted)="onDeleteMember($event)"
+                />
             }
         </ul>
         <form-button

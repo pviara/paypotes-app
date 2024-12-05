@@ -1,0 +1,26 @@
+<div class="container">
+    <headbar
+        [route]="'/groups/add/members/add'"
+        [subhead]="'Nouveau groupe > Membres'"
+        [title]="'Choisir les contacts'"
+    />
+    <div class="content">
+        @if ($contacts | async; as contacts) {
+            <ul>
+                @for (contact of contacts; track $index) {
+                    <contact
+                        [contact]="contact"
+                        [last]="isLastFrom(contacts, $index)"
+                    />
+                }
+            </ul>
+            <form-button
+                [disabled]="form.getFieldFrom(label).invalid()"
+                [text]="'Ajouter au groupe'"
+            />
+        }
+        @else {
+            <span class="loader"></span>
+        }
+    </div>
+</div>

@@ -1,8 +1,8 @@
 <div class="container">
     <headbar
         [route]="'/groups/add/members'"
-        [subhead]="'Nouveau groupe'"
-        [title]="'Choisir la personne'"
+        [subhead]="'Nouveau groupe > Membres'"
+        [title]="'Ajouter'"
     />
     <form>
         <div class="content">
@@ -14,7 +14,7 @@
             <div [ngClass]="{ searching }">
                 <span>ou</span>
                 <button
-                    routerLink="/expenses/add/contact"
+                    routerLink="/groups/add/members/contacts"
                     type="button">
                     🙋 Choisir des contacts
                 </button>

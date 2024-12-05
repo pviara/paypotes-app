@@ -1,3 +1,4 @@
+import { ChoseContactsComponentModule } from '@groups/add-group/chose-contacts/chose-contacts.component-module';
 import { AddGroupFormService } from '@groups/add-group/add-group.form-service';
 import { addGroupRoutes } from '@groups/add-group/add-group.routes';
 import { AddGroupView } from '@groups/add-group/add-group.view';
@@ -11,6 +12,7 @@ import { SelectPersonsComponentModule } from '@groups/add-group/select-persons/s
 @NgModule({
     declarations: [AddGroupView],
     imports: [
+        ChoseContactsComponentModule,
         FillDetailsComponentModule,
         MembersComponentModule,
         RouterModule.forChild(addGroupRoutes),

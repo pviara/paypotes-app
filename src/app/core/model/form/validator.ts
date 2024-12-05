@@ -3,15 +3,22 @@ export type ValidatorDetails = {
 };
 
 export enum ValidatorKey {
+    MinLengthOne,
     MinLengthTwo,
 }
 
+const validateMinLengthOne = (value: unknown): boolean => {
+    if (Array.isArray(value)) return value.length >= 1;
+    throw new InvalidValueTypeError();
+};
+
 const validateMinLengthTwo = (value: unknown): boolean => {
-    if (Array.isArray(value)) return value.length > 2;
+    if (Array.isArray(value)) return value.length >= 2;
     throw new InvalidValueTypeError();
 };
 
 const validators = new Map<ValidatorKey, ValidatorDetails>([
+    [ValidatorKey.MinLengthOne, { validate: validateMinLengthOne }],
     [ValidatorKey.MinLengthTwo, { validate: validateMinLengthTwo }],
 ]);
 

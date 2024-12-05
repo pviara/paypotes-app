@@ -1,4 +1,4 @@
-<li (click)="onClicked()" [ngClass]="{ last: last() }">
+<li (click)="onClicked()" [ngClass]="{ last: last(), selected: selected() }">
     <div class="info">
         <img
             id="image"
@@ -15,6 +15,9 @@
         </div>
     </div>
     <button>
-        <img id="image" src="assets/icons/add.png"/>
+        <img
+            id="image"
+            [src]="selected() ? 'assets/icons/check.png' : 'assets/icons/add.png'"
+        />
     </button>
 </li>

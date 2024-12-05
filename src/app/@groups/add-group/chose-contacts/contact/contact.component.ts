@@ -9,6 +9,7 @@ import { Contact } from '@core/model/contact/contact';
 export class ContactComponent {
     contact = input.required<Contact>();
     last = input<boolean>(false);
+    selected = input<boolean>(false);
 
     @Output()
     contactSelected = new EventEmitter<Contact>();

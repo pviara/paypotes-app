@@ -11,12 +11,15 @@
                     <contact
                         [contact]="contact"
                         [last]="isLastFrom(contacts, $index)"
+                        [selected]="isContactSelected(contact)"
+                        (contactSelected)="onContactSelected($event)"
                     />
                 }
             </ul>
             <form-button
-                [disabled]="form.getFieldFrom(label).invalid()"
+                [disabled]="form.getFieldFrom(labels.contacts).invalid()"
                 [text]="'Ajouter au groupe'"
+                (clicked)="onButtonClicked()"
             />
         }
         @else {

@@ -19,8 +19,25 @@ li {
 
     scroll-snap-align: start;
 
+    transition-property: background-color;
+    transition-duration: 0.2s;
+
     &.last {
         margin-bottom: 3vh;
+    }
+
+    &.selected {
+        background-color: #632dd7;
+
+        .info {
+            .avatar {
+                border: 2px solid #8d58ff;
+            }
+        }
+
+        button {
+            background: linear-gradient(#634aef, #8a53ff);
+        }
     }
 
     .info {
@@ -34,6 +51,9 @@ li {
 
             border-radius: 50%;
             border: 2px solid #2e2e2e;
+
+            transition-property: border;
+            transition-duration: 0.2s;
         }
 
         .name {
@@ -60,7 +80,6 @@ li {
 
         img {
             width: 15px;
-            transform: rotate(270deg);
         }
     }
 }

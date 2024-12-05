@@ -34,7 +34,6 @@ export class ChoseContactComponent {
 
     onContactSelected(contact: Contact): void {
         this.form.getFieldFrom(this.label).setValue(contact);
-        console.log(this.form.fields);
         this.router.navigate(['expenses', 'add', 'summary']);
     }
 }

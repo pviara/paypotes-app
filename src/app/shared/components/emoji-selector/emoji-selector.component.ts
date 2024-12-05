@@ -33,7 +33,7 @@ export class EmojiSelectorComponent implements OnInit {
         this.form.addField({
             label: this.label,
             value: '',
-            regexps: [VALID_EMOJI_REGEXP],
+            validators: [VALID_EMOJI_REGEXP],
         });
     }
 }

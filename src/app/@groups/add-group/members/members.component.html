@@ -7,8 +7,12 @@
     <div class="content">
         <ul>
             <add-member-button/>
-            <member/>
+            @for (member of getMembers(); track $index) {
+                <member/>
+            }
         </ul>
-        <form-button/>
+        <form-button
+            [disabled]="form.getFieldFrom(label).invalid()"
+        />
     </div>
 </div>

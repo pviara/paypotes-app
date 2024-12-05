@@ -1,10 +1,10 @@
-import { Constraint } from '@core/model/form/constraint';
+import { Constraint, Validator } from '@core/model/form/constraint';
 import { Field } from '@core/model/form/field';
 
 type FieldData = {
     label: string;
     value?: unknown;
-    regexps?: Array<RegExp>;
+    validators?: Array<Validator>;
 };
 
 type Label = string;
@@ -17,14 +17,14 @@ export type LabeledField = {
 export class Form {
     fields = new Map<Label, Field>();
 
-    addField({ label, value, regexps }: FieldData): void {
+    addField({ label, value, validators }: FieldData): void {
         if (this.labelInvalid(label)) {
             throw new InvalidLabelError(label);
         }
         if (this.exist(label)) {
             throw new LabelExistsError(label);
         }
-        const field = this.createFieldFrom(value, regexps);
+        const field = this.createFieldFrom(value, validators);
         this.fields.set(label, field);
     }
 
@@ -71,15 +71,18 @@ export class Form {
         return !onlyAlphabeticPattern.test(label);
     }
 
-    private createFieldFrom(value: unknown, regexps?: Array<RegExp>): Field {
-        const constraints = this.mapConstraintsFrom(regexps);
+    private createFieldFrom(
+        value: unknown,
+        validators?: Array<Validator>,
+    ): Field {
+        const constraints = this.mapConstraintsFrom(validators);
         return new Field(value, constraints);
     }
 
     private mapConstraintsFrom(
-        regexps?: Array<RegExp>,
+        validators?: Array<Validator>,
     ): Array<Constraint> | undefined {
-        return regexps?.map((regexp) => new Constraint(regexp));
+        return validators?.map((validator) => new Constraint(validator));
     }
 
     private mapEntryToField(): (entry: [Label, Field]) => Field {

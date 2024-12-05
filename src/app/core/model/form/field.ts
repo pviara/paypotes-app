@@ -7,9 +7,7 @@ export class Field {
     ) {}
 
     invalid(): boolean {
-        return this.constraints.some(
-            (constraint) => !constraint.observedBy(`${this.value}`),
-        );
+        return !this.valid();
     }
 
     getValue(): unknown {
@@ -23,7 +21,17 @@ export class Field {
 
     valid(): boolean {
         return this.constraints.every((constraint) =>
-            this.value ? constraint.observedBy(`${this.value}`) : false,
+            this.valueCanBeChecked()
+                ? constraint.observedBy(this.value)
+                : false,
         );
+    }
+
+    private valueCanBeChecked(): boolean {
+        const isNotDefined = this.value === null || this.value === undefined;
+        const isEmptyString =
+            typeof this.value === 'string' && this.value.length === 0;
+
+        return isNotDefined || isEmptyString ? false : true;
     }
 }

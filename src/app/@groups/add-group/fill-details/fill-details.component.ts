@@ -61,7 +61,7 @@ export class FillDetailsComponent {
         this.form.addField({
             label: this.label,
             value: '',
-            regexps: [LETTERS_AND_SPACES_ONLY_PATTERN],
+            validators: [LETTERS_AND_SPACES_ONLY_PATTERN],
         });
     }
 }

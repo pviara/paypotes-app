@@ -73,7 +73,7 @@ export class FillDetailsComponent implements OnInit {
         this.form.addField({
             label: this.labels.name,
             value: '',
-            regexps: [LETTERS_AND_SPACES_ONLY_PATTERN],
+            validators: [LETTERS_AND_SPACES_ONLY_PATTERN],
         });
     }
 }

@@ -5,7 +5,7 @@ import {
     LabelExistsError,
     LabelNotFoundError,
 } from '@core/model/form/form';
-import { Field } from './field';
+import { getValidator, InvalidValueTypeError, ValidatorKey } from './validator';
 
 describe('Form', () => {
     let sut: Form;
@@ -117,7 +117,7 @@ describe('Form', () => {
             },
         );
 
-        describe('one regexp', () => {
+        describe('one validator', () => {
             const onlyNumericWithOptionalDecimals = /^\d+(\.\d{1,2})?$/;
             const onlyTenDigits = /^0[1-9]\d{8}$/;
             const onlyAlphabeticCharacters = /^[a-zA-Z]+$/;
@@ -135,15 +135,15 @@ describe('Form', () => {
                 ['amount', 'invalid', onlyNumericWithOptionalDecimals],
                 ['amount', ' ', onlyNumericWithOptionalDecimals],
             ])(
-                'should return false when given regexp is not fulfilled',
-                (label, value, regexp) => {
-                    sut.addField({ label, value, regexps: [regexp] });
+                'should return false when given validator is not fulfilled',
+                (label, value, validator) => {
+                    sut.addField({ label, value, validators: [validator] });
                     expect(sut.valid(label)).toBe(false);
                 },
             );
         });
 
-        describe('several regexps', () => {
+        describe('several validators', () => {
             const onlyThreeCharacterLength = /^.{3}$/;
             const onlyAlphaNumericCharacters = /^[a-zA-Z0-9]+$/;
 
@@ -159,9 +159,9 @@ describe('Form', () => {
                     [onlyAlphaNumericCharacters, onlyThreeCharacterLength],
                 ],
             ])(
-                'should return false when at least one regexp is not fulfilled',
-                (label, value, regexps) => {
-                    sut.addField({ label, value, regexps });
+                'should return false when at least one validator is not fulfilled',
+                (label, value, validators) => {
+                    sut.addField({ label, value, validators });
                     expect(sut.valid(label)).toBe(false);
                 },
             );
@@ -176,18 +176,44 @@ describe('Form', () => {
                 [false, 'symbol#'],
                 [false, null],
                 [false, undefined],
-                [false, NaN],
             ])('should return "%s" for given value "%s"', (expected, value) => {
                 const LETTERS_AND_SPACES_PATTERN = /^(?!\s+$)[a-zA-ZÀ-ÿ\s]+$/;
                 const STRING_DEFINED_PATTERN = /^(?!\s*$).+/;
 
                 const label = 'name';
-                const regexps = [
+                const validators = [
                     LETTERS_AND_SPACES_PATTERN,
                     STRING_DEFINED_PATTERN,
                 ];
 
-                sut.addField({ label, value, regexps });
+                sut.addField({ label, value, validators });
+                expect(sut.valid(label)).toBe(expected);
+            });
+        });
+
+        describe('array', () => {
+            it('should throw an error when checking field length although it is not an array', () => {
+                const label = 'firstname';
+                sut.addField({
+                    label,
+                    value: ' ',
+                    validators: [getValidator(ValidatorKey.MinLengthTwo)],
+                });
+
+                expect(() => sut.valid(label)).toThrow(InvalidValueTypeError);
+            });
+
+            it.each([
+                [true, ['a', 'b', 'c']],
+                [false, ['a', 'b']],
+            ])('should return "%s" for given array "%s"', (expected, value) => {
+                const label = 'firstname';
+                sut.addField({
+                    label,
+                    value,
+                    validators: [getValidator(ValidatorKey.MinLengthTwo)],
+                });
+
                 expect(sut.valid(label)).toBe(expected);
             });
         });

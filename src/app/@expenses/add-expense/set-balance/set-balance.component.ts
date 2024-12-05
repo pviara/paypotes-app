@@ -40,7 +40,7 @@ export class SetBalanceComponent implements OnInit {
         this.form.addField({
             label: this.label,
             value: '',
-            regexps: [VALID_BALANCE_RANGE_REGEXP],
+            validators: [VALID_BALANCE_RANGE_REGEXP],
         });
     }
 }

@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
 import { FormServiceToken } from '@core/services/form/form.service.provider';
 import { getValidator, ValidatorKey } from '@core/model/form/validator';
+import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
 
 @Component({
@@ -10,6 +11,7 @@ import { User } from '@core/model/user/user';
     styleUrls: ['./members.component.scss'],
 })
 export class MembersComponent implements OnInit {
+    private router = inject(Router);
     form = inject(FormServiceToken);
 
     label = 'members';
@@ -28,6 +30,10 @@ export class MembersComponent implements OnInit {
         return this.form.getFieldFrom(this.label).getValue() as Array<
             Contact | User
         >;
+    }
+
+    onButtonClicked(): void {
+        this.router.navigate(['groups', 'add', 'summary']);
     }
 
     onDeleteMember(id: string): void {

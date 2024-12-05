@@ -5,6 +5,7 @@ import { AddGroupView } from '@groups/add-group/add-group.view';
 import { FillDetailsComponentModule } from '@groups/add-group/fill-details/fill-details.component-module';
 import { MembersComponentModule } from '@groups/add-group/members/members.component-module';
 import { NgModule } from '@angular/core';
+import { ReadSummaryComponentModule } from '@groups/add-group/read-summary/read-summary.component-module';
 import { RouterModule } from '@angular/router';
 import { SelectEmojiComponentModule } from '@groups/add-group/select-emoji/select-emoji.component-module';
 import { SelectPersonsComponentModule } from '@groups/add-group/select-persons/select-persons.component-module';
@@ -15,6 +16,7 @@ import { SelectPersonsComponentModule } from '@groups/add-group/select-persons/s
         ChoseContactsComponentModule,
         FillDetailsComponentModule,
         MembersComponentModule,
+        ReadSummaryComponentModule,
         RouterModule.forChild(addGroupRoutes),
         SelectEmojiComponentModule,
         SelectPersonsComponentModule,

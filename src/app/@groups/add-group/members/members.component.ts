@@ -26,6 +26,10 @@ export class MembersComponent implements OnInit {
         }
     }
 
+    getContacts(): Array<Contact | User> {
+        return this.form.getFieldFrom('contacts').getValue() as Array<Contact>;
+    }
+
     getMembers(): Array<Contact | User> {
         return this.form.getFieldFrom(this.label).getValue() as Array<
             Contact | User
@@ -38,10 +42,21 @@ export class MembersComponent implements OnInit {
 
     onDeleteMember(id: string): void {
         const members = this.getMembers();
-        const index = members.findIndex((member) => member.getId() === id);
-        if (index > -1) {
-            members.splice(index, 1);
+        const memberIndex = members.findIndex(
+            (member) => member.getId() === id,
+        );
+        if (memberIndex > -1) {
+            members.splice(memberIndex, 1);
             this.form.getFieldFrom(this.label).setValue(members);
+        }
+
+        const contacts = this.getContacts();
+        const contactIndex = contacts.findIndex(
+            (contact) => contact.getId() === id,
+        );
+        if (contactIndex > -1) {
+            contacts.splice(contactIndex, 1);
+            this.form.getFieldFrom('contacts').setValue(contacts);
         }
     }
 }

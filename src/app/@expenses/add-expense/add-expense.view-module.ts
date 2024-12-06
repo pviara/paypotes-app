@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { SelectEmojiComponentModule } from './select-emoji/select-emoji.component-module';
 import { SelectPersonComponentModule } from './select-person/select-person.component-module';
 import { SetBalanceComponentModule } from './set-balance/set-balance.component-module';
+import { ServicesModule } from '@core/services/services.module';
 
 @NgModule({
     declarations: [AddExpenseView],
@@ -20,6 +21,7 @@ import { SetBalanceComponentModule } from './set-balance/set-balance.component-m
         SelectEmojiComponentModule,
         SelectPersonComponentModule,
         SetBalanceComponentModule,
+        ServicesModule,
     ],
     providers: [AddExpenseFormService],
 })

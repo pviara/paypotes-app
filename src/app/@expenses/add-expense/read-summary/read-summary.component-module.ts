@@ -1,8 +1,8 @@
-import { ButtonComponent } from '../common/button/button.component';
-import { HeadbarComponent } from '../common/headbar/headbar.component';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { ExpenseImagesComponent } from '@shared/components/expense/images/images.component';
+import { HeadbarComponent } from '@shared/components/headbar/headbar.component';
 import { NgModule } from '@angular/core';
-import { ReadSummaryComponent } from './read-summary.component';
-import { ExpenseImagesComponent } from '@shared/expense/images/images.component';
+import { ReadSummaryComponent } from '@expenses/add-expense/read-summary/read-summary.component';
 
 @NgModule({
     declarations: [ReadSummaryComponent],

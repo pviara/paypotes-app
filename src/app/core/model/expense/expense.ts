@@ -1,4 +1,3 @@
-import { Emoji } from '@core/model/emoji';
 import { Contact } from '@core/model/contact/contact';
 
 export class Expense {
@@ -7,7 +6,7 @@ export class Expense {
             readonly id: string;
             readonly label: string;
             readonly date: Date;
-            readonly emoji: Emoji;
+            readonly emoji: string;
             readonly balance: number;
             readonly origin: Contact;
         },
@@ -23,7 +22,7 @@ export class Expense {
         return this.data.date;
     }
 
-    getEmoji(): Emoji {
+    getEmoji(): string {
         return this.data.emoji;
     }
 

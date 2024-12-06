@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { shareReplay, switchMap, tap } from 'rxjs';
+import { map, shareReplay, switchMap, tap } from 'rxjs';
 
 @Component({
     selector: 'expense',
@@ -22,6 +22,8 @@ export class ExpenseComponent {
         switchMap(() => this.expenseService.getExpense(this.expenseId)),
         shareReplay(1),
     );
+
+    $expenseLabel = this.$expense.pipe(map((expense) => expense.getLabel()));
 
     onPayback(): void {
         if (this.expenseId) {

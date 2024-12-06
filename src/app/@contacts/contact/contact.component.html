@@ -1,6 +1,7 @@
 <headbar
-    [subtitle]="'Dépenses'"
-    [title]="($contact | async)?.getFullName()"
+    [route]="'/contacts'"
+    [subhead]="'Contact'"
+    [title]="$contactFullname | async"
 />
 <div>
     @if ($contact | async; as contact) {

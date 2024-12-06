@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, shareReplay, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, map, shareReplay, switchMap, tap } from 'rxjs';
 import { Component, inject } from '@angular/core';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { FiltersEvent } from '@core/model/filters/filters-event';
@@ -23,6 +23,8 @@ export class GroupComponent {
         switchMap(() => this.groupService.getGroup(this.groupId)),
         shareReplay(1),
     );
+
+    $groupName = this.$group.pipe(map((group) => group.getName()));
 
     $expenses = new BehaviorSubject<ListElements>([]);
 

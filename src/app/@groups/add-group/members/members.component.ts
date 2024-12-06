@@ -1,0 +1,47 @@
+import { Component, inject, OnInit } from '@angular/core';
+import { Contact } from '@core/model/contact/contact';
+import { FormServiceToken } from '@core/services/form/form.service.provider';
+import { getValidator, ValidatorKey } from '@core/model/form/validator';
+import { Router } from '@angular/router';
+import { User } from '@core/model/user/user';
+
+@Component({
+    selector: 'members',
+    templateUrl: './members.component.html',
+    styleUrls: ['./members.component.scss'],
+})
+export class MembersComponent implements OnInit {
+    private router = inject(Router);
+    form = inject(FormServiceToken);
+
+    label = 'members';
+
+    ngOnInit(): void {
+        if (!this.form.exist(this.label)) {
+            this.form.addField({
+                label: this.label,
+                value: [],
+                validators: [getValidator(ValidatorKey.MinLengthTwo)],
+            });
+        }
+    }
+
+    getMembers(): Array<Contact | User> {
+        return this.form.getFieldFrom(this.label).getValue() as Array<
+            Contact | User
+        >;
+    }
+
+    onButtonClicked(): void {
+        this.router.navigate(['groups', 'add', 'summary']);
+    }
+
+    onDeleteMember(id: string): void {
+        const members = this.getMembers();
+        const index = members.findIndex((member) => member.getId() === id);
+        if (index > -1) {
+            members.splice(index, 1);
+            this.form.getFieldFrom(this.label).setValue(members);
+        }
+    }
+}

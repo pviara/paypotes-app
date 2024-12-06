@@ -1,0 +1,21 @@
+<div>
+    @if (error(); as error) {
+        <p class="error">
+            {{ error }}
+        </p>
+    }
+    <div class="input">
+        <input
+            type="tel"
+            maxlength="14"
+            placeholder="Entrer un N°..."
+            phoneFormatModifier
+            [disabled]="isLoading()"
+            (change)="onChange($event)"
+            (input)="onChange($event)"
+        />
+        @if (isLoading()) {
+            <span class="loader"></span>
+        }
+    </div>
+</div>

@@ -1,6 +1,6 @@
-import { AddExpenseFormService } from '../add-expense.form-service';
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { FormServiceToken } from '@core/services/form/form.service.provider';
 import { Router } from '@angular/router';
 
 type FillDetailsForm = {
@@ -26,28 +26,24 @@ const EXPENSE_NAME_SUGGESTIONS = [
     'Picnic au parc',
 ];
 
-const LETTERS_AND_SPACES_ONLY_PATTERN = /^(?!\s+$)[a-zA-ZÀ-ÿ\s]+$/;
-
 @Component({
     selector: 'fill-details',
     templateUrl: './fill-details.component.html',
     styleUrls: ['./fill-details.component.scss'],
 })
-export class FillDetailsComponent {
-    private formBuilder = inject(FormBuilder);
-    private formService = inject(AddExpenseFormService);
+export class FillDetailsComponent implements OnInit {
     private router = inject(Router);
 
-    form = this.formBuilder.group<FillDetailsForm>({
-        name: this.formBuilder.nonNullable.control('', [
-            Validators.required,
-            Validators.minLength(1),
-            Validators.pattern(LETTERS_AND_SPACES_ONLY_PATTERN),
-        ]),
-        isCurrentPayer: this.formBuilder.nonNullable.control(true),
-    });
+    form = inject(FormServiceToken);
+    labels = { isCurrentPayer: 'isCurrentPayer', name: 'name' };
 
     placeholder = this.getRandomName();
+
+    ngOnInit(): void {
+        if (!this.form.exist(this.labels.isCurrentPayer, this.labels.name)) {
+            this.addFormFields();
+        }
+    }
 
     getRandomName(): string {
         const randomIndex = Math.floor(
@@ -58,15 +54,26 @@ export class FillDetailsComponent {
     }
 
     onButtonClicked(): void {
-        const { name, isCurrentPayer } = this.form.controls;
-        if (name.valid) {
-            this.formService.setName(name.value);
-            this.formService.setIsCurrentPayer(isCurrentPayer.value);
-            this.router.navigate(['expenses', 'add', 'person']);
-        }
+        this.router.navigate(['expenses', 'add', 'person']);
     }
 
     onCheckboxChanged(active: boolean): void {
-        this.form.controls.isCurrentPayer.setValue(active);
+        this.form.getFieldFrom(this.labels.isCurrentPayer).setValue(active);
+    }
+
+    onInput(event: Event): void {
+        const { value } = event.target as HTMLInputElement;
+        this.form.getFieldFrom(this.labels.name).setValue(value);
+    }
+
+    private addFormFields(): void {
+        this.form.addField({ label: this.labels.isCurrentPayer, value: true });
+
+        const LETTERS_AND_SPACES_ONLY_PATTERN = /^(?!\s+$)[a-zA-ZÀ-ÿ\s]+$/;
+        this.form.addField({
+            label: this.labels.name,
+            value: '',
+            validators: [LETTERS_AND_SPACES_ONLY_PATTERN],
+        });
     }
 }

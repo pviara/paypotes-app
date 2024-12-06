@@ -1,0 +1,79 @@
+import { Component, inject, OnInit } from '@angular/core';
+import { Contact } from '@core/model/contact/contact';
+import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
+import { FormServiceToken } from '@core/services/form/form.service.provider';
+import { getValidator, ValidatorKey } from '@core/model/form/validator';
+import { Router } from '@angular/router';
+import { User } from '@core/model/user/user';
+
+@Component({
+    selector: 'chose-contacts',
+    templateUrl: './chose-contacts.component.html',
+    styleUrls: ['./chose-contacts.component.scss'],
+})
+export class ChoseContactsComponent implements OnInit {
+    private contactService = inject(ContactServiceToken);
+    private router = inject(Router);
+    form = inject(FormServiceToken);
+
+    labels = { contacts: 'contacts', members: 'members' };
+
+    $contacts = this.contactService.getContacts();
+
+    ngOnInit(): void {
+        if (!this.form.exist(this.labels.contacts)) {
+            this.form.addField({
+                label: this.labels.contacts,
+                value: [],
+                validators: [getValidator(ValidatorKey.MinLengthOne)],
+            });
+        } else {
+            console.log(this.form.getFieldFrom(this.labels.contacts));
+        }
+    }
+
+    isContactSelected(contact: Contact): boolean {
+        const contacts = this.form
+            .getFieldFrom(this.labels.contacts)
+            .getValue() as Array<Contact>;
+        return contacts.some(
+            (selected) => selected.getId() === contact.getId(),
+        );
+    }
+
+    isLastFrom(contacts: Contact[], index: number): boolean {
+        return index === contacts.length - 1;
+    }
+
+    onButtonClicked(): void {
+        const contacts = this.form
+            .getFieldFrom(this.labels.contacts)
+            .getValue() as Array<Contact>;
+
+        const members = this.form
+            .getFieldFrom(this.labels.members)
+            .getValue() as Array<Contact | User>;
+
+        this.form
+            .getFieldFrom(this.labels.members)
+            .setValue(members.concat(contacts));
+
+        this.router.navigate(['groups', 'add', 'members']);
+    }
+
+    onContactSelected(contact: Contact): void {
+        const contacts = this.form
+            .getFieldFrom(this.labels.contacts)
+            .getValue() as Array<Contact>;
+
+        if (this.isContactSelected(contact)) {
+            const index = contacts.findIndex(
+                (selected) => selected.getId() === contact.getId(),
+            );
+            contacts.splice(index, 1);
+        } else {
+            contacts.push(contact);
+        }
+        this.form.getFieldFrom(this.labels.contacts).setValue(contacts);
+    }
+}

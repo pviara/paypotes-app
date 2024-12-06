@@ -1,6 +1,7 @@
 <headbar
-  [subtitle]="'Dépense'"
-  [title]="($expense | async)?.getLabel()"
+    [route]="'/expenses'"
+    [subhead]="'Dépense'"
+    [title]="$expenseLabel | async"
 />
 <section>
     @if ($expense | async; as expense) {

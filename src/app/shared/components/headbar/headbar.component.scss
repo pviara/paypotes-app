@@ -1,0 +1,17 @@
+header {
+    margin-top: 8%;
+    margin-left: 8%;
+    margin-right: 8%;
+    margin-bottom: 3vh;
+
+    display: flex;
+    justify-content: space-between;
+
+    animation: slighSlideInFromTop 0.5s ease-in-out;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 5vw;
+    }
+}

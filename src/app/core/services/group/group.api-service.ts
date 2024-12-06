@@ -1,7 +1,7 @@
 import { Filters } from '@core/model/filters/filters';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { Group, Groups } from '@core/model/group/group';
-import { GroupService } from '@core/services/group/group.service';
+import { AddGroupDTO, GroupService } from '@core/services/group/group.service';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
@@ -13,6 +13,10 @@ export class GroupAPIService implements GroupService {
         private httpClientService: HttpClientService,
         private queryService: QueryService,
     ) {}
+
+    addGroup(payload: AddGroupDTO): Observable<void> {
+        throw new Error('Method not implemented.');
+    }
 
     getGroup(id: string): Observable<Group> {
         return this.httpClientService.get<Group>(`${this.endpoint}/${id}`).pipe(

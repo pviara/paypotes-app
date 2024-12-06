@@ -1,0 +1,12 @@
+<div>
+    @defer (when title()) {
+        @if (subhead(); as subhead) {
+            <h2>{{ subhead }}</h2>
+        }
+        <h1 class="bold">{{ title() }}</h1>
+    } @placeholder {
+        <skeleton
+            [subhead]="subhead()"
+        />
+    }
+</div>

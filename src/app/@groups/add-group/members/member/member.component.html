@@ -1,0 +1,20 @@
+<li>
+    <div class="info">
+        <img
+            id="image"
+            class="avatar"
+            [src]="'assets/images/' + data().getAvatarURL()"
+        />
+        <div class="name">
+            <span class="firstname">
+                {{ data().getFirstname() }}
+            </span>
+            <span class="lastname">
+                {{ data().getLastname() }}
+            </span>
+        </div>
+    </div>
+    <button (click)="delete()">
+        <img id="image" src="assets/icons/trash.png"/>
+    </button>
+</li>

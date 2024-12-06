@@ -1,0 +1,22 @@
+<div class="container">
+    <headbar
+        [route]="'/groups/add/emoji'"
+        [subhead]="'Nouveau groupe'"
+        [title]="'Membres'"
+    />
+    <div class="content">
+        <ul>
+            <add-member-button/>
+            @for (member of getMembers(); track $index) {
+                <member
+                    [data]="member"
+                    (deleted)="onDeleteMember($event)"
+                />
+            }
+        </ul>
+        <form-button
+            [disabled]="form.getFieldFrom(label).invalid()"
+            (clicked)="onButtonClicked()"
+        />
+    </div>
+</div>

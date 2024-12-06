@@ -1,0 +1,17 @@
+<header>
+    <div>
+        <back-button
+            [route]="route()"
+        />
+        <titles
+            [subhead]="subhead()"
+            [title]="title()"
+        />
+    </div>
+    @if (action(); as action) {
+        <action-button
+            [action]="action"
+        />
+    }
+</header>
+local

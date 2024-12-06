@@ -1,44 +1,46 @@
-import { AddExpenseFormService } from '../add-expense.form-service';
 import { BalanceFormatter } from './model/balance-formatter';
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { FormServiceToken } from '@core/services/form/form.service.provider';
 import { Router } from '@angular/router';
-
-type SetBalanceForm = {
-    balance: FormControl<string>;
-};
 
 @Component({
     selector: 'set-balance',
     templateUrl: './set-balance.component.html',
     styleUrls: ['./set-balance.component.scss'],
 })
-export class SetBalanceComponent {
-    private formBuilder = inject(FormBuilder);
-    private formService = inject(AddExpenseFormService);
+export class SetBalanceComponent implements OnInit {
     private router = inject(Router);
 
-    form = this.formBuilder.group<SetBalanceForm>({
-        balance: this.formBuilder.nonNullable.control('', [
-            Validators.required,
-            Validators.minLength(1),
-        ]),
-    });
+    form = inject(FormServiceToken);
 
+    label = 'balance';
     formatter = new BalanceFormatter();
 
+    ngOnInit(): void {
+        if (!this.form.exist(this.label)) {
+            this.addFormField();
+        }
+    }
+
     onButtonClicked(): void {
-        if (this.form.controls.balance.valid) {
+        if (this.form.valid(this.label)) {
             this.router.navigate(['expenses', 'add', 'emoji']);
         }
     }
 
     onKeyClicked(key: string): void {
         this.formatter.append(key);
-
         const balance = this.formatter.getBalance();
 
-        this.form.controls.balance.setValue(balance);
-        this.formService.setBalance(balance);
+        this.form.setField({ label: this.label, value: balance });
+    }
+
+    private addFormField(): void {
+        const VALID_BALANCE_RANGE_REGEXP = /^(?:\d{1,2}|\d{1,2},\d{1,2})$/;
+        this.form.addField({
+            label: this.label,
+            value: '',
+            validators: [VALID_BALANCE_RANGE_REGEXP],
+        });
     }
 }

@@ -1,0 +1,28 @@
+<div class="container">
+    <headbar
+        [route]="'/groups/add/members'"
+        [subhead]="'Nouveau groupe'"
+        [title]="'Lire le résumé'"
+    />
+    <div class="content">
+        <div class="emoji">
+            {{ getEmoji() }}
+        </div>
+        <h1 class="bold">
+            {{ getName() }}
+        </h1>
+        <p>
+            {{ getMembers().length + 1 }} membres
+        </p>
+        <div class="members">
+            @for (member of getMembers(); track $index) {
+                <img [src]="'assets/images/' + member.getAvatarURL()"/>
+            }
+        </div>
+    </div>
+    <form-button
+        [disabled]="loading"
+        [text]="'Créer le groupe'"
+        (clicked)="addGroup()"
+    />
+</div>

@@ -1,5 +1,4 @@
 import { Component, input } from '@angular/core';
-import { Emoji } from '@core/model/emoji';
 
 @Component({
     selector: 'expense-images',
@@ -8,5 +7,5 @@ import { Emoji } from '@core/model/emoji';
 })
 export class ExpenseImagesComponent {
     avatarURL = input.required<string>();
-    emoji = input.required<Emoji>();
+    emoji = input.required<string>();
 }

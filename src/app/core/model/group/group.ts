@@ -1,11 +1,9 @@
-import { Emoji } from '@core/model/emoji';
-
 export class Group {
     constructor(
         private readonly data: {
             readonly id: string;
             readonly name: string;
-            readonly emoji: Emoji;
+            readonly emoji: string;
             readonly members: Array<unknown>;
             readonly balance: number;
         },
@@ -19,7 +17,7 @@ export class Group {
         return `${Math.abs(this.getBalance()).toFixed(2).replace('.', ',')}€`;
     }
 
-    getEmoji(): Emoji {
+    getEmoji(): string {
         return this.data.emoji;
     }
 

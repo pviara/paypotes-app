@@ -1,20 +1,10 @@
 <div class="container">
     <headbar
         [route]="'/expenses/add/balance'"
-        [subtitle]="'Nouvelle dépense'"
+        [subhead]="'Nouvelle dépense'"
         [title]="'Choisir un emoji'"
     />
-    <form [formGroup]="form" (submit)="onButtonClicked()">
-        <div class="content">
-            <emoji-displayer 
-                [emoji]="form.controls.emoji.value"
-            />
-            <emoji-keyboard
-                (keyClicked)="onKeyClicked($event)"
-            />
-        </div>
-        <form-button
-            [disabled]="form.controls.emoji.invalid"
-        />
-    </form>
+    <emoji-selector
+        (buttonClicked)="onButtonClicked()"
+    />
 </div>

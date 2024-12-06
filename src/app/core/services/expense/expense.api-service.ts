@@ -3,7 +3,6 @@ import {
     ExpenseService,
 } from '@core/services/expense/expense.service';
 import { Contact } from '@core/model/contact/contact';
-import { Emoji } from '@core/model/emoji';
 import { Expense, Expenses } from '@core/model/expense/expense';
 import { Filters } from '@core/model/filters/filters';
 import { generateRandomDate } from '@shared/utils/get-random-date';
@@ -105,7 +104,7 @@ export class ExpenseAPIService implements ExpenseService {
             id: generateRandomString(),
             label: `Dépense #${index}`,
             date: generateRandomDate(),
-            emoji: getRandomEmoji() as Emoji,
+            emoji: getRandomEmoji(),
             origin: new Contact({
                 id: generateRandomString(),
                 firstname: 'Claire',

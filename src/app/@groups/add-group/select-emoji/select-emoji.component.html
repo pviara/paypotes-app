@@ -1,0 +1,10 @@
+<div class="container">
+    <headbar
+        [route]="'/groups/add/details'"
+        [subhead]="'Nouveau groupe'"
+        [title]="'Choisir un emoji'"
+    />
+    <emoji-selector
+        (buttonClicked)="onButtonClicked()"
+    />
+</div>

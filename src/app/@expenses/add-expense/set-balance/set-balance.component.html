@@ -1,12 +1,13 @@
 <div class="container">
     <headbar
-        [subtitle]="'Nouvelle dépense'"
+        [route]="'/expenses'"
+        [subhead]="'Nouvelle dépense'"
         [title]="'Fixer le montant'"
     />
-    <form [formGroup]="form" (submit)="onButtonClicked()">
+    <form>
         <div class="content">
             <balance-displayer
-                [balance]="form.controls.balance.value"
+                [balance]="form.getFieldFrom(label).getValue()"
             />
             <balance-keyboard
                 [keyboard]="formatter.getKeyboard()"
@@ -14,7 +15,8 @@
             />
         </div>
         <form-button
-            [disabled]="form.controls.balance.invalid"
+            [disabled]="form.getFieldFrom(label).invalid()"
+            (clicked)="onButtonClicked()"
         />
     </form>
 </div>

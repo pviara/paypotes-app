@@ -1,0 +1,18 @@
+a {
+    width: 14vw;
+    height: 14vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 20%;
+    background-color: #202020;
+
+    img {
+        filter: invert(1);
+        transform: rotate(90deg);
+
+        width: 6vw;
+    }
+}

@@ -205,7 +205,7 @@ describe('Form', () => {
 
             it.each([
                 [true, ['a', 'b', 'c']],
-                [false, ['a', 'b']],
+                [false, ['a']],
             ])('should return "%s" for given array "%s"', (expected, value) => {
                 const label = 'firstname';
                 sut.addField({

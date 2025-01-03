@@ -46,17 +46,10 @@ export class ChoseContactsComponent implements OnInit {
     }
 
     onButtonClicked(): void {
-        const contacts = this.form
-            .getFieldFrom(this.labels.contacts)
-            .getValue() as Array<Contact>;
-
-        const members = this.form
-            .getFieldFrom(this.labels.members)
-            .getValue() as Array<Contact | User>;
-
+        const notAlreadyAddedContacts = this.getNotAlreadyAddedContacts();
         this.form
             .getFieldFrom(this.labels.members)
-            .setValue(members.concat(contacts));
+            .setValue(notAlreadyAddedContacts);
 
         this.router.navigate(['groups', 'add', 'members']);
     }
@@ -75,5 +68,26 @@ export class ChoseContactsComponent implements OnInit {
             contacts.push(contact);
         }
         this.form.getFieldFrom(this.labels.contacts).setValue(contacts);
+    }
+
+    private getNotAlreadyAddedContacts(): (Contact | User)[] {
+        const contacts = this.getContacts();
+        const members = this.getMembers();
+        const notAlreadyAddedContacts = contacts.filter((contact) =>
+            members.every((member) => member.getId() !== contact.getId()),
+        );
+        return members.concat(notAlreadyAddedContacts);
+    }
+
+    private getContacts(): Array<Contact> {
+        return this.form
+            .getFieldFrom(this.labels.contacts)
+            .getValue() as Array<Contact>;
+    }
+
+    private getMembers(): Array<Contact | User> {
+        return this.form.getFieldFrom(this.labels.members).getValue() as Array<
+            Contact | User
+        >;
     }
 }

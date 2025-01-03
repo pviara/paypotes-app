@@ -42,6 +42,7 @@ export class SelectPersonsComponent {
                         this.form.getFieldFrom(this.label).setValue(members);
                         this.router.navigate(['groups', 'add', 'members']);
                     }
+                    console.log(this.form.getFieldFrom(this.label).getValue());
                 }),
             )
             .subscribe();

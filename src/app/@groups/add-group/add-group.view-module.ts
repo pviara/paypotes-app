@@ -1,7 +1,6 @@
-import { ChoseContactsComponentModule } from '@groups/add-group/chose-contacts/chose-contacts.component-module';
-import { AddGroupFormService } from '@groups/add-group/add-group.form-service';
 import { addGroupRoutes } from '@groups/add-group/add-group.routes';
 import { AddGroupView } from '@groups/add-group/add-group.view';
+import { ChoseContactsComponentModule } from '@groups/add-group/chose-contacts/chose-contacts.component-module';
 import { FillDetailsComponentModule } from '@groups/add-group/fill-details/fill-details.component-module';
 import { MembersComponentModule } from '@groups/add-group/members/members.component-module';
 import { NgModule } from '@angular/core';
@@ -21,6 +20,5 @@ import { SelectPersonsComponentModule } from '@groups/add-group/select-persons/s
         SelectEmojiComponentModule,
         SelectPersonsComponentModule,
     ],
-    providers: [AddGroupFormService],
 })
 export class AddGroupViewModule {}

@@ -33,17 +33,5 @@ div {
 
             animation: slighSlideInFromTop 0.5s ease-in-out;
         }
-
-        .loader {
-            color: #737373;
-            font-size: 10px;
-            width: 1em;
-            height: 1em;
-            border-radius: 50%;
-            position: relative;
-            text-indent: -9999em;
-            animation: mulShdSpin 1.3s infinite linear;
-            transform: translateZ(0);
-        }
     }
 }

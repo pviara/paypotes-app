@@ -1,12 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { FormServiceToken } from '@core/services/form/form.service.provider';
 import { Router } from '@angular/router';
-
-type FillDetailsForm = {
-    name: FormControl<string>;
-    isCurrentPayer: FormControl<boolean>;
-};
 
 const EXPENSE_NAME_SUGGESTIONS = [
     'Dîner entre potes',

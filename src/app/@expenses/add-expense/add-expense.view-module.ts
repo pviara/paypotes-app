@@ -1,7 +1,7 @@
 import { addExpenseRoutes } from '@expenses/add-expense/add-expense.routes';
 import { AddExpenseView } from '@expenses/add-expense/add-expense.view';
 import { ChoseContactComponentModule } from '@expenses/add-expense/chose-contact/chose-contact.component-module';
-import { FillDetailsComponentModule } from '@shared/components/fill-details/fill-details.component-module';
+import { FillDetailsComponentModule } from '@expenses/add-expense/fill-details/fill-details.component-module';
 import { NgModule } from '@angular/core';
 import { ReadSummaryComponentModule } from '@expenses/add-expense/read-summary/read-summary.component-module';
 import { RouterModule } from '@angular/router';

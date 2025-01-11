@@ -1,10 +1,14 @@
 import { addGroupExpenseRoutes } from '@groups/add-group-expense/add-group-expense.routes';
 import { AddGroupExpenseView } from '@groups/add-group-expense/add-group-expense.view';
+import { FillDetailsComponentModule } from '@groups/add-group-expense/fill-details/fill-details.component-module';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [AddGroupExpenseView],
-    imports: [RouterModule.forChild(addGroupExpenseRoutes)],
+    imports: [
+        FillDetailsComponentModule,
+        RouterModule.forChild(addGroupExpenseRoutes),
+    ],
 })
 export class AddGroupExpenseViewModule {}

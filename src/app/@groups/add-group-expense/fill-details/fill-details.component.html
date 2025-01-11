@@ -1,0 +1,25 @@
+<div class="container">
+    <headbar
+        [route]="'..'"
+        [subhead]="'Nouvelle dépense'"
+        [title]="'Saisir un nom'"
+    />
+    <form (submit)="onButtonClicked()">
+        <div class="content">
+            <input
+                type="text"
+                [placeholder]="placeholder"
+                [value]="form.getFieldFrom(labels.name).getValue()"
+                (input)="onInput($event)"
+            />
+            <form-checkbox
+                [active]="form.getFieldFrom(labels.isCurrentPayer).getValue()"
+                (changed)="onCheckboxChanged($event)"
+            />
+        </div>
+        <form-button
+            [disabled]="form.getFieldFrom(labels.name).invalid()"
+            (clicked)="onButtonClicked()"
+        />
+    </form>
+</div>

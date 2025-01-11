@@ -1,6 +1,5 @@
 import { addExpenseRoutes } from './add-expense.routes';
 import { AddExpenseView } from './add-expense.view';
-import { AddExpenseFormService } from './add-expense.form-service';
 import { ChoseContactComponentModule } from './chose-contact/chose-contact.component-module';
 import { FillDetailsComponentModule } from './fill-details/fill-details.component-module';
 import { NgModule } from '@angular/core';
@@ -23,6 +22,5 @@ import { ServicesModule } from '@core/services/services.module';
         SetBalanceComponentModule,
         ServicesModule,
     ],
-    providers: [AddExpenseFormService],
 })
 export class AddExpenseViewModule {}

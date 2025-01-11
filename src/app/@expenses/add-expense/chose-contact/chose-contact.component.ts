@@ -4,7 +4,7 @@ import {
     ContactServiceProvider,
     ContactServiceToken,
 } from '@core/services/contact/contact.api-service.provider';
-import { FormServiceToken } from '@core/services/form/form.service.provider';
+import { AddExpenseFormServiceToken } from '@core/services/form/form.service.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
 })
 export class ChoseContactComponent {
     private contactService = inject(ContactServiceToken);
-    private form = inject(FormServiceToken);
+    private form = inject(AddExpenseFormServiceToken);
     private router = inject(Router);
 
     private label = 'person';

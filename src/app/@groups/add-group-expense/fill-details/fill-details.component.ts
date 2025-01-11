@@ -1,6 +1,6 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddGroupExpenseFormServiceToken } from '@core/services/form/form.service.provider';
 import { Component, inject, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 const EXPENSE_NAME_SUGGESTIONS = [
     'Dîner entre potes',
@@ -26,6 +26,7 @@ const EXPENSE_NAME_SUGGESTIONS = [
     styleUrls: ['./fill-details.component.scss'],
 })
 export class FillDetailsComponent implements OnInit {
+    private route = inject(ActivatedRoute);
     private router = inject(Router);
 
     form = inject(AddGroupExpenseFormServiceToken);
@@ -37,6 +38,10 @@ export class FillDetailsComponent implements OnInit {
         if (!this.form.exist(this.labels.isCurrentPayer, this.labels.name)) {
             this.addFormFields();
         }
+    }
+
+    getCurrentGroupRoute(): string {
+        return `/groups/${this.getCurrentGroupId()}`;
     }
 
     getRandomName(): string {
@@ -58,6 +63,10 @@ export class FillDetailsComponent implements OnInit {
     onInput(event: Event): void {
         const { value } = event.target as HTMLInputElement;
         this.form.getFieldFrom(this.labels.name).setValue(value);
+    }
+
+    private getCurrentGroupId(): string {
+        return this.route.snapshot.params['groupId'];
     }
 
     private addFormFields(): void {

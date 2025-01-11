@@ -19,7 +19,10 @@ export class GroupComponent {
 
     private groupId = '';
 
-    action: Action = { char: '+', route: '/groups/add-expense' };
+    action: Action = {
+        char: '+',
+        route: `/groups/${this.getCurrentGroupId()}/add-expense`,
+    };
 
     $group = this.route.params.pipe(
         tap((params) => (this.groupId = params['groupId'])),
@@ -37,5 +40,9 @@ export class GroupComponent {
             .subscribe((expenses) => {
                 this.$expenses.next(expenses);
             });
+    }
+
+    private getCurrentGroupId(): string {
+        return this.route.snapshot.params['groupId'];
     }
 }

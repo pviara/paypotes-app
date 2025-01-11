@@ -20,7 +20,7 @@ export const groupsRoutes: Routes = [
                 loadChildren: importAddGroupView(),
             },
             {
-                path: 'add-expense',
+                path: ':groupId/add-expense',
                 loadChildren: importAddGroupExpenseView(),
             },
             {

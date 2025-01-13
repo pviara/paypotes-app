@@ -6,6 +6,7 @@ export default defineConfig({
         globals: true,
         root: './',
         setupFiles: ['/test/angular-test-setup.ts'],
+        pool: 'threads',
     },
     resolve: {
         alias: {

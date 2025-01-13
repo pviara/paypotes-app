@@ -1,0 +1,10 @@
+<div class="container">
+    <headbar
+        [route]="getPreviousRoute()"
+        [subhead]="'Nouvelle dépense'"
+        [title]="'Choisir un emoji'"
+    />
+    <emoji-selector
+        (buttonClicked)="onButtonClicked()"
+    />
+</div>

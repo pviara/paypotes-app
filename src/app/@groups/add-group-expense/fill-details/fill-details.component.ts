@@ -53,7 +53,12 @@ export class FillDetailsComponent implements OnInit {
     }
 
     onButtonClicked(): void {
-        this.router.navigate(['expenses', 'add', 'person']);
+        this.router.navigate([
+            'groups',
+            this.getCurrentGroupId(),
+            'add-expense',
+            'emoji',
+        ]);
     }
 
     onCheckboxChanged(active: boolean): void {

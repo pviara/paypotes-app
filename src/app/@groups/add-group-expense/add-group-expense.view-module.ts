@@ -4,6 +4,7 @@ import { FillDetailsComponentModule } from '@groups/add-group-expense/fill-detai
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { SelectEmojiComponentModule } from '@groups/add-group-expense/select-emoji/select-emoji.component-module';
+import { SetBalanceComponentModule } from '@groups/add-group-expense/set-balance/set-balance.component-module';
 
 @NgModule({
     declarations: [AddGroupExpenseView],
@@ -11,6 +12,7 @@ import { SelectEmojiComponentModule } from '@groups/add-group-expense/select-emo
         FillDetailsComponentModule,
         RouterModule.forChild(addGroupExpenseRoutes),
         SelectEmojiComponentModule,
+        SetBalanceComponentModule,
     ],
 })
 export class AddGroupExpenseViewModule {}

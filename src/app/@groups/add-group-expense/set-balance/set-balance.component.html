@@ -1,0 +1,22 @@
+<div class="container">
+    <headbar
+        [route]="getPreviousRoute()"
+        [subhead]="'Nouvelle dépense de groupe'"
+        [title]="'Fixer le montant'"
+    />
+    <form>
+        <div class="content">
+            <balance-displayer
+                [balance]="form.getFieldFrom(label).getValue()"
+            />
+            <balance-keyboard
+                [keyboard]="formatter.getKeyboard()"
+                (keyClicked)="onKeyClicked($event)"
+            />
+        </div>
+        <form-button
+            [disabled]="form.getFieldFrom(label).invalid()"
+            (clicked)="onButtonClicked()"
+        />
+    </form>
+</div>

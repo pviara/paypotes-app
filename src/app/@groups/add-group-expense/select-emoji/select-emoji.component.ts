@@ -13,18 +13,18 @@ export class SelectEmojiComponent {
     onButtonClicked(): void {
         this.router.navigate([
             'groups',
-            this.getCurrentGroup(),
+            this.getCurrentGroupId(),
             'add-expense',
             'details',
         ]);
     }
 
     getPreviousRoute(): string {
-        const groupId = this.getCurrentGroup();
+        const groupId = this.getCurrentGroupId();
         return `/groups/${groupId}/add-expense/balance`;
     }
 
-    private getCurrentGroup(): string {
+    private getCurrentGroupId(): string {
         return this.route.snapshot.params['groupId'];
     }
 }

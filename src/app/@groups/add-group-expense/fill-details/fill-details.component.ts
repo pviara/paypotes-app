@@ -40,8 +40,9 @@ export class FillDetailsComponent implements OnInit {
         }
     }
 
-    getCurrentGroupRoute(): string {
-        return `/groups/${this.getCurrentGroupId()}`;
+    getPreviousRoute(): string {
+        const groupId = this.getCurrentGroupId();
+        return `/groups/${groupId}/add-expense/emoji`;
     }
 
     getRandomName(): string {
@@ -57,7 +58,7 @@ export class FillDetailsComponent implements OnInit {
             'groups',
             this.getCurrentGroupId(),
             'add-expense',
-            'emoji',
+            'person', // todo: depends on which checkbox has been checked
         ]);
     }
 

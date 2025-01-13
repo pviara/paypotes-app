@@ -1,0 +1,11 @@
+<ul>
+    @for (key of keyboard(); track $index) {
+        <li (click)="onKeyClicked(key)">
+            @if (isDelete(key)) {
+                <img src="assets/icons/delete.png"/>
+            } @else {
+                {{ key }}
+            }
+        </li>
+    }
+</ul>

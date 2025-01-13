@@ -1,7 +1,7 @@
 <div class="container">
     <headbar
-        [route]="getCurrentGroupRoute()"
-        [subhead]="'Nouvelle dépense'"
+        [route]="getPreviousRoute()"
+        [subhead]="'Nouvelle dépense de groupe'"
         [title]="'Saisir un nom'"
     />
     <form (submit)="onButtonClicked()">

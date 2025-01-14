@@ -1,5 +1,6 @@
 import { addGroupExpenseRoutes } from '@groups/add-group-expense/add-group-expense.routes';
 import { AddGroupExpenseView } from '@groups/add-group-expense/add-group-expense.view';
+import { ChoseMemberComponentModule } from '@groups/add-group-expense/chose-member/chose-member.component-module';
 import { FillDetailsComponentModule } from '@groups/add-group-expense/fill-details/fill-details.component-module';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -9,6 +10,7 @@ import { SetBalanceComponentModule } from '@groups/add-group-expense/set-balance
 @NgModule({
     declarations: [AddGroupExpenseView],
     imports: [
+        ChoseMemberComponentModule,
         FillDetailsComponentModule,
         RouterModule.forChild(addGroupExpenseRoutes),
         SelectEmojiComponentModule,

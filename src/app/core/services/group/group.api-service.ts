@@ -3,8 +3,9 @@ import { generateRandomString } from '@shared/utils/generate-random-string';
 import { Group, Groups } from '@core/model/group/group';
 import { AddGroupDTO, GroupService } from '@core/services/group/group.service';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
+import { User, Users } from '@core/model/user/user';
 
 export class GroupAPIService implements GroupService {
     private readonly endpoint = '/api/group';
@@ -41,6 +42,27 @@ export class GroupAPIService implements GroupService {
         return this.httpClientService
             .get<Groups>(`${this.endpoint}${query}`)
             .pipe(map(this.getDeterministicGroups()));
+    }
+
+    getMembersOf(groupId: string): Observable<User[]> {
+        return this.httpClientService
+            .get<Users>(`${this.endpoint}/members`)
+            .pipe(
+                map(() => [
+                    new User({
+                        id: generateRandomString(),
+                        firstname: 'David',
+                        lastname: 'Benzi',
+                        avatarURL: 'ahmed.png',
+                    }),
+                    new User({
+                        id: generateRandomString(),
+                        firstname: 'Claire',
+                        lastname: 'Laroche',
+                        avatarURL: 'claire.png',
+                    }),
+                ]),
+            );
     }
 
     private getDeterministicGroups(): () => Groups {

@@ -1,0 +1,33 @@
+.container {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    .content {
+        height: 85%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        ul {
+            width: 100vw;
+
+            display: flex;
+            flex-direction: column;
+            gap: 2vh;
+
+            overflow-y: scroll;
+
+            scroll-snap-type: y mandatory;
+
+            animation: slighSlideInFromBottom 0.5s ease-in-out;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
+    }
+}

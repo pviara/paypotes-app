@@ -2,6 +2,7 @@ import { FillDetailsComponent } from '@groups/add-group-expense/fill-details/fil
 import { Routes } from '@angular/router';
 import { SelectEmojiComponent } from '@groups/add-group-expense/select-emoji/select-emoji.component';
 import { SetBalanceComponent } from '@groups/add-group-expense/set-balance/set-balance.component';
+import { ChoseMemberComponent } from './chose-member/chose-member.component';
 
 export const addGroupExpenseRoutes: Routes = [
     {
@@ -15,6 +16,10 @@ export const addGroupExpenseRoutes: Routes = [
     {
         path: 'emoji',
         component: SelectEmojiComponent,
+    },
+    {
+        path: 'member',
+        component: ChoseMemberComponent,
     },
     {
         path: '**',

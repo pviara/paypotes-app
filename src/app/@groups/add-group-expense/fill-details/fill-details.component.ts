@@ -58,7 +58,7 @@ export class FillDetailsComponent implements OnInit {
             'groups',
             this.getCurrentGroupId(),
             'add-expense',
-            'person', // todo: depends on which checkbox has been checked
+            this.getNextPageRoute(),
         ]);
     }
 
@@ -71,10 +71,6 @@ export class FillDetailsComponent implements OnInit {
         this.form.getFieldFrom(this.labels.name).setValue(value);
     }
 
-    private getCurrentGroupId(): string {
-        return this.route.snapshot.params['groupId'];
-    }
-
     private addFormFields(): void {
         this.form.addField({ label: this.labels.isCurrentPayer, value: true });
 
@@ -84,5 +80,15 @@ export class FillDetailsComponent implements OnInit {
             value: '',
             validators: [LETTERS_AND_SPACES_ONLY_PATTERN],
         });
+    }
+
+    private getCurrentGroupId(): string {
+        return this.route.snapshot.params['groupId'];
+    }
+
+    private getNextPageRoute(): string {
+        return this.form.getFieldFrom(this.labels.isCurrentPayer).getValue()
+            ? 'summary'
+            : 'member';
     }
 }

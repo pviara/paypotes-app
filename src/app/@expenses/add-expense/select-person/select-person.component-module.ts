@@ -4,7 +4,7 @@ import { HeadbarComponent } from '@shared/components/headbar/headbar.component';
 import { ManualPhoneInputComponentModule } from '@shared/components/manual-phone-input/manual-phone-input.component-module';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SelectPersonComponent } from './select-person.component';
+import { SelectPersonComponent } from '@expenses/add-expense/select-person/select-person.component';
 
 @NgModule({
     declarations: [SelectPersonComponent],

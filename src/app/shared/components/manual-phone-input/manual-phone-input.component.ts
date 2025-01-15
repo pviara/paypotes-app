@@ -1,13 +1,5 @@
-import { Component, EventEmitter, inject, input, Output } from '@angular/core';
-import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
-import { mapPhoneNumberOutOf } from './formatter/formatter';
-import { Observable, tap } from 'rxjs';
-import { QueryServiceProvider } from '@core/services/query/query.service.provider';
-import { User } from '@core/model/user/user';
-import {
-    UserServiceProvider,
-    UserServiceToken,
-} from '@core/services/user/user.api-service.provider';
+import { Component, EventEmitter, input, Output } from '@angular/core';
+import { mapPhoneNumberOutOf } from '@shared/components/manual-phone-input/formatter/formatter';
 
 @Component({
     selector: 'manual-phone-input',

@@ -1,4 +1,4 @@
-import { Expense } from './expense';
+import { Expense } from '@core/model/expense/expense';
 import { Contact } from '@core/model/contact/contact';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 

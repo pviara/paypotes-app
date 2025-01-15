@@ -1,4 +1,4 @@
-import { Group } from './group';
+import { Group } from '@core/model/group/group';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 
 describe('Group', () => {

@@ -1,6 +1,6 @@
-import { ChoseMemberComponent } from './chose-member.component';
+import { ChoseMemberComponent } from '@groups/add-group-expense/chose-member/chose-member.component';
 import { CommonModule } from '@angular/common';
-import { MemberComponent } from './member/member.component';
+import { MemberComponent } from '@groups/add-group-expense/chose-member/member/member.component';
 import { HeadbarComponent } from '@shared/components/headbar/headbar.component';
 import { NgModule } from '@angular/core';
 

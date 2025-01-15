@@ -1,9 +1,9 @@
+import { AddGroupExpenseViewModule } from '@groups/add-group-expense/add-group-expense.view-module';
+import { AddGroupViewModule } from '@groups/add-group/add-group.view-module';
 import { GroupComponent } from '@groups/group/group.component';
 import { GroupsComponent } from '@groups/groups/groups.component';
 import { GroupsView } from '@groups/groups.view';
 import { Routes } from '@angular/router';
-import { AddGroupViewModule } from './add-group/add-group.view-module';
-import { AddGroupExpenseViewModule } from './add-group-expense/add-group-expense.view-module';
 
 export const groupsRoutes: Routes = [
     {

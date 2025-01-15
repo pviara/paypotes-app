@@ -1,4 +1,4 @@
-import { BalanceFormatter } from './model/balance-formatter';
+import { BalanceFormatter } from '@expenses/add-expense/set-balance/model/balance-formatter';
 import { Component, inject, OnInit } from '@angular/core';
 import { AddExpenseFormServiceToken } from '@core/services/form/form.service.provider';
 import { Router } from '@angular/router';

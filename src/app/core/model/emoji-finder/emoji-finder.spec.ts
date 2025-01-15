@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { EmojiFinder } from './emoji-finder';
+import { EmojiFinder } from '@core/model/emoji-finder/emoji-finder';
 
 describe('EmojiFinder', () => {
     let sut: EmojiFinder;

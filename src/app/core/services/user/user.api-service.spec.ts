@@ -1,7 +1,7 @@
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
 import { QueryServiceSpy } from '@test/doubles/query.service.spy';
 import { Subscription } from 'rxjs';
-import { UserAPIService } from './user.api-service';
+import { UserAPIService } from '@core/services/user/user.api-service';
 
 describe('UserAPIService', () => {
     let sut: UserAPIService;

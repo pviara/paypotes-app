@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { HttpClientService } from './http-client.service';
+import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable } from 'rxjs';
 
 export class DefaultHttpClientService implements HttpClientService {

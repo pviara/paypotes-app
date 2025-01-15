@@ -46,7 +46,7 @@ export class GroupAPIService implements GroupService {
 
     getMembersOf(groupId: string): Observable<User[]> {
         return this.httpClientService
-            .get<Users>(`${this.endpoint}/members`)
+            .get<Users>(`${this.endpoint}/${groupId}/members`)
             .pipe(
                 map(() => [
                     new User({

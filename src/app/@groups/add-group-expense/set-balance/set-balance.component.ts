@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { BalanceFormatter } from './model/balance-formatter';
-import { Component, inject, OnInit } from '@angular/core';
 import { AddExpenseFormServiceToken } from '@core/services/form/form.service.provider';
+import { BalanceFormatter } from '@groups/add-group-expense/set-balance/model/balance-formatter';
+import { Component, inject, OnInit } from '@angular/core';
 
 @Component({
     selector: 'set-balance',

@@ -1,4 +1,3 @@
-import { AddExpenseViewModule } from './@expenses/add-expense/add-expense.view-module';
 import { ContactsViewModule } from '@contacts/contacts.view-module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { GroupsViewModule } from '@groups/groups.view-module';

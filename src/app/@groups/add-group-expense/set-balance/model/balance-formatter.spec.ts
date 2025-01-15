@@ -1,4 +1,4 @@
-import { BalanceFormatter } from './balance-formatter';
+import { BalanceFormatter } from '@groups/add-group-expense/set-balance/model/balance-formatter';
 import { describe, expect, it } from 'vitest';
 
 describe('BalanceFormatter', () => {

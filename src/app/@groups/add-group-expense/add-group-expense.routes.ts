@@ -1,8 +1,8 @@
+import { ChoseMemberComponent } from '@groups/add-group-expense/chose-member/chose-member.component';
 import { FillDetailsComponent } from '@groups/add-group-expense/fill-details/fill-details.component';
 import { Routes } from '@angular/router';
 import { SelectEmojiComponent } from '@groups/add-group-expense/select-emoji/select-emoji.component';
 import { SetBalanceComponent } from '@groups/add-group-expense/set-balance/set-balance.component';
-import { ChoseMemberComponent } from './chose-member/chose-member.component';
 
 export const addGroupExpenseRoutes: Routes = [
     {

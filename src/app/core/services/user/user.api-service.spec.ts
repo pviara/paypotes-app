@@ -1,8 +1,5 @@
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
-import {
-    QueryServiceSpy,
-    stubBuildQueryFrom,
-} from '@test/doubles/query.service.spy';
+import { QueryServiceSpy } from '@test/doubles/query.service.spy';
 import { Subscription } from 'rxjs';
 import { UserAPIService } from './user.api-service';
 
@@ -27,7 +24,7 @@ describe('UserAPIService', () => {
         const phoneNumber = '0781228931';
 
         const expectedQueryString = `phoneNumber=${phoneNumber}`;
-        stubBuildQueryFrom(queryService, `phoneNumber=${phoneNumber}`);
+        queryService.stub('buildQueryFrom', `phoneNumber=${phoneNumber}`);
 
         subscription.add(
             sut.getUser(phoneNumber).subscribe(() => {

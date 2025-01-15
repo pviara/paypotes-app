@@ -1,9 +1,6 @@
 import { ContactAPIService } from '@core/services/contact/contact.api-service';
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
-import {
-    QueryServiceSpy,
-    stubBuildQueryFrom,
-} from '@test/doubles/query.service.spy';
+import { QueryServiceSpy } from '@test/doubles/query.service.spy';
 import { Subscription } from 'rxjs';
 
 describe('ContactAPIService', () => {
@@ -40,7 +37,7 @@ describe('ContactAPIService', () => {
             const search = 'labelXYZ';
 
             const expectedQueryString = `search=${search}`;
-            stubBuildQueryFrom(queryService, `search=${search}`);
+            queryService.stub('buildQueryFrom', `search=${search}`);
 
             subscription.add(
                 sut.getContacts(0, { search }).subscribe(() => {
@@ -61,7 +58,7 @@ describe('ContactAPIService', () => {
             const pageIndex = 1;
 
             const expectedQueryString = `?pageIndex=${pageIndex}`;
-            stubBuildQueryFrom(queryService, `?pageIndex=${pageIndex}`);
+            queryService.stub('buildQueryFrom', `?pageIndex=${pageIndex}`);
 
             subscription.add(
                 sut.getContacts(pageIndex).subscribe(() => {
@@ -83,7 +80,7 @@ describe('ContactAPIService', () => {
             const search = 'ABC';
 
             const expectedQueryString = `?pageIndex=${pageIndex}&search=${search}`;
-            stubBuildQueryFrom(queryService, expectedQueryString);
+            queryService.stub('buildQueryFrom', expectedQueryString);
 
             subscription.add(
                 sut.getContacts(pageIndex, { search }).subscribe(() => {
@@ -104,7 +101,7 @@ describe('ContactAPIService', () => {
             const type = 'debt';
 
             const expectedQueryString = `&type=${type}`;
-            stubBuildQueryFrom(queryService, expectedQueryString);
+            queryService.stub('buildQueryFrom', expectedQueryString);
 
             subscription.add(
                 sut.getContacts(0, { type }).subscribe(() => {

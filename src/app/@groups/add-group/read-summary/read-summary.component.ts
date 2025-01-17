@@ -4,7 +4,7 @@ import {
     ExpenseServiceProvider,
     ExpenseServiceToken,
 } from '@core/services/expense/expense.service.provider';
-import { AddExpenseFormServiceToken } from '@core/services/form/form.service.provider';
+import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
@@ -30,7 +30,7 @@ export class ReadSummaryComponent {
     private groupService = inject(GroupServiceToken);
     private notificationService = inject(NotificationService);
     private router = inject(Router);
-    form = inject(AddExpenseFormServiceToken);
+    form = inject(AddExpenseFormToken);
 
     loading = false;
 

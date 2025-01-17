@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AddExpenseFormServiceToken } from '@core/services/form/form.service.provider';
+import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { Router } from '@angular/router';
@@ -20,7 +20,7 @@ import {
     ],
 })
 export class SelectPersonComponent implements OnInit {
-    private form = inject(AddExpenseFormServiceToken);
+    private form = inject(AddExpenseFormToken);
     private router = inject(Router);
     private userService = inject(UserServiceToken);
 

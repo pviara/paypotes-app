@@ -1,6 +1,6 @@
 import { BalanceFormatter } from '@expenses/add-expense/set-balance/model/balance-formatter';
 import { Component, inject, OnInit } from '@angular/core';
-import { AddExpenseFormServiceToken } from '@core/services/form/form.service.provider';
+import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class SetBalanceComponent implements OnInit {
     private router = inject(Router);
 
-    form = inject(AddExpenseFormServiceToken);
+    form = inject(AddExpenseFormToken);
 
     label = 'balance';
     formatter = new BalanceFormatter();

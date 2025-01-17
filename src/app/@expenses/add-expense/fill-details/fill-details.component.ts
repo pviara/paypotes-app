@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AddExpenseFormServiceToken } from '@core/services/form/form.service.provider';
+import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { Router } from '@angular/router';
 
 const EXPENSE_NAME_SUGGESTIONS = [
@@ -28,7 +28,7 @@ const EXPENSE_NAME_SUGGESTIONS = [
 export class FillDetailsComponent implements OnInit {
     private router = inject(Router);
 
-    form = inject(AddExpenseFormServiceToken);
+    form = inject(AddExpenseFormToken);
     labels = { isCurrentPayer: 'isCurrentPayer', name: 'name' };
 
     placeholder = this.getRandomName();

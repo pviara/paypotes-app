@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
-import { AddExpenseFormServiceToken } from '@core/services/form/form.service.provider';
+import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { getValidator, ValidatorKey } from '@core/model/form/validator';
 import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
@@ -12,7 +12,7 @@ import { User } from '@core/model/user/user';
 })
 export class MembersComponent implements OnInit {
     private router = inject(Router);
-    form = inject(AddExpenseFormServiceToken);
+    form = inject(AddExpenseFormToken);
 
     label = 'members';
 

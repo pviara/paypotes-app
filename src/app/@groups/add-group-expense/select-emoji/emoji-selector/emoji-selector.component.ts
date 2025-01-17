@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { AddGroupExpenseFormServiceToken } from '@core/services/form/form.service.provider';
+import { AddGroupExpenseFormToken } from '@core/services/form/form.provider';
 
 @Component({
     selector: 'emoji-selector',
@@ -7,7 +7,7 @@ import { AddGroupExpenseFormServiceToken } from '@core/services/form/form.servic
     styleUrls: ['./emoji-selector.component.scss'],
 })
 export class EmojiSelectorComponent implements OnInit {
-    form = inject(AddGroupExpenseFormServiceToken);
+    form = inject(AddGroupExpenseFormToken);
 
     label = 'emoji';
 

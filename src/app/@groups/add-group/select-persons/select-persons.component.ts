@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AddExpenseFormServiceToken } from '@core/services/form/form.service.provider';
+import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { User } from '@core/model/user/user';
@@ -11,7 +11,7 @@ import { UserServiceToken } from '@core/services/user/user.api-service.provider'
     styleUrls: ['./select-persons.component.scss'],
 })
 export class SelectPersonsComponent {
-    private form = inject(AddExpenseFormServiceToken);
+    private form = inject(AddExpenseFormToken);
     private router = inject(Router);
     private userService = inject(UserServiceToken);
 

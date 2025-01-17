@@ -4,7 +4,7 @@ import {
     ExpenseServiceProvider,
     ExpenseServiceToken,
 } from '@core/services/expense/expense.service.provider';
-import { AddExpenseFormServiceToken } from '@core/services/form/form.service.provider';
+import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
@@ -24,7 +24,7 @@ import { User } from '@core/model/user/user';
 })
 export class ReadSummaryComponent {
     private expenseService = inject(ExpenseServiceToken);
-    private form = inject(AddExpenseFormServiceToken);
+    private form = inject(AddExpenseFormToken);
     private notificationService = inject(NotificationService);
     private router = inject(Router);
 

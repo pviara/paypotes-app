@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddGroupExpenseFormServiceToken } from '@core/services/form/form.service.provider';
+import { AddGroupExpenseFormToken } from '@core/services/form/form.provider';
 import { Component, inject, OnInit } from '@angular/core';
 import {
     GroupServiceProvider,
@@ -22,7 +22,7 @@ import { User } from '@core/model/user/user';
 })
 export class ChoseMemberComponent implements OnInit {
     private groupService = inject(GroupServiceToken);
-    private form = inject(AddGroupExpenseFormServiceToken);
+    private form = inject(AddGroupExpenseFormToken);
     private route = inject(ActivatedRoute);
     private router = inject(Router);
 

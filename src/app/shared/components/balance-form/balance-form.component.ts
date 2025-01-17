@@ -1,33 +1,30 @@
-import { BalanceFormatter } from '@shared/components/set-balance/model/balance-formatter';
-import { Component, inject, OnInit } from '@angular/core';
-import { FormService } from '@core/services/form/form.service';
+import { BalanceFormatter } from '@shared/components/balance-form/model/balance-formatter';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { Form } from '@core/model/form/form';
-import { Router } from '@angular/router';
+import { FormService } from '@core/services/form/form.service';
 
 @Component({
-    selector: 'set-balance',
-    templateUrl: './set-balance.component.html',
-    styleUrls: ['./set-balance.component.scss'],
+    selector: 'balance-form',
+    templateUrl: './balance-form.component.html',
+    styleUrls: ['./balance-form.component.scss'],
 })
-export class SetBalanceComponent implements OnInit {
+export class BalanceFormComponent implements OnInit {
     private formService = inject(FormService);
-    private router = inject(Router);
 
     form = this.injectCurrentForm();
 
     label = 'balance';
     formatter = new BalanceFormatter();
 
+    @Output()
+    buttonClicked = new EventEmitter<never>();
+
     ngOnInit(): void {
-        if (!this.form.exist(this.label)) {
-            this.addFormField();
-        }
+        this.initForm();
     }
 
     onButtonClicked(): void {
-        if (this.form.valid(this.label)) {
-            this.router.navigate(['expenses', 'add', 'emoji']);
-        }
+        this.buttonClicked.emit();
     }
 
     onKeyClicked(key: string): void {
@@ -40,6 +37,10 @@ export class SetBalanceComponent implements OnInit {
     private injectCurrentForm(): Form {
         const currentFormToken = this.formService.getUsedForm();
         return inject(currentFormToken);
+    }
+
+    private initForm(): void {
+        if (!this.form.exist(this.label)) this.addFormField();
     }
 
     private addFormField(): void {

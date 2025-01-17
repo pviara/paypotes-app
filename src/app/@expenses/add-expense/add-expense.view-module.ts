@@ -1,3 +1,4 @@
+import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { addExpenseRoutes } from '@expenses/add-expense/add-expense.routes';
 import { AddExpenseView } from '@expenses/add-expense/add-expense.view';
 import { ChoseContactComponentModule } from '@expenses/add-expense/chose-contact/chose-contact.component-module';
@@ -8,9 +9,8 @@ import { ReadSummaryComponentModule } from '@expenses/add-expense/read-summary/r
 import { RouterModule } from '@angular/router';
 import { SelectEmojiComponentModule } from '@expenses/add-expense/select-emoji/select-emoji.component-module';
 import { SelectPersonComponentModule } from '@expenses/add-expense/select-person/select-person.component-module';
-import { SetBalanceComponentModule } from '@shared/components/set-balance/set-balance.component-module';
 import { ServicesModule } from '@core/services/services.module';
-import { AddExpenseFormToken } from '@core/services/form/form.provider';
+import { SetBalanceComponentModule } from '@expenses/add-expense/set-balance/set-balance.component-module';
 
 @NgModule({
     declarations: [AddExpenseView],
@@ -21,8 +21,8 @@ import { AddExpenseFormToken } from '@core/services/form/form.provider';
         RouterModule.forChild(addExpenseRoutes),
         SelectEmojiComponentModule,
         SelectPersonComponentModule,
-        SetBalanceComponentModule,
         ServicesModule,
+        SetBalanceComponentModule,
     ],
 })
 export class AddExpenseViewModule {

@@ -1,0 +1,10 @@
+<div class="container">
+    <headbar
+        [route]="'/expenses'"
+        [subhead]="'Nouvelle dépense'"
+        [title]="'Fixer le montant'"
+    />
+    <balance-form
+        (buttonClicked)="onButtonClicked()"
+    />
+</div>

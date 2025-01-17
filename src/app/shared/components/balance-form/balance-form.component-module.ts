@@ -5,8 +5,8 @@ import { NgModule } from '@angular/core';
 import { BalanceFormComponent } from '@shared/components/balance-form/balance-form.component';
 
 @NgModule({
-    exports: [BalanceFormComponent],
     declarations: [DisplayerComponent, KeyboardComponent, BalanceFormComponent],
+    exports: [BalanceFormComponent],
     imports: [ButtonComponent],
 })
 export class BalanceFormComponentModule {}

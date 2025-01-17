@@ -6,8 +6,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-    exports: [EmojiFormComponent],
     declarations: [DisplayerComponent, EmojiFormComponent, KeyboardComponent],
+    exports: [EmojiFormComponent],
     imports: [ButtonComponent, ReactiveFormsModule],
 })
 export class EmojiFormComponentModule {}

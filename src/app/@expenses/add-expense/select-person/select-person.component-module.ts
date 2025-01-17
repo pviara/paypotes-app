@@ -1,19 +1,10 @@
-import { ButtonComponent } from '@shared/components/button/button.component';
-import { CommonModule } from '@angular/common';
 import { HeadbarComponent } from '@shared/components/headbar/headbar.component';
-import { ManualPhoneInputComponentModule } from '@shared/components/manual-phone-input/manual-phone-input.component-module';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { PersonFormComponentModule } from '@shared/components/person-form/person-form.component-module';
 import { SelectPersonComponent } from '@expenses/add-expense/select-person/select-person.component';
 
 @NgModule({
     declarations: [SelectPersonComponent],
-    imports: [
-        ButtonComponent,
-        CommonModule,
-        HeadbarComponent,
-        ManualPhoneInputComponentModule,
-        RouterModule,
-    ],
+    imports: [HeadbarComponent, PersonFormComponentModule],
 })
 export class SelectPersonComponentModule {}

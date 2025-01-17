@@ -1,0 +1,17 @@
+<form>
+    <div class="content">
+        <manual-phone-input
+            [error]="error"
+            [isLoading]="searching"
+            (searching)="onSearching($event)"
+        />
+        <div [ngClass]="{ searching }">
+            <span>ou</span>
+            <button
+                routerLink="/expenses/add/contact"
+                type="button">
+                🙋 {{ text() }}
+            </button>
+        </div>
+    </div>
+</form>

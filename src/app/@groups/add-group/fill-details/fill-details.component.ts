@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AddExpenseFormToken } from '@core/services/form/form.provider';
+import { AddGroupFormToken } from '@core/services/form/form.provider';
 
 const GROUP_NAME_SUGGESTIONS = [
     'Soirée entre amis',
@@ -28,7 +28,7 @@ const GROUP_NAME_SUGGESTIONS = [
 export class FillDetailsComponent {
     private router = inject(Router);
 
-    form = inject(AddExpenseFormToken);
+    form = inject(AddGroupFormToken);
     label = 'name';
 
     placeholder = this.getRandomName();

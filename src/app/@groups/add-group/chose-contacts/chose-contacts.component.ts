@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
 import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
-import { AddExpenseFormToken } from '@core/services/form/form.provider';
+import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { getValidator, ValidatorKey } from '@core/model/form/validator';
 import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
@@ -14,7 +14,7 @@ import { User } from '@core/model/user/user';
 export class ChoseContactsComponent implements OnInit {
     private contactService = inject(ContactServiceToken);
     private router = inject(Router);
-    form = inject(AddExpenseFormToken);
+    form = inject(AddGroupFormToken);
 
     labels = { contacts: 'contacts', members: 'members' };
 

@@ -8,6 +8,9 @@ import { ReadSummaryComponentModule } from '@groups/add-group/read-summary/read-
 import { RouterModule } from '@angular/router';
 import { SelectEmojiComponentModule } from '@groups/add-group/select-emoji/select-emoji.component-module';
 import { SelectPersonsComponentModule } from '@groups/add-group/select-persons/select-persons.component-module';
+import { FormService } from '@core/services/form/form.service';
+import { AddGroupFormToken } from '@core/services/form/form.provider';
+import { ServicesModule } from '@core/services/services.module';
 
 @NgModule({
     declarations: [AddGroupView],
@@ -19,6 +22,11 @@ import { SelectPersonsComponentModule } from '@groups/add-group/select-persons/s
         RouterModule.forChild(addGroupRoutes),
         SelectEmojiComponentModule,
         SelectPersonsComponentModule,
+        ServicesModule,
     ],
 })
-export class AddGroupViewModule {}
+export class AddGroupViewModule {
+    constructor(private formService: FormService) {
+        this.formService.use(AddGroupFormToken);
+    }
+}

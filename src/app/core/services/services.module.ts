@@ -3,6 +3,7 @@ import { ExpenseServiceProvider } from '@core/services/expense/expense.service.p
 import {
     AddExpenseFormProvider,
     AddGroupExpenseFormProvider,
+    AddGroupFormProvider,
 } from '@core/services/form/form.provider';
 import { FormService } from '@core/services/form/form.service';
 import { GroupServiceProvider } from '@core/services/group/group.service.provider';
@@ -17,6 +18,7 @@ import { UserServiceProvider } from '@core/services/user/user.api-service.provid
         ExpenseServiceProvider,
         AddExpenseFormProvider,
         AddGroupExpenseFormProvider,
+        AddGroupFormProvider,
         FormService,
         GroupServiceProvider,
         HttpClientServiceProvider,

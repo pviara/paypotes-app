@@ -1,10 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
-import {
-    ExpenseServiceProvider,
-    ExpenseServiceToken,
-} from '@core/services/expense/expense.service.provider';
-import { AddExpenseFormToken } from '@core/services/form/form.provider';
+import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
@@ -30,7 +26,7 @@ export class ReadSummaryComponent {
     private groupService = inject(GroupServiceToken);
     private notificationService = inject(NotificationService);
     private router = inject(Router);
-    form = inject(AddExpenseFormToken);
+    form = inject(AddGroupFormToken);
 
     loading = false;
 

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
-import { mapPhoneNumberOutOf } from '@shared/components/manual-phone-input/formatter/formatter';
+import { mapPhoneNumberOutOf } from '@shared/components/person-form/manual-phone-input/formatter/formatter';
 
 @Component({
     selector: 'manual-phone-input',

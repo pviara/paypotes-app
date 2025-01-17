@@ -4,21 +4,9 @@
         [subhead]="'Nouveau groupe > Membres'"
         [title]="'Ajouter'"
     />
-    <form>
-        <div class="content">
-            <manual-phone-input
-                [error]="error"
-                [isLoading]="searching"
-                (searching)="onSearching($event)"
-            />
-            <div [ngClass]="{ searching }">
-                <span>ou</span>
-                <button
-                    routerLink="/groups/add/members/contacts"
-                    type="button">
-                    🙋 Choisir des contacts
-                </button>
-            </div>
-        </div>
-    </form>
+    <person-form
+        [route]="'/groups/add/members/contacts'"
+        [text]="'Choisir des contacts'"
+        (userFound)="onUserFound($event)"
+    />
 </div>

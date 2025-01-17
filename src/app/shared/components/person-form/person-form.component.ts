@@ -24,6 +24,7 @@ export class PersonFormComponent {
 
     searching = false;
 
+    route = input.required<string>();
     text = input.required<string>();
 
     @Output()
@@ -36,7 +37,6 @@ export class PersonFormComponent {
 
     private searchUserWith(phoneNumber: string): void {
         this.userService.getUser(phoneNumber).subscribe((user) => {
-            user = null as unknown as User;
             if (user) this.userFound.emit(user);
             else {
                 this.searching = false;

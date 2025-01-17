@@ -1,50 +1,48 @@
-import { Component, inject } from '@angular/core';
-import { AddGroupFormToken } from '@core/services/form/form.provider';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
 import { User } from '@core/model/user/user';
-import { UserServiceToken } from '@core/services/user/user.api-service.provider';
+import { FormService } from '@core/services/form/form.service';
+import { Form } from '@core/model/form/form';
 
 @Component({
     selector: 'select-persons',
     templateUrl: './select-persons.component.html',
     styleUrls: ['./select-persons.component.scss'],
 })
-export class SelectPersonsComponent {
-    private form = inject(AddGroupFormToken);
+export class SelectPersonsComponent implements OnInit {
+    private formService = inject(FormService);
+    private form = this.injectCurrentForm();
     private router = inject(Router);
-    private userService = inject(UserServiceToken);
 
     private label = 'members';
 
-    error = '';
-
-    searching = false;
-
-    onSearching(phoneNumber: string): void {
-        this.searching = true;
-        this.searchUserWith(phoneNumber);
+    ngOnInit(): void {
+        this.initForm();
     }
 
-    private searchUserWith(phoneNumber: string): void {
-        this.userService
-            .getUser(phoneNumber)
-            .pipe(
-                tap((user) => {
-                    if (!user) {
-                        this.searching = false;
-                        this.error = 'Numéro introuvable';
-                    } else {
-                        const members = this.form
-                            .getFieldFrom(this.label)
-                            .getValue() as Array<User>;
-                        members.push(user);
-                        this.form.getFieldFrom(this.label).setValue(members);
-                        this.router.navigate(['groups', 'add', 'members']);
-                    }
-                    console.log(this.form.getFieldFrom(this.label).getValue());
-                }),
-            )
-            .subscribe();
+    onUserFound(user: User): void {
+        const members = this.form
+            .getFieldFrom(this.label)
+            .getValue() as Array<User>;
+        members.push(user);
+
+        this.form.getFieldFrom(this.label).setValue(members);
+        this.router.navigate(['groups', 'add', 'members']);
+    }
+
+    private injectCurrentForm(): Form {
+        const currentFormToken = this.formService.getUsedForm();
+        return inject(currentFormToken);
+    }
+
+    private initForm(): void {
+        if (!this.form.exist(this.label)) this.addFormField();
+    }
+
+    private addFormField(): void {
+        this.form.addField({
+            label: this.label,
+            value: '',
+        });
     }
 }

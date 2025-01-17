@@ -8,8 +8,8 @@
         <div [ngClass]="{ searching }">
             <span>ou</span>
             <button
-                routerLink="/expenses/add/contact"
-                type="button">
+                type="button"
+                [routerLink]="route()">
                 🙋 {{ text() }}
             </button>
         </div>

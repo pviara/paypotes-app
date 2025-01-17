@@ -1,0 +1,42 @@
+form {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: stretch;
+    gap: 5vh;
+
+    .content {
+        flex-grow: 1;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5vh;
+
+        input[type='text'] {
+            max-width: 90vw;
+
+            background: none;
+            border: none;
+
+            font-family: 'bold';
+            font-size: 2rem;
+            text-align: center;
+            color: #fff;
+
+            outline: none;
+
+            animation: slighSlideInFromTop 0.5s ease-in-out;
+        }
+    }
+
+    form-button {
+        width: 100%;
+
+        display: flex;
+        justify-content: center;
+    }
+}

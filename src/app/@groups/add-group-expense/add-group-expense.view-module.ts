@@ -3,6 +3,7 @@ import { AddGroupExpenseView } from '@groups/add-group-expense/add-group-expense
 import { ChoseMemberComponentModule } from '@groups/add-group-expense/chose-member/chose-member.component-module';
 import { FillDetailsComponentModule } from '@groups/add-group-expense/fill-details/fill-details.component-module';
 import { NgModule } from '@angular/core';
+import { ReadSummaryComponentModule } from '@groups/add-group-expense/read-summary/read-summary.component-module';
 import { RouterModule } from '@angular/router';
 import { SelectEmojiComponentModule } from '@groups/add-group-expense/select-emoji/select-emoji.component-module';
 import { SetBalanceComponentModule } from '@groups/add-group-expense/set-balance/set-balance.component-module';
@@ -12,6 +13,7 @@ import { SetBalanceComponentModule } from '@groups/add-group-expense/set-balance
     imports: [
         ChoseMemberComponentModule,
         FillDetailsComponentModule,
+        ReadSummaryComponentModule,
         RouterModule.forChild(addGroupExpenseRoutes),
         SelectEmojiComponentModule,
         SetBalanceComponentModule,

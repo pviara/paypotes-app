@@ -1,0 +1,14 @@
+<form>
+    <div class="content">
+        <emoji-displayer 
+            [emoji]="form.getFieldFrom(label).getValue()"
+        />
+        <emoji-keyboard
+            (keyClicked)="onKeyClicked($event)"
+        />
+    </div>
+    <form-button
+        [disabled]="form.getFieldFrom(label).invalid()"
+        (clicked)="onButtonClicked()"
+    />
+</form>

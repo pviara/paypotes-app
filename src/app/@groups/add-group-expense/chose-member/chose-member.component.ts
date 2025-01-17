@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddExpenseFormServiceToken } from '@core/services/form/form.service.provider';
-import { Component, inject } from '@angular/core';
+import { AddGroupExpenseFormServiceToken } from '@core/services/form/form.service.provider';
+import { Component, inject, OnInit } from '@angular/core';
 import {
     GroupServiceProvider,
     GroupServiceToken,
@@ -20,9 +20,9 @@ import { User } from '@core/model/user/user';
         QueryServiceProvider,
     ],
 })
-export class ChoseMemberComponent {
+export class ChoseMemberComponent implements OnInit {
     private groupService = inject(GroupServiceToken);
-    private form = inject(AddExpenseFormServiceToken);
+    private form = inject(AddGroupExpenseFormServiceToken);
     private route = inject(ActivatedRoute);
     private router = inject(Router);
 
@@ -33,6 +33,12 @@ export class ChoseMemberComponent {
             this.groupService.getMembersOf(params['groupId']),
         ),
     );
+
+    ngOnInit(): void {
+        if (!this.form.exist(this.label)) {
+            this.addFormField();
+        }
+    }
 
     getPreviousRoute(): string {
         const groupId = this.getCurrentGroupId();
@@ -45,7 +51,16 @@ export class ChoseMemberComponent {
 
     onMemberSelected(user: User): void {
         this.form.getFieldFrom(this.label).setValue(user);
-        this.router.navigate(['expenses', 'add', 'summary']);
+        this.router.navigate([
+            'groups',
+            this.getCurrentGroupId(),
+            'add-expense',
+            'summary',
+        ]);
+    }
+
+    private addFormField(): void {
+        this.form.addField({ label: this.label, value: '' });
     }
 
     private getCurrentGroupId(): string {

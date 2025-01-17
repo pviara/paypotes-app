@@ -69,6 +69,7 @@ export class FillDetailsComponent implements OnInit {
     onInput(event: Event): void {
         const { value } = event.target as HTMLInputElement;
         this.form.getFieldFrom(this.labels.name).setValue(value);
+        console.log(this.form.getFieldEntries());
     }
 
     private addFormFields(): void {
@@ -87,8 +88,9 @@ export class FillDetailsComponent implements OnInit {
     }
 
     private getNextPageRoute(): string {
-        return this.form.getFieldFrom(this.labels.isCurrentPayer).getValue()
-            ? 'summary'
-            : 'member';
+        const isCurrentPayer = this.form
+            .getFieldFrom(this.labels.isCurrentPayer)
+            .getValue();
+        return isCurrentPayer ? 'summary' : 'member';
     }
 }

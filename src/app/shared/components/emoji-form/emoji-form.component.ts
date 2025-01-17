@@ -1,13 +1,16 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { AddExpenseFormToken } from '@core/services/form/form.provider';
+import { Form } from '@core/model/form/form';
+import { FormService } from '@core/services/form/form.service';
 
 @Component({
-    selector: 'emoji-selector',
-    templateUrl: './emoji-selector.component.html',
-    styleUrls: ['./emoji-selector.component.scss'],
+    selector: 'emoji-form',
+    templateUrl: './emoji-form.component.html',
+    styleUrls: ['./emoji-form.component.scss'],
 })
-export class EmojiSelectorComponent implements OnInit {
-    form = inject(AddExpenseFormToken);
+export class EmojiFormComponent implements OnInit {
+    private formService = inject(FormService);
+
+    form = this.injectCurrentForm();
 
     label = 'emoji';
 
@@ -26,6 +29,11 @@ export class EmojiSelectorComponent implements OnInit {
 
     onKeyClicked(key: string): void {
         this.form.setField({ label: this.label, value: key });
+    }
+
+    private injectCurrentForm(): Form {
+        const currentFormToken = this.formService.getUsedForm();
+        return inject(currentFormToken);
     }
 
     private addFormField(): void {

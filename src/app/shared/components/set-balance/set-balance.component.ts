@@ -1,6 +1,7 @@
-import { BalanceFormatter } from '@expenses/add-expense/set-balance/model/balance-formatter';
+import { BalanceFormatter } from '@shared/components/set-balance/model/balance-formatter';
 import { Component, inject, OnInit } from '@angular/core';
-import { AddExpenseFormToken } from '@core/services/form/form.provider';
+import { FormService } from '@core/services/form/form.service';
+import { Form } from '@core/model/form/form';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,9 +10,10 @@ import { Router } from '@angular/router';
     styleUrls: ['./set-balance.component.scss'],
 })
 export class SetBalanceComponent implements OnInit {
+    private formService = inject(FormService);
     private router = inject(Router);
 
-    form = inject(AddExpenseFormToken);
+    form = this.injectCurrentForm();
 
     label = 'balance';
     formatter = new BalanceFormatter();
@@ -33,6 +35,11 @@ export class SetBalanceComponent implements OnInit {
         const balance = this.formatter.getBalance();
 
         this.form.setField({ label: this.label, value: balance });
+    }
+
+    private injectCurrentForm(): Form {
+        const currentFormToken = this.formService.getUsedForm();
+        return inject(currentFormToken);
     }
 
     private addFormField(): void {

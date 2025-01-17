@@ -1,7 +1,7 @@
 import { FillDetailsComponent } from '@expenses/add-expense/fill-details/fill-details.component';
 import { Routes } from '@angular/router';
 import { SelectEmojiComponent } from '@expenses/add-expense/select-emoji/select-emoji.component';
-import { SetBalanceComponent } from '@expenses/add-expense/set-balance/set-balance.component';
+import { SetBalanceComponent } from '@shared/components/set-balance/set-balance.component';
 import { SelectPersonComponent } from '@expenses/add-expense/select-person/select-person.component';
 import { ChoseContactComponent } from '@expenses/add-expense/chose-contact/chose-contact.component';
 import { ReadSummaryComponent } from '@expenses/add-expense/read-summary/read-summary.component';

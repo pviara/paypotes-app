@@ -1,96 +1,34 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { AddGroupExpenseFormToken } from '@core/services/form/form.provider';
-import { Component, inject, OnInit } from '@angular/core';
-
-const EXPENSE_NAME_SUGGESTIONS = [
-    'Dîner entre potes',
-    'Courses du mois',
-    'Resto du midi',
-    'Soirée ciné',
-    'Apéro du vendredi',
-    'Pizza à emporter',
-    'Courses pour la soirée',
-    'Brunch du dimanche',
-    'Kebab nocturne',
-    'Petit-déj en ville',
-    'Goûter au café',
-    'BBQ chez Marc',
-    'Sortie bowling',
-    "Courses pour l'appart",
-    'Picnic au parc',
-];
+import { Component, inject } from '@angular/core';
 
 @Component({
     selector: 'fill-details',
     templateUrl: './fill-details.component.html',
     styleUrls: ['./fill-details.component.scss'],
 })
-export class FillDetailsComponent implements OnInit {
+export class FillDetailsComponent {
     private route = inject(ActivatedRoute);
     private router = inject(Router);
-
-    form = inject(AddGroupExpenseFormToken);
-    labels = { isCurrentPayer: 'isCurrentPayer', name: 'name' };
-
-    placeholder = this.getRandomName();
-
-    ngOnInit(): void {
-        if (!this.form.exist(this.labels.isCurrentPayer, this.labels.name)) {
-            this.addFormFields();
-        }
-    }
 
     getPreviousRoute(): string {
         const groupId = this.getCurrentGroupId();
         return `/groups/${groupId}/add-expense/emoji`;
     }
 
-    getRandomName(): string {
-        const randomIndex = Math.floor(
-            Math.random() * EXPENSE_NAME_SUGGESTIONS.length,
-        );
-        const name = EXPENSE_NAME_SUGGESTIONS[randomIndex];
-        return `${name}...`;
-    }
-
-    onButtonClicked(): void {
+    onButtonClicked(isCurrentPayer: boolean): void {
         this.router.navigate([
             'groups',
             this.getCurrentGroupId(),
             'add-expense',
-            this.getNextPageRoute(),
+            this.getNextPageRoute(isCurrentPayer),
         ]);
-    }
-
-    onCheckboxChanged(active: boolean): void {
-        this.form.getFieldFrom(this.labels.isCurrentPayer).setValue(active);
-    }
-
-    onInput(event: Event): void {
-        const { value } = event.target as HTMLInputElement;
-        this.form.getFieldFrom(this.labels.name).setValue(value);
-        console.log(this.form.getFieldEntries());
-    }
-
-    private addFormFields(): void {
-        this.form.addField({ label: this.labels.isCurrentPayer, value: true });
-
-        const LETTERS_AND_SPACES_ONLY_PATTERN = /^(?!\s+$)[a-zA-ZÀ-ÿ\s]+$/;
-        this.form.addField({
-            label: this.labels.name,
-            value: '',
-            validators: [LETTERS_AND_SPACES_ONLY_PATTERN],
-        });
     }
 
     private getCurrentGroupId(): string {
         return this.route.snapshot.params['groupId'];
     }
 
-    private getNextPageRoute(): string {
-        const isCurrentPayer = this.form
-            .getFieldFrom(this.labels.isCurrentPayer)
-            .getValue();
+    private getNextPageRoute(isCurrentPayer: boolean): string {
         return isCurrentPayer ? 'summary' : 'member';
     }
 }

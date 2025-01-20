@@ -30,14 +30,14 @@ export class DetailsFormComponent implements OnInit {
     placeholder = computed(() => this.getRandomName());
 
     @Output()
-    buttonClicked = new EventEmitter<never>();
+    buttonClicked = new EventEmitter<boolean>();
 
     ngOnInit(): void {
         this.initForm();
     }
 
     onButtonClicked(): void {
-        this.buttonClicked.emit();
+        this.buttonClicked.emit(this.getIsCurrentPayerFormValue());
     }
 
     onCheckboxChanged(active: boolean): void {
@@ -58,6 +58,10 @@ export class DetailsFormComponent implements OnInit {
         return names[randomIndex];
     }
 
+    private getRandomIndexIn(names: string[]): number {
+        return Math.floor(Math.random() * names.length);
+    }
+
     private initForm(): void {
         if (!this.form.exist(this.labels.isCurrentPayer, this.labels.name)) {
             this.addFormFields();
@@ -75,7 +79,9 @@ export class DetailsFormComponent implements OnInit {
         });
     }
 
-    private getRandomIndexIn(names: string[]): number {
-        return Math.floor(Math.random() * names.length);
+    private getIsCurrentPayerFormValue(): boolean | undefined {
+        return this.form
+            .getFieldFrom(this.labels.isCurrentPayer)
+            .getValue() as boolean;
     }
 }

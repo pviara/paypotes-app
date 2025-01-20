@@ -5,7 +5,7 @@ export const EXPENSE_NAME_SUGGESTIONS = [
     'Soirée ciné',
     'Apéro du vendredi',
     'Pizza à emporter',
-    'Courses pour la soirée',
+    'Courses de la soirée',
     'Brunch du dimanche',
     'Kebab nocturne',
     'Petit-déj en ville',

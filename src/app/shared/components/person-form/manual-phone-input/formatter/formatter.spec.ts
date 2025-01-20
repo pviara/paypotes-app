@@ -1,5 +1,5 @@
 import { describe, it } from 'vitest';
-import { mapPhoneNumberOutOf } from '@shared/components/manual-phone-input/formatter/formatter';
+import { mapPhoneNumberOutOf } from '@shared/components/person-form/manual-phone-input/formatter/formatter';
 
 describe('mapPhoneNumberOutOf', () => {
     describe('invalid value', () => {

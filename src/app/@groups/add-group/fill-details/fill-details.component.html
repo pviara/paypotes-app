@@ -4,18 +4,8 @@
         [subhead]="'Nouveau groupe'"
         [title]="'Saisir un nom'"
     />
-    <form>
-        <div class="content">
-            <input
-                type="text"
-                [placeholder]="placeholder"
-                [value]="form.getFieldFrom(label).getValue()"
-                (input)="onInput($event)"
-            />
-        </div>
-        <form-button
-            [disabled]="form.getFieldFrom(label).invalid()"
-            (clicked)="onButtonClicked()"
-        />
-    </form>
+    <details-form
+        [context]="'group'"
+        (buttonClicked)="onButtonClicked()"
+    />
 </div>

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'fill-details',
+    selector: 'fill-expense-details',
     templateUrl: './fill-details.component.html',
     styleUrls: ['./fill-details.component.scss'],
 })

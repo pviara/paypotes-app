@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'select-emoji',
+    selector: 'select-group-emoji',
     templateUrl: './select-emoji.component.html',
     styleUrls: ['./select-emoji.component.scss'],
 })

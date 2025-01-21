@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, InjectionToken } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
 import {
     ContactServiceProvider,

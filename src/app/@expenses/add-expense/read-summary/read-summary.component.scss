@@ -3,45 +3,14 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     row-gap: 5vh;
 
     background: linear-gradient(180deg, #121212, #51515133);
 
-    .content {
+    summary-form {
+        flex-grow: 1;
+        flex: 1;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        gap: 5vh;
-
-        h1 {
-            font-size: 2rem;
-            color: #fff;
-
-            animation: slighSlideInFromTop 1s ease-in-out;
-        }
-
-        p {
-            text-align: center;
-
-            font-size: 1.5rem;
-            color: #737373;
-
-            animation: slighSlideInFromBottom 1s ease-in-out;
-        }
-
-        h2 {
-            font-size: 3rem;
-            color: #fff;
-
-            animation: slighSlideInFromBottom 1s ease-in-out;
-        }
-    }
-
-    form-button {
-        width: 100%;
-
-        display: flex;
-        justify-content: center;
     }
 }

@@ -11,6 +11,7 @@ import { QueryServiceProvider } from '@core/services/query/query.service.provide
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { User } from '@core/model/user/user';
+import { AddSingleExpenseFormValue } from '@shared/components/summary-form/summary-form.component';
 
 @Component({
     selector: 'read-summary',
@@ -24,22 +25,18 @@ import { User } from '@core/model/user/user';
 })
 export class ReadSummaryComponent {
     private expenseService = inject(ExpenseServiceToken);
-    private form = inject(AddExpenseFormToken);
     private notificationService = inject(NotificationService);
     private router = inject(Router);
 
-    loading = false;
-
-    addExpense(): void {
-        this.changeLoadingStatus();
-        const payload = this.form.raw();
+    onButtonClicked(formValue: AddSingleExpenseFormValue): void {
+        console.log('expense form value', formValue);
         this.expenseService
             .addExpense({
-                balance: payload['balance'],
-                emoji: payload['emoji'],
-                isCurrentPayer: payload['isCurrentPayer'],
-                name: payload['name'],
-                userId: payload['person'].getId(),
+                balance: formValue.balance,
+                emoji: formValue.emoji,
+                isCurrentPayer: formValue.isCurrentPayer,
+                name: formValue.name,
+                userId: formValue.userId,
             })
             .pipe(
                 tap(() => {
@@ -51,45 +48,5 @@ export class ReadSummaryComponent {
                 }),
             )
             .subscribe();
-    }
-
-    getBalance(): string {
-        return (this.form.getFieldFrom('balance').getValue() as string) || '';
-    }
-
-    getEmoji(): string {
-        return (this.form.getFieldFrom('emoji').getValue() as string) || '';
-    }
-
-    getIsCurrentPayer(): boolean {
-        return this.form.getFieldFrom('isCurrentPayer').getValue() as boolean;
-    }
-
-    getName(): string {
-        return (this.form.getFieldFrom('name').getValue() as string) || '';
-    }
-
-    getPersonAvatarURL(): string {
-        const person = this.form.getFieldFrom('person').getValue();
-        if (person instanceof User) {
-            return person.getAvatarURL();
-        } else if (person instanceof Contact) {
-            return person.getAvatarURL();
-        }
-        return '';
-    }
-
-    getPersonFullname(): string {
-        const person = this.form.getFieldFrom('person').getValue();
-        if (person instanceof User) {
-            return person.getFullName();
-        } else if (person instanceof Contact) {
-            return person.getFullName();
-        }
-        return '';
-    }
-
-    private changeLoadingStatus(): void {
-        this.loading = !this.loading;
     }
 }

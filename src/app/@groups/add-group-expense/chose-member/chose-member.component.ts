@@ -26,7 +26,7 @@ export class ChoseMemberComponent implements OnInit {
     private route = inject(ActivatedRoute);
     private router = inject(Router);
 
-    private label = 'member';
+    private label = 'person';
 
     $members = this.route.params.pipe(
         switchMap((params) =>

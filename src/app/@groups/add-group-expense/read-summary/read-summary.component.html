@@ -4,36 +4,8 @@
         [subhead]="'Nouvelle dépense de groupe'"
         [title]="'Lire le résumé'"
     />
-    <div class="content">
-        <expense-images
-            [avatarURL]="getMemberAvatarURL()"
-            [emoji]="getEmoji()"
-        />
-        <h1 class="bold">
-            {{ getName() }}
-        </h1>
-        <p>
-            @if (getIsCurrentPayer()) {
-                Vous avez avancé à
-                <br>
-                <span class="bold">
-                    {{ getMemberFullname() }}
-                </span>
-            } @else {
-                <span class="bold">
-                    {{ getMemberFullname() }}
-                </span>
-                <br>
-                vous a avancé
-            }
-        </p>
-        <h2 class="bold balance">
-            {{ getBalance() }}€
-        </h2>
-    </div>
-    <form-button
-        [disabled]="loading"
-        [text]="'Ajouter la dépense'"
-        (clicked)="addExpense()"
+    <summary-form
+        [context]="'group'"
+        (buttonClicked)="onButtonClicked($event)"
     />
 </div>

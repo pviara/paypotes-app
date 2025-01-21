@@ -10,8 +10,8 @@ export class Field {
         return !this.valid();
     }
 
-    getValue(): unknown {
-        return this.value;
+    getValue<T>(): T {
+        return this.value as T;
     }
 
     setValue(value: unknown): this {

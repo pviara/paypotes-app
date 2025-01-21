@@ -1,4 +1,3 @@
-import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import {
     Component,
     computed,
@@ -12,8 +11,9 @@ import {
     EXPENSE_NAME_SUGGESTIONS,
     GROUP_NAME_SUGGESTIONS,
 } from '@shared/components/details-form/res/names-suggestions';
-
-type DetailsFormContext = 'group' | 'expense';
+import { Form } from '@core/model/form/form';
+import { FormContext } from '@core/model/form/form-context';
+import { FormService } from '@core/services/form/form.service';
 
 @Component({
     selector: 'details-form',
@@ -21,10 +21,12 @@ type DetailsFormContext = 'group' | 'expense';
     styleUrls: ['./details-form.component.scss'],
 })
 export class DetailsFormComponent implements OnInit {
-    context = input.required<DetailsFormContext>();
+    private formService = inject(FormService);
+
+    context = input.required<FormContext>();
     currentContextIsExpense = computed(() => this.context() === 'expense');
 
-    form = inject(AddExpenseFormToken);
+    form = this.injectCurrentForm();
     labels = { isCurrentPayer: 'isCurrentPayer', name: 'name' };
 
     placeholder = computed(() => this.getRandomName());
@@ -47,6 +49,11 @@ export class DetailsFormComponent implements OnInit {
     onInput(event: Event): void {
         const { value } = event.target as HTMLInputElement;
         this.form.getFieldFrom(this.labels.name).setValue(value);
+    }
+
+    private injectCurrentForm(): Form {
+        const currentFormToken = this.formService.getUsedForm();
+        return inject(currentFormToken);
     }
 
     private getRandomName(): string {

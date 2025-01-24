@@ -1,0 +1,10 @@
+<div class="container">
+    <headbar
+        [route]="getPreviousRoute()"
+        [subhead]="'Nouvelle dépense de groupe'"
+        [title]="'Fixer le montant'"
+    />
+    <balance-form
+        (buttonClicked)="onButtonClicked()"
+    />
+</div>

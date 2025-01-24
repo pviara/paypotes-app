@@ -1,6 +1,9 @@
 .notification {
     position: absolute;
-    bottom: 0;
+    bottom: 3%;
+    left: 3%;
+
+    width: 86%;
 
     padding: 4%;
 
@@ -8,9 +11,26 @@
     justify-content: center;
     align-items: center;
 
-    background-color: #39944a;
+    background: #3da550;
+    background: linear-gradient(0deg, #29b142 0%, #307d3e 100%);
     border-radius: 1rem;
+
+    box-shadow: #121212 0px 0px 24px;
 
     font-family: 'regular';
     color: #fff;
+
+    animation: slighSlideInFromBottom 0.5s ease-in-out;
+
+    transition-property: opacity;
+    transition-duration: 0.5s;
+
+    &.empty {
+        animation: slighSlideOutToTop 0.5s;
+    }
+
+    &.error {
+        background: #ca2727;
+        background: linear-gradient(0deg, #ca2727 0%, #992121 100%);
+    }
 }

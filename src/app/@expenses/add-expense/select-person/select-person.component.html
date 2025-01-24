@@ -4,21 +4,9 @@
         [subhead]="'Nouvelle dépense'"
         [title]="'Choisir la personne'"
     />
-    <form>
-        <div class="content">
-            <manual-phone-input
-                [error]="error"
-                [isLoading]="searching"
-                (searching)="onSearching($event)"
-            />
-            <div [ngClass]="{ searching }">
-                <span>ou</span>
-                <button
-                    routerLink="/expenses/add/contact"
-                    type="button">
-                    🙋 Choisir un contact
-                </button>
-            </div>
-        </div>
-    </form>
+    <person-form
+        [route]="'/expenses/add/contact'"
+        [text]="'Choisir le contact'"
+        (userFound)="onUserFound($event)"
+    />
 </div>

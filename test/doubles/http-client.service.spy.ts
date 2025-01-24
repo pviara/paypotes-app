@@ -2,25 +2,13 @@ import { HttpClientService } from '@core/services/http-client/http-client.servic
 import { Observable, of } from 'rxjs';
 import { Spy } from '@test/model/spy';
 
-export class HttpClientServiceSpy implements Spy<HttpClientService> {
-    calls = {
-        get: {
-            count: 0,
-            history: [] as string[],
-        },
-        patch: {
-            count: 0,
-            history: [] as string[],
-        },
-        post: {
-            count: 0,
-            history: [] as string[],
-        },
-    };
-
+export class HttpClientServiceSpy
+    extends Spy<HttpClientService>
+    implements HttpClientService
+{
     get<T>(url: string): Observable<T> {
-        this.incrementCallsToGetWith(url);
-        return of({}) as Observable<T>;
+        this.increment('get', url);
+        return this.getStubOrDefault('get', of({})) as Observable<T>;
     }
 
     patch(url: string): Observable<void> {
@@ -30,10 +18,5 @@ export class HttpClientServiceSpy implements Spy<HttpClientService> {
     post(url: string): Observable<void> {
         this.calls.post.count++;
         return of();
-    }
-
-    incrementCallsToGetWith(url: string): void {
-        this.calls.get.count++;
-        this.calls.get.history.push(url);
     }
 }

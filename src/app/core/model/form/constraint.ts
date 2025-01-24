@@ -1,4 +1,7 @@
-import { InvalidValueTypeError, ValidatorDetails } from './validator';
+import {
+    InvalidValueTypeError,
+    ValidatorDetails,
+} from '@core/model/form/validator';
 
 export type Validator = RegExp | ValidatorDetails;
 

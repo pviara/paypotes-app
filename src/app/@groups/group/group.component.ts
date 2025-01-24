@@ -5,6 +5,7 @@ import { ExpenseServiceToken } from '@core/services/expense/expense.service.prov
 import { FiltersEvent } from '@core/model/filters/filters-event';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { ListElements } from '@core/model/list-element/list-element';
+import { Action } from '@shared/components/headbar/action-button/action-button.component';
 
 @Component({
     selector: 'group',
@@ -17,6 +18,11 @@ export class GroupComponent {
     private route = inject(ActivatedRoute);
 
     private groupId = '';
+
+    action: Action = {
+        char: '+',
+        route: `/groups/${this.getCurrentGroupId()}/add-expense`,
+    };
 
     $group = this.route.params.pipe(
         tap((params) => (this.groupId = params['groupId'])),
@@ -34,5 +40,9 @@ export class GroupComponent {
             .subscribe((expenses) => {
                 this.$expenses.next(expenses);
             });
+    }
+
+    private getCurrentGroupId(): string {
+        return this.route.snapshot.params['groupId'];
     }
 }

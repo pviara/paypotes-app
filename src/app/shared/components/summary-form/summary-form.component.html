@@ -1,0 +1,23 @@
+<div class="content">
+    <descriptive-images
+        [avatarURL]="getPersonAvatarURL()"
+        [expenseEmoji]="getEmoji()"
+        [groupEmoji]="getGroupEmoji()"
+    />
+    <h1 class="bold">
+        {{ getName() }}
+    </h1>
+    <payer-info
+        [context]="context()"
+        [fullname]="getPersonFullname()"
+        [isCurrentPayer]="getIsCurrentPayer()"
+    />
+    <h2 class="bold">
+        {{ getBalance() }}€
+    </h2>
+</div>
+<form-button
+    [disabled]="loading"
+    [text]="'Ajouter la dépense'"
+    (clicked)="onButtonClicked()"
+/>

@@ -1,61 +1,37 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormServiceToken } from '@core/services/form/form.service.provider';
-import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
-import { QueryServiceProvider } from '@core/services/query/query.service.provider';
+import { Form } from '@core/model/form/form';
+import { FormService } from '@core/services/form/form.service';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
-import {
-    UserServiceProvider,
-    UserServiceToken,
-} from '@core/services/user/user.api-service.provider';
+import { User } from '@core/model/user/user';
 
 @Component({
     selector: 'select-person',
     templateUrl: './select-person.component.html',
     styleUrls: ['./select-person.component.scss'],
-    providers: [
-        UserServiceProvider,
-        HttpClientServiceProvider,
-        QueryServiceProvider,
-    ],
 })
 export class SelectPersonComponent implements OnInit {
-    private form = inject(FormServiceToken);
+    private formService = inject(FormService);
+    private form = this.injectCurrentForm();
     private router = inject(Router);
-    private userService = inject(UserServiceToken);
 
     private label = 'person';
 
-    error = '';
-
-    searching = false;
-
     ngOnInit(): void {
-        if (!this.form.exist(this.label)) {
-            this.addFormField();
-        }
+        this.initForm();
     }
 
-    onSearching(phoneNumber: string): void {
-        this.searching = true;
-        this.searchUserWith(phoneNumber);
+    onUserFound(user: User): void {
+        this.form.setField({ label: this.label, value: user });
+        this.router.navigate(['expenses', 'add', 'summary']);
     }
 
-    private searchUserWith(phoneNumber: string): void {
-        this.userService
-            .getUser(phoneNumber)
-            .pipe(
-                tap((user) => {
-                    if (!user) {
-                        this.searching = false;
-                        this.error = 'Numéro introuvable';
-                    } else {
-                        this.form.getFieldFrom(this.label).setValue(user);
-                        this.router.navigate(['expenses', 'add', 'summary']);
-                    }
-                }),
-            )
-            .subscribe();
+    private injectCurrentForm(): Form {
+        const currentFormToken = this.formService.getUsedForm();
+        return inject(currentFormToken);
+    }
+
+    private initForm(): void {
+        if (!this.form.exist(this.label)) this.addFormField();
     }
 
     private addFormField(): void {

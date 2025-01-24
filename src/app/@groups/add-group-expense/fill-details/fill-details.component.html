@@ -1,0 +1,11 @@
+<div class="container">
+    <headbar
+        [route]="getPreviousRoute()"
+        [subhead]="'Nouvelle dépense de groupe'"
+        [title]="'Saisir un nom'"
+    />
+    <details-form
+        [context]="'expense'"
+        (buttonClicked)="onButtonClicked($event)"
+    />
+</div>

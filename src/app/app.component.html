@@ -1,6 +1,9 @@
 <router-outlet/>
 @if ($notification | async; as notification) {
-    <div class="notification">
+    <div
+        class="notification"
+        [class.empty]="$emptyNotificationClass | async"
+        [class.error]="notification.type === 'error'">
         {{ notification.message }}
     </div>
-}
+}   

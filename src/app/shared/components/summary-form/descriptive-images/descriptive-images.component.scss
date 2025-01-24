@@ -1,0 +1,33 @@
+.container {
+    margin-bottom: 4vh;
+
+    display: flex;
+    justify-content: center;
+
+    img,
+    .emoji,
+    .group-emoji {
+        width: 112px;
+        height: 112px;
+
+        border-radius: 50%;
+        border: 4px solid #2e2e2e;
+    }
+
+    img {
+        margin-right: -1rem;
+    }
+
+    .emoji,
+    .group-emoji {
+        margin-left: -1rem;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background-color: #1a1a1a;
+
+        font-size: 4rem;
+    }
+}

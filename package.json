@@ -1,6 +1,6 @@
 {
     "name": "paypot-app",
-    "version": "0.14.2",
+    "version": "0.15.0",
     "type": "module",
     "scripts": {
         "format": "prettier --write \"{src,test}/**/*.{js,json,ts,scss}\"",
@@ -48,6 +48,7 @@
         "karma-jasmine-html-reporter": "~2.1.0",
         "prettier": "^3.3.3",
         "typescript": "~5.5.4",
-        "vitest": "^2.0.5"
+        "vite-tsconfig-paths": "^5.1.4",
+        "vitest": "^2.1.8"
     }
 }

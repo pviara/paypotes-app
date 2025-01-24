@@ -1,10 +1,7 @@
+import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { Component, inject } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
-import {
-    ExpenseServiceProvider,
-    ExpenseServiceToken,
-} from '@core/services/expense/expense.service.provider';
-import { FormServiceToken } from '@core/services/form/form.service.provider';
+import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
@@ -27,10 +24,11 @@ import {
     ],
 })
 export class ReadSummaryComponent {
+    private authService = inject(AuthServiceToken);
     private groupService = inject(GroupServiceToken);
     private notificationService = inject(NotificationService);
     private router = inject(Router);
-    form = inject(FormServiceToken);
+    form = inject(AddGroupFormToken);
 
     loading = false;
 
@@ -58,9 +56,14 @@ export class ReadSummaryComponent {
     }
 
     getMembers(): Array<Contact | User> {
-        return this.form.getFieldFrom('members').getValue() as Array<
-            Contact | User
-        >;
+        const signedInUser = this.authService.signedInUser?.user;
+        if (!signedInUser) {
+            throw new Error('No signed in user');
+        }
+        return this.form
+            .getFieldFrom('members')
+            .getValue<Array<Contact | User>>()
+            .concat([signedInUser]);
     }
 
     getEmoji(): string {

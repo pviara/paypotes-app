@@ -1,6 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ContactsViewModule } from '@contacts/contacts.view-module';
+import { delay, map, tap } from 'rxjs';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { HomeViewModule } from '@home/home.view-module';
 import { NotificationService } from '@core/services/notification/notification.service';
@@ -20,7 +21,17 @@ import { RouterOutlet } from '@angular/router';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+    private platformId = inject(PLATFORM_ID);
     private notificationService = inject(NotificationService);
 
     $notification = this.notificationService.$notification;
+    $emptyNotificationClass = this.$notification.pipe(
+        delay(this.isBrowser() ? 3000 : 0),
+        map(() => true),
+        tap(() => setTimeout(() => this.notificationService.empty(), 500)),
+    );
+
+    private isBrowser(): boolean {
+        return isPlatformBrowser(this.platformId);
+    }
 }

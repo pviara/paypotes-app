@@ -1,10 +1,10 @@
+import { AddExpenseFormValue } from '@shared/components/summary-form/summary-form.component';
 import { Component, inject } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
 import {
     ExpenseServiceProvider,
     ExpenseServiceToken,
 } from '@core/services/expense/expense.service.provider';
-import { FormServiceToken } from '@core/services/form/form.service.provider';
+import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
@@ -24,22 +24,17 @@ import { User } from '@core/model/user/user';
 })
 export class ReadSummaryComponent {
     private expenseService = inject(ExpenseServiceToken);
-    private form = inject(FormServiceToken);
     private notificationService = inject(NotificationService);
     private router = inject(Router);
 
-    loading = false;
-
-    addExpense(): void {
-        this.changeLoadingStatus();
-        const payload = this.form.raw();
+    onButtonClicked(formValue: AddExpenseFormValue): void {
         this.expenseService
             .addExpense({
-                balance: payload['balance'],
-                emoji: payload['emoji'],
-                isCurrentPayer: payload['isCurrentPayer'],
-                name: payload['name'],
-                userId: payload['person'].getId(),
+                balance: formValue.balance,
+                emoji: formValue.emoji,
+                isCurrentPayer: formValue.isCurrentPayer,
+                name: formValue.name,
+                userId: formValue.userId,
             })
             .pipe(
                 tap(() => {
@@ -51,45 +46,5 @@ export class ReadSummaryComponent {
                 }),
             )
             .subscribe();
-    }
-
-    getBalance(): string {
-        return (this.form.getFieldFrom('balance').getValue() as string) || '';
-    }
-
-    getEmoji(): string {
-        return (this.form.getFieldFrom('emoji').getValue() as string) || '';
-    }
-
-    getIsCurrentPayer(): boolean {
-        return this.form.getFieldFrom('isCurrentPayer').getValue() as boolean;
-    }
-
-    getName(): string {
-        return (this.form.getFieldFrom('name').getValue() as string) || '';
-    }
-
-    getPersonAvatarURL(): string {
-        const person = this.form.getFieldFrom('person').getValue();
-        if (person instanceof User) {
-            return person.getAvatarURL();
-        } else if (person instanceof Contact) {
-            return person.getAvatarURL();
-        }
-        return '';
-    }
-
-    getPersonFullname(): string {
-        const person = this.form.getFieldFrom('person').getValue();
-        if (person instanceof User) {
-            return person.getFullName();
-        } else if (person instanceof Contact) {
-            return person.getFullName();
-        }
-        return '';
-    }
-
-    private changeLoadingStatus(): void {
-        this.loading = !this.loading;
     }
 }

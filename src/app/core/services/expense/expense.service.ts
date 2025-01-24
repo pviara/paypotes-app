@@ -8,6 +8,7 @@ export type AddExpenseDTO = {
     emoji: string;
     isCurrentPayer: boolean;
     userId: string;
+    groupId?: string;
 };
 
 export interface ExpenseService {

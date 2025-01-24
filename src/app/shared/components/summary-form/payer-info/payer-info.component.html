@@ -1,0 +1,29 @@
+<p>
+    @if (currentContextIsExpense()) {
+        @if (isCurrentPayer()) {
+            Vous avez avancé à
+            <br>
+            <span class="bold">
+                {{ fullname() }}
+            </span>
+        } @else {
+            <span class="bold">
+                {{ fullname() }}
+            </span>
+            <br>
+            vous a avancé
+        }
+    }
+    @else {
+        @if (isCurrentPayer()) {
+            Vous avez avancé aux membres du groupe
+            <br>
+        } @else {
+            <span class="bold">
+                {{ fullname() }}
+            </span>
+            <br>
+            a avancé aux membres du groupe
+        }
+    }
+</p>

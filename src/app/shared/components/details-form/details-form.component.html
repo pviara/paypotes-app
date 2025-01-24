@@ -1,0 +1,20 @@
+<form>
+    <div class="content">
+        <input
+            type="text"
+            [placeholder]="placeholder()"
+            [value]="form.getFieldFrom(labels.name).getValue()"
+            (input)="onInput($event)"
+        />
+        @if (currentContextIsExpense()) {
+            <form-checkbox
+                [active]="form.getFieldFrom(labels.isCurrentPayer).getValue()"
+                (changed)="onCheckboxChanged($event)"
+            />
+        }
+    </div>
+    <form-button
+        [disabled]="form.getFieldFrom(labels.name).invalid()"
+        (clicked)="onButtonClicked()"
+    />
+</form>

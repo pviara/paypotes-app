@@ -1,9 +1,6 @@
 import { ExpenseAPIService } from '@core/services/expense/expense.api-service';
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
-import {
-    QueryServiceSpy,
-    stubBuildQueryFrom,
-} from '@test/doubles/query.service.spy';
+import { QueryServiceSpy } from '@test/doubles/query.service.spy';
 import { Subscription } from 'rxjs';
 
 describe('ExpenseAPIService', () => {
@@ -28,7 +25,7 @@ describe('ExpenseAPIService', () => {
             const contactId = 'contactId';
 
             const expectedQueryString = `contactId=${contactId}`;
-            stubBuildQueryFrom(queryService, expectedQueryString);
+            queryService.stub('buildQueryFrom', expectedQueryString);
 
             subscription.add(
                 sut.getContactExpenses(contactId).subscribe(() => {
@@ -82,7 +79,7 @@ describe('ExpenseAPIService', () => {
                 const search = 'labelXYZ';
 
                 const expectedQueryString = `search=${search}`;
-                stubBuildQueryFrom(queryService, `search=${search}`);
+                queryService.stub('buildQueryFrom', `search=${search}`);
 
                 subscription.add(
                     sut.getExpenses(0, { search }).subscribe(() => {
@@ -103,7 +100,7 @@ describe('ExpenseAPIService', () => {
                 const pageIndex = 1;
 
                 const expectedQueryString = `?pageIndex=${pageIndex}`;
-                stubBuildQueryFrom(queryService, `?pageIndex=${pageIndex}`);
+                queryService.stub('buildQueryFrom', `?pageIndex=${pageIndex}`);
 
                 subscription.add(
                     sut.getExpenses(pageIndex).subscribe(() => {
@@ -125,7 +122,7 @@ describe('ExpenseAPIService', () => {
                 const search = 'ABC';
 
                 const expectedQueryString = `?pageIndex=${pageIndex}&search=${search}`;
-                stubBuildQueryFrom(queryService, expectedQueryString);
+                queryService.stub('buildQueryFrom', expectedQueryString);
 
                 subscription.add(
                     sut.getExpenses(pageIndex, { search }).subscribe(() => {
@@ -146,7 +143,7 @@ describe('ExpenseAPIService', () => {
                 const type = 'debt';
 
                 const expectedQueryString = `&type=${type}`;
-                stubBuildQueryFrom(queryService, expectedQueryString);
+                queryService.stub('buildQueryFrom', expectedQueryString);
 
                 subscription.add(
                     sut.getExpenses(0, { type }).subscribe(() => {
@@ -168,7 +165,7 @@ describe('ExpenseAPIService', () => {
             const groupId = 'groupId';
 
             const expectedQueryString = `groupId=${groupId}`;
-            stubBuildQueryFrom(queryService, expectedQueryString);
+            queryService.stub('buildQueryFrom', expectedQueryString);
 
             sut.getGroupExpenses(groupId).subscribe(() => {
                 expect(httpClientService.calls.get.count).toBe(1);

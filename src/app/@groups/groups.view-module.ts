@@ -1,3 +1,4 @@
+import { AddGroupExpenseViewModule } from '@groups/add-group-expense/add-group-expense.view-module';
 import { GroupComponentModule } from '@groups/group/group.component-module';
 import { GroupsComponentModule } from '@groups/groups/groups.component-module';
 import { groupsRoutes } from '@groups/groups.routes';

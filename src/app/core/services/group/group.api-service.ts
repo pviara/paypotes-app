@@ -3,11 +3,15 @@ import { generateRandomString } from '@shared/utils/generate-random-string';
 import { Group, Groups } from '@core/model/group/group';
 import { AddGroupDTO, GroupService } from '@core/services/group/group.service';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
-import { Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
+import { User, Users } from '@core/model/user/user';
+import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 
 export class GroupAPIService implements GroupService {
     private readonly endpoint = '/api/group';
+
+    lastFetchedGroup = new BehaviorSubject<Group | null>(null);
 
     constructor(
         private httpClientService: HttpClientService,
@@ -15,23 +19,20 @@ export class GroupAPIService implements GroupService {
     ) {}
 
     addGroup(payload: AddGroupDTO): Observable<void> {
-        throw new Error('Method not implemented.');
+        return this.httpClientService.post(this.endpoint, payload);
     }
 
     getGroup(id: string): Observable<Group> {
+        const deterministicGroup = new Group({
+            id,
+            name: 'Birthday',
+            emoji: getRandomEmoji(),
+            members: Array.from({ length: 9 }),
+            balance: Math.ceil(Math.random() * (9999 - -9999 + 1) + -9999),
+        });
         return this.httpClientService.get<Group>(`${this.endpoint}/${id}`).pipe(
-            map(
-                () =>
-                    new Group({
-                        id,
-                        name: 'Birthday',
-                        emoji: '🎈',
-                        members: Array.from({ length: 9 }),
-                        balance: Math.ceil(
-                            Math.random() * (9999 - -9999 + 1) + -9999,
-                        ),
-                    }),
-            ),
+            map(() => deterministicGroup),
+            tap(() => this.lastFetchedGroup.next(deterministicGroup)),
         );
     }
 
@@ -41,6 +42,31 @@ export class GroupAPIService implements GroupService {
         return this.httpClientService
             .get<Groups>(`${this.endpoint}${query}`)
             .pipe(map(this.getDeterministicGroups()));
+    }
+
+    getLastFetchedGroup(): Group | null {
+        return this.lastFetchedGroup.getValue();
+    }
+
+    getMembersOf(groupId: string): Observable<User[]> {
+        return this.httpClientService
+            .get<Users>(`${this.endpoint}/${groupId}/members`)
+            .pipe(
+                map(() => [
+                    new User({
+                        id: generateRandomString(),
+                        firstname: 'David',
+                        lastname: 'Benzi',
+                        avatarURL: 'ahmed.png',
+                    }),
+                    new User({
+                        id: generateRandomString(),
+                        firstname: 'Claire',
+                        lastname: 'Laroche',
+                        avatarURL: 'claire.png',
+                    }),
+                ]),
+            );
     }
 
     private getDeterministicGroups(): () => Groups {

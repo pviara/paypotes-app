@@ -5,7 +5,11 @@ import {
     LabelExistsError,
     LabelNotFoundError,
 } from '@core/model/form/form';
-import { getValidator, InvalidValueTypeError, ValidatorKey } from './validator';
+import {
+    getValidator,
+    InvalidValueTypeError,
+    ValidatorKey,
+} from '@core/model/form/validator';
 
 describe('Form', () => {
     let sut: Form;

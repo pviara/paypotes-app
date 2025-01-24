@@ -3,12 +3,15 @@ import { generateRandomString } from '@shared/utils/generate-random-string';
 import { Group, Groups } from '@core/model/group/group';
 import { AddGroupDTO, GroupService } from '@core/services/group/group.service';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
-import { Observable, map, of } from 'rxjs';
+import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
 import { User, Users } from '@core/model/user/user';
+import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 
 export class GroupAPIService implements GroupService {
     private readonly endpoint = '/api/group';
+
+    lastFetchedGroup = new BehaviorSubject<Group | null>(null);
 
     constructor(
         private httpClientService: HttpClientService,
@@ -20,19 +23,16 @@ export class GroupAPIService implements GroupService {
     }
 
     getGroup(id: string): Observable<Group> {
+        const deterministicGroup = new Group({
+            id,
+            name: 'Birthday',
+            emoji: getRandomEmoji(),
+            members: Array.from({ length: 9 }),
+            balance: Math.ceil(Math.random() * (9999 - -9999 + 1) + -9999),
+        });
         return this.httpClientService.get<Group>(`${this.endpoint}/${id}`).pipe(
-            map(
-                () =>
-                    new Group({
-                        id,
-                        name: 'Birthday',
-                        emoji: '🎈',
-                        members: Array.from({ length: 9 }),
-                        balance: Math.ceil(
-                            Math.random() * (9999 - -9999 + 1) + -9999,
-                        ),
-                    }),
-            ),
+            map(() => deterministicGroup),
+            tap(() => this.lastFetchedGroup.next(deterministicGroup)),
         );
     }
 

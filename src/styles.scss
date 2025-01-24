@@ -148,6 +148,22 @@ span {
     }
 }
 
+@keyframes slighSlideOutToTop {
+    from {
+        transform: translateY(0%);
+        opacity: 1;
+
+        animation-timing-function: ease-in-out;
+    }
+
+    to {
+        transform: translateY(-20%);
+        opacity: 0;
+
+        animation-timing-function: ease-in-out;
+    }
+}
+
 @keyframes pulse {
     0%,
     100% {

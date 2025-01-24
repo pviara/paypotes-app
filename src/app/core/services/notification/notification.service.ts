@@ -13,4 +13,8 @@ export class NotificationService {
     notify(notification: Notification): void {
         this.notification$.next(notification);
     }
+
+    empty(): void {
+        this.notification$.next(null);
+    }
 }

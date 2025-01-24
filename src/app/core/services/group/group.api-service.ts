@@ -19,7 +19,7 @@ export class GroupAPIService implements GroupService {
     ) {}
 
     addGroup(payload: AddGroupDTO): Observable<void> {
-        throw new Error('Method not implemented.');
+        return this.httpClientService.post(this.endpoint, payload);
     }
 
     getGroup(id: string): Observable<Group> {
@@ -42,6 +42,10 @@ export class GroupAPIService implements GroupService {
         return this.httpClientService
             .get<Groups>(`${this.endpoint}${query}`)
             .pipe(map(this.getDeterministicGroups()));
+    }
+
+    getLastFetchedGroup(): Group | null {
+        return this.lastFetchedGroup.getValue();
     }
 
     getMembersOf(groupId: string): Observable<User[]> {

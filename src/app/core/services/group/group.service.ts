@@ -14,4 +14,5 @@ export interface GroupService {
     getGroup(id: string): Observable<Group>;
     getGroups(pageIndex?: number, filters?: Filters): Observable<Groups>;
     getMembersOf(groupId: string): Observable<User[]>;
+    getLastFetchedGroup(): Group | null;
 }

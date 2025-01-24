@@ -1,3 +1,4 @@
+import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import {
     Component,
     computed,
@@ -10,6 +11,7 @@ import { Contact } from '@core/model/contact/contact';
 import { Form } from '@core/model/form/form';
 import { FormContext } from '@core/model/form/form-context';
 import { FormService } from '@core/services/form/form.service';
+import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { User } from '@core/model/user/user';
 
 export type AddGroupExpenseFormValue = {
@@ -36,8 +38,10 @@ export type AddExpenseFormValue =
     styleUrls: ['./summary-form.component.scss'],
 })
 export class SummaryFormComponent {
+    private authService = inject(AuthServiceToken);
     private formService = inject(FormService);
     private form = this.injectCurrentForm();
+    private groupService = inject(GroupServiceToken);
 
     context = input.required<FormContext>();
     currentContextIsExpense = computed(() => this.context() === 'expense');
@@ -50,13 +54,25 @@ export class SummaryFormComponent {
     onButtonClicked(): void {
         this.changeLoadingStatus();
         const formValue = this.form.raw();
-        this.buttonClicked.emit({
-            balance: formValue['balance'],
-            emoji: formValue['emoji'],
-            isCurrentPayer: formValue['isCurrentPayer'],
-            name: formValue['name'],
-            userId: this.getUserId(),
-        });
+
+        if (this.currentContextIsExpense()) {
+            this.buttonClicked.emit({
+                balance: formValue['balance'],
+                emoji: formValue['emoji'],
+                isCurrentPayer: formValue['isCurrentPayer'],
+                name: formValue['name'],
+                userId: this.getUserId(),
+            });
+        } else {
+            this.buttonClicked.emit({
+                balance: formValue['balance'],
+                emoji: formValue['emoji'],
+                isCurrentPayer: formValue['isCurrentPayer'],
+                name: formValue['name'],
+                userId: this.getUserId(),
+                groupId: this.groupService.getLastFetchedGroup()?.getId() || '',
+            });
+        }
     }
 
     getBalance(): string {
@@ -68,7 +84,9 @@ export class SummaryFormComponent {
     }
 
     getGroupEmoji(): string {
-        return this.currentContextIsExpense() ? '' : '🏕️';
+        return this.currentContextIsExpense()
+            ? ''
+            : this.groupService.getLastFetchedGroup()?.getEmoji() || '';
     }
 
     getIsCurrentPayer(): boolean {
@@ -80,16 +98,19 @@ export class SummaryFormComponent {
     }
 
     getPersonAvatarURL(): string {
-        try {
-            const person = this.form
-                .getFieldFrom('person')
-                .getValue<Contact | User>();
-            return person instanceof User || person instanceof Contact
-                ? person.getAvatarURL()
-                : '';
-        } catch (error: unknown) {
-            return 'ahmed.png';
+        if (this.currentContextIsExpense()) {
+            return this.getPerson().getAvatarURL();
+        } else {
+            if (this.getIsCurrentPayer()) {
+                return this.authService.signedInUser?.user.getAvatarURL() || '';
+            } else {
+                return this.getPerson().getAvatarURL();
+            }
         }
+    }
+
+    private getPerson(): Contact | User {
+        return this.form.getFieldFrom('person').getValue<Contact | User>();
     }
 
     getPersonFullname(): string {
@@ -115,6 +136,12 @@ export class SummaryFormComponent {
     }
 
     private getUserId(): string {
-        return (this.form.getFieldFrom('person').getValue() as User).getId();
+        if (this.getIsCurrentPayer()) {
+            return this.authService.signedInUser?.user.getId() || '';
+        } else {
+            return (
+                this.form.getFieldFrom('person').getValue() as User
+            ).getId();
+        }
     }
 }

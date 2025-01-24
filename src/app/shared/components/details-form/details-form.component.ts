@@ -44,6 +44,11 @@ export class DetailsFormComponent implements OnInit {
 
     onCheckboxChanged(active: boolean): void {
         this.form.getFieldFrom(this.labels.isCurrentPayer).setValue(active);
+        if (active) {
+            try {
+                this.form.getFieldFrom('person').setValue('');
+            } catch (e) {}
+        }
     }
 
     onInput(event: Event): void {

@@ -3,35 +3,56 @@ import {
     AddGroupExpenseFormValue,
 } from '@shared/components/summary-form/summary-form.component';
 import { Component, inject } from '@angular/core';
-import {
-    ExpenseServiceProvider,
-    ExpenseServiceToken,
-} from '@core/services/expense/expense.service.provider';
-import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
+import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { QueryServiceProvider } from '@core/services/query/query.service.provider';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { tap } from 'rxjs';
 
 @Component({
     selector: 'read-summary',
     templateUrl: './read-summary.component.html',
     styleUrls: ['./read-summary.component.scss'],
-    providers: [
-        ExpenseServiceProvider,
-        HttpClientServiceProvider,
-        QueryServiceProvider,
-    ],
 })
 export class ReadSummaryComponent {
     private expenseService = inject(ExpenseServiceToken);
     private notificationService = inject(NotificationService);
+    private route = inject(ActivatedRoute);
     private router = inject(Router);
+
+    getPreviousRoute(): string {
+        const groupId = this.getCurrentGroupId();
+        return `/groups/${groupId}/add-expense/details`;
+    }
 
     onButtonClicked(formValue: AddExpenseFormValue): void {
         if (this.isGroupExpenseFormValue(formValue)) {
-            console.log('group expense form value', formValue);
-            // this.expenseService.addGroupExpense(...)
+            this.expenseService
+                .addExpense({
+                    balance: formValue.balance,
+                    emoji: formValue.emoji,
+                    isCurrentPayer: formValue.isCurrentPayer,
+                    name: formValue.name,
+                    groupId: formValue.groupId,
+                    userId: formValue.userId,
+                })
+                .pipe(
+                    tap(() => {
+                        this.notificationService.notify({
+                            type: 'success',
+                            message: 'Dépense de groupe ajoutée !',
+                        });
+                        this.router.navigate([
+                            'groups',
+                            this.getCurrentGroupId(),
+                        ]);
+                    }),
+                )
+                .subscribe();
         }
+    }
+
+    private getCurrentGroupId(): string {
+        return this.route.snapshot.params['groupId'];
     }
 
     private isGroupExpenseFormValue(

@@ -1,5 +1,5 @@
+import { AddExpenseFormValue } from '@shared/components/summary-form/summary-form.component';
 import { Component, inject } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
 import {
     ExpenseServiceProvider,
     ExpenseServiceToken,
@@ -11,7 +11,6 @@ import { QueryServiceProvider } from '@core/services/query/query.service.provide
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { User } from '@core/model/user/user';
-import { AddSingleExpenseFormValue } from '@shared/components/summary-form/summary-form.component';
 
 @Component({
     selector: 'read-summary',
@@ -28,8 +27,7 @@ export class ReadSummaryComponent {
     private notificationService = inject(NotificationService);
     private router = inject(Router);
 
-    onButtonClicked(formValue: AddSingleExpenseFormValue): void {
-        console.log('expense form value', formValue);
+    onButtonClicked(formValue: AddExpenseFormValue): void {
         this.expenseService
             .addExpense({
                 balance: formValue.balance,

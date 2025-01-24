@@ -1,3 +1,4 @@
+import { AuthServiceProvider } from '@core/services/auth/auth.api-service.provider';
 import { ContactServiceProvider } from '@core/services/contact/contact.api-service.provider';
 import { ExpenseServiceProvider } from '@core/services/expense/expense.service.provider';
 import {
@@ -14,6 +15,7 @@ import { UserServiceProvider } from '@core/services/user/user.api-service.provid
 
 @NgModule({
     providers: [
+        AuthServiceProvider,
         ContactServiceProvider,
         ExpenseServiceProvider,
         AddExpenseFormProvider,

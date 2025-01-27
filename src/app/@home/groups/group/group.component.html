@@ -1,6 +1,6 @@
 <div class="container">
-    <li>
-        @if (group(); as group) {
+    @if (group(); as group) {
+        <li [routerLink]="getGroupRoute()">
             <div class="emoji">
                 {{ group.getEmoji() }}
             </div>
@@ -10,8 +10,10 @@
             <p>
                 {{ group.countMembers() }} personnes
             </p>
-        } @else {
+        </li>
+    } @else {
+        <li>
             <skeleton/>
-        }
-    </li>
+        </li>
+    }
 </div>

@@ -8,4 +8,8 @@ import { Group } from '@core/model/group/group';
 })
 export class GroupComponent {
     group = input<Group | null>();
+
+    getGroupRoute(): string {
+        return `/groups/${this.group()?.getId()}`;
+    }
 }

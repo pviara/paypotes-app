@@ -8,20 +8,49 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        gap: 5vh;
 
-        gap: 1vh;
+        .titles {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1vh;
 
-        h1,
-        h3 {
+            h1,
+            h3 {
+                color: #fff;
+            }
+
+            h1 {
+                font-size: 3rem;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 4%;
+
+            border: none;
+            border-radius: 2rem;
+
+            background: #6717cd;
+            background: linear-gradient(180deg, #28005f 0%, #5000b8 100%);
+
+            font-family: 'regular';
+            font-size: 1rem;
             color: #fff;
-        }
 
-        h1 {
-            font-size: 3rem;
-        }
-
-        h3 {
-            font-size: 1.2rem;
+            img {
+                margin-right: 0.5rem;
+                width: 20px;
+            }
         }
     }
 
@@ -36,6 +65,6 @@
         --gradient-color-1: #000000;
         --gradient-color-2: #000000;
         --gradient-color-3: #000000;
-        --gradient-color-4: #6717cd;
+        --gradient-color-4: #180531;
     }
 }

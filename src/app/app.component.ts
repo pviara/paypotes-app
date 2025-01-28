@@ -56,6 +56,10 @@ export class AppComponent {
         },
     ];
 
+    isAnyRouteSelected(): boolean {
+        return this.router.routerState.snapshot.url.length > 1;
+    }
+
     isCurrentRouteSelected(link: string): boolean {
         return this.router.routerState.snapshot.url.includes(link);
     }

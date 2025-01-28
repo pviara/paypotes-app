@@ -3,8 +3,13 @@ import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { GroupsViewModule } from '@groups/groups.view-module';
 import { HomeView } from '@home/home.view';
 import { Routes } from '@angular/router';
+import { LandingView } from '@landing/landing.view';
 
 export const routes: Routes = [
+    {
+        path: '',
+        component: LandingView,
+    },
     {
         path: 'home',
         component: HomeView,
@@ -20,10 +25,6 @@ export const routes: Routes = [
     {
         path: 'groups',
         loadChildren: importGroupsView(),
-    },
-    {
-        path: '**',
-        redirectTo: 'home',
     },
 ];
 

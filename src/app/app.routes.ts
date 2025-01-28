@@ -6,7 +6,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
     {
-        path: '',
+        path: 'home',
         component: HomeView,
     },
     {
@@ -20,6 +20,10 @@ export const routes: Routes = [
     {
         path: 'groups',
         loadChildren: importGroupsView(),
+    },
+    {
+        path: '**',
+        redirectTo: 'home',
     },
 ];
 

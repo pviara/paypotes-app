@@ -1,11 +1,11 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ContactsViewModule } from '@contacts/contacts.view-module';
-import { delay, map, tap } from 'rxjs';
+import { delay, map, switchMap, tap } from 'rxjs';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { HomeViewModule } from '@home/home.view-module';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -23,6 +23,8 @@ import { RouterOutlet } from '@angular/router';
 export class AppComponent {
     private platformId = inject(PLATFORM_ID);
     private notificationService = inject(NotificationService);
+    private route = inject(ActivatedRoute);
+    private router = inject(Router);
 
     $notification = this.notificationService.$notification;
     $emptyNotificationClass = this.$notification.pipe(
@@ -30,6 +32,33 @@ export class AppComponent {
         map(() => true),
         tap(() => setTimeout(() => this.notificationService.empty(), 500)),
     );
+
+    menuItems = [
+        {
+            icon: 'home.png',
+            label: 'Accueil',
+            link: '/home',
+        },
+        {
+            icon: 'expenses.png',
+            label: 'Dépenses',
+            link: '/expenses',
+        },
+        {
+            icon: 'groups.png',
+            label: 'Groupes',
+            link: '/groups',
+        },
+        {
+            icon: 'contacts.png',
+            label: 'Contacts',
+            link: '/contacts',
+        },
+    ];
+
+    isCurrentRouteSelected(link: string): boolean {
+        return this.router.routerState.snapshot.url.includes(link);
+    }
 
     private isBrowser(): boolean {
         return isPlatformBrowser(this.platformId);

@@ -1,6 +1,6 @@
 .notification {
     position: absolute;
-    bottom: 3%;
+    top: 4%;
     left: 3%;
 
     width: 86%;
@@ -20,13 +20,13 @@
     font-family: 'regular';
     color: #fff;
 
-    animation: slighSlideInFromBottom 0.5s ease-in-out;
+    animation: slighSlideInFromTop 0.3s ease-in-out;
 
     transition-property: opacity;
-    transition-duration: 0.5s;
+    transition-duration: 0.3s;
 
     &.empty {
-        animation: slighSlideOutToTop 0.5s;
+        animation: slighSlideOutToBottom 0.3s;
     }
 
     &.error {
@@ -90,4 +90,6 @@ menu {
             }
         }
     }
+
+    animation: slighSlideInFromTop 0.5s ease-in-out;
 }

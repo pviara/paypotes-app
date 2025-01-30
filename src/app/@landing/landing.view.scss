@@ -20,7 +20,14 @@
         }
 
         h1 {
-            font-family: 'logo';
+            font-family: 'Honk', serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            font-variation-settings:
+                'MORF' 15,
+                'SHLN' 50;
+
             font-size: 4rem;
 
             animation: slighSlideInFromBottom 1s ease-in-out;

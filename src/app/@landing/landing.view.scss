@@ -7,10 +7,14 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         gap: 3vh;
 
         .logo {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
             img {
                 height: 12rem;
                 text-shadow: #000000 0px 0px 10px;
@@ -22,6 +26,13 @@
         h1 {
             font-family: 'logo';
             font-size: 4rem;
+            color: #14093d;
+
+            text-shadow:
+                2px 0 #9062f4,
+                -2px 0 #9062f4,
+                0 2px #9062f4,
+                0 -2px #d7c4ff;
 
             animation: slighSlideInFromBottom 1s ease-in-out;
         }

@@ -9,6 +9,7 @@ export const routes: Routes = [
     {
         path: '',
         component: LandingView,
+        data: { hideMenu: true },
     },
     {
         path: 'home',

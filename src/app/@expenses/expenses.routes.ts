@@ -17,6 +17,7 @@ export const expensesRoutes: Routes = [
             {
                 path: 'add',
                 loadChildren: importAddExpenseView(),
+                data: { hideMenu: true },
             },
             {
                 path: ':expenseId',

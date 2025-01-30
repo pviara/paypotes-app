@@ -1,21 +1,3 @@
 <router-outlet/>
-@if ($notification | async; as notification) {
-    <div
-        class="notification"
-        [class.empty]="$emptyNotificationClass | async"
-        [class.error]="notification.type === 'error'">
-        {{ notification.message }}
-    </div>
-}
-@if (isAnyRouteSelected()) {
-    <menu>
-        @for (item of menuItems; track $index) {
-            <div
-                [class.selected]="isCurrentRouteSelected(item.link)"
-                [routerLink]="item.link">
-                <img [src]="'assets/icons/' + item.icon" />
-                {{ item.label }}
-            </div>
-        }
-    </menu>
-}
+<app-notification/>
+<app-menu/>

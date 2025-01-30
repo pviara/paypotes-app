@@ -3,10 +3,16 @@ import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { GroupsViewModule } from '@groups/groups.view-module';
 import { HomeView } from '@home/home.view';
 import { Routes } from '@angular/router';
+import { LandingView } from '@landing/landing.view';
 
 export const routes: Routes = [
     {
         path: '',
+        component: LandingView,
+        data: { hideMenu: true },
+    },
+    {
+        path: 'home',
         component: HomeView,
     },
     {

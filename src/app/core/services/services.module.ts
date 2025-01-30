@@ -10,6 +10,7 @@ import { FormService } from '@core/services/form/form.service';
 import { GroupServiceProvider } from '@core/services/group/group.service.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
+import { MenuService } from '@core/services/menu/menu.service';
 import { NgModule } from '@angular/core';
 import { UserServiceProvider } from '@core/services/user/user.api-service.provider';
 
@@ -24,6 +25,7 @@ import { UserServiceProvider } from '@core/services/user/user.api-service.provid
         FormService,
         GroupServiceProvider,
         HttpClientServiceProvider,
+        MenuService,
         QueryServiceProvider,
         UserServiceProvider,
     ],

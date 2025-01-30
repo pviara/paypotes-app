@@ -13,6 +13,11 @@
     src: url('./assets/fonts/Inter-SemiBold.ttf');
 }
 
+@font-face {
+    font-family: 'logo';
+    src: url('./assets/fonts/Honk-Regular.ttf');
+}
+
 html,
 body {
     all: unset;
@@ -148,7 +153,7 @@ span {
     }
 }
 
-@keyframes slighSlideOutToTop {
+@keyframes slighSlideOutToBottom {
     from {
         transform: translateY(0%);
         opacity: 1;
@@ -157,7 +162,7 @@ span {
     }
 
     to {
-        transform: translateY(-20%);
+        transform: translateY(20%);
         opacity: 0;
 
         animation-timing-function: ease-in-out;

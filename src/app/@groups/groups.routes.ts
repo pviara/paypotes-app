@@ -18,10 +18,12 @@ export const groupsRoutes: Routes = [
             {
                 path: 'add',
                 loadChildren: importAddGroupView(),
+                data: { hideMenu: true },
             },
             {
                 path: ':groupId/add-expense',
                 loadChildren: importAddGroupExpenseView(),
+                data: { hideMenu: true },
             },
             {
                 path: ':groupId',

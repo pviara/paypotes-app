@@ -1,20 +1,21 @@
-import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MenuService } from '@core/services/menu/menu.service';
-import { Router, RouterModule } from '@angular/router';
+
+export type MenuItem = {
+    icon: string;
+    label: string;
+    link: string;
+};
 
 @Component({
     selector: 'app-menu',
     templateUrl: './app-menu.component.html',
     styleUrls: ['./app-menu.component.scss'],
-    standalone: true,
-    imports: [CommonModule, RouterModule],
 })
 export class AppMenuComponent {
     menuService = inject(MenuService);
-    private router = inject(Router);
 
-    menuItems = [
+    menuItems: MenuItem[] = [
         {
             icon: 'home.png',
             label: 'Accueil',
@@ -36,8 +37,4 @@ export class AppMenuComponent {
             link: '/contacts',
         },
     ];
-
-    isCurrentRouteSelected(link: string): boolean {
-        return this.router.routerState.snapshot.url.includes(link);
-    }
 }

@@ -1,0 +1,18 @@
+import { Component, inject, input } from '@angular/core';
+import { MenuItem } from '../app-menu.component';
+import { Router } from '@angular/router';
+
+@Component({
+    selector: 'app-menu-item',
+    templateUrl: './app-menu-item.component.html',
+    styleUrls: ['./app-menu-item.component.scss'],
+})
+export class AppMenuItemComponent {
+    private router = inject(Router);
+
+    item = input.required<MenuItem>();
+
+    isCurrentRouteSelected(): boolean {
+        return this.router.routerState.snapshot.url.includes(this.item().link);
+    }
+}

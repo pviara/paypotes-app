@@ -1,12 +1,7 @@
 @if (menuService.$mustDisplayMenu | async) {
     <menu>
         @for (item of menuItems; track $index) {
-            <div
-                [class.selected]="isCurrentRouteSelected(item.link)"
-                [routerLink]="item.link">
-                <img [src]="'assets/icons/' + item.icon" />
-                {{ item.label }}
-            </div>
+            <app-menu-item [item]="item"/>
         }
     </menu>
 }

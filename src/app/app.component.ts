@@ -5,12 +5,13 @@ import { ContactsViewModule } from '@contacts/contacts.view-module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { HomeViewModule } from '@home/home.view-module';
 import { RouterOutlet } from '@angular/router';
+import { AppMenuComponentModule } from './menu/app-menu-component.module';
 
 @Component({
     selector: 'app-root',
     standalone: true,
     imports: [
-        AppMenuComponent,
+        AppMenuComponentModule,
         AppNotificationComponent,
         ContactsViewModule,
         ExpensesViewModule,

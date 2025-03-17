@@ -1,14 +1,17 @@
 div {
-    width: 2.8rem;
-    height: 2.8rem;
-
-    padding: 3%;
+    width: fit-content;
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 0.7vh;
+
+    padding: 15%;
+
+    &:first-child {
+        padding: 20%;
+    }
 
     font-family: 'regular';
     font-size: 0.68rem;

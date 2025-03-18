@@ -1,4 +1,5 @@
 import { ChoseContactsComponent } from '@groups/add-group/chose-contacts/chose-contacts.component';
+import { ChoseUserFromSearchComponent } from '@groups/add-group/chose-user-from-search/chose-user-from-search.component';
 import { FillDetailsComponent } from '@groups/add-group/fill-details/fill-details.component';
 import { MembersComponent } from '@groups/add-group/members/members.component';
 import { ReadSummaryComponent } from '@groups/add-group/read-summary/read-summary.component';
@@ -22,6 +23,10 @@ export const addGroupRoutes: Routes = [
     {
         path: 'members/add',
         component: SelectPersonsComponent,
+    },
+    {
+        path: 'members/search',
+        component: ChoseUserFromSearchComponent,
     },
     {
         path: 'members/contacts',

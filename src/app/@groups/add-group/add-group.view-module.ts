@@ -2,6 +2,7 @@ import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { addGroupRoutes } from '@groups/add-group/add-group.routes';
 import { AddGroupView } from '@groups/add-group/add-group.view';
 import { ChoseContactsComponentModule } from '@groups/add-group/chose-contacts/chose-contacts.component-module';
+import { ChoseUserFromSearchComponentModule } from '@groups/add-group/chose-user-from-search/chose-user-from-search.component-module';
 import { FillDetailsComponentModule } from '@groups/add-group/fill-details/fill-details.component-module';
 import { FormService } from '@core/services/form/form.service';
 import { MembersComponentModule } from '@groups/add-group/members/members.component-module';
@@ -16,6 +17,7 @@ import { ServicesModule } from '@core/services/services.module';
     declarations: [AddGroupView],
     imports: [
         ChoseContactsComponentModule,
+        ChoseUserFromSearchComponentModule,
         FillDetailsComponentModule,
         MembersComponentModule,
         ReadSummaryComponentModule,

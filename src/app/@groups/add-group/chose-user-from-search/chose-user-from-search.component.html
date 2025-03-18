@@ -1,0 +1,11 @@
+<div class="container">
+    <headbar
+        [route]="'/groups/add/members/add'"
+        [subhead]="'Nouveau group'"
+        [title]="'Choisir l\'utilisateur'"
+    />
+    <selector-form
+        [persons]="users"
+        (personSelected)="onPersonSelected($event)"
+    />
+</div>

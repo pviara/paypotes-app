@@ -32,7 +32,14 @@ export class SelectPersonsComponent implements OnInit {
     }
 
     onUsersFound(users: User[]): void {
-        this.form.addField({ label: this.temporaryUsersLabel, value: users });
+        if (!this.form.exist(this.temporaryUsersLabel)) {
+            this.form.addField({
+                label: this.temporaryUsersLabel,
+                value: users,
+            });
+        } else {
+            this.form.getFieldFrom(this.temporaryUsersLabel).setValue(users);
+        }
         this.router.navigate(['groups', 'add', 'members', 'search']);
     }
 

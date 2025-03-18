@@ -27,13 +27,12 @@ export class ReadSummaryComponent {
     onButtonClicked(formValue: AddExpenseFormValue): void {
         if (this.isGroupExpenseFormValue(formValue)) {
             this.expenseService
-                .addExpense({
+                .addGroupExpense({
                     balance: formValue.balance,
                     emoji: formValue.emoji,
-                    isCurrentPayer: formValue.isCurrentPayer,
                     name: formValue.name,
                     groupId: formValue.groupId,
-                    userId: formValue.userId,
+                    memberId: formValue.userId,
                 })
                 .pipe(
                     tap(() => {

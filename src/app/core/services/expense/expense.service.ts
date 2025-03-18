@@ -2,17 +2,25 @@ import { Expense, Expenses } from '@core/model/expense/expense';
 import { Filters } from '@core/model/filters/filters';
 import { Observable } from 'rxjs';
 
-export type AddExpenseDTO = {
+export type AddGroupExpenseDTO = {
+    balance: string;
+    name: string;
+    emoji: string;
+    memberId: string;
+    groupId: string;
+};
+
+export type AddPairExpenseDTO = {
     balance: string;
     name: string;
     emoji: string;
     isCurrentPayer: boolean;
     userId: string;
-    groupId?: string;
 };
 
 export interface ExpenseService {
-    addExpense(payload: AddExpenseDTO): Observable<void>;
+    addGroupExpense(payload: AddGroupExpenseDTO): Observable<void>;
+    addPairExpense(payload: AddPairExpenseDTO): Observable<void>;
     getContactExpenses(
         groupId: string,
         pageIndex?: number,

@@ -4,20 +4,8 @@
         [subhead]="'Nouvelle dépense'"
         [title]="'Choisir le contact'"
     />
-    <div class="content">
-        @if ($contacts | async; as contacts) {
-            <ul>
-                @for (contact of contacts; track $index) {
-                    <contact
-                        [contact]="contact"
-                        [last]="isLastFrom(contacts, $index)"
-                        (contactSelected)="onContactSelected($event)"
-                    />
-                }
-            </ul>
-        }
-        @else {
-            <span class="loader"></span>
-        }
-    </div>
+    <selector-form
+        [persons]="($contacts | async) || []"
+        (personSelected)="onPersonSelected($event)"
+    />
 </div>

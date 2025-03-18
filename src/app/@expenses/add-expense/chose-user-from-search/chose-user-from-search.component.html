@@ -1,0 +1,11 @@
+<div class="container">
+    <headbar
+        [route]="'/expenses/add/person'"
+        [subhead]="'Nouvelle dépense'"
+        [title]="'Choisir l\'utilisateur'"
+    />
+    <selector-form
+        [persons]="users"
+        (personSelected)="onPersonSelected($event)"
+    />
+</div>

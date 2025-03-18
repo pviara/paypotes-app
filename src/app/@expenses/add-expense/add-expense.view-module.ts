@@ -2,6 +2,7 @@ import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { addExpenseRoutes } from '@expenses/add-expense/add-expense.routes';
 import { AddExpenseView } from '@expenses/add-expense/add-expense.view';
 import { ChoseContactComponentModule } from '@expenses/add-expense/chose-contact/chose-contact.component-module';
+import { ChoseUserFromSearchComponentModule } from '@expenses/add-expense/chose-user-from-search/chose-user-from-search.component-module';
 import { FillDetailsComponentModule } from '@expenses/add-expense/fill-details/fill-details.component-module';
 import { FormService } from '@core/services/form/form.service';
 import { NgModule } from '@angular/core';
@@ -16,6 +17,7 @@ import { SetBalanceComponentModule } from '@expenses/add-expense/set-balance/set
     declarations: [AddExpenseView],
     imports: [
         ChoseContactComponentModule,
+        ChoseUserFromSearchComponentModule,
         FillDetailsComponentModule,
         ReadSummaryComponentModule,
         RouterModule.forChild(addExpenseRoutes),

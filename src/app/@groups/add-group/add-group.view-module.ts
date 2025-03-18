@@ -10,7 +10,6 @@ import { ReadSummaryComponentModule } from '@groups/add-group/read-summary/read-
 import { RouterModule } from '@angular/router';
 import { SelectEmojiComponentModule } from '@groups/add-group/select-emoji/select-emoji.component-module';
 import { SelectPersonsComponentModule } from '@groups/add-group/select-persons/select-persons.component-module';
-import { SelectUserFromSearchComponentModule } from '@groups/add-group/select-user-from-search/select-user-from-search.component-module';
 import { ServicesModule } from '@core/services/services.module';
 
 @NgModule({
@@ -23,7 +22,6 @@ import { ServicesModule } from '@core/services/services.module';
         RouterModule.forChild(addGroupRoutes),
         SelectEmojiComponentModule,
         SelectPersonsComponentModule,
-        SelectUserFromSearchComponentModule,
         ServicesModule,
     ],
 })

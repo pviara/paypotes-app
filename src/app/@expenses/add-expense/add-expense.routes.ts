@@ -1,3 +1,4 @@
+import { ChoseUserFromSearchComponent } from '@expenses/add-expense/chose-user-from-search/chose-user-from-search.component';
 import { FillDetailsComponent } from '@expenses/add-expense/fill-details/fill-details.component';
 import { Routes } from '@angular/router';
 import { SelectEmojiComponent } from '@expenses/add-expense/select-emoji/select-emoji.component';
@@ -22,6 +23,10 @@ export const addExpenseRoutes: Routes = [
     {
         path: 'person',
         component: SelectPersonComponent,
+    },
+    {
+        path: 'search',
+        component: ChoseUserFromSearchComponent,
     },
     {
         path: 'contact',

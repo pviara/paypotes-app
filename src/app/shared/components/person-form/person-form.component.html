@@ -2,10 +2,10 @@
     <div class="content">
         <manual-name-input
             [error]="error"
-            [isLoading]="searching"
+            [$isLoading]="$searching"
             (searching)="onSearching($event)"
         />
-        <div [ngClass]="{ searching: searching$ | async }">
+        <div [ngClass]="{ searching: $searching | async }">
             <span>ou</span>
             <button
                 type="button"

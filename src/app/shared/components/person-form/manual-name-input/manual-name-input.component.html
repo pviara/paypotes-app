@@ -10,7 +10,7 @@
             placeholder="Entrer un nom..."
             formControlName="name"
         />
-        @if (isLoading().getValue()) {
+        @if ($isLoading() | async) {
             <span class="loader"></span>
         }
     </div>

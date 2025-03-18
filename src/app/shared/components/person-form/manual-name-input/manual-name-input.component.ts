@@ -1,6 +1,7 @@
 import { BehaviorSubject, debounceTime, tap } from 'rxjs';
 import {
     Component,
+    computed,
     EventEmitter,
     inject,
     input,
@@ -24,15 +25,7 @@ export class ManualNameInputComponent implements OnInit {
         ]),
     });
 
-    isLoading = input(new BehaviorSubject(false));
-    isLoading$ = this.isLoading()
-        .asObservable()
-        .pipe(
-            tap((isLoading) => {
-                if (isLoading) this.form.disable();
-                else this.form.enable();
-            }),
-        );
+    $isLoading = input<BehaviorSubject<boolean> | null>(null);
 
     error = input<string>();
 
@@ -45,5 +38,10 @@ export class ManualNameInputComponent implements OnInit {
             .subscribe(({ name }) => {
                 if (name) this.searching.emit(name);
             });
+
+        this.$isLoading()?.subscribe((isLoading) => {
+            if (isLoading) this.form.controls.name.disable();
+            else this.form.controls.name.enable();
+        });
     }
 }

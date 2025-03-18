@@ -23,8 +23,7 @@ export class PersonFormComponent {
 
     error = '';
 
-    searching = new BehaviorSubject(false);
-    searching$ = this.searching.asObservable();
+    $searching = new BehaviorSubject(false);
 
     route = input.required<string>();
     text = input.required<string>();
@@ -33,7 +32,7 @@ export class PersonFormComponent {
     userFound = new EventEmitter<User>();
 
     onSearching(phoneNumber: string): void {
-        this.searching.next(true);
+        this.$searching.next(true);
         this.searchUserWith(phoneNumber);
     }
 
@@ -41,7 +40,7 @@ export class PersonFormComponent {
         this.userService.getUser(phoneNumber).subscribe((user) => {
             if (user) this.userFound.emit(user);
             else {
-                this.searching.next(false);
+                this.$searching.next(false);
                 this.error = 'Numéro introuvable';
             }
         });

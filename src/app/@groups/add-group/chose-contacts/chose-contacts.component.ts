@@ -27,8 +27,6 @@ export class ChoseContactsComponent implements OnInit {
                 value: [],
                 validators: [getValidator(ValidatorKey.MinLengthOne)],
             });
-        } else {
-            console.log(this.form.getFieldFrom(this.labels.contacts));
         }
     }
 

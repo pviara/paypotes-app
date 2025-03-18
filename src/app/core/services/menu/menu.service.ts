@@ -12,10 +12,7 @@ export class MenuService {
 
     $mustDisplayMenu = this.router.events.pipe(
         filter((event) => event instanceof RoutesRecognized),
-        map((event) => {
-            console.log(this.mustDisplayMenuIn(event.state.root));
-            return this.mustDisplayMenuIn(event.state.root);
-        }),
+        map((event) => this.mustDisplayMenuIn(event.state.root)),
     );
 
     private mustDisplayMenuIn(route: ActivatedRouteSnapshot): boolean {

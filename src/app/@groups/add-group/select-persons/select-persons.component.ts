@@ -32,6 +32,7 @@ export class SelectPersonsComponent implements OnInit {
 
     onUsersFound(users: User[]): void {
         console.log('multiple users found:', users);
+        this.router.navigate(['groups', 'add', 'members', 'search']);
         // // this.form.setField({ label: this.label, value: user });
         // // this.router.navigate(['expenses', 'add', 'summary']);
     }

@@ -25,6 +25,12 @@ export class SelectPersonComponent implements OnInit {
         this.router.navigate(['expenses', 'add', 'summary']);
     }
 
+    onUsersFound(users: User[]): void {
+        console.log('multiple users found:', users);
+        // // this.form.setField({ label: this.label, value: user });
+        // // this.router.navigate(['expenses', 'add', 'summary']);
+    }
+
     private injectCurrentForm(): Form {
         const currentFormToken = this.formService.getUsedForm();
         return inject(currentFormToken);

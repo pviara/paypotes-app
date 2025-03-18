@@ -30,6 +30,12 @@ export class SelectPersonsComponent implements OnInit {
         this.router.navigate(['groups', 'add', 'members']);
     }
 
+    onUsersFound(users: User[]): void {
+        console.log('multiple users found:', users);
+        // // this.form.setField({ label: this.label, value: user });
+        // // this.router.navigate(['expenses', 'add', 'summary']);
+    }
+
     private injectCurrentForm(): Form {
         const currentFormToken = this.formService.getUsedForm();
         return inject(currentFormToken);

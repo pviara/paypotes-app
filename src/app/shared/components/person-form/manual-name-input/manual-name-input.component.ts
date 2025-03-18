@@ -36,7 +36,9 @@ export class ManualNameInputComponent implements OnInit {
         this.form.valueChanges
             .pipe(debounceTime(1000))
             .subscribe(({ name }) => {
-                if (name) this.searching.emit(name);
+                if (!this.$isLoading()?.getValue() && name) {
+                    this.searching.emit(name);
+                }
             });
 
         this.$isLoading()?.subscribe((isLoading) => {

@@ -13,7 +13,29 @@ export class UserAPIService implements UserService {
         private queryService: QueryService,
     ) {}
 
-    getUser(phoneNumber: string): Observable<User> {
+    getUserByName(name: string): Observable<User[]> {
+        const query = this.queryService.buildQueryFrom({ name });
+        return this.httpClientService
+            .get<User[]>(`${this.endpoint}${query}`)
+            .pipe(
+                map((_) => [
+                    new User({
+                        id: generateRandomString(),
+                        firstname: 'William',
+                        lastname: 'Duvellois',
+                        avatarURL: 'ahmed.png',
+                    }),
+                    new User({
+                        id: generateRandomString(),
+                        firstname: 'William',
+                        lastname: 'Zendayo',
+                        avatarURL: 'valentin.png',
+                    }),
+                ]),
+            );
+    }
+
+    getUserByPhone(phoneNumber: string): Observable<User> {
         const query = this.queryService.buildQueryFrom({ phoneNumber });
         return this.httpClientService
             .get<User>(`${this.endpoint}${query}`)

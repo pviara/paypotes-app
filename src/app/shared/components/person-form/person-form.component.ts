@@ -31,18 +31,23 @@ export class PersonFormComponent {
     @Output()
     userFound = new EventEmitter<User>();
 
-    onSearching(phoneNumber: string): void {
+    @Output()
+    usersFound = new EventEmitter<User[]>();
+
+    onSearching(name: string): void {
         this.$searching.next(true);
-        this.searchUserWith(phoneNumber);
+        this.searchUserWith(name);
     }
 
-    private searchUserWith(phoneNumber: string): void {
-        this.userService.getUser(phoneNumber).subscribe((user) => {
-            if (user) this.userFound.emit(user);
-            else {
+    private searchUserWith(name: string): void {
+        this.userService.getUserByName(name).subscribe((users) => {
+            if (users.length === 0) {
                 this.$searching.next(false);
-                this.error = 'Numéro introuvable';
+                this.error = 'Aucun utilisateur trouvé';
             }
+
+            if (users.length > 1) this.usersFound.emit(users);
+            else this.userFound.emit(users[0]);
         });
     }
 }

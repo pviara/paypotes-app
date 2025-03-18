@@ -6,6 +6,7 @@ import {
     UserServiceProvider,
     UserServiceToken,
 } from '@core/services/user/user.api-service.provider';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'person-form',
@@ -22,7 +23,8 @@ export class PersonFormComponent {
 
     error = '';
 
-    searching = false;
+    searching = new BehaviorSubject(false);
+    searching$ = this.searching.asObservable();
 
     route = input.required<string>();
     text = input.required<string>();
@@ -31,7 +33,7 @@ export class PersonFormComponent {
     userFound = new EventEmitter<User>();
 
     onSearching(phoneNumber: string): void {
-        this.searching = true;
+        this.searching.next(true);
         this.searchUserWith(phoneNumber);
     }
 
@@ -39,7 +41,7 @@ export class PersonFormComponent {
         this.userService.getUser(phoneNumber).subscribe((user) => {
             if (user) this.userFound.emit(user);
             else {
-                this.searching = false;
+                this.searching.next(false);
                 this.error = 'Numéro introuvable';
             }
         });

@@ -1,0 +1,17 @@
+<form [formGroup]="form">
+    @if (error(); as error) {
+        <p class="error">
+            {{ error }}
+        </p>
+    }
+    <div class="input">
+        <input
+            type="text"
+            placeholder="Entrer un nom..."
+            formControlName="name"
+        />
+        @if (isLoading().getValue()) {
+            <span class="loader"></span>
+        }
+    </div>
+</form>

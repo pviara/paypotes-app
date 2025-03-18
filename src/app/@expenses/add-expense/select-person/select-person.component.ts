@@ -15,6 +15,7 @@ export class SelectPersonComponent implements OnInit {
     private router = inject(Router);
 
     private label = 'person';
+    private temporaryUsersLabel = 'temporaryUsers';
 
     ngOnInit(): void {
         this.initForm();
@@ -23,6 +24,19 @@ export class SelectPersonComponent implements OnInit {
     onUserFound(user: User): void {
         this.form.setField({ label: this.label, value: user });
         this.router.navigate(['expenses', 'add', 'summary']);
+    }
+
+    onUsersFound(users: User[]): void {
+        if (!this.form.exist(this.temporaryUsersLabel)) {
+            this.form.addField({
+                label: this.temporaryUsersLabel,
+                value: users,
+            });
+        } else {
+            this.form.getFieldFrom(this.temporaryUsersLabel).setValue(users);
+        }
+
+        this.router.navigate(['expenses', 'add', 'search']);
     }
 
     private injectCurrentForm(): Form {

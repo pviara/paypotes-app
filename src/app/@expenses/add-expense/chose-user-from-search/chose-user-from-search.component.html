@@ -2,10 +2,10 @@
     <headbar
         [route]="'/expenses/add/person'"
         [subhead]="'Nouvelle dépense'"
-        [title]="'Choisir le contact'"
+        [title]="'Choisir l\'utilisateur'"
     />
     <selector-form
-        [persons]="($contacts | async) || []"
+        [persons]="users"
         (personSelected)="onPersonSelected($event)"
     />
 </div>

@@ -29,7 +29,7 @@ export class ReadSummaryComponent {
 
     onButtonClicked(formValue: AddExpenseFormValue): void {
         this.expenseService
-            .addExpense({
+            .addPairExpense({
                 balance: formValue.balance,
                 emoji: formValue.emoji,
                 isCurrentPayer: formValue.isCurrentPayer,

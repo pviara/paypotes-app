@@ -2,5 +2,6 @@ import { Observable } from 'rxjs';
 import { User } from '@core/model/user/user';
 
 export interface UserService {
-    getUser(phoneNumber: string): Observable<User>;
+    getUserByName(name: string): Observable<User[]>;
+    getUserByPhone(phoneNumber: string): Observable<User>;
 }

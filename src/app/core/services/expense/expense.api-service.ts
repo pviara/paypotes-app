@@ -1,5 +1,6 @@
 import {
-    AddExpenseDTO,
+    AddGroupExpenseDTO,
+    AddPairExpenseDTO,
     ExpenseService,
 } from '@core/services/expense/expense.service';
 import { Contact } from '@core/model/contact/contact';
@@ -20,8 +21,12 @@ export class ExpenseAPIService implements ExpenseService {
         private queryService: QueryService,
     ) {}
 
-    addExpense(payload: AddExpenseDTO): Observable<void> {
-        return this.httpClientService.post(this.endpoint, payload);
+    addGroupExpense(payload: AddGroupExpenseDTO): Observable<void> {
+        return this.httpClientService.post(`${this.endpoint}/group`, payload);
+    }
+
+    addPairExpense(payload: AddPairExpenseDTO): Observable<void> {
+        return this.httpClientService.post(`${this.endpoint}/pair`, payload);
     }
 
     getContactExpenses(

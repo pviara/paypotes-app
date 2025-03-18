@@ -20,22 +20,45 @@ describe('UserAPIService', () => {
 
     afterAll(() => subscription.unsubscribe());
 
-    it('should get the users from server', () => {
-        const phoneNumber = '0781228931';
+    describe('get user by their name', () => {
+        it('should get the user from server', () => {
+            const name = 'Peter Parker';
 
-        const expectedQueryString = `phoneNumber=${phoneNumber}`;
-        queryService.stub('buildQueryFrom', `phoneNumber=${phoneNumber}`);
+            const expectedQueryString = `name=${name}`;
+            queryService.stub('buildQueryFrom', `name=${name}`);
 
-        subscription.add(
-            sut.getUser(phoneNumber).subscribe(() => {
-                expect(httpClientService.calls.get.count).toBe(1);
+            subscription.add(
+                sut.getUserByName(name).subscribe(() => {
+                    expect(httpClientService.calls.get.count).toBe(1);
 
-                const [call] = httpClientService.calls.get.history;
-                const clientHasBeenCalledWithPhoneNumber =
-                    call.includes(expectedQueryString);
+                    const [call] = httpClientService.calls.get.history;
+                    const clientHasBeenCalledWithName =
+                        call.includes(expectedQueryString);
 
-                expect(clientHasBeenCalledWithPhoneNumber).toBe(true);
-            }),
-        );
+                    expect(clientHasBeenCalledWithName).toBe(true);
+                }),
+            );
+        });
+    });
+
+    describe('get user by their phone', () => {
+        it('should get the user from server', () => {
+            const phoneNumber = '0781228931';
+
+            const expectedQueryString = `phoneNumber=${phoneNumber}`;
+            queryService.stub('buildQueryFrom', `phoneNumber=${phoneNumber}`);
+
+            subscription.add(
+                sut.getUserByPhone(phoneNumber).subscribe(() => {
+                    expect(httpClientService.calls.get.count).toBe(1);
+
+                    const [call] = httpClientService.calls.get.history;
+                    const clientHasBeenCalledWithPhoneNumber =
+                        call.includes(expectedQueryString);
+
+                    expect(clientHasBeenCalledWithPhoneNumber).toBe(true);
+                }),
+            );
+        });
     });
 });

@@ -30,13 +30,11 @@ export class ChoseContactsComponent implements OnInit {
         }
     }
 
-    isContactSelected(contact: Contact): boolean {
+    isContactSelected(person: Contact | User): boolean {
         const contacts = this.form
             .getFieldFrom(this.labels.contacts)
             .getValue() as Array<Contact>;
-        return contacts.some(
-            (selected) => selected.getId() === contact.getId(),
-        );
+        return contacts.some((selected) => selected.getId() === person.getId());
     }
 
     isLastFrom(contacts: Contact[], index: number): boolean {
@@ -52,18 +50,18 @@ export class ChoseContactsComponent implements OnInit {
         this.router.navigate(['groups', 'add', 'members']);
     }
 
-    onContactSelected(contact: Contact): void {
+    onPersonSelected(person: Contact | User): void {
         const contacts = this.form
             .getFieldFrom(this.labels.contacts)
             .getValue() as Array<Contact>;
 
-        if (this.isContactSelected(contact)) {
+        if (this.isContactSelected(person)) {
             const index = contacts.findIndex(
-                (selected) => selected.getId() === contact.getId(),
+                (selected) => selected.getId() === person.getId(),
             );
             contacts.splice(index, 1);
         } else {
-            contacts.push(contact);
+            contacts.push(person as Contact);
         }
         this.form.getFieldFrom(this.labels.contacts).setValue(contacts);
     }

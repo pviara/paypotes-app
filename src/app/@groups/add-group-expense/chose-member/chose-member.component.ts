@@ -9,6 +9,7 @@ import { HttpClientServiceProvider } from '@core/services/http-client/http-clien
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { switchMap } from 'rxjs';
 import { User } from '@core/model/user/user';
+import { Contact } from '@core/model/contact/contact';
 
 @Component({
     selector: 'chose-member',
@@ -49,8 +50,8 @@ export class ChoseMemberComponent implements OnInit {
         return index === users.length - 1;
     }
 
-    onMemberSelected(user: User): void {
-        this.form.getFieldFrom(this.label).setValue(user);
+    onPersonSelected(person: Contact | User): void {
+        this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate([
             'groups',
             this.getCurrentGroupId(),

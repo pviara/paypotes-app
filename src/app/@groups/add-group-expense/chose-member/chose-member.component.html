@@ -4,20 +4,8 @@
         [subhead]="'Nouvelle dépense de groupe'"
         [title]="'Qui a payé ?'"
     />
-    <div class="content">
-        @if ($members | async; as members) {
-            <ul>
-                @for (member of members; track $index) {
-                    <member
-                        [member]="member"
-                        [last]="isLastFrom(members, $index)"
-                        (memberSelected)="onMemberSelected($event)"
-                    />
-                }
-            </ul>
-        }
-        @else {
-            <span class="loader"></span>
-        }
-    </div>
+    <selector-form
+        [persons]="($members | async) || []"
+        (personSelected)="onPersonSelected($event)"
+    />
 </div>

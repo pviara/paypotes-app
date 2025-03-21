@@ -19,5 +19,6 @@ import { AppMenuComponentModule } from './menu/app-menu-component.module';
         RouterOutlet,
     ],
     templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {}

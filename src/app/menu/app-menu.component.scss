@@ -1,13 +1,15 @@
 menu {
     position: absolute;
-    bottom: 3%;
+
+    height: 10vh;
+    width: 100%;
+
     left: 0;
     right: 0;
-
-    max-width: 85%;
+    bottom: 0;
 
     margin: 0;
-    padding: 3%;
+    padding: 0;
     margin-inline: auto;
 
     display: flex;
@@ -16,11 +18,30 @@ menu {
     gap: 7vw;
 
     background-color: #121212;
-    border-radius: 1rem;
 
-    box-shadow: 0 0 10px #121212;
+    border-radius: 0;
+    border-top: 2px solid #2c2c2c;
 
     color: #fff;
 
-    animation: slighSlideInFromBottom 1s ease-out;
+    transition:
+        width 0.5s ease,
+        left 0.5s ease,
+        right 0.5s ease,
+        top 0.5s ease,
+        bottom 0.5s ease,
+        border-radius 0.5s ease;
+
+    &.float {
+        position: absolute;
+        bottom: 3%;
+        left: 0;
+        right: 0;
+
+        width: 90%;
+
+        border-radius: 1rem;
+
+        box-shadow: 0 0 10px #121212;
+    }
 }

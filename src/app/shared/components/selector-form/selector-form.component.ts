@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, input, Output } from '@angular/core';
+import { Component, EventEmitter, input, Output } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
 import { User } from '@core/model/user/user';
 

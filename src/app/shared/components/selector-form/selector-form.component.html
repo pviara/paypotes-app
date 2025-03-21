@@ -1,16 +1,18 @@
-<div>
-    @if (persons(); as persons) {
-        <ul>
-            @for (person of persons; track $index) {
-                <person
-                    [person]="person"
-                    [last]="isLastFrom(persons, $index)"
-                    (personSelected)="onPersonSelected($event)"
-                />
-            }
-        </ul>
-    }
-    @else {
-        <span class="loader"></span>
-    }
+<div class="container">
+    <div class="content">
+        @if (persons(); as persons) {
+            <ul>
+                @for (person of persons; track $index) {
+                    <person
+                        [person]="person"
+                        [last]="isLastFrom(persons, $index)"
+                        (personSelected)="onPersonSelected($event)"
+                    />
+                }
+            </ul>
+        }
+        @else {
+            <span class="loader"></span>
+        }
+    </div>
 </div>

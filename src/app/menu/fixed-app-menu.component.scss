@@ -1,13 +1,8 @@
 menu {
-    position: absolute;
-    bottom: 3%;
-    left: 0;
-    right: 0;
-
-    max-width: 80%;
+    height: 10vh;
 
     margin: 0;
-    padding: 5%;
+    padding: 0;
     margin-inline: auto;
 
     display: flex;
@@ -16,7 +11,7 @@ menu {
     gap: 7vw;
 
     background-color: #121212;
-    border-radius: 1rem;
+    border-top: 2px solid #2c2c2c;
 
     box-shadow: 0 0 10px #121212;
 

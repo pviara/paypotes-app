@@ -1,11 +1,12 @@
 main {
-    height: 100vh;
+    height: 90vh;
 
     overflow-y: hidden;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 2vh;
 
     div {
         display: flex;

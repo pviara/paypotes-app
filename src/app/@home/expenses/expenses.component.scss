@@ -47,5 +47,11 @@ section {
         &::-webkit-scrollbar {
             display: none;
         }
+
+        @media (max-height: 835px) {
+            list-element:last-child {
+                margin-bottom: 5vh;
+            }
+        }
     }
 }

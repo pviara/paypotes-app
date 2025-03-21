@@ -3,29 +3,48 @@ import {
     Router,
     RoutesRecognized,
 } from '@angular/router';
-import { BehaviorSubject, filter, map, merge, tap } from 'rxjs';
+import { BehaviorSubject, filter, map, tap } from 'rxjs';
 import { inject, Injectable } from '@angular/core';
 
 @Injectable()
 export class MenuService {
     private router = inject(Router);
 
-    private menuFloatSubject = new BehaviorSubject(
-        this.mustMenuFloatIn(this.router.routerState.snapshot.root),
-    );
+    constructor() {
+        this.initMenuFloatBehavior();
+    }
 
     $mustDisplayMenu = this.router.events.pipe(
         filter((event) => event instanceof RoutesRecognized),
         map((event) => this.mustDisplayMenuIn(event.state.root)),
     );
 
-    $mustMenuFloat = merge(
-        this.menuFloatSubject,
-        this.router.events.pipe(
-            filter((event) => event instanceof RoutesRecognized),
-            map((event) => this.mustMenuFloatIn(event.state.root)),
-        ),
-    );
+    $mustMenuFloat = new BehaviorSubject(false);
+
+    private initMenuFloatBehavior(): void {
+        this.router.events
+            .pipe(
+                filter((event) => event instanceof RoutesRecognized),
+                map((event) => event.state.root),
+                tap((route) => {
+                    this.$mustMenuFloat.next(this.mustMenuFloatIn(route));
+                }),
+                tap(() => console.log(this.$mustMenuFloat.getValue())),
+            )
+            .subscribe();
+    }
+
+    private mustMenuFloatIn(route: ActivatedRouteSnapshot): boolean {
+        const { data } = route;
+        const fixMenu = data['fixMenu'];
+
+        if (fixMenu) {
+            const mustMenuFloat = !fixMenu;
+            return mustMenuFloat;
+        }
+
+        return route.firstChild ? this.mustMenuFloatIn(route.firstChild) : true;
+    }
 
     private mustDisplayMenuIn(route: ActivatedRouteSnapshot): boolean {
         const { data } = route;
@@ -39,17 +58,5 @@ export class MenuService {
         return route.firstChild
             ? this.mustDisplayMenuIn(route.firstChild)
             : true;
-    }
-
-    private mustMenuFloatIn(route: ActivatedRouteSnapshot): boolean {
-        const { data } = route;
-        const fixMenu = data['fixMenu'];
-
-        if (fixMenu) {
-            const mustMenuFloat = !fixMenu;
-            return mustMenuFloat;
-        }
-
-        return route.firstChild ? this.mustMenuFloatIn(route.firstChild) : true;
     }
 }

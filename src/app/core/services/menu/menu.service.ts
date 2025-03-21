@@ -29,7 +29,6 @@ export class MenuService {
                 tap((route) => {
                     this.$mustMenuFloat.next(this.mustMenuFloatIn(route));
                 }),
-                tap(() => console.log(this.$mustMenuFloat.getValue())),
             )
             .subscribe();
     }

@@ -10,7 +10,7 @@ export type MenuItem = {
 @Component({
     selector: 'app-menu',
     templateUrl: './app-menu.component.html',
-    styleUrls: ['./fixed-app-menu.component.scss'],
+    styleUrls: ['./app-menu.component.scss'],
 })
 export class AppMenuComponent {
     menuService = inject(MenuService);

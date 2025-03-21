@@ -3,21 +3,28 @@ import {
     Router,
     RoutesRecognized,
 } from '@angular/router';
-import { filter, map } from 'rxjs';
+import { BehaviorSubject, filter, map, merge, tap } from 'rxjs';
 import { inject, Injectable } from '@angular/core';
 
 @Injectable()
 export class MenuService {
     private router = inject(Router);
 
+    private menuFloatSubject = new BehaviorSubject(
+        this.mustMenuFloatIn(this.router.routerState.snapshot.root),
+    );
+
     $mustDisplayMenu = this.router.events.pipe(
         filter((event) => event instanceof RoutesRecognized),
         map((event) => this.mustDisplayMenuIn(event.state.root)),
     );
 
-    $mustMenuFloat = this.router.events.pipe(
-        filter((event) => event instanceof RoutesRecognized),
-        map((event) => this.mustMenuFloatIn(event.state.root)),
+    $mustMenuFloat = merge(
+        this.menuFloatSubject,
+        this.router.events.pipe(
+            filter((event) => event instanceof RoutesRecognized),
+            map((event) => this.mustMenuFloatIn(event.state.root)),
+        ),
     );
 
     private mustDisplayMenuIn(route: ActivatedRouteSnapshot): boolean {

@@ -1,0 +1,26 @@
+menu {
+    position: absolute;
+    bottom: 3%;
+    left: 0;
+    right: 0;
+
+    max-width: 80%;
+
+    margin: 0;
+    padding: 5%;
+    margin-inline: auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7vw;
+
+    background-color: #121212;
+    border-radius: 1rem;
+
+    box-shadow: 0 0 10px #121212;
+
+    color: #fff;
+
+    animation: slighSlideInFromBottom 1s ease-out;
+}

@@ -14,6 +14,7 @@ export const routes: Routes = [
     {
         path: 'home',
         component: HomeView,
+        data: { fixMenu: true },
     },
     {
         path: 'contacts',

@@ -1,5 +1,5 @@
 import { Component, inject, input } from '@angular/core';
-import { MenuItem } from '../app-menu.component';
+import { MenuItem } from 'src/app/menu/app-menu.component';
 import { Router } from '@angular/router';
 
 @Component({

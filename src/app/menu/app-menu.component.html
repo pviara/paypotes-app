@@ -1,5 +1,5 @@
 @if (menuService.$mustDisplayMenu | async) {
-    <menu>
+    <menu [class.float]="menuService.$mustMenuFloat | async">
         @for (item of menuItems; track $index) {
             <app-menu-item [item]="item"/>
         }

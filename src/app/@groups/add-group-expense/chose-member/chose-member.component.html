@@ -5,7 +5,7 @@
         [title]="'Qui a payé ?'"
     />
     <selector-form
-        [persons]="($members | async) || []"
+        [persons]="($members | async)"
         (personSelected)="onPersonSelected($event)"
     />
 </div>

@@ -1,24 +1,30 @@
-div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.container {
+    height: 90%;
 
-    ul {
-        width: 100vw;
+    .content {
+        height: 100%;
 
         display: flex;
         flex-direction: column;
-        gap: 2vh;
+        justify-content: center;
+        align-items: center;
 
-        overflow-y: scroll;
+        ul {
+            width: 100vw;
 
-        scroll-snap-type: y mandatory;
+            display: flex;
+            flex-direction: column;
+            gap: 2vh;
 
-        animation: slighSlideInFromBottom 0.5s ease-in-out;
+            overflow-y: scroll;
 
-        &::-webkit-scrollbar {
-            display: none;
+            scroll-snap-type: y mandatory;
+
+            animation: slighSlideInFromBottom 0.5s ease-in-out;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
         }
     }
 }

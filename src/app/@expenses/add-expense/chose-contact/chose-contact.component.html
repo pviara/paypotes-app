@@ -5,7 +5,7 @@
         [title]="'Choisir le contact'"
     />
     <selector-form
-        [persons]="($contacts | async) || []"
+        [persons]="($contacts | async)"
         (personSelected)="onPersonSelected($event)"
     />
 </div>

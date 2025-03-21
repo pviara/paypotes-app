@@ -8,7 +8,7 @@ import { User } from '@core/model/user/user';
     styleUrls: ['./selector-form.component.scss'],
 })
 export class SelectorFormComponent {
-    persons = input.required<Contact[] | User[]>();
+    persons = input<Contact[] | User[] | null>(null);
 
     @Output()
     personSelected = new EventEmitter<Contact | User>();

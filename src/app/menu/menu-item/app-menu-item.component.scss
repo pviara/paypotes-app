@@ -1,4 +1,6 @@
 div {
+    margin-bottom: 2vh;
+
     width: fit-content;
 
     display: flex;
@@ -10,6 +12,8 @@ div {
     font-family: 'regular';
     font-size: 0.68rem;
     color: #ffffff49;
+
+    transition: margin-bottom 0.5s ease;
 
     img {
         height: 2.1em;
@@ -23,6 +27,10 @@ div {
             opacity: 1;
             animation: smooth-rotate 0.7s;
         }
+    }
+
+    &.float {
+        margin-bottom: 0;
     }
 }
 

@@ -1,7 +1,10 @@
 @if (menuService.$mustDisplayMenu | async) {
     <menu [class.float]="menuService.$mustMenuFloat | async">
         @for (item of menuItems; track $index) {
-            <app-menu-item [item]="item"/>
+            <app-menu-item
+                [item]="item"
+                [isFloating]="menuService.$mustMenuFloat | async"
+            />
         }
     </menu>
 }

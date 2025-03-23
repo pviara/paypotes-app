@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class AppMenuItemComponent {
     private router = inject(Router);
 
+    isFloating = input<boolean | null>(null);
+
     item = input.required<MenuItem>();
 
     isCurrentRouteSelected(): boolean {

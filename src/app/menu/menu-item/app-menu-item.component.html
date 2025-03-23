@@ -1,5 +1,6 @@
 <div
     [class.selected]="isCurrentRouteSelected()"
+    [class.float]="isFloating()"
     [routerLink]="item().link">
     <img [src]="'assets/icons/' + item().icon" />
     {{ item().label }}

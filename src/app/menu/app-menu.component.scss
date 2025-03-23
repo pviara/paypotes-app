@@ -1,7 +1,7 @@
 menu {
     position: absolute;
 
-    height: 10vh;
+    height: 12vh;
     width: 100%;
 
     left: 0;
@@ -25,6 +25,7 @@ menu {
     color: #fff;
 
     transition:
+        height 0.5s ease,
         width 0.5s ease,
         left 0.5s ease,
         right 0.5s ease,
@@ -34,10 +35,11 @@ menu {
 
     &.float {
         position: absolute;
-        bottom: 3%;
+        bottom: 5%;
         left: 0;
         right: 0;
 
+        height: 10vh;
         width: 90%;
 
         border-radius: 1rem;

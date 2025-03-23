@@ -1,5 +1,5 @@
 main {
-    height: 90vh;
+    height: 88vh;
 
     overflow-y: hidden;
 
@@ -13,35 +13,5 @@ main {
         flex-direction: column;
         justify-content: flex-end;
         gap: 3vh;
-
-        p {
-            margin-top: 8%;
-            margin-left: 5%;
-            margin-right: 5%;
-
-            padding: 3%;
-
-            border-radius: 1rem;
-            border: 2px solid #4a4a4a;
-
-            background: repeating-linear-gradient(
-                45deg,
-                #393939,
-                #393939 10px,
-                #222222 10px,
-                #222222 20px
-            );
-
-            color: #fff;
-            text-align: center;
-
-            animation: slighSlideInFromTop 1.3s ease-in-out;
-
-            user-select: none;
-
-            @media (max-width: 376px) {
-                display: none;
-            }
-        }
     }
 }

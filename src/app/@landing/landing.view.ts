@@ -2,6 +2,7 @@ import { AfterViewInit, Component, PLATFORM_ID, inject } from '@angular/core';
 import { Gradient } from 'whatamesh';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { version } from '../../../package.json';
 
 @Component({
     selector: 'landing',
@@ -12,6 +13,8 @@ import { RouterModule } from '@angular/router';
 })
 export class LandingView implements AfterViewInit {
     private platformId = inject(PLATFORM_ID);
+
+    readonly version = version;
 
     ngAfterViewInit(): void {
         if (isPlatformBrowser(this.platformId)) {

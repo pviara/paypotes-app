@@ -7,6 +7,7 @@ import {
     input,
     Output,
 } from '@angular/core';
+import { ConfettiService } from '@core/services/confetti/confetti.service';
 import { Contact } from '@core/model/contact/contact';
 import { Form } from '@core/model/form/form';
 import { FormContext } from '@core/model/form/form-context';
@@ -39,6 +40,7 @@ export type AddExpenseFormValue =
 })
 export class SummaryFormComponent {
     private authService = inject(AuthServiceToken);
+    private confettiService = inject(ConfettiService);
     private formService = inject(FormService);
     private form = this.injectCurrentForm();
     private groupService = inject(GroupServiceToken);
@@ -52,6 +54,8 @@ export class SummaryFormComponent {
     buttonClicked = new EventEmitter<AddExpenseFormValue>();
 
     onButtonClicked(): void {
+        this.confettiService.pan();
+
         this.changeLoadingStatus();
         const formValue = this.form.raw();
 

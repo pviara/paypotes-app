@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output, input } from '@angular/core';
+import { Component, EventEmitter, Output, inject, input } from '@angular/core';
+import { ConfettiService } from '@core/services/confetti/confetti.service';
 
 @Component({
     selector: 'expense-action',
@@ -6,6 +7,8 @@ import { Component, EventEmitter, Output, input } from '@angular/core';
     styleUrls: ['./action.component.scss'],
 })
 export class ActionComponent {
+    private confettiService = inject(ConfettiService);
+
     clicked = false;
 
     isDebt = input.required<boolean>();
@@ -15,6 +18,7 @@ export class ActionComponent {
 
     onClick(): void {
         this.clicked = true;
+        this.confettiService.pan();
         this.payback.emit();
     }
 }

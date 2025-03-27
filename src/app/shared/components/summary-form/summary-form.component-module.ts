@@ -3,6 +3,7 @@ import { DescriptiveImagesComponent } from '@shared/components/summary-form/desc
 import { NgModule } from '@angular/core';
 import { PayerInfoComponent } from '@shared/components/summary-form/payer-info/payer-info.component';
 import { SummaryFormComponent } from '@shared/components/summary-form/summary-form.component';
+import { SharedModule } from '@shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -11,6 +12,6 @@ import { SummaryFormComponent } from '@shared/components/summary-form/summary-fo
         SummaryFormComponent,
     ],
     exports: [SummaryFormComponent],
-    imports: [ButtonComponent],
+    imports: [ButtonComponent, SharedModule],
 })
 export class SummaryFormComponentModule {}

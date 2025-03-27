@@ -1,4 +1,4 @@
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Notification } from '@core/model/notification/notification';
 

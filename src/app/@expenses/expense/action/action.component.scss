@@ -9,6 +9,10 @@ button {
     background: #6717cd;
     background: linear-gradient(180deg, #6717cd 0%, #2871fa 100%);
 
+    // box-shadow: 0px 0px 20px #603cff72;
+
+    animation: glowing 5s infinite;
+
     font-family: 'regular';
     font-size: 1rem;
     color: #fff;
@@ -16,5 +20,17 @@ button {
     &.disabled {
         background: #6f6f6f;
         background: linear-gradient(180deg, #484848 0%, #6f6f6f 100%);
+    }
+}
+
+@keyframes glowing {
+    0% {
+        box-shadow: 0 0 0px #603cff98;
+    }
+    50% {
+        box-shadow: 0 0 30px #603cff98;
+    }
+    100% {
+        box-shadow: 0 0 0px #603cff98;
     }
 }

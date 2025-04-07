@@ -1,8 +1,8 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
-import { NotificationService } from '@core/services/notification/notification.service';
 import { map, shareReplay, switchMap, tap } from 'rxjs';
+import { NotificationService } from '@core/services/notification/notification.service';
 
 @Component({
     selector: 'expense',

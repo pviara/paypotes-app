@@ -41,7 +41,7 @@ export class ExpenseComponent {
         return () =>
             this.notificationService.notify({
                 type: 'success',
-                message: 'Dépense remboursée',
+                message: 'Dépense remboursée !',
             });
     }
 

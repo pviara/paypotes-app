@@ -7,7 +7,7 @@ export class HttpClientServiceSpy
     implements HttpClientService
 {
     get<T>(url: string): Observable<T> {
-        this.increment('get', url);
+        this.saveCall('get', url);
         return this.getStubOrDefault('get', of({})) as Observable<T>;
     }
 
@@ -16,7 +16,7 @@ export class HttpClientServiceSpy
     }
 
     post(url: string): Observable<void> {
-        this.calls.post.count++;
+        this.saveCall('post', url);
         return of();
     }
 }

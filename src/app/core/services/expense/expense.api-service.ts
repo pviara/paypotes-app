@@ -56,7 +56,7 @@ export class ExpenseAPIService implements ExpenseService {
 
         return this.httpClientService
             .get<Expenses>(`${this.endpoint}${query}`)
-            .pipe(map(this.getRandomExpenses(filters?.type)));
+            .pipe(map(this.getNoExpenses()));
     }
 
     getGroupExpenses(
@@ -79,6 +79,10 @@ export class ExpenseAPIService implements ExpenseService {
         return this.httpClientService.patch(
             `${this.endpoint}/payback?expenseId=${id}`,
         );
+    }
+
+    private getNoExpenses(): () => Expenses {
+        return () => [];
     }
 
     private getRandomExpenses(type: Filters['type']): () => Expenses {

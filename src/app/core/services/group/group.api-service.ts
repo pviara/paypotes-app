@@ -41,7 +41,7 @@ export class GroupAPIService implements GroupService {
 
         return this.httpClientService
             .get<Groups>(`${this.endpoint}${query}`)
-            .pipe(map(this.getDeterministicGroups()));
+            .pipe(map(this.getNoGroups()));
     }
 
     getLastFetchedGroup(): Group | null {
@@ -67,6 +67,10 @@ export class GroupAPIService implements GroupService {
                     }),
                 ]),
             );
+    }
+
+    private getNoGroups(): () => Groups {
+        return () => [];
     }
 
     private getDeterministicGroups(): () => Groups {

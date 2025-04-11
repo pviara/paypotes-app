@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 @Component({
     selector: 'list-element',
     templateUrl: './list-element.component.html',
-    styleUrls: ['../list-element.styles.scss', './list-element.component.scss'],
+    styleUrls: ['./list-element.component.scss'],
 })
 export class ListElementComponent implements AfterViewInit {
     private document = inject(DOCUMENT);

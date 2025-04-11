@@ -25,6 +25,8 @@ export class ExpensesComponent implements OnInit {
 
     $expenses = new BehaviorSubject<ListElements>([]);
 
+    $noExpense = new BehaviorSubject<boolean>(true);
+
     ngOnInit(): void {
         this.$expenses.next(this.skeletons);
         this.expenseService

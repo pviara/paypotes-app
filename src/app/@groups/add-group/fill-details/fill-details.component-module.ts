@@ -6,10 +6,6 @@ import { DetailsFormComponentModule } from '@shared/components/details-form/deta
 
 @NgModule({
     declarations: [FillDetailsComponent],
-    imports: [
-        ButtonComponent,
-        DetailsFormComponentModule,
-        HeadbarComponent,
-    ],
+    imports: [ButtonComponent, DetailsFormComponentModule, HeadbarComponent],
 })
 export class FillDetailsComponentModule {}

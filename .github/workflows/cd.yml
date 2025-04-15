@@ -32,5 +32,4 @@ jobs:
                       git reset --hard origin/main
                       yarn install
                       yarn build --configuration production
-                      pm2 delete paypot-app
-                      pm2 start dist/paypot-app/server/server.mjs --namespace paypot --name paypot-app
+                      bash ~/dev/repos/paypot/paypot-app/.github/workflows/scripts/reload-cluster.sh

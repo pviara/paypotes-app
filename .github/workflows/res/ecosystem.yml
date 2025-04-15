@@ -1,0 +1,5 @@
+apps:
+    - name: 'paypot-app'
+      script: 'dist/paypot-app/server/server.mjs'
+      instances: 'max'
+      namespace: 'paypot'

@@ -25,6 +25,8 @@ export class GroupsComponent {
 
     $groups = new BehaviorSubject<Array<Group | null>>([]);
 
+    $noExpense = new BehaviorSubject<boolean>(true);
+
     ngOnInit(): void {
         this.$groups.next(this.skeletons);
         this.groupService

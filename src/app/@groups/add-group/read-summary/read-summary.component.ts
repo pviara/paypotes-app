@@ -1,5 +1,6 @@
 import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { Component, inject } from '@angular/core';
+import { ConfettiService } from '@core/services/confetti/confetti.service';
 import { Contact } from '@core/model/contact/contact';
 import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
@@ -25,6 +26,7 @@ import {
 })
 export class ReadSummaryComponent {
     private authService = inject(AuthServiceToken);
+    private confettiService = inject(ConfettiService);
     private groupService = inject(GroupServiceToken);
     private notificationService = inject(NotificationService);
     private router = inject(Router);
@@ -33,6 +35,8 @@ export class ReadSummaryComponent {
     loading = false;
 
     addGroup(): void {
+        this.confettiService.pan();
+
         this.changeLoadingStatus();
         const payload = this.form.raw();
         this.groupService

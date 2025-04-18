@@ -1,7 +1,7 @@
 <button
     type="button"
     [disabled]="disabled()"
-    [ngClass]="{ 'disabled': disabled() }"
+    [ngClass]="{ disabled: disabled(), glowing: glowing() }"
     (click)="onClicked()">
     {{ text() }}
 </button>

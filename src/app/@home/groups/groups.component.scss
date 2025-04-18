@@ -12,6 +12,10 @@ ul {
 
     animation: slighSlideInFromTop 1s ease-in-out;
 
+    &.no-group {
+        overflow-x: visible;
+    }
+
     &::-webkit-scrollbar {
         display: none;
     }

@@ -3,7 +3,7 @@ import { Spy } from '@test/model/spy';
 
 export class QueryServiceSpy extends Spy<QueryService> implements QueryService {
     buildQueryFrom(query: Record<string, any>): string {
-        this.increment('buildQueryFrom', query);
+        this.saveCall('buildQueryFrom', query);
         return this.getStubOrDefault('buildQueryFrom', '');
     }
 }

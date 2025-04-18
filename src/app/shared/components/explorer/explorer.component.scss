@@ -11,4 +11,22 @@ section {
     gap: 3vh;
 
     animation: slighSlideInFromBottom 1.3s ease-in-out;
+
+    div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 3vh;
+
+        img {
+            width: 96px;
+            height: 96px;
+        }
+
+        p {
+            color: #606060;
+            padding: 0;
+        }
+    }
 }

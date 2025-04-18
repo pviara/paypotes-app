@@ -17,6 +17,13 @@ button {
 
     animation: slighSlideInFromBottom 1s ease-in-out;
 
+    &.glowing {
+        animation:
+            slighSlideInFromBottom 1s ease-in-out,
+            glowing 5s infinite;
+        animation-delay: 0s, 1s;
+    }
+
     &.disabled {
         background: #6f6f6f;
         background: linear-gradient(180deg, #484848 0%, #6f6f6f 100%);

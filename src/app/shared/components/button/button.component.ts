@@ -10,6 +10,7 @@ import { Component, EventEmitter, input, Output } from '@angular/core';
 })
 export class ButtonComponent {
     disabled = input<boolean>(false);
+    glowing = input<boolean>(false);
     text = input<string>('Suivant');
 
     @Output()

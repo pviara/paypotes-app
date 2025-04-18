@@ -10,7 +10,6 @@ import { NotificationService } from '@core/services/notification/notification.se
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
-import { User } from '@core/model/user/user';
 
 @Component({
     selector: 'read-summary',

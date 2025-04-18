@@ -81,6 +81,10 @@ export class ExpenseAPIService implements ExpenseService {
         );
     }
 
+    private getNoExpense(): () => Expenses {
+        return () => [];
+    }
+
     private getRandomExpenses(type: Filters['type']): () => Expenses {
         return () =>
             Array.from({ length: 20 })

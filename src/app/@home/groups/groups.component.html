@@ -1,6 +1,11 @@
-<ul [class.noExpense]="$noExpense | async">
-    <group-call-to-action/>
-    <!-- @for (group of $groups | async; track $index) {
-        <group [group]="group"/>
-    } -->
-</ul>
+@if ($noGroup | async) {
+    <ul class="no-group">
+        <group-call-to-action/>
+    </ul>
+} @else {
+    <ul>
+        @for (group of $groups | async; track $index) {
+            <group [group]="group"/>
+        }
+    </ul>
+}

@@ -69,7 +69,7 @@ export class GroupAPIService implements GroupService {
             );
     }
 
-    private getNoGroups(): () => Groups {
+    private getNoGroup(): () => Groups {
         return () => [];
     }
 

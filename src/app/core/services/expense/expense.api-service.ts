@@ -56,7 +56,7 @@ export class ExpenseAPIService implements ExpenseService {
 
         return this.httpClientService
             .get<Expenses>(`${this.endpoint}${query}`)
-            .pipe(map(this.getNoExpense()));
+            .pipe(map(this.getRandomExpenses(filters?.type)));
     }
 
     getGroupExpenses(

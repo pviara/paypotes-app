@@ -1,4 +1,4 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, concat, map, of } from 'rxjs';
 import { Component, EventEmitter, OnInit, Output, input } from '@angular/core';
 import { Filters } from '@core/model/filters/filters';
 import { ListElements } from '@core/model/list-element/list-element';
@@ -17,6 +17,10 @@ export class ExplorerComponent implements OnInit {
 
     $elements = input.required<BehaviorSubject<ListElements>>();
     $displayedElements = new BehaviorSubject<ListElements>([]);
+    $noElement = concat(
+        of(false),
+        this.$displayedElements.pipe(map(this.areNoElement())),
+    );
 
     filtering = false;
 
@@ -47,6 +51,10 @@ export class ExplorerComponent implements OnInit {
         this.saveFilters(filters);
         this.prepareList();
         this.requestElements();
+    }
+
+    private areNoElement(): (elements: ListElements) => boolean {
+        return (elements) => elements.length === 0;
     }
 
     private resetNextPageIndex(): void {

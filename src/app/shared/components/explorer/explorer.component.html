@@ -1,10 +1,20 @@
 <section>
-    <filters
-        [filtering]="filtering"
-        (updatedFilters)="onUpdatedFilters($event)"
-    />
-    <list
-        [$elements]="$displayedElements"
-        (elementHovered)="onElementHovered($event)"
-    />
+    @if ($noElement |async) {
+        <div>
+            <img src="assets/icons/no-content.png"/>
+            <p>
+                <span class="bold">Oups !</span>
+                C'est bien vide ici.
+            </p>
+        </div>
+    } @else {
+        <filters
+            [filtering]="filtering"
+            (updatedFilters)="onUpdatedFilters($event)"
+        />
+        <list
+            [$elements]="$displayedElements"
+            (elementHovered)="onElementHovered($event)"
+        />
+    }
 </section>

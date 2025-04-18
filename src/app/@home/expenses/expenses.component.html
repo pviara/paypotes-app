@@ -3,10 +3,15 @@
         <h3 class="bold">Dépenses</h3>
         <a routerLink="/expenses">Tout voir</a>
     </header>
-    <ul [class.noExpense]="$noExpense | async">
-        <!-- @for (expense of $expenses | async; track $index) {
-            <list-element [element]="expense"/>
-        } -->
-        <list-call-to-action/>
-    </ul>
+    @if ($noExpense | async) {
+        <ul class="no-expense">
+            <list-call-to-action/>
+        </ul>
+    } @else {
+        <ul>
+            @for (expense of $expenses | async; track $index) {
+                <list-element [element]="expense"/>
+            }
+        </ul>
+    }
 </section>

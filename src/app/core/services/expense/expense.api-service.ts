@@ -56,7 +56,7 @@ export class ExpenseAPIService implements ExpenseService {
 
         return this.httpClientService
             .get<Expenses>(`${this.endpoint}${query}`)
-            .pipe(map(this.getNoExpenses()));
+            .pipe(map(this.getNoExpense()));
     }
 
     getGroupExpenses(
@@ -81,7 +81,7 @@ export class ExpenseAPIService implements ExpenseService {
         );
     }
 
-    private getNoExpenses(): () => Expenses {
+    private getNoExpense(): () => Expenses {
         return () => [];
     }
 

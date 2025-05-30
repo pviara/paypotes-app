@@ -1,5 +1,5 @@
 import { AddExpenseViewModule } from '@expenses/add-expense/add-expense.view-module';
-import { ExpenseComponent } from '@expenses/expense/expense.component';
+import { PairExpenseComponent } from '@expenses/pair-expense/pair-expense.component';
 import { ExpensesComponent } from '@expenses/expenses/expenses.component';
 import { ExpensesView } from '@expenses/expenses.view';
 import { Routes } from '@angular/router';
@@ -20,8 +20,8 @@ export const expensesRoutes: Routes = [
                 data: { hideMenu: true },
             },
             {
-                path: ':expenseId',
-                component: ExpenseComponent,
+                path: 'pair/:expenseId',
+                component: PairExpenseComponent,
                 title: 'Dépense',
             },
         ],

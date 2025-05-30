@@ -47,9 +47,7 @@ export class ListElementComponent implements AfterViewInit {
 
     redirectToDetail(): void {
         const element = this.element();
-        if (!element) {
-            return;
-        }
+        if (!element) return;
 
         const type = {
             isContact: element instanceof Contact,
@@ -60,7 +58,7 @@ export class ListElementComponent implements AfterViewInit {
         if (type.isContact) {
             this.router.navigate([`/contacts/${element.getId()}`]);
         } else if (type.isExpense) {
-            this.router.navigate([`/expenses/${element.getId()}`]);
+            this.router.navigate([`/expenses/pair/${element.getId()}`]);
         } else if (type.isGroup) {
             this.router.navigate([`/groups/${element.getId()}`]);
         }

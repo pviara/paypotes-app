@@ -5,11 +5,11 @@ import { map, shareReplay, switchMap, tap } from 'rxjs';
 import { NotificationService } from '@core/services/notification/notification.service';
 
 @Component({
-    selector: 'expense',
-    templateUrl: './expense.component.html',
-    styleUrls: ['./expense.component.scss'],
+    selector: 'pair-expense',
+    templateUrl: './pair-expense.component.html',
+    styleUrls: ['./pair-expense.component.scss'],
 })
-export class ExpenseComponent {
+export class PairExpenseComponent {
     private expenseService = inject(ExpenseServiceToken);
     private notificationService = inject(NotificationService);
     private route = inject(ActivatedRoute);

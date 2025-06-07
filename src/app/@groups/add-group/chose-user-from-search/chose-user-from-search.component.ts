@@ -2,7 +2,7 @@ import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { Component, inject } from '@angular/core';
 import { Contact, Contacts } from '@core/model/contact/contact';
 import { Router } from '@angular/router';
-import { User, Users } from '@core/model/user/user';
+import { MembersV2, MemberV2 } from '@core/model/group/v2/member';
 
 @Component({
     selector: 'chose-user-from-search',
@@ -18,13 +18,13 @@ export class ChoseUserFromSearchComponent {
 
     users = this.form
         .getFieldFrom(this.temporaryUsersLabel)
-        .getValue<Contacts | Users>();
+        .getValue<Contacts | MembersV2>();
 
-    onPersonSelected(person: Contact | User): void {
+    onPersonSelected(person: Contact | MemberV2): void {
         const members = this.form
             .getFieldFrom(this.label)
-            .getValue() as Array<User>;
-        members.push(person as User);
+            .getValue() as MembersV2;
+        members.push(person as MemberV2);
 
         this.router.navigate(['groups', 'add', 'members']);
     }

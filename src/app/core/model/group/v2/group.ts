@@ -1,4 +1,4 @@
-import { MembersV2, MemberV2 } from '@core/model/group/v2/member';
+import { MembersV2 } from '@core/model/group/v2/member';
 
 export type GroupMetadata = {
     id: string;
@@ -24,6 +24,10 @@ export class GroupV2 {
 
     getId(): string {
         return this.data.metadata.id;
+    }
+
+    getMembers(): MembersV2 {
+        return this.data.members;
     }
 
     getName(): string {

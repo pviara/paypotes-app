@@ -1,17 +1,10 @@
-import { Filters } from '@core/model/filters/filters';
-import { generateRandomString } from '@shared/utils/generate-random-string';
-import { Group, Groups } from '@core/model/group/group';
 import { AddGroupDTO, GroupService } from '@core/services/group/group.service';
-import { HttpClientService } from '@core/services/http-client/http-client.service';
-import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
-import { QueryService } from '@core/services/query/query.service';
-import { User, Users } from '@core/model/user/user';
-import { getRandomEmoji } from '@shared/utils/get-random-emoji';
+import { BehaviorSubject, Observable, map, tap } from 'rxjs';
+import { Filters } from '@core/model/filters/filters';
+import { generateRandomSmallNumber } from '@shared/utils/generate-random-number';
+import { generateRandomString } from '@shared/utils/generate-random-string';
 import { GroupMetadata, GroupsV2, GroupV2 } from '@core/model/group/v2/group';
 import { GroupDTO, GroupDTOs } from '@core/model/group/v2/group.dto';
-import { MembersV2, MemberV2 } from '@core/model/group/v2/member';
-import { MemberDTO, MemberDTOs } from '@core/model/group/v2/member.dto';
-import { generateRandomSmallNumber } from '@shared/utils/generate-random-number';
 import {
     GroupWithBalanceDTO,
     GroupWithBalanceDTOs,
@@ -20,6 +13,11 @@ import {
     GroupsWithBalanceV2,
     GroupWithBalanceV2,
 } from '@core/model/group/v2/group-with-balance';
+import { HttpClientService } from '@core/services/http-client/http-client.service';
+import { MemberDTO, MemberDTOs } from '@core/model/group/v2/member.dto';
+import { MembersV2, MemberV2 } from '@core/model/group/v2/member';
+import { QueryService } from '@core/services/query/query.service';
+import { User, Users } from '@core/model/user/user';
 
 export class GroupAPIService implements GroupService {
     private readonly endpoint = '/api/group';
@@ -87,10 +85,6 @@ export class GroupAPIService implements GroupService {
             );
     }
 
-    private getNoGroup(): () => Groups {
-        return () => [];
-    }
-
     private getDeterministicGroupWithBalanceDTOs(): GroupWithBalanceDTOs {
         return [
             {
@@ -154,44 +148,56 @@ export class GroupAPIService implements GroupService {
     }
 
     private getRandomMemberDTOs(): MemberDTOs {
-        return Array.from({ length: generateRandomSmallNumber() }, () => ({
-            id: generateRandomString(),
-            firstname: 'Firstname',
-            lastname: 'Lastname',
-        }));
+        return Array.from({ length: generateRandomSmallNumber() }, () => {
+            const { firstname, lastname } = this.generateRandomName();
+            return {
+                id: generateRandomString(),
+                firstname,
+                lastname,
+                avatarUrl: this.getRandomAvatarUrl(),
+            };
+        });
     }
 
-    private getDeterministicGroups(): () => Groups {
-        return () => [
-            new Group({
-                id: generateRandomString(),
-                name: 'BBQ',
-                emoji: '🌭',
-                members: Array.from({ length: 4 }),
-                balance: 9845,
-            }),
-            new Group({
-                id: generateRandomString(),
-                name: 'Fiesta',
-                emoji: '🍾',
-                members: Array.from({ length: 18 }),
-                balance: -1347,
-            }),
-            new Group({
-                id: generateRandomString(),
-                name: 'Birthday',
-                emoji: '🎈',
-                members: Array.from({ length: 9 }),
-                balance: 3183,
-            }),
-            new Group({
-                id: generateRandomString(),
-                name: 'Bretagne',
-                emoji: '🌊',
-                members: Array.from({ length: 6 }),
-                balance: -6980,
-            }),
+    private getRandomAvatarUrl(): string {
+        const avatars = [
+            'ahmed.png',
+            'claire.png',
+            'claire.png',
+            'estelle.png',
+            'valentin.png',
         ];
+        return avatars[Math.floor(Math.random() * avatars.length)];
+    }
+
+    private generateRandomName(): { firstname: string; lastname: string } {
+        const firstnames = [
+            'Alice',
+            'Bob',
+            'Charlie',
+            'David',
+            'Emma',
+            'Fiona',
+            'George',
+            'Hannah',
+        ];
+        const lastnames = [
+            'Smith',
+            'Johnson',
+            'Williams',
+            'Brown',
+            'Jones',
+            'Garcia',
+            'Miller',
+            'Davis',
+        ];
+
+        const firstname =
+            firstnames[Math.floor(Math.random() * firstnames.length)];
+        const lastname =
+            lastnames[Math.floor(Math.random() * lastnames.length)];
+
+        return { firstname, lastname };
     }
 
     private mapGroupsV2From(groups: GroupDTOs): GroupsV2 {
@@ -235,6 +241,7 @@ export class GroupAPIService implements GroupService {
             id: member.id,
             firstname: member.firstname,
             lastname: member.lastname,
+            avatarUrl: member.avatarUrl,
         });
     }
 }

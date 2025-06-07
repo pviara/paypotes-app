@@ -1,14 +1,23 @@
 export class MemberV2 {
     constructor(
         private data: {
-            id: string,
-            firstname: string,
-            lastname: string,
-        }
+            id: string;
+            firstname: string;
+            lastname: string;
+            avatarUrl: string;
+        },
     ) {}
+
+    getAvatarURL(): string {
+        return this.data.avatarUrl;
+    }
 
     getFirstname(): string {
         return this.data.firstname;
+    }
+
+    getFullName(): string {
+        return `${this.data.firstname} ${this.data.lastname}`;
     }
 
     getId(): string {

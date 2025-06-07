@@ -1,5 +1,4 @@
 import { Component, input } from '@angular/core';
-import { Group } from '@core/model/group/group';
 import { GroupV2 } from '@core/model/group/v2/group';
 
 @Component({

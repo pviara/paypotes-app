@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
+import { GroupV2 } from '@core/model/group/v2/group';
 import { Router } from '@angular/router';
-import { Group } from '@core/model/group/group';
 
 @Component({
     selector: 'group-call-to-action',
@@ -10,7 +10,7 @@ import { Group } from '@core/model/group/group';
 export class GroupCallToActionComponent {
     private router = inject(Router);
 
-    group = input<Group | null>();
+    group = input<GroupV2 | null>();
 
     getGroupRoute(): string {
         return `/groups/${this.group()?.getId()}`;

@@ -1,13 +1,12 @@
 import { BehaviorSubject, concat, map, of, tap } from 'rxjs';
 import { Component, inject } from '@angular/core';
-import { Group } from '@core/model/group/group';
 import {
     GroupServiceProvider,
     GroupServiceToken,
 } from '@core/services/group/group.service.provider';
+import { GroupsV2 } from '@core/model/group/v2/group';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
-import { GroupsV2 } from '@core/model/group/v2/group';
 
 const MAX_GROUPS = 6;
 

@@ -1,4 +1,4 @@
-import { Contact } from '@core/model/contact/contact';
+import { ContactWithBalanceV2 } from '@core/model/contact/v2/contact-with-balance';
 import { ListElement } from '@core/model/list-element/list-element';
 import { Pipe, PipeTransform } from '@angular/core';
 
@@ -6,7 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'contact',
 })
 export class ContactPipe implements PipeTransform {
-    transform(value: ListElement): Contact | null {
-        return value instanceof Contact ? (value as Contact) : null;
+    transform(value: ListElement): ContactWithBalanceV2 | null {
+        return value instanceof ContactWithBalanceV2
+            ? (value as ContactWithBalanceV2)
+            : null;
     }
 }

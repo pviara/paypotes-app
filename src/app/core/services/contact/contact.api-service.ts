@@ -5,6 +5,12 @@ import { generateRandomString } from '@shared/utils/generate-random-string';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
+import { ContactMetadata } from '@core/model/contact/v2/contact';
+import {
+    ContactWithBalanceDTO,
+    ContactWithBalanceDTOs,
+} from '@core/model/contact/v2/contact-with-balance.dto';
+import { ContactWithBalanceV2 } from '@core/model/contact/v2/contact-with-balance';
 
 export class ContactAPIService implements ContactService {
     private readonly endpoint = '/api/contact';
@@ -14,23 +20,97 @@ export class ContactAPIService implements ContactService {
         private queryService: QueryService,
     ) {}
 
-    getContact(id: string): Observable<Contact> {
-        return this.httpClientService
-            .get<Contact>(`${this.endpoint}/${id}`)
-            .pipe(
-                map(
-                    () =>
-                        new Contact({
-                            id,
-                            firstname: 'Claire',
-                            lastname: 'Laroche',
-                            avatarURL: 'claire.png',
-                            balance: Math.ceil(
-                                Math.random() * (9999 - -9999 + 1) + -9999,
-                            ),
-                        }),
-                ),
-            );
+    getContact(id: string): Observable<ContactWithBalanceV2> {
+        return this.httpClientService.get(`${this.endpoint}/${id}`).pipe(
+            map(() => this.getDeterministicContactWithBalanceDTOs()[0]),
+            map((contact) => this.mapContactWithBalanceV2(contact)),
+        );
+    }
+
+    private mapContactWithBalanceV2(
+        contact: ContactWithBalanceDTO,
+    ): ContactWithBalanceV2 {
+        const metadata: ContactMetadata = {
+            id: contact.id,
+            firstname: contact.firstname,
+            lastname: contact.lastname,
+            avatarUrl: contact.avatarUrl,
+        };
+        return new ContactWithBalanceV2(metadata, contact.balance);
+    }
+
+    private getDeterministicContactWithBalanceDTOs(): ContactWithBalanceDTOs {
+        return [
+            {
+                id: generateRandomString(),
+                firstname: this.generateRandomName().firstname,
+                lastname: this.generateRandomName().lastname,
+                avatarUrl: this.getRandomAvatarUrl(),
+                balance: '-12,75',
+            },
+            {
+                id: generateRandomString(),
+                firstname: this.generateRandomName().firstname,
+                lastname: this.generateRandomName().lastname,
+                avatarUrl: this.getRandomAvatarUrl(),
+                balance: '-12,75',
+            },
+            {
+                id: generateRandomString(),
+                firstname: this.generateRandomName().firstname,
+                lastname: this.generateRandomName().lastname,
+                avatarUrl: this.getRandomAvatarUrl(),
+                balance: '-12,75',
+            },
+            {
+                id: generateRandomString(),
+                firstname: this.generateRandomName().firstname,
+                lastname: this.generateRandomName().lastname,
+                avatarUrl: this.getRandomAvatarUrl(),
+                balance: '-12,75',
+            },
+        ];
+    }
+
+    private getRandomAvatarUrl(): string {
+        const avatars = [
+            'ahmed.png',
+            'claire.png',
+            'claire.png',
+            'estelle.png',
+            'valentin.png',
+        ];
+        return avatars[Math.floor(Math.random() * avatars.length)];
+    }
+
+    private generateRandomName(): { firstname: string; lastname: string } {
+        const firstnames = [
+            'Alice',
+            'Bob',
+            'Charlie',
+            'David',
+            'Emma',
+            'Fiona',
+            'George',
+            'Hannah',
+        ];
+        const lastnames = [
+            'Smith',
+            'Johnson',
+            'Williams',
+            'Brown',
+            'Jones',
+            'Garcia',
+            'Miller',
+            'Davis',
+        ];
+
+        const firstname =
+            firstnames[Math.floor(Math.random() * firstnames.length)];
+        const lastname =
+            lastnames[Math.floor(Math.random() * lastnames.length)];
+
+        return { firstname, lastname };
     }
 
     getContacts(pageIndex = 0, filters?: Filters): Observable<Contacts> {

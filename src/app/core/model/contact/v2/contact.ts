@@ -1,6 +1,5 @@
 export type ContactMetadata = {
     id: string;
-    name: string;
     firstname: string;
     lastname: string;
     avatarUrl: string;
@@ -19,6 +18,10 @@ export class ContactV2 {
 
     getFullName(): string {
         return `${this.getFirstname()} ${this.getLastname()}`;
+    }
+
+    getId(): string {
+        return this.data.id;
     }
 
     getLastname(): string {

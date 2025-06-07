@@ -20,9 +20,6 @@ export class GroupsComponent {
     onGroupsRequested({ pageIndex, filters }: FiltersEvent): void {
         this.groupService
             .getGroupsWithBalance(pageIndex, filters)
-            .subscribe((groups) => {
-                console.log(groups);
-                this.$groups.next(groups);
-            });
+            .subscribe((groups) => this.$groups.next(groups));
     }
 }

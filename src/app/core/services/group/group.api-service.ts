@@ -24,7 +24,7 @@ import {
 export class GroupAPIService implements GroupService {
     private readonly endpoint = '/api/group';
 
-    lastFetchedGroup = new BehaviorSubject<Group | null>(null);
+    lastFetchedGroup = new BehaviorSubject<GroupWithBalanceV2 | null>(null);
 
     constructor(
         private httpClientService: HttpClientService,
@@ -35,17 +35,11 @@ export class GroupAPIService implements GroupService {
         return this.httpClientService.post(this.endpoint, payload);
     }
 
-    getGroup(id: string): Observable<Group> {
-        const deterministicGroup = new Group({
-            id,
-            name: 'Birthday',
-            emoji: getRandomEmoji(),
-            members: Array.from({ length: 9 }),
-            balance: Math.ceil(Math.random() * (9999 - -9999 + 1) + -9999),
-        });
-        return this.httpClientService.get<Group>(`${this.endpoint}/${id}`).pipe(
-            map(() => deterministicGroup),
-            tap(() => this.lastFetchedGroup.next(deterministicGroup)),
+    getGroup(id: string): Observable<GroupWithBalanceV2> {
+        return this.httpClientService.get(`${this.endpoint}/${id}`).pipe(
+            map(() => this.getDeterministicGroupWithBalanceDTOs()[0]),
+            map((group) => this.mapGroupWithBalanceV2From(group)),
+            tap((group) => this.lastFetchedGroup.next(group)),
         );
     }
 
@@ -68,7 +62,7 @@ export class GroupAPIService implements GroupService {
         );
     }
 
-    getLastFetchedGroup(): Group | null {
+    getLastFetchedGroup(): GroupWithBalanceV2 | null {
         return this.lastFetchedGroup.getValue();
     }
 

@@ -7,6 +7,7 @@ import {
 } from '@core/services/group/group.service.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
+import { GroupsV2 } from '@core/model/group/v2/group';
 
 const MAX_GROUPS = 6;
 
@@ -28,7 +29,7 @@ export class GroupsComponent {
     $groups = concat(
         of(this.skeletons),
         this.groupService
-            .getGroupsWithBalance()
+            .getGroups()
             .pipe(
                 map(this.takeFewGroups()),
                 tap(this.displayCallToActionIfNeeded()),
@@ -37,11 +38,11 @@ export class GroupsComponent {
 
     $noGroup = new BehaviorSubject<boolean>(false);
 
-    private takeFewGroups(): (groups: Array<Group>) => Array<Group> {
+    private takeFewGroups(): (groups: GroupsV2) => GroupsV2 {
         return (groups) => groups.slice(0, MAX_GROUPS);
     }
 
-    private displayCallToActionIfNeeded(): (groups: Array<Group>) => void {
+    private displayCallToActionIfNeeded(): (groups: GroupsV2) => void {
         return (groups) => {
             if (groups.length === 0) this.$noGroup.next(true);
         };

@@ -1,12 +1,12 @@
-import { Member } from "@core/model/group/v2/member";
+import { MemberV2 } from "@core/model/group/v2/member";
 
-export class Group {
+export class GroupV2 {
     constructor(
         private data: {
             id: string,
             name: string,
             emoji: string,
-            members: Array<Member>
+            members: Array<MemberV2>
         }
     ) {}
 
@@ -26,3 +26,5 @@ export class Group {
         return this.data.name;
     }
 }
+
+export type GroupsV2 = Array<GroupV2>;

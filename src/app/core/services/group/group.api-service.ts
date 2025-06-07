@@ -7,6 +7,11 @@ import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
 import { User, Users } from '@core/model/user/user';
 import { getRandomEmoji } from '@shared/utils/get-random-emoji';
+import { GroupsV2, GroupV2 } from '@core/model/group/v2/group';
+import { GroupDTO, GroupDTOs } from '@core/model/group/v2/group.dto';
+import { MembersV2, MemberV2 } from '@core/model/group/v2/member';
+import { MemberDTO, MemberDTOs } from '@core/model/group/v2/member.dto';
+import { generateRandomSmallNumber } from '@shared/utils/generate-random-number';
 
 export class GroupAPIService implements GroupService {
     private readonly endpoint = '/api/group';
@@ -33,6 +38,13 @@ export class GroupAPIService implements GroupService {
         return this.httpClientService.get<Group>(`${this.endpoint}/${id}`).pipe(
             map(() => deterministicGroup),
             tap(() => this.lastFetchedGroup.next(deterministicGroup)),
+        );
+    }
+
+    getGroups(): Observable<GroupsV2> {
+        return this.httpClientService.get(this.endpoint).pipe(
+            map(() => this.getDeterministicDTOs()),
+            map((groups) => this.mapGroupsV2From(groups)),
         );
     }
 
@@ -73,6 +85,43 @@ export class GroupAPIService implements GroupService {
         return () => [];
     }
 
+    private getDeterministicDTOs(): GroupDTOs {
+        return [
+            {
+                id: generateRandomString(),
+                name: 'BBQ',
+                emoji: '🌭',
+                members: this.getRandomMemberDTOs(),
+            },
+            {
+                id: generateRandomString(),
+                name: 'Fiesta',
+                emoji: '🍾',
+                members: this.getRandomMemberDTOs(),
+            },
+            {
+                id: generateRandomString(),
+                name: 'Birthday',
+                emoji: '🎈',
+                members: this.getRandomMemberDTOs(),
+            },
+            {
+                id: generateRandomString(),
+                name: 'Bretagne',
+                emoji: '🌊',
+                members: this.getRandomMemberDTOs(),
+            },
+        ];
+    }
+
+    private getRandomMemberDTOs(): MemberDTOs {
+        return Array.from({ length: generateRandomSmallNumber() }, () => ({
+            id: generateRandomString(),
+            firstname: 'Firstname',
+            lastname: 'Lastname',
+        }));
+    }
+
     private getDeterministicGroups(): () => Groups {
         return () => [
             new Group({
@@ -104,5 +153,30 @@ export class GroupAPIService implements GroupService {
                 balance: -6980,
             }),
         ];
+    }
+
+    private mapGroupsV2From(groups: GroupDTOs): GroupsV2 {
+        return groups.map((group) => this.mapGroupV2From(group));
+    }
+
+    private mapGroupV2From(group: GroupDTO): GroupV2 {
+        return new GroupV2({
+            id: group.id,
+            name: group.name,
+            emoji: group.emoji,
+            members: this.mapMembersFrom(group),
+        });
+    }
+
+    private mapMembersFrom(group: GroupDTO): MembersV2 {
+        return group.members.map((member) => this.mapMemberV2From(member));
+    }
+
+    private mapMemberV2From(member: MemberDTO): MemberV2 {
+        return new MemberV2({
+            id: member.id,
+            firstname: member.firstname,
+            lastname: member.lastname,
+        });
     }
 }

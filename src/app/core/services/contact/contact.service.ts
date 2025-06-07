@@ -5,5 +5,8 @@ import { Observable } from 'rxjs';
 
 export interface ContactService {
     getContact(id: string): Observable<ContactWithBalanceV2>;
-    getContacts(pageIndex?: number, filters?: Filters): Observable<Contacts>;
+    getContactsWithBalance(
+        pageIndex?: number,
+        filters?: Filters,
+    ): Observable<Contacts>;
 }

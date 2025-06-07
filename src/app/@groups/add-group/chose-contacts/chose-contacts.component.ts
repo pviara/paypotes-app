@@ -18,7 +18,7 @@ export class ChoseContactsComponent implements OnInit {
 
     labels = { contacts: 'contacts', members: 'members' };
 
-    $contacts = this.contactService.getContacts();
+    $contacts = this.contactService.getContactsWithBalance();
 
     ngOnInit(): void {
         if (!this.form.exist(this.labels.contacts)) {

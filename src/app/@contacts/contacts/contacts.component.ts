@@ -16,7 +16,7 @@ export class ContactsComponent {
 
     onContactsRequested({ pageIndex, filters }: FiltersEvent): void {
         this.contactService
-            .getContacts(pageIndex, filters)
+            .getContactsWithBalance(pageIndex, filters)
             .subscribe((contacts) => {
                 this.$contacts.next(contacts);
             });

@@ -113,7 +113,10 @@ export class ContactAPIService implements ContactService {
         return { firstname, lastname };
     }
 
-    getContacts(pageIndex = 0, filters?: Filters): Observable<Contacts> {
+    getContactsWithBalance(
+        pageIndex = 0,
+        filters?: Filters,
+    ): Observable<Contacts> {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
         return this.httpClientService

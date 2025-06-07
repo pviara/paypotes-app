@@ -21,7 +21,7 @@ describe('ContactAPIService', () => {
     afterAll(() => subscription.unsubscribe());
 
     it('should get contacts from server', () => {
-        sut.getContacts().subscribe(() => {
+        sut.getContactsWithBalance().subscribe(() => {
             expect(httpClientService.calls.get.count).toBe(1);
 
             const [call] = httpClientService.calls.get.history;
@@ -40,7 +40,7 @@ describe('ContactAPIService', () => {
             queryService.stub('buildQueryFrom', `search=${search}`);
 
             subscription.add(
-                sut.getContacts(0, { search }).subscribe(() => {
+                sut.getContactsWithBalance(0, { search }).subscribe(() => {
                     expect(httpClientService.calls.get.count).toBe(1);
 
                     const [call] = httpClientService.calls.get.history;
@@ -61,7 +61,7 @@ describe('ContactAPIService', () => {
             queryService.stub('buildQueryFrom', `?pageIndex=${pageIndex}`);
 
             subscription.add(
-                sut.getContacts(pageIndex).subscribe(() => {
+                sut.getContactsWithBalance(pageIndex).subscribe(() => {
                     expect(httpClientService.calls.get.count).toBe(1);
 
                     const [call] = httpClientService.calls.get.history;
@@ -83,15 +83,17 @@ describe('ContactAPIService', () => {
             queryService.stub('buildQueryFrom', expectedQueryString);
 
             subscription.add(
-                sut.getContacts(pageIndex, { search }).subscribe(() => {
-                    expect(httpClientService.calls.get.count).toBe(1);
+                sut
+                    .getContactsWithBalance(pageIndex, { search })
+                    .subscribe(() => {
+                        expect(httpClientService.calls.get.count).toBe(1);
 
-                    const [call] = httpClientService.calls.get.history;
-                    const clientCalledWithSearchAndPage =
-                        call.includes(expectedQueryString);
+                        const [call] = httpClientService.calls.get.history;
+                        const clientCalledWithSearchAndPage =
+                            call.includes(expectedQueryString);
 
-                    expect(clientCalledWithSearchAndPage).toBe(true);
-                }),
+                        expect(clientCalledWithSearchAndPage).toBe(true);
+                    }),
             );
         });
     });
@@ -104,7 +106,7 @@ describe('ContactAPIService', () => {
             queryService.stub('buildQueryFrom', expectedQueryString);
 
             subscription.add(
-                sut.getContacts(0, { type }).subscribe(() => {
+                sut.getContactsWithBalance(0, { type }).subscribe(() => {
                     expect(httpClientService.calls.get.count).toBe(1);
 
                     const [call] = httpClientService.calls.get.history;

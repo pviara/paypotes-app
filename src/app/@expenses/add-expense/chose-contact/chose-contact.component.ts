@@ -27,7 +27,7 @@ export class ChoseContactComponent {
 
     private label = 'person';
 
-    $contacts = this.contactService.getContacts();
+    $contacts = this.contactService.getContactsWithBalance();
 
     isLastFrom(contacts: Contact[], index: number): boolean {
         return index === contacts.length - 1;

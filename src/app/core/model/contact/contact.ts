@@ -10,7 +10,7 @@ export class Contact {
     ) {}
 
     formatBalance(): string {
-        return `${Math.abs(this.getBalance()).toFixed(2).replace('.', ',')}€`;
+        return `${Math.abs(this.getRawBalance()).toFixed(2).replace('.', ',')}€`;
     }
 
     getAvatarURL(): string {
@@ -37,7 +37,11 @@ export class Contact {
         return this.data.balance < 0;
     }
 
-    private getBalance(): number {
+    getBalance(): string {
+        return '';
+    }
+
+    private getRawBalance(): number {
         return this.data.balance / 100;
     }
 }

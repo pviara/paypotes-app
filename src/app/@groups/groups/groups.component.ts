@@ -18,8 +18,11 @@ export class GroupsComponent {
     $groups = new BehaviorSubject<ListElements>([]);
 
     onGroupsRequested({ pageIndex, filters }: FiltersEvent): void {
-        this.groupService.getGroupsWithBalance(pageIndex, filters).subscribe((groups) => {
-            this.$groups.next(groups);
-        });
+        this.groupService
+            .getGroupsWithBalance(pageIndex, filters)
+            .subscribe((groups) => {
+                console.log(groups);
+                this.$groups.next(groups);
+            });
     }
 }

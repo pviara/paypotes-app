@@ -12,6 +12,14 @@ import { GroupDTO, GroupDTOs } from '@core/model/group/v2/group.dto';
 import { MembersV2, MemberV2 } from '@core/model/group/v2/member';
 import { MemberDTO, MemberDTOs } from '@core/model/group/v2/member.dto';
 import { generateRandomSmallNumber } from '@shared/utils/generate-random-number';
+import {
+    GroupWithBalanceDTO,
+    GroupWithBalanceDTOs,
+} from '@core/model/group/v2/group-with-balance.dto';
+import {
+    GroupsWithBalanceV2,
+    GroupWithBalanceV2,
+} from '@core/model/group/v2/group-with-balance';
 
 export class GroupAPIService implements GroupService {
     private readonly endpoint = '/api/group';
@@ -43,17 +51,21 @@ export class GroupAPIService implements GroupService {
 
     getGroups(): Observable<GroupsV2> {
         return this.httpClientService.get(this.endpoint).pipe(
-            map(() => this.getDeterministicDTOs()),
+            map(() => this.getDeterministicGroupDTOs()),
             map((groups) => this.mapGroupsV2From(groups)),
         );
     }
 
-    getGroupsWithBalance(pageIndex = 0, filters?: Filters): Observable<Groups> {
+    getGroupsWithBalance(
+        pageIndex = 0,
+        filters?: Filters,
+    ): Observable<GroupsWithBalanceV2> {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
-        return this.httpClientService
-            .get<Groups>(`${this.endpoint}${query}`)
-            .pipe(map(this.getNoGroup()));
+        return this.httpClientService.get(`${this.endpoint}${query}`).pipe(
+            map(() => this.getDeterministicGroupWithBalanceDTOs()),
+            map((groups) => this.mapGroupsWithBalanceV2(groups)),
+        );
     }
 
     getLastFetchedGroup(): Group | null {
@@ -85,7 +97,40 @@ export class GroupAPIService implements GroupService {
         return () => [];
     }
 
-    private getDeterministicDTOs(): GroupDTOs {
+    private getDeterministicGroupWithBalanceDTOs(): GroupWithBalanceDTOs {
+        return [
+            {
+                id: generateRandomString(),
+                name: 'BBQ',
+                emoji: '🌭',
+                members: this.getRandomMemberDTOs(),
+                balance: '-12,75',
+            },
+            {
+                id: generateRandomString(),
+                name: 'Fiesta',
+                emoji: '🍾',
+                members: this.getRandomMemberDTOs(),
+                balance: '18,50',
+            },
+            {
+                id: generateRandomString(),
+                name: 'Birthday',
+                emoji: '🎈',
+                members: this.getRandomMemberDTOs(),
+                balance: '2,80',
+            },
+            {
+                id: generateRandomString(),
+                name: 'Bretagne',
+                emoji: '🌊',
+                members: this.getRandomMemberDTOs(),
+                balance: '-58,00',
+            },
+        ];
+    }
+
+    private getDeterministicGroupDTOs(): GroupDTOs {
         return [
             {
                 id: generateRandomString(),
@@ -159,6 +204,12 @@ export class GroupAPIService implements GroupService {
         return groups.map((group) => this.mapGroupV2From(group));
     }
 
+    private mapGroupsWithBalanceV2(
+        groups: GroupWithBalanceDTOs,
+    ): GroupsWithBalanceV2 {
+        return groups.map((group) => this.mapGroupWithBalanceV2From(group));
+    }
+
     private mapGroupV2From(group: GroupDTO): GroupV2 {
         const metadata: GroupMetadata = {
             id: group.id,
@@ -167,6 +218,18 @@ export class GroupAPIService implements GroupService {
         };
         const members = this.mapMembersFrom(group);
         return new GroupV2({ metadata, members });
+    }
+
+    private mapGroupWithBalanceV2From(
+        group: GroupWithBalanceDTO,
+    ): GroupWithBalanceV2 {
+        const metadata: GroupMetadata = {
+            id: group.id,
+            name: group.name,
+            emoji: group.emoji,
+        };
+        const members = this.mapMembersFrom(group);
+        return new GroupWithBalanceV2({ metadata, members }, group.balance);
     }
 
     private mapMembersFrom(group: GroupDTO): MembersV2 {

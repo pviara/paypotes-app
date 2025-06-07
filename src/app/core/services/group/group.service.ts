@@ -1,5 +1,6 @@
 import { Filters } from '@core/model/filters/filters';
-import { Group, Groups } from '@core/model/group/group';
+import { Group } from '@core/model/group/group';
+import { GroupsWithBalanceV2 } from '@core/model/group/v2/group-with-balance';
 import { GroupsV2 } from '@core/model/group/v2/group';
 import { Observable } from 'rxjs';
 import { User } from '@core/model/user/user';
@@ -17,7 +18,7 @@ export interface GroupService {
     getGroupsWithBalance(
         pageIndex?: number,
         filters?: Filters,
-    ): Observable<Groups>;
+    ): Observable<GroupsWithBalanceV2>;
     getMembersOf(groupId: string): Observable<User[]>;
     getLastFetchedGroup(): Group | null;
 }

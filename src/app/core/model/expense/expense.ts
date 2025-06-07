@@ -15,7 +15,7 @@ export class Expense {
     }
 
     formatBalance(): string {
-        return `${Math.abs(this.getBalance()).toFixed(2).replace('.', ',')}€`;
+        return `${Math.abs(this.getRawBalance()).toFixed(2).replace('.', ',')}€`;
     }
 
     getDate(): Date {
@@ -38,8 +38,12 @@ export class Expense {
         return this.data.origin;
     }
 
-    getBalance(): number {
+    getRawBalance(): number {
         return this.data.balance / 100;
+    }
+
+    getBalance(): string {
+        return '';
     }
 
     isDebt(): boolean {

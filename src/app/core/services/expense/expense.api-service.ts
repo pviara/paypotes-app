@@ -101,8 +101,8 @@ export class ExpenseAPIService implements ExpenseService {
                         emoji: expense.getEmoji(),
                         balance:
                             type === 'debt'
-                                ? -Math.abs(expense.getBalance() * 100)
-                                : Math.abs(expense.getBalance() * 100),
+                                ? -Math.abs(expense.getRawBalance() * 100)
+                                : Math.abs(expense.getRawBalance() * 100),
                         origin: expense.getOrigin(),
                     });
                 });

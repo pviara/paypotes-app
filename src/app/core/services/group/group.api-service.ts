@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable, map, of, tap } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
 import { User, Users } from '@core/model/user/user';
 import { getRandomEmoji } from '@shared/utils/get-random-emoji';
-import { GroupsV2, GroupV2 } from '@core/model/group/v2/group';
+import { GroupMetadata, GroupsV2, GroupV2 } from '@core/model/group/v2/group';
 import { GroupDTO, GroupDTOs } from '@core/model/group/v2/group.dto';
 import { MembersV2, MemberV2 } from '@core/model/group/v2/member';
 import { MemberDTO, MemberDTOs } from '@core/model/group/v2/member.dto';
@@ -160,12 +160,13 @@ export class GroupAPIService implements GroupService {
     }
 
     private mapGroupV2From(group: GroupDTO): GroupV2 {
-        return new GroupV2({
+        const metadata: GroupMetadata = {
             id: group.id,
             name: group.name,
             emoji: group.emoji,
-            members: this.mapMembersFrom(group),
-        });
+        };
+        const members = this.mapMembersFrom(group);
+        return new GroupV2({ metadata, members });
     }
 
     private mapMembersFrom(group: GroupDTO): MembersV2 {

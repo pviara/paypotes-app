@@ -1,29 +1,33 @@
-import { MemberV2 } from "@core/model/group/v2/member";
+import { MembersV2, MemberV2 } from '@core/model/group/v2/member';
+
+export type GroupMetadata = {
+    id: string;
+    name: string;
+    emoji: string;
+};
+
+export type GroupRootData = {
+    metadata: GroupMetadata;
+    members: MembersV2;
+};
 
 export class GroupV2 {
-    constructor(
-        private data: {
-            id: string,
-            name: string,
-            emoji: string,
-            members: Array<MemberV2>
-        }
-    ) {}
+    constructor(private data: GroupRootData) {}
 
     countMembers(): number {
         return this.data.members.length;
     }
 
     getEmoji(): string {
-        return this.data.emoji;
+        return this.data.metadata.emoji;
     }
 
     getId(): string {
-        return this.data.id;
+        return this.data.metadata.id;
     }
 
     getName(): string {
-        return this.data.name;
+        return this.data.metadata.name;
     }
 }
 

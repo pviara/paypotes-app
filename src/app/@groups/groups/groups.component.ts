@@ -18,7 +18,7 @@ export class GroupsComponent {
     $groups = new BehaviorSubject<ListElements>([]);
 
     onGroupsRequested({ pageIndex, filters }: FiltersEvent): void {
-        this.groupService.getGroups(pageIndex, filters).subscribe((groups) => {
+        this.groupService.getGroupsWithBalance(pageIndex, filters).subscribe((groups) => {
             this.$groups.next(groups);
         });
     }

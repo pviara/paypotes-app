@@ -36,7 +36,7 @@ export class GroupAPIService implements GroupService {
         );
     }
 
-    getGroups(pageIndex = 0, filters?: Filters): Observable<Groups> {
+    getGroupsWithBalance(pageIndex = 0, filters?: Filters): Observable<Groups> {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
         return this.httpClientService

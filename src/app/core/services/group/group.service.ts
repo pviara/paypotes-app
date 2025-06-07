@@ -12,7 +12,7 @@ export type AddGroupDTO = {
 export interface GroupService {
     addGroup(payload: AddGroupDTO): Observable<void>;
     getGroup(id: string): Observable<Group>;
-    getGroups(pageIndex?: number, filters?: Filters): Observable<Groups>;
+    getGroupsWithBalance(pageIndex?: number, filters?: Filters): Observable<Groups>;
     getMembersOf(groupId: string): Observable<User[]>;
     getLastFetchedGroup(): Group | null;
 }

@@ -28,7 +28,7 @@ export class GroupsComponent {
     $groups = concat(
         of(this.skeletons),
         this.groupService
-            .getGroups()
+            .getGroupsWithBalance()
             .pipe(
                 map(this.takeFewGroups()),
                 tap(this.displayCallToActionIfNeeded()),

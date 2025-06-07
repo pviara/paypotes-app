@@ -2,7 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AddGroupExpenseFormToken } from '@core/services/form/form.provider';
 import { Component, inject, OnInit } from '@angular/core';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
-import { MembersV2, MemberV2 } from '@core/model/group/v2/member';
+import { Members, Member } from '@core/model/group/member';
 import { User } from '@core/model/user/user';
 import { Contact } from '@core/model/contact/contact';
 
@@ -21,7 +21,7 @@ export class ChoseMemberComponent implements OnInit {
 
     members =
         this.groupService.getLastFetchedGroup()?.getMembers() ??
-        ([] as MembersV2);
+        ([] as Members);
 
     ngOnInit(): void {
         if (!this.form.exist(this.label)) {
@@ -38,7 +38,7 @@ export class ChoseMemberComponent implements OnInit {
         return index === users.length - 1;
     }
 
-    onPersonSelected(person: Contact | MemberV2): void {
+    onPersonSelected(person: Contact | Member): void {
         this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate([
             'groups',

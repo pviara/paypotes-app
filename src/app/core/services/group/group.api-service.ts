@@ -3,26 +3,26 @@ import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { Filters } from '@core/model/filters/filters';
 import { generateRandomSmallNumber } from '@shared/utils/generate-random-number';
 import { generateRandomString } from '@shared/utils/generate-random-string';
-import { GroupMetadata, GroupsV2, GroupV2 } from '@core/model/group/v2/group';
-import { GroupDTO, GroupDTOs } from '@core/model/group/v2/group.dto';
+import { GroupMetadata, Groups, Group } from '@core/model/group/group';
+import { GroupDTO, GroupDTOs } from '@core/model/group/group.dto';
 import {
     GroupWithBalanceDTO,
     GroupWithBalanceDTOs,
-} from '@core/model/group/v2/group-with-balance.dto';
+} from '@core/model/group/group-with-balance.dto';
 import {
-    GroupsWithBalanceV2,
-    GroupWithBalanceV2,
-} from '@core/model/group/v2/group-with-balance';
+    GroupsWithBalance,
+    GroupWithBalance,
+} from '@core/model/group/group-with-balance';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
-import { MemberDTO, MemberDTOs } from '@core/model/group/v2/member.dto';
-import { MembersV2, MemberV2 } from '@core/model/group/v2/member';
+import { MemberDTO, MemberDTOs } from '@core/model/group/member.dto';
+import { Members, Member } from '@core/model/group/member';
 import { QueryService } from '@core/services/query/query.service';
 import { User, Users } from '@core/model/user/user';
 
 export class GroupAPIService implements GroupService {
     private readonly endpoint = '/api/group';
 
-    lastFetchedGroup = new BehaviorSubject<GroupWithBalanceV2 | null>(null);
+    lastFetchedGroup = new BehaviorSubject<GroupWithBalance | null>(null);
 
     constructor(
         private httpClientService: HttpClientService,
@@ -33,7 +33,7 @@ export class GroupAPIService implements GroupService {
         return this.httpClientService.post(this.endpoint, payload);
     }
 
-    getGroup(id: string): Observable<GroupWithBalanceV2> {
+    getGroup(id: string): Observable<GroupWithBalance> {
         return this.httpClientService.get(`${this.endpoint}/${id}`).pipe(
             map(() => this.getDeterministicGroupWithBalanceDTOs()[0]),
             map((group) => this.mapGroupWithBalanceV2From(group)),
@@ -41,7 +41,7 @@ export class GroupAPIService implements GroupService {
         );
     }
 
-    getGroups(): Observable<GroupsV2> {
+    getGroups(): Observable<Groups> {
         return this.httpClientService.get(this.endpoint).pipe(
             map(() => this.getDeterministicGroupDTOs()),
             map((groups) => this.mapGroupsV2From(groups)),
@@ -51,7 +51,7 @@ export class GroupAPIService implements GroupService {
     getGroupsWithBalance(
         pageIndex = 0,
         filters?: Filters,
-    ): Observable<GroupsWithBalanceV2> {
+    ): Observable<GroupsWithBalance> {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
         return this.httpClientService.get(`${this.endpoint}${query}`).pipe(
@@ -60,7 +60,7 @@ export class GroupAPIService implements GroupService {
         );
     }
 
-    getLastFetchedGroup(): GroupWithBalanceV2 | null {
+    getLastFetchedGroup(): GroupWithBalance | null {
         return this.lastFetchedGroup.getValue();
     }
 
@@ -200,44 +200,44 @@ export class GroupAPIService implements GroupService {
         return { firstname, lastname };
     }
 
-    private mapGroupsV2From(groups: GroupDTOs): GroupsV2 {
+    private mapGroupsV2From(groups: GroupDTOs): Groups {
         return groups.map((group) => this.mapGroupV2From(group));
     }
 
     private mapGroupsWithBalanceV2(
         groups: GroupWithBalanceDTOs,
-    ): GroupsWithBalanceV2 {
+    ): GroupsWithBalance {
         return groups.map((group) => this.mapGroupWithBalanceV2From(group));
     }
 
-    private mapGroupV2From(group: GroupDTO): GroupV2 {
+    private mapGroupV2From(group: GroupDTO): Group {
         const metadata: GroupMetadata = {
             id: group.id,
             name: group.name,
             emoji: group.emoji,
         };
         const members = this.mapMembersFrom(group);
-        return new GroupV2({ metadata, members });
+        return new Group({ metadata, members });
     }
 
     private mapGroupWithBalanceV2From(
         group: GroupWithBalanceDTO,
-    ): GroupWithBalanceV2 {
+    ): GroupWithBalance {
         const metadata: GroupMetadata = {
             id: group.id,
             name: group.name,
             emoji: group.emoji,
         };
         const members = this.mapMembersFrom(group);
-        return new GroupWithBalanceV2({ metadata, members }, group.balance);
+        return new GroupWithBalance({ metadata, members }, group.balance);
     }
 
-    private mapMembersFrom(group: GroupDTO): MembersV2 {
+    private mapMembersFrom(group: GroupDTO): Members {
         return group.members.map((member) => this.mapMemberV2From(member));
     }
 
-    private mapMemberV2From(member: MemberDTO): MemberV2 {
-        return new MemberV2({
+    private mapMemberV2From(member: MemberDTO): Member {
+        return new Member({
             id: member.id,
             firstname: member.firstname,
             lastname: member.lastname,

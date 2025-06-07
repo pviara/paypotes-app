@@ -6,7 +6,7 @@ import {
 } from '@core/services/contact/contact.api-service.provider';
 import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
-import { MemberV2 } from '@core/model/group/v2/member';
+import { Member } from '@core/model/group/member';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { Router } from '@angular/router';
 
@@ -33,7 +33,7 @@ export class ChoseContactComponent {
         return index === contacts.length - 1;
     }
 
-    onPersonSelected(person: Contact | MemberV2): void {
+    onPersonSelected(person: Contact | Member): void {
         this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate(['expenses', 'add', 'summary']);
     }

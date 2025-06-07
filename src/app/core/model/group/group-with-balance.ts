@@ -1,6 +1,6 @@
-import { GroupRootData, GroupV2 } from '@core/model/group/v2/group';
+import { GroupRootData, Group } from '@core/model/group/group';
 
-export class GroupWithBalanceV2 extends GroupV2 {
+export class GroupWithBalance extends Group {
     constructor(
         data: GroupRootData,
         private balance: string,
@@ -21,4 +21,4 @@ export class GroupWithBalanceV2 extends GroupV2 {
     }
 }
 
-export type GroupsWithBalanceV2 = Array<GroupWithBalanceV2>;
+export type GroupsWithBalance = Array<GroupWithBalance>;

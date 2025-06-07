@@ -1,4 +1,4 @@
-export class MemberV2 {
+export class Member {
     constructor(
         private data: {
             id: string;
@@ -29,4 +29,4 @@ export class MemberV2 {
     }
 }
 
-export type MembersV2 = Array<MemberV2>;
+export type Members = Array<Member>;

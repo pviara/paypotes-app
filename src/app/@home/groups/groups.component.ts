@@ -4,7 +4,7 @@ import {
     GroupServiceProvider,
     GroupServiceToken,
 } from '@core/services/group/group.service.provider';
-import { GroupsV2 } from '@core/model/group/v2/group';
+import { Groups } from '@core/model/group/group';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 
@@ -37,11 +37,11 @@ export class GroupsComponent {
 
     $noGroup = new BehaviorSubject<boolean>(false);
 
-    private takeFewGroups(): (groups: GroupsV2) => GroupsV2 {
+    private takeFewGroups(): (groups: Groups) => Groups {
         return (groups) => groups.slice(0, MAX_GROUPS);
     }
 
-    private displayCallToActionIfNeeded(): (groups: GroupsV2) => void {
+    private displayCallToActionIfNeeded(): (groups: Groups) => void {
         return (groups) => {
             if (groups.length === 0) this.$noGroup.next(true);
         };

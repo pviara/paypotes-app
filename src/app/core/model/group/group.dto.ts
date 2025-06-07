@@ -1,4 +1,4 @@
-import { MemberDTOs } from '@core/model/group/v2/member.dto';
+import { MemberDTOs } from '@core/model/group/member.dto';
 
 export type GroupDTO = {
     readonly id: string;

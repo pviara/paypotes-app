@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { GroupV2 } from '@core/model/group/v2/group';
+import { Group } from '@core/model/group/group';
 
 @Component({
     selector: 'group',
@@ -7,7 +7,7 @@ import { GroupV2 } from '@core/model/group/v2/group';
     styleUrls: ['./group.component.scss'],
 })
 export class GroupComponent {
-    group = input<GroupV2 | null>();
+    group = input<Group | null>();
 
     getGroupRoute(): string {
         return `/groups/${this.group()?.getId()}`;

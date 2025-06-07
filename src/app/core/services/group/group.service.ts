@@ -1,9 +1,9 @@
 import { Filters } from '@core/model/filters/filters';
 import {
-    GroupsWithBalanceV2,
-    GroupWithBalanceV2,
-} from '@core/model/group/v2/group-with-balance';
-import { GroupsV2 } from '@core/model/group/v2/group';
+    GroupsWithBalance,
+    GroupWithBalance,
+} from '@core/model/group/group-with-balance';
+import { Groups } from '@core/model/group/group';
 import { Observable } from 'rxjs';
 import { User } from '@core/model/user/user';
 
@@ -15,12 +15,12 @@ export type AddGroupDTO = {
 
 export interface GroupService {
     addGroup(payload: AddGroupDTO): Observable<void>;
-    getGroup(id: string): Observable<GroupWithBalanceV2>;
-    getGroups(): Observable<GroupsV2>;
+    getGroup(id: string): Observable<GroupWithBalance>;
+    getGroups(): Observable<Groups>;
     getGroupsWithBalance(
         pageIndex?: number,
         filters?: Filters,
-    ): Observable<GroupsWithBalanceV2>;
+    ): Observable<GroupsWithBalance>;
     getMembersOf(groupId: string): Observable<User[]>;
-    getLastFetchedGroup(): GroupWithBalanceV2 | null;
+    getLastFetchedGroup(): GroupWithBalance | null;
 }

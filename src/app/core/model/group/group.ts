@@ -1,4 +1,4 @@
-import { MembersV2 } from '@core/model/group/v2/member';
+import { Members } from '@core/model/group/member';
 
 export type GroupMetadata = {
     id: string;
@@ -8,10 +8,10 @@ export type GroupMetadata = {
 
 export type GroupRootData = {
     metadata: GroupMetadata;
-    members: MembersV2;
+    members: Members;
 };
 
-export class GroupV2 {
+export class Group {
     constructor(private data: GroupRootData) {}
 
     countMembers(): number {
@@ -26,7 +26,7 @@ export class GroupV2 {
         return this.data.metadata.id;
     }
 
-    getMembers(): MembersV2 {
+    getMembers(): Members {
         return this.data.members;
     }
 
@@ -35,4 +35,4 @@ export class GroupV2 {
     }
 }
 
-export type GroupsV2 = Array<GroupV2>;
+export type Groups = Array<Group>;

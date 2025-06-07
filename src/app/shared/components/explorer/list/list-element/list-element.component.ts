@@ -13,7 +13,7 @@ import { Expense } from '@core/model/expense/expense';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { ListElement } from '@core/model/list-element/list-element';
 import { Router } from '@angular/router';
-import { GroupWithBalanceV2 } from '@core/model/group/v2/group-with-balance';
+import { GroupWithBalance } from '@core/model/group/group-with-balance';
 
 @Component({
     selector: 'list-element',
@@ -52,7 +52,7 @@ export class ListElementComponent implements AfterViewInit {
         const type = {
             isContact: element instanceof Contact,
             isExpense: element instanceof Expense,
-            isGroup: element instanceof GroupWithBalanceV2,
+            isGroup: element instanceof GroupWithBalance,
         };
 
         if (type.isContact) {

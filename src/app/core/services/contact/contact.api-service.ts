@@ -3,9 +3,9 @@ import { ContactService } from '@core/services/contact/contact.service';
 import { Filters } from '@core/model/filters/filters';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
-import { Observable, map } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
-import { ContactMetadata } from '@core/model/contact/v2/contact';
+import { ContactMetadata, ContactsV2 } from '@core/model/contact/v2/contact';
 import {
     ContactWithBalanceDTO,
     ContactWithBalanceDTOs,
@@ -25,6 +25,9 @@ export class ContactAPIService implements ContactService {
             map(() => this.getDeterministicContactWithBalanceDTOs()[0]),
             map((contact) => this.mapContactWithBalanceV2(contact)),
         );
+    }
+    getContacts(): Observable<ContactsV2> {
+        return of([]);
     }
 
     private mapContactWithBalanceV2(

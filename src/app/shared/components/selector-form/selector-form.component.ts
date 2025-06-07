@@ -1,7 +1,7 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
+import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
 import { Member } from '@core/model/group/member';
-import { User } from '@core/model/user/user';
 
 @Component({
     selector: 'selector-form',
@@ -9,16 +9,16 @@ import { User } from '@core/model/user/user';
     styleUrls: ['./selector-form.component.scss'],
 })
 export class SelectorFormComponent {
-    persons = input<Contact[] | Member[] | null>(null);
+    persons = input<ContactsV2 | Member[] | null>(null);
 
     @Output()
-    personSelected = new EventEmitter<Contact | Member>();
+    personSelected = new EventEmitter<ContactV2 | Member>();
 
-    isLastFrom(persons: (Contact | Member)[], index: number): boolean {
+    isLastFrom(persons: (ContactV2 | Member)[], index: number): boolean {
         return index === persons.length - 1;
     }
 
-    onPersonSelected(person: Contact | Member): void {
+    onPersonSelected(person: ContactV2 | Member): void {
         this.personSelected.emit(person);
     }
 }

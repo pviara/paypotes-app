@@ -28,3 +28,5 @@ export class ContactV2 {
         return this.data.lastname;
     }
 }
+
+export type ContactsV2 = Array<ContactV2>;

@@ -9,6 +9,7 @@ import { HttpClientServiceProvider } from '@core/services/http-client/http-clien
 import { Member } from '@core/model/group/member';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { Router } from '@angular/router';
+import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
 
 @Component({
     selector: 'chose-contact',
@@ -27,13 +28,13 @@ export class ChoseContactComponent {
 
     private label = 'person';
 
-    $contacts = this.contactService.getContactsWithBalance();
+    $contacts = this.contactService.getContacts();
 
-    isLastFrom(contacts: Contact[], index: number): boolean {
+    isLastFrom(contacts: ContactsV2, index: number): boolean {
         return index === contacts.length - 1;
     }
 
-    onPersonSelected(person: Contact | Member): void {
+    onPersonSelected(person: ContactV2 | Member): void {
         this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate(['expenses', 'add', 'summary']);
     }

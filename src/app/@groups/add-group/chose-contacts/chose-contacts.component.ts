@@ -5,6 +5,7 @@ import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { getValidator, ValidatorKey } from '@core/model/form/validator';
 import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
+import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
 
 @Component({
     selector: 'chose-contacts',
@@ -18,7 +19,7 @@ export class ChoseContactsComponent implements OnInit {
 
     labels = { contacts: 'contacts', members: 'members' };
 
-    $contacts = this.contactService.getContactsWithBalance();
+    $contacts = this.contactService.getContacts();
 
     ngOnInit(): void {
         if (!this.form.exist(this.labels.contacts)) {
@@ -30,14 +31,14 @@ export class ChoseContactsComponent implements OnInit {
         }
     }
 
-    isContactSelected(person: Contact | User): boolean {
+    isContactSelected(person: ContactV2 | User): boolean {
         const contacts = this.form
             .getFieldFrom(this.labels.contacts)
-            .getValue() as Array<Contact>;
+            .getValue() as ContactsV2;
         return contacts.some((selected) => selected.getId() === person.getId());
     }
 
-    isLastFrom(contacts: Contact[], index: number): boolean {
+    isLastFrom(contacts: ContactsV2, index: number): boolean {
         return index === contacts.length - 1;
     }
 
@@ -50,10 +51,10 @@ export class ChoseContactsComponent implements OnInit {
         this.router.navigate(['groups', 'add', 'members']);
     }
 
-    onPersonSelected(person: Contact | User): void {
+    onPersonSelected(person: ContactV2 | User): void {
         const contacts = this.form
             .getFieldFrom(this.labels.contacts)
-            .getValue() as Array<Contact>;
+            .getValue() as Array<ContactV2>;
 
         if (this.isContactSelected(person)) {
             const index = contacts.findIndex(
@@ -61,7 +62,7 @@ export class ChoseContactsComponent implements OnInit {
             );
             contacts.splice(index, 1);
         } else {
-            contacts.push(person as Contact);
+            contacts.push(person as ContactV2);
         }
         this.form.getFieldFrom(this.labels.contacts).setValue(contacts);
     }

@@ -5,6 +5,7 @@ import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { Members, Member } from '@core/model/group/member';
 import { User } from '@core/model/user/user';
 import { Contact } from '@core/model/contact/contact';
+import { ContactV2 } from '@core/model/contact/v2/contact';
 
 @Component({
     selector: 'chose-member',
@@ -38,7 +39,7 @@ export class ChoseMemberComponent implements OnInit {
         return index === users.length - 1;
     }
 
-    onPersonSelected(person: Contact | Member): void {
+    onPersonSelected(person: ContactV2 | Member): void {
         this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate([
             'groups',

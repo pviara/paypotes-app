@@ -110,9 +110,9 @@ export class ExpenseAPIService implements ExpenseService {
             );
     }
 
-    payback(id: string): Observable<void> {
-        return this.httpClientService.patch(
-            `${this.endpoint}/payback?expenseId=${id}`,
+    payback(contactId: string, expenseId: string): Observable<void> {
+        return this.httpClientService.put(
+            `${this.endpoint}/payback/pair/${contactId}/${expenseId}`,
         );
     }
 

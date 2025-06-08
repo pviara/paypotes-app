@@ -36,5 +36,5 @@ export interface ExpenseService {
         pageIndex?: number,
         filters?: Filters,
     ): Observable<PairExpenses>;
-    payback(id: string): Observable<void>;
+    payback(contactId: string, expenseId: string): Observable<void>;
 }

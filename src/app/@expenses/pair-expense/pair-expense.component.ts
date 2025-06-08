@@ -16,10 +16,12 @@ export class PairExpenseComponent {
     private router = inject(Router);
 
     private expenseId = '';
+    private contactId = '';
 
     $expense = this.route.params.pipe(
         tap((params) => (this.expenseId = params['expenseId'])),
         switchMap(() => this.expenseService.getExpense(this.expenseId)),
+        tap((expense) => (this.contactId = expense.getCounterparty().getId())),
         shareReplay(1),
     );
 
@@ -28,7 +30,7 @@ export class PairExpenseComponent {
     onPayback(): void {
         if (this.expenseId) {
             this.expenseService
-                .payback(this.expenseId)
+                .payback(this.contactId, this.expenseId)
                 .pipe(
                     tap(this.notifyPaidBack()),
                     tap(this.redirectToExpenses()),

@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
 
 @Component({
-    selector: 'expense-header',
+    selector: 'pair-expense-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
 })

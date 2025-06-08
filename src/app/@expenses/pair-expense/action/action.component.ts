@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, inject, input } from '@angular/core';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
 
 @Component({
-    selector: 'expense-action',
+    selector: 'pair-expense-action',
     templateUrl: './action.component.html',
     styleUrls: ['./action.component.scss'],
 })

@@ -5,25 +5,25 @@
 />
 <section>
     @if ($expense | async; as expense) {
-        <expense-header
+        <pair-expense-header
             [date]="expense.getDate()"
             [counterparty]="expense.getCounterparty()"
         />
-        <expense-images
+        <pair-expense-images
             [avatarURL]="expense.getCounterparty().getAvatarURL()"
             [emoji]="expense.getEmoji()"
         />
-        <expense-description
+        <pair-expense-description
             [balance]="expense.getBalance()"
             [date]="expense.getDate()"
             [isDebt]="expense.isDebt()"
             [name]="expense.getCounterparty().getFullName()"
         />
-        <expense-action
+        <pair-expense-action
             [isDebt]="expense.isDebt()"
             (payback)="onPayback()"
         />
     } @else {
-        <expense-skeleton/>
+        <pair-expense-skeleton/>
     }
 </section>

@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 
 @Component({
-    selector: 'expense-description',
+    selector: 'pair-expense-description',
     templateUrl: './description.component.html',
     styleUrls: ['./description.component.scss'],
 })

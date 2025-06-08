@@ -1,6 +1,6 @@
 import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { Component, inject } from '@angular/core';
-import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
+import { ContactsV2, ContactV2 } from '@core/model/contact/contact';
 import { Router } from '@angular/router';
 import { Members, Member } from '@core/model/group/member';
 

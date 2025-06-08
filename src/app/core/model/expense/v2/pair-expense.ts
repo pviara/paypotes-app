@@ -1,4 +1,4 @@
-import { ContactV2 } from '@core/model/contact/v2/contact';
+import { ContactV2 } from '@core/model/contact/contact';
 import { Expense } from './expense';
 import { ExpenseMetadata } from './expense';
 

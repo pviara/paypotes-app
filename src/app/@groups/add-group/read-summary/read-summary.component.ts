@@ -12,7 +12,7 @@ import {
     GroupServiceProvider,
     GroupServiceToken,
 } from '@core/services/group/group.service.provider';
-import { ContactV2 } from '@core/model/contact/v2/contact';
+import { ContactV2 } from '@core/model/contact/contact';
 
 @Component({
     selector: 'read-summary',

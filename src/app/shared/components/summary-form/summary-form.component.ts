@@ -8,7 +8,7 @@ import {
     Output,
 } from '@angular/core';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
-import { ContactV2 } from '@core/model/contact/v2/contact';
+import { ContactV2 } from '@core/model/contact/contact';
 import { Form } from '@core/model/form/form';
 import { FormContext } from '@core/model/form/form-context';
 import { FormService } from '@core/services/form/form.service';

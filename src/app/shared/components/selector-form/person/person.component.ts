@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
-import { ContactV2 } from '@core/model/contact/v2/contact';
+import { ContactV2 } from '@core/model/contact/contact';
 import { Member } from '@core/model/group/member';
 
 @Component({

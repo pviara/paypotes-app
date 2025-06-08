@@ -2,7 +2,7 @@ import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { Component, inject } from '@angular/core';
 import { Members, Member } from '@core/model/group/member';
 import { Router } from '@angular/router';
-import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
+import { ContactsV2, ContactV2 } from '@core/model/contact/contact';
 
 @Component({
     selector: 'chose-user-from-search',

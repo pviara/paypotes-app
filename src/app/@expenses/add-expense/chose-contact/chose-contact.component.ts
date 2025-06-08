@@ -3,7 +3,7 @@ import {
     ContactServiceProvider,
     ContactServiceToken,
 } from '@core/services/contact/contact.api-service.provider';
-import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
+import { ContactsV2, ContactV2 } from '@core/model/contact/contact';
 import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { Member } from '@core/model/group/member';

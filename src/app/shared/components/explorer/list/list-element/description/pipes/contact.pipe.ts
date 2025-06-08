@@ -1,4 +1,4 @@
-import { ContactWithBalanceV2 } from '@core/model/contact/v2/contact-with-balance';
+import { ContactWithBalanceV2 } from '@core/model/contact/contact-with-balance';
 import { ListElement } from '@core/model/list-element/list-element';
 import { Pipe, PipeTransform } from '@angular/core';
 

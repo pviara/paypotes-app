@@ -1,4 +1,4 @@
-import { ContactDTO } from '@core/model/contact/v2/contact.dto';
+import { ContactDTO } from '@core/model/contact/contact.dto';
 
 export type PairExpenseDTO = {
     readonly id: string;

@@ -2,17 +2,17 @@ import {
     ContactMetadata,
     ContactsV2,
     ContactV2,
-} from '@core/model/contact/v2/contact';
-import { ContactDTO, ContactDTOs } from '@core/model/contact/v2/contact.dto';
+} from '@core/model/contact/contact';
+import { ContactDTO, ContactDTOs } from '@core/model/contact/contact.dto';
 import { ContactService } from '@core/services/contact/contact.service';
 import {
     ContactsWithBalanceV2,
     ContactWithBalanceV2,
-} from '@core/model/contact/v2/contact-with-balance';
+} from '@core/model/contact/contact-with-balance';
 import {
     ContactWithBalanceDTO,
     ContactWithBalanceDTOs,
-} from '@core/model/contact/v2/contact-with-balance.dto';
+} from '@core/model/contact/contact-with-balance.dto';
 import { Filters } from '@core/model/filters/filters';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { HttpClientService } from '@core/services/http-client/http-client.service';

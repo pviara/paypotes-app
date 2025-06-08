@@ -3,7 +3,7 @@ import {
     AddPairExpenseDTO,
     ExpenseService,
 } from '@core/services/expense/expense.service';
-import { ContactV2 } from '@core/model/contact/v2/contact';
+import { ContactV2 } from '@core/model/contact/contact';
 import { Filters } from '@core/model/filters/filters';
 import { generateRandomDate } from '@shared/utils/get-random-date';
 import { generateRandomString } from '@shared/utils/generate-random-string';

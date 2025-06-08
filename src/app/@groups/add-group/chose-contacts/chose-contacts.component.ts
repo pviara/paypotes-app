@@ -1,7 +1,7 @@
 import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { Component, inject, OnInit } from '@angular/core';
 import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
-import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
+import { ContactsV2, ContactV2 } from '@core/model/contact/contact';
 import { getValidator, ValidatorKey } from '@core/model/form/validator';
 import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';

@@ -7,7 +7,7 @@ import {
     inject,
     input,
 } from '@angular/core';
-import { ContactWithBalanceV2 } from '@core/model/contact/v2/contact-with-balance';
+import { ContactWithBalanceV2 } from '@core/model/contact/contact-with-balance';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { GroupWithBalance } from '@core/model/group/group-with-balance';

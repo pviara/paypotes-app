@@ -1,8 +1,8 @@
-import { ContactsV2 } from '@core/model/contact/v2/contact';
+import { ContactsV2 } from '@core/model/contact/contact';
 import {
     ContactsWithBalanceV2,
     ContactWithBalanceV2,
-} from '@core/model/contact/v2/contact-with-balance';
+} from '@core/model/contact/contact-with-balance';
 import { Filters } from '@core/model/filters/filters';
 import { Observable } from 'rxjs';
 

@@ -30,7 +30,7 @@ export class PairExpenseComponent {
     onPayback(): void {
         if (this.expenseId) {
             this.expenseService
-                .payback(this.contactId, this.expenseId)
+                .paybackPairExpense(this.contactId, this.expenseId)
                 .pipe(
                     tap(this.notifyPaidBack()),
                     tap(this.redirectToExpenses()),

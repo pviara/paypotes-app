@@ -110,7 +110,7 @@ export class ExpenseAPIService implements ExpenseService {
             );
     }
 
-    payback(contactId: string, expenseId: string): Observable<void> {
+    paybackPairExpense(contactId: string, expenseId: string): Observable<void> {
         return this.httpClientService.put(
             `${this.endpoint}/payback/pair/${contactId}/${expenseId}`,
         );

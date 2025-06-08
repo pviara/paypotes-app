@@ -5,4 +5,4 @@ export type ContactDTO = {
     readonly avatarUrl: string;
 };
 
-export type ContactDTOS = Array<ContactDTO>;
+export type ContactDTOs = Array<ContactDTO>;

@@ -15,6 +15,7 @@ import { FormService } from '@core/services/form/form.service';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { User } from '@core/model/user/user';
 import { Member } from '@core/model/group/member';
+import { ContactV2 } from '@core/model/contact/v2/contact';
 
 export type AddGroupExpenseFormValue = {
     balance: string;
@@ -122,8 +123,8 @@ export class SummaryFormComponent {
         try {
             const person = this.form
                 .getFieldFrom('person')
-                .getValue<Contact | Member>();
-            return person instanceof Member || person instanceof Contact
+                .getValue<ContactV2 | Member>();
+            return person instanceof Member || person instanceof ContactV2
                 ? person.getFullName()
                 : '';
         } catch (error: unknown) {

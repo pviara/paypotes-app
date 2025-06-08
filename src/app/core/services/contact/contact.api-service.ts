@@ -5,12 +5,17 @@ import { generateRandomString } from '@shared/utils/generate-random-string';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map, of } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
-import { ContactMetadata, ContactsV2 } from '@core/model/contact/v2/contact';
+import {
+    ContactMetadata,
+    ContactsV2,
+    ContactV2,
+} from '@core/model/contact/v2/contact';
 import {
     ContactWithBalanceDTO,
     ContactWithBalanceDTOs,
 } from '@core/model/contact/v2/contact-with-balance.dto';
 import { ContactWithBalanceV2 } from '@core/model/contact/v2/contact-with-balance';
+import { ContactDTO, ContactDTOs } from '@core/model/contact/v2/contact.dto';
 
 export class ContactAPIService implements ContactService {
     private readonly endpoint = '/api/contact';
@@ -26,8 +31,28 @@ export class ContactAPIService implements ContactService {
             map((contact) => this.mapContactWithBalanceV2(contact)),
         );
     }
+
     getContacts(): Observable<ContactsV2> {
-        return of([]);
+        return this.httpClientService
+            .get(`${this.endpoint}/without-balance`)
+            .pipe(
+                map(() => this.getDeterministicContactDTOs()),
+                map((contacts) => this.mapContactsV2(contacts)),
+            );
+    }
+
+    private mapContactsV2(contacts: ContactDTOs): ContactsV2 {
+        return contacts.map((contact) => this.mapContactV2(contact));
+    }
+
+    private mapContactV2(contact: ContactDTO): ContactV2 {
+        const metadata: ContactMetadata = {
+            id: contact.id,
+            firstname: contact.firstname,
+            lastname: contact.lastname,
+            avatarUrl: contact.avatarUrl,
+        };
+        return new ContactV2(metadata);
     }
 
     private mapContactWithBalanceV2(
@@ -40,6 +65,35 @@ export class ContactAPIService implements ContactService {
             avatarUrl: contact.avatarUrl,
         };
         return new ContactWithBalanceV2(metadata, contact.balance);
+    }
+
+    private getDeterministicContactDTOs(): ContactDTOs {
+        return [
+            {
+                id: generateRandomString(),
+                firstname: this.generateRandomName().firstname,
+                lastname: this.generateRandomName().lastname,
+                avatarUrl: this.getRandomAvatarUrl(),
+            },
+            {
+                id: generateRandomString(),
+                firstname: this.generateRandomName().firstname,
+                lastname: this.generateRandomName().lastname,
+                avatarUrl: this.getRandomAvatarUrl(),
+            },
+            {
+                id: generateRandomString(),
+                firstname: this.generateRandomName().firstname,
+                lastname: this.generateRandomName().lastname,
+                avatarUrl: this.getRandomAvatarUrl(),
+            },
+            {
+                id: generateRandomString(),
+                firstname: this.generateRandomName().firstname,
+                lastname: this.generateRandomName().lastname,
+                avatarUrl: this.getRandomAvatarUrl(),
+            },
+        ];
     }
 
     private getDeterministicContactWithBalanceDTOs(): ContactWithBalanceDTOs {

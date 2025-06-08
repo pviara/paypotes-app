@@ -42,10 +42,12 @@ export class GroupAPIService implements GroupService {
     }
 
     getGroups(): Observable<Groups> {
-        return this.httpClientService.get(this.endpoint).pipe(
-            map(() => this.getDeterministicGroupDTOs()),
-            map((groups) => this.mapGroupsV2From(groups)),
-        );
+        return this.httpClientService
+            .get(`${this.endpoint}/without-balance`)
+            .pipe(
+                map(() => this.getDeterministicGroupDTOs()),
+                map((groups) => this.mapGroupsV2From(groups)),
+            );
     }
 
     getGroupsWithBalance(
@@ -64,6 +66,7 @@ export class GroupAPIService implements GroupService {
         return this.lastFetchedGroup.getValue();
     }
 
+    // todo: remove this method forever
     getMembersOf(groupId: string): Observable<User[]> {
         return this.httpClientService
             .get<Users>(`${this.endpoint}/${groupId}/members`)

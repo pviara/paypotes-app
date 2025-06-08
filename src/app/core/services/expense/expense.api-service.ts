@@ -5,8 +5,11 @@ import {
 } from '@core/services/expense/expense.service';
 import { Contact } from '@core/model/contact/contact';
 import { Filters } from '@core/model/filters/filters';
+import { generateRandomBalance } from '@shared/utils/generate-random-balance';
 import { generateRandomDate } from '@shared/utils/get-random-date';
+import { generateRandomName } from '@shared/utils/generate-random-name';
 import { generateRandomString } from '@shared/utils/generate-random-string';
+import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
 import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
@@ -16,9 +19,6 @@ import {
     PairExpenseDTO,
     PairExpenseDTOs,
 } from '@core/model/expense/pair-expense.dto';
-import { generateRandomBalance } from '@shared/utils/generate-random-balance';
-import { generateRandomName } from '@shared/utils/generate-random-name';
-import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
 
 export class ExpenseAPIService implements ExpenseService {
     private readonly endpoint = '/api/expense';

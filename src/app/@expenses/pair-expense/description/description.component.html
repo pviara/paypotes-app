@@ -1,13 +1,13 @@
 <div>
     <h3>
-        <span [ngClass]="balanceClass()">{{ sign() }}</span>{{ balance() }}
+        <span [ngClass]="balanceClass()">{{ sign() }}</span>{{ balanceToDisplay() }}€
     </h3>
     <p>
         Le <span class="bold">{{ date() | formatDate }}</span>,
         @if (isDebt()) {
-            {{ name() }}<br/> vous a avancé la somme de <span class="bold">{{ balance() }}</span>.
+            {{ name() }}<br/> vous a avancé la somme de <span class="bold">{{ balance() }}€</span>.
         } @else {
-            vous avez avancé à {{ name() }} la somme de <span class="bold">{{ balance() }}</span>.
+            vous avez avancé à {{ name() }} la somme de <span class="bold">{{ balance() }}€</span>.
         }
     </p>
 </div>

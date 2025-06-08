@@ -18,6 +18,8 @@ import { generateRandomString } from '@shared/utils/generate-random-string';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
+import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
+import { generateRandomName } from '@shared/utils/generate-random-name';
 
 export class ContactAPIService implements ContactService {
     private readonly endpoint = '/api/contact';
@@ -91,27 +93,27 @@ export class ContactAPIService implements ContactService {
         return [
             {
                 id: generateRandomString(),
-                firstname: this.generateRandomName().firstname,
-                lastname: this.generateRandomName().lastname,
-                avatarUrl: this.getRandomAvatarUrl(),
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
             },
             {
                 id: generateRandomString(),
-                firstname: this.generateRandomName().firstname,
-                lastname: this.generateRandomName().lastname,
-                avatarUrl: this.getRandomAvatarUrl(),
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
             },
             {
                 id: generateRandomString(),
-                firstname: this.generateRandomName().firstname,
-                lastname: this.generateRandomName().lastname,
-                avatarUrl: this.getRandomAvatarUrl(),
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
             },
             {
                 id: generateRandomString(),
-                firstname: this.generateRandomName().firstname,
-                lastname: this.generateRandomName().lastname,
-                avatarUrl: this.getRandomAvatarUrl(),
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
             },
         ];
     }
@@ -120,73 +122,32 @@ export class ContactAPIService implements ContactService {
         return [
             {
                 id: generateRandomString(),
-                firstname: this.generateRandomName().firstname,
-                lastname: this.generateRandomName().lastname,
-                avatarUrl: this.getRandomAvatarUrl(),
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
                 balance: '-12,75',
             },
             {
                 id: generateRandomString(),
-                firstname: this.generateRandomName().firstname,
-                lastname: this.generateRandomName().lastname,
-                avatarUrl: this.getRandomAvatarUrl(),
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
                 balance: '-12,75',
             },
             {
                 id: generateRandomString(),
-                firstname: this.generateRandomName().firstname,
-                lastname: this.generateRandomName().lastname,
-                avatarUrl: this.getRandomAvatarUrl(),
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
                 balance: '-12,75',
             },
             {
                 id: generateRandomString(),
-                firstname: this.generateRandomName().firstname,
-                lastname: this.generateRandomName().lastname,
-                avatarUrl: this.getRandomAvatarUrl(),
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
                 balance: '-12,75',
             },
         ];
-    }
-
-    private getRandomAvatarUrl(): string {
-        const avatars = [
-            'ahmed.png',
-            'claire.png',
-            'claire.png',
-            'estelle.png',
-            'valentin.png',
-        ];
-        return avatars[Math.floor(Math.random() * avatars.length)];
-    }
-
-    private generateRandomName(): { firstname: string; lastname: string } {
-        const firstnames = [
-            'Alice',
-            'Bob',
-            'Charlie',
-            'David',
-            'Emma',
-            'Fiona',
-            'George',
-            'Hannah',
-        ];
-        const lastnames = [
-            'Smith',
-            'Johnson',
-            'Williams',
-            'Brown',
-            'Jones',
-            'Garcia',
-            'Miller',
-            'Davis',
-        ];
-
-        const firstname =
-            firstnames[Math.floor(Math.random() * firstnames.length)];
-        const lastname =
-            lastnames[Math.floor(Math.random() * lastnames.length)];
-
-        return { firstname, lastname };
     }
 }

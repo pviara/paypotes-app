@@ -8,6 +8,10 @@ import { Component, computed, input } from '@angular/core';
 export class ExpenseDescriptionComponent {
     balance = input.required<string>();
 
+    balanceToDisplay = computed(() =>
+        this.balance().replace('-', '').replace('+', ''),
+    );
+
     date = input.required<Date>();
 
     isClaim = computed(() => !this.isDebt());

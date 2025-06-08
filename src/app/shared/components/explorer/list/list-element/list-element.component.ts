@@ -9,10 +9,10 @@ import {
 } from '@angular/core';
 import { ContactWithBalanceV2 } from '@core/model/contact/v2/contact-with-balance';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Expense } from '@core/model/expense/expense';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { GroupWithBalance } from '@core/model/group/group-with-balance';
 import { ListElement } from '@core/model/list-element/list-element';
+import { PairExpense } from '@core/model/expense/v2/pair-expense';
 import { Router } from '@angular/router';
 
 @Component({
@@ -51,7 +51,7 @@ export class ListElementComponent implements AfterViewInit {
 
         const type = {
             isContact: element instanceof ContactWithBalanceV2,
-            isExpense: element instanceof Expense,
+            isExpense: element instanceof PairExpense,
             isGroup: element instanceof GroupWithBalance,
         };
 

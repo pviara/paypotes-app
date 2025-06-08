@@ -3,8 +3,7 @@ import {
     AddPairExpenseDTO,
     ExpenseService,
 } from '@core/services/expense/expense.service';
-import { Contact } from '@core/model/contact/contact';
-import { Expense, Expenses } from '@core/model/expense/expense';
+import { ContactV2 } from '@core/model/contact/v2/contact';
 import { Filters } from '@core/model/filters/filters';
 import { generateRandomDate } from '@shared/utils/get-random-date';
 import { generateRandomString } from '@shared/utils/generate-random-string';
@@ -12,6 +11,14 @@ import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
+import { PairExpense, PairExpenses } from '@core/model/expense/v2/pair-expense';
+import {
+    PairExpenseDTO,
+    PairExpenseDTOs,
+} from '@core/model/expense/v2/pair-expense.dto';
+import { generateRandomBalance } from '@shared/utils/generate-random-balance';
+import { generateRandomName } from '@shared/utils/generate-random-name';
+import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
 
 export class ExpenseAPIService implements ExpenseService {
     private readonly endpoint = '/api/expense';
@@ -33,46 +40,74 @@ export class ExpenseAPIService implements ExpenseService {
         contactId: string,
         pageIndex = 0,
         filters?: Filters,
-    ): Observable<Expenses> {
+    ): Observable<PairExpenses> {
         const query = this.queryService.buildQueryFrom({
-            contactId,
             pageIndex,
             filters,
         });
 
         return this.httpClientService
-            .get<Expenses>(`${this.endpoint}${query}`)
-            .pipe(map(this.getRandomExpenses(filters?.type)));
+            .get(`${this.endpoint}/contact/${contactId}${query}`)
+            .pipe(
+                map(() => this.getRandomPairExpenseDTOs()),
+                map((expenses) => this.mapPairExpenses(expenses)),
+            );
     }
 
-    getExpense(id: string): Observable<Expense> {
-        return this.httpClientService
-            .get<Expense>(`${this.endpoint}/${id}`)
-            .pipe(map(() => this.getRandomExpense(999)));
+    private mapPairExpenses(expenses: PairExpenseDTOs): PairExpenses {
+        return expenses.map((expense) => this.mapPairExpense(expense));
     }
 
-    getExpenses(pageIndex = 0, filters?: Filters): Observable<Expenses> {
+    private mapPairExpense(expense: PairExpenseDTO): PairExpense {
+        return new PairExpense(
+            {
+                id: expense.id,
+                label: expense.label,
+                emoji: expense.emoji,
+                date: new Date(expense.date),
+            },
+            expense.balance,
+            new ContactV2({
+                id: expense.counterparty.id,
+                firstname: expense.counterparty.firstname,
+                lastname: expense.counterparty.lastname,
+                avatarUrl: expense.counterparty.avatarUrl,
+            }),
+        );
+    }
+
+    getExpense(id: string): Observable<PairExpense> {
+        return this.httpClientService.get(`${this.endpoint}/${id}`).pipe(
+            map(() => this.getRandomPairExpenseDTO(0)),
+            map((expense) => this.mapPairExpense(expense)),
+        );
+    }
+
+    getExpenses(pageIndex = 0, filters?: Filters): Observable<PairExpenses> {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
-        return this.httpClientService
-            .get<Expenses>(`${this.endpoint}${query}`)
-            .pipe(map(this.getRandomExpenses(filters?.type)));
+        return this.httpClientService.get(`${this.endpoint}${query}`).pipe(
+            map(() => this.getRandomPairExpenseDTOs()),
+            map((expenses) => this.mapPairExpenses(expenses)),
+        );
     }
 
     getGroupExpenses(
         groupId: string,
         pageIndex = 0,
         filters?: Filters,
-    ): Observable<Expenses> {
+    ): Observable<PairExpenses> {
         const query = this.queryService.buildQueryFrom({
-            groupId,
             pageIndex,
             filters,
         });
 
         return this.httpClientService
-            .get<Expenses>(`${this.endpoint}${query}`)
-            .pipe(map(this.getRandomExpenses(filters?.type)));
+            .get(`${this.endpoint}/group/${groupId}${query}`)
+            .pipe(
+                map(() => this.getRandomPairExpenseDTOs()),
+                map((expenses) => this.mapPairExpenses(expenses)),
+            );
     }
 
     payback(id: string): Observable<void> {
@@ -81,47 +116,25 @@ export class ExpenseAPIService implements ExpenseService {
         );
     }
 
-    private getNoExpense(): () => Expenses {
-        return () => [];
+    private getRandomPairExpenseDTOs(): PairExpenseDTOs {
+        return Array.from({ length: 20 }).map((_, index) =>
+            this.getRandomPairExpenseDTO(index),
+        );
     }
 
-    private getRandomExpenses(type: Filters['type']): () => Expenses {
-        return () =>
-            Array.from({ length: 20 })
-                .map((_, index) => this.getRandomExpense(index))
-                .map((expense) => {
-                    if (!type) {
-                        return expense;
-                    }
-
-                    return new Expense({
-                        id: expense.getId(),
-                        label: expense.getLabel(),
-                        date: expense.getDate(),
-                        emoji: expense.getEmoji(),
-                        balance:
-                            type === 'debt'
-                                ? -Math.abs(expense.getRawBalance() * 100)
-                                : Math.abs(expense.getRawBalance() * 100),
-                        origin: expense.getOrigin(),
-                    });
-                });
-    }
-
-    private getRandomExpense(index: number): Expense {
-        return new Expense({
+    private getRandomPairExpenseDTO(index: number): PairExpenseDTO {
+        return {
             id: generateRandomString(),
             label: `Dépense #${index}`,
-            date: generateRandomDate(),
             emoji: getRandomEmoji(),
-            origin: new Contact({
+            date: generateRandomDate().toISOString(),
+            balance: generateRandomBalance(),
+            counterparty: {
                 id: generateRandomString(),
-                firstname: 'Claire',
-                lastname: 'Laroche',
-                avatarURL: 'claire.png',
-                balance: 9080,
-            }),
-            balance: Math.ceil(Math.random() * (9999 - -9999 + 1) + -9999),
-        });
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
+            },
+        };
     }
 }

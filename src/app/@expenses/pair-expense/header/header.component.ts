@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
+import { ContactV2 } from '@core/model/contact/v2/contact';
 
 @Component({
     selector: 'expense-header',
@@ -8,5 +8,5 @@ import { Contact } from '@core/model/contact/contact';
 })
 export class ExpenseHeaderComponent {
     date = input.required<Date>();
-    origin = input.required<Contact>();
+    origin = input.required<ContactV2>();
 }

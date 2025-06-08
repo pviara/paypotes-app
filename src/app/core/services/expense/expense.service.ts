@@ -1,4 +1,4 @@
-import { Expense, Expenses } from '@core/model/expense/expense';
+import { PairExpense, PairExpenses } from '@core/model/expense/v2/pair-expense';
 import { Filters } from '@core/model/filters/filters';
 import { Observable } from 'rxjs';
 
@@ -25,13 +25,16 @@ export interface ExpenseService {
         groupId: string,
         pageIndex?: number,
         filters?: Filters,
-    ): Observable<Expenses>;
-    getExpense(id: string): Observable<Expense>;
-    getExpenses(pageIndex?: number, filters?: Filters): Observable<Expenses>;
+    ): Observable<PairExpenses>;
+    getExpense(id: string): Observable<PairExpense>;
+    getExpenses(
+        pageIndex?: number,
+        filters?: Filters,
+    ): Observable<PairExpenses>;
     getGroupExpenses(
         groupId: string,
         pageIndex?: number,
         filters?: Filters,
-    ): Observable<Expenses>;
+    ): Observable<PairExpenses>;
     payback(id: string): Observable<void>;
 }

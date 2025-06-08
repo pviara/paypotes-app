@@ -14,7 +14,7 @@
             [emoji]="expense.getEmoji()"
         />
         <expense-description
-            [balance]="expense.formatBalance()"
+            [balance]="expense.getBalance()"
             [date]="expense.getDate()"
             [isDebt]="expense.isDebt()"
             [name]="expense.getOrigin().getFullName()"

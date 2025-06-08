@@ -1,0 +1,29 @@
+<headbar
+    [route]="'/expenses'"
+    [subhead]="'Dépense de groupe'"
+    [title]="$expenseLabel | async"
+/>
+<section>
+    @if ($expense | async; as expense) {
+        <group-expense-header
+            [date]="expense.getDate()"
+            [counterparty]="expense.getCounterparty()"
+        />
+        <group-expense-images
+            [avatarURL]="expense.getCounterparty().getAvatarURL()"
+            [emoji]="expense.getEmoji()"
+        />
+        <group-expense-description
+            [balance]="expense.getBalance()"
+            [date]="expense.getDate()"
+            [isDebt]="expense.isDebt()"
+            [name]="expense.getCounterparty().getFullName()"
+        />
+        <group-expense-action
+            [isDebt]="expense.isDebt()"
+            (payback)="onPayback()"
+        />
+    } @else {
+        <group-expense-skeleton/>
+    }
+</section>

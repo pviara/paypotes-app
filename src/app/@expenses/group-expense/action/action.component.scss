@@ -1,0 +1,22 @@
+button {
+    width: 100%;
+
+    padding: 3%;
+
+    border: none;
+    border-radius: 2rem;
+
+    background: #6717cd;
+    background: linear-gradient(180deg, #6717cd 0%, #2871fa 100%);
+
+    animation: glowing 5s infinite;
+
+    font-family: 'regular';
+    font-size: 1rem;
+    color: #fff;
+
+    &.disabled {
+        background: #6f6f6f;
+        background: linear-gradient(180deg, #484848 0%, #6f6f6f 100%);
+    }
+}

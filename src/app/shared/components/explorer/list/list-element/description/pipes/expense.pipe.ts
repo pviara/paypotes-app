@@ -1,5 +1,5 @@
 import { ListElement } from '@core/model/list-element/list-element';
-import { PairExpense } from '@core/model/expense/v2/pair-expense';
+import { PairExpense } from '@core/model/expense/pair-expense';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({

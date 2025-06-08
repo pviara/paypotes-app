@@ -1,12 +1,11 @@
-import { ContactV2 } from '@core/model/contact/contact';
-import { Expense } from './expense';
-import { ExpenseMetadata } from './expense';
+import { Contact } from '@core/model/contact/contact';
+import { Expense, ExpenseMetadata } from '@core/model/expense/expense';
 
 export class PairExpense extends Expense {
     constructor(
         metadata: ExpenseMetadata,
         private balance: string,
-        private counterparty: ContactV2,
+        private counterparty: Contact,
     ) {
         super(metadata);
     }
@@ -15,8 +14,7 @@ export class PairExpense extends Expense {
         return this.balance;
     }
 
-    // todo: rename into getCounterparty()
-    getOrigin(): ContactV2 {
+    getCounterparty(): Contact {
         return this.counterparty;
     }
 

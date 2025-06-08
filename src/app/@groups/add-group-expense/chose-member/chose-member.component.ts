@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddGroupExpenseFormToken } from '@core/services/form/form.provider';
 import { Component, inject, OnInit } from '@angular/core';
-import { ContactV2 } from '@core/model/contact/contact';
+import { Contact } from '@core/model/contact/contact';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { Members, Member } from '@core/model/group/member';
 import { User } from '@core/model/user/user';
@@ -38,7 +38,7 @@ export class ChoseMemberComponent implements OnInit {
         return index === users.length - 1;
     }
 
-    onPersonSelected(person: ContactV2 | Member): void {
+    onPersonSelected(person: Contact | Member): void {
         this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate([
             'groups',

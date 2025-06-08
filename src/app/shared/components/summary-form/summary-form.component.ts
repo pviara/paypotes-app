@@ -8,7 +8,7 @@ import {
     Output,
 } from '@angular/core';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
-import { ContactV2 } from '@core/model/contact/contact';
+import { Contact } from '@core/model/contact/contact';
 import { Form } from '@core/model/form/form';
 import { FormContext } from '@core/model/form/form-context';
 import { FormService } from '@core/services/form/form.service';
@@ -114,16 +114,16 @@ export class SummaryFormComponent {
         }
     }
 
-    private getPerson(): ContactV2 | User {
-        return this.form.getFieldFrom('person').getValue<ContactV2 | User>();
+    private getPerson(): Contact | User {
+        return this.form.getFieldFrom('person').getValue<Contact | User>();
     }
 
     getPersonFullname(): string {
         try {
             const person = this.form
                 .getFieldFrom('person')
-                .getValue<ContactV2 | Member>();
-            return person instanceof Member || person instanceof ContactV2
+                .getValue<Contact | Member>();
+            return person instanceof Member || person instanceof Contact
                 ? person.getFullName()
                 : '';
         } catch (error: unknown) {

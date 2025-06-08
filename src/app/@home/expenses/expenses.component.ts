@@ -5,7 +5,7 @@ import {
     ExpenseServiceToken,
 } from '@core/services/expense/expense.service.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
-import { PairExpenses } from '@core/model/expense/v2/pair-expense';
+import { PairExpenses } from '@core/model/expense/pair-expense';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 
 const MAX_EXPENSES = 6;

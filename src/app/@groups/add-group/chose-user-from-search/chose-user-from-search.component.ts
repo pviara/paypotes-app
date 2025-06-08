@@ -1,6 +1,6 @@
 import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { Component, inject } from '@angular/core';
-import { ContactsV2, ContactV2 } from '@core/model/contact/contact';
+import { Contacts, Contact } from '@core/model/contact/contact';
 import { Router } from '@angular/router';
 import { Members, Member } from '@core/model/group/member';
 
@@ -18,9 +18,9 @@ export class ChoseUserFromSearchComponent {
 
     users = this.form
         .getFieldFrom(this.temporaryUsersLabel)
-        .getValue<ContactsV2 | Members>();
+        .getValue<Contacts | Members>();
 
-    onPersonSelected(person: ContactV2 | Member): void {
+    onPersonSelected(person: Contact | Member): void {
         const members = this.form
             .getFieldFrom(this.label)
             .getValue() as Members;

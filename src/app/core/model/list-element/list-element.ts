@@ -1,9 +1,9 @@
-import { GroupWithBalance } from '../group/group-with-balance';
-import { ContactWithBalanceV2 } from '../contact/contact-with-balance';
-import { PairExpense } from '../expense/v2/pair-expense';
+import { GroupWithBalance } from '@core/model/group/group-with-balance';
+import { ContactWithBalance } from '@core/model/contact/contact-with-balance';
+import { PairExpense } from '@core/model/expense/pair-expense';
 
 export type ListElement =
-    | ContactWithBalanceV2
+    | ContactWithBalance
     | PairExpense
     | GroupWithBalance
     | null;

@@ -1,4 +1,4 @@
-import { PairExpense, PairExpenses } from '@core/model/expense/v2/pair-expense';
+import { PairExpense, PairExpenses } from '@core/model/expense/pair-expense';
 import { Filters } from '@core/model/filters/filters';
 import { Observable } from 'rxjs';
 

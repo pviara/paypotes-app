@@ -3,7 +3,7 @@ import {
     AddPairExpenseDTO,
     ExpenseService,
 } from '@core/services/expense/expense.service';
-import { ContactV2 } from '@core/model/contact/contact';
+import { Contact } from '@core/model/contact/contact';
 import { Filters } from '@core/model/filters/filters';
 import { generateRandomDate } from '@shared/utils/get-random-date';
 import { generateRandomString } from '@shared/utils/generate-random-string';
@@ -11,11 +11,11 @@ import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
-import { PairExpense, PairExpenses } from '@core/model/expense/v2/pair-expense';
+import { PairExpense, PairExpenses } from '@core/model/expense/pair-expense';
 import {
     PairExpenseDTO,
     PairExpenseDTOs,
-} from '@core/model/expense/v2/pair-expense.dto';
+} from '@core/model/expense/pair-expense.dto';
 import { generateRandomBalance } from '@shared/utils/generate-random-balance';
 import { generateRandomName } from '@shared/utils/generate-random-name';
 import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
@@ -67,7 +67,7 @@ export class ExpenseAPIService implements ExpenseService {
                 date: new Date(expense.date),
             },
             expense.balance,
-            new ContactV2({
+            new Contact({
                 id: expense.counterparty.id,
                 firstname: expense.counterparty.firstname,
                 lastname: expense.counterparty.lastname,

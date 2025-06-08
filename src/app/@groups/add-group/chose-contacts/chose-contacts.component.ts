@@ -1,7 +1,7 @@
 import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { Component, inject, OnInit } from '@angular/core';
 import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
-import { ContactsV2, ContactV2 } from '@core/model/contact/contact';
+import { Contacts, Contact } from '@core/model/contact/contact';
 import { getValidator, ValidatorKey } from '@core/model/form/validator';
 import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
@@ -30,14 +30,14 @@ export class ChoseContactsComponent implements OnInit {
         }
     }
 
-    isContactSelected(person: ContactV2 | User): boolean {
+    isContactSelected(person: Contact | User): boolean {
         const contacts = this.form
             .getFieldFrom(this.labels.contacts)
-            .getValue() as ContactsV2;
+            .getValue() as Contacts;
         return contacts.some((selected) => selected.getId() === person.getId());
     }
 
-    isLastFrom(contacts: ContactsV2, index: number): boolean {
+    isLastFrom(contacts: Contacts, index: number): boolean {
         return index === contacts.length - 1;
     }
 
@@ -50,10 +50,10 @@ export class ChoseContactsComponent implements OnInit {
         this.router.navigate(['groups', 'add', 'members']);
     }
 
-    onPersonSelected(person: ContactV2 | User): void {
+    onPersonSelected(person: Contact | User): void {
         const contacts = this.form
             .getFieldFrom(this.labels.contacts)
-            .getValue() as Array<ContactV2>;
+            .getValue() as Array<Contact>;
 
         if (this.isContactSelected(person)) {
             const index = contacts.findIndex(
@@ -61,12 +61,12 @@ export class ChoseContactsComponent implements OnInit {
             );
             contacts.splice(index, 1);
         } else {
-            contacts.push(person as ContactV2);
+            contacts.push(person as Contact);
         }
         this.form.getFieldFrom(this.labels.contacts).setValue(contacts);
     }
 
-    private getNotAlreadyAddedContacts(): (ContactV2 | User)[] {
+    private getNotAlreadyAddedContacts(): (Contact | User)[] {
         const contacts = this.getContacts();
         const members = this.getMembers();
         const notAlreadyAddedContacts = contacts.filter((contact) =>
@@ -75,15 +75,15 @@ export class ChoseContactsComponent implements OnInit {
         return members.concat(notAlreadyAddedContacts);
     }
 
-    private getContacts(): ContactsV2 {
+    private getContacts(): Contacts {
         return this.form
             .getFieldFrom(this.labels.contacts)
-            .getValue() as ContactsV2;
+            .getValue() as Contacts;
     }
 
-    private getMembers(): Array<ContactV2 | User> {
+    private getMembers(): Array<Contact | User> {
         return this.form.getFieldFrom(this.labels.members).getValue() as Array<
-            ContactV2 | User
+            Contact | User
         >;
     }
 }

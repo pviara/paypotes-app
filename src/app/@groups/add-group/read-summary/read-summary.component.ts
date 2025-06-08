@@ -12,7 +12,7 @@ import {
     GroupServiceProvider,
     GroupServiceToken,
 } from '@core/services/group/group.service.provider';
-import { ContactV2 } from '@core/model/contact/contact';
+import { Contact } from '@core/model/contact/contact';
 
 @Component({
     selector: 'read-summary',
@@ -43,7 +43,7 @@ export class ReadSummaryComponent {
             .addGroup({
                 emoji: payload['emoji'],
                 name: payload['name'],
-                memberIds: payload['members'].map((member: ContactV2 | User) =>
+                memberIds: payload['members'].map((member: Contact | User) =>
                     member.getId(),
                 ),
             })
@@ -59,14 +59,14 @@ export class ReadSummaryComponent {
             .subscribe();
     }
 
-    getMembers(): Array<ContactV2 | User> {
+    getMembers(): Array<Contact | User> {
         const signedInUser = this.authService.signedInUser?.user;
         if (!signedInUser) {
             throw new Error('No signed in user');
         }
         return this.form
             .getFieldFrom('members')
-            .getValue<Array<ContactV2 | User>>()
+            .getValue<Array<Contact | User>>()
             .concat([signedInUser]);
     }
 

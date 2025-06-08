@@ -1,5 +1,5 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
-import { ContactV2 } from '@core/model/contact/contact';
+import { Contact } from '@core/model/contact/contact';
 import { User } from '@core/model/user/user';
 
 @Component({
@@ -8,7 +8,7 @@ import { User } from '@core/model/user/user';
     styleUrls: ['./member.component.scss'],
 })
 export class MemberComponent {
-    data = input.required<User | ContactV2>();
+    data = input.required<User | Contact>();
 
     @Output()
     deleted = new EventEmitter<string>();

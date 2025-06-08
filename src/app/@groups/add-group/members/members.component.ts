@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ContactsV2, ContactV2 } from '@core/model/contact/contact';
+import { Contacts, Contact } from '@core/model/contact/contact';
 import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { getValidator, ValidatorKey } from '@core/model/form/validator';
 import { Router } from '@angular/router';
@@ -26,13 +26,13 @@ export class MembersComponent implements OnInit {
         }
     }
 
-    getContacts(): Array<ContactV2 | User> {
-        return this.form.getFieldFrom('contacts').getValue() as ContactsV2;
+    getContacts(): Array<Contact | User> {
+        return this.form.getFieldFrom('contacts').getValue() as Contacts;
     }
 
-    getMembers(): Array<ContactV2 | User> {
+    getMembers(): Array<Contact | User> {
         return this.form.getFieldFrom(this.label).getValue() as Array<
-            ContactV2 | User
+            Contact | User
         >;
     }
 

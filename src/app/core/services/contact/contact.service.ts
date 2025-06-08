@@ -1,16 +1,16 @@
-import { ContactsV2 } from '@core/model/contact/contact';
+import { Contacts } from '@core/model/contact/contact';
 import {
-    ContactsWithBalanceV2,
-    ContactWithBalanceV2,
+    ContactsWithBalance,
+    ContactWithBalance,
 } from '@core/model/contact/contact-with-balance';
 import { Filters } from '@core/model/filters/filters';
 import { Observable } from 'rxjs';
 
 export interface ContactService {
-    getContact(id: string): Observable<ContactWithBalanceV2>;
-    getContacts(): Observable<ContactsV2>;
+    getContact(id: string): Observable<ContactWithBalance>;
+    getContacts(): Observable<Contacts>;
     getContactsWithBalance(
         pageIndex?: number,
         filters?: Filters,
-    ): Observable<ContactsWithBalanceV2>;
+    ): Observable<ContactsWithBalance>;
 }

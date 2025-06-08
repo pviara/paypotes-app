@@ -7,17 +7,17 @@
     @if ($expense | async; as expense) {
         <expense-header
             [date]="expense.getDate()"
-            [origin]="expense.getOrigin()"
+            [counterparty]="expense.getCounterparty()"
         />
         <expense-images
-            [avatarURL]="expense.getOrigin().getAvatarURL()"
+            [avatarURL]="expense.getCounterparty().getAvatarURL()"
             [emoji]="expense.getEmoji()"
         />
         <expense-description
             [balance]="expense.getBalance()"
             [date]="expense.getDate()"
             [isDebt]="expense.isDebt()"
-            [name]="expense.getOrigin().getFullName()"
+            [name]="expense.getCounterparty().getFullName()"
         />
         <expense-action
             [isDebt]="expense.isDebt()"

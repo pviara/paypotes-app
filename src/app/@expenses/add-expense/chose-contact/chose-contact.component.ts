@@ -3,7 +3,7 @@ import {
     ContactServiceProvider,
     ContactServiceToken,
 } from '@core/services/contact/contact.api-service.provider';
-import { ContactsV2, ContactV2 } from '@core/model/contact/contact';
+import { Contacts, Contact } from '@core/model/contact/contact';
 import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { Member } from '@core/model/group/member';
@@ -29,11 +29,11 @@ export class ChoseContactComponent {
 
     $contacts = this.contactService.getContacts();
 
-    isLastFrom(contacts: ContactsV2, index: number): boolean {
+    isLastFrom(contacts: Contacts, index: number): boolean {
         return index === contacts.length - 1;
     }
 
-    onPersonSelected(person: ContactV2 | Member): void {
+    onPersonSelected(person: Contact | Member): void {
         this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate(['expenses', 'add', 'summary']);
     }

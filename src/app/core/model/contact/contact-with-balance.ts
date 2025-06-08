@@ -1,6 +1,6 @@
-import { ContactV2, ContactMetadata } from './contact';
+import { Contact, ContactMetadata } from '@core/model/contact/contact';
 
-export class ContactWithBalanceV2 extends ContactV2 {
+export class ContactWithBalance extends Contact {
     constructor(
         metadata: ContactMetadata,
         private balance: string,
@@ -21,4 +21,4 @@ export class ContactWithBalanceV2 extends ContactV2 {
     }
 }
 
-export type ContactsWithBalanceV2 = Array<ContactWithBalanceV2>;
+export type ContactsWithBalance = Array<ContactWithBalance>;

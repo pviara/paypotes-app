@@ -5,7 +5,7 @@ export type ContactMetadata = {
     avatarUrl: string;
 };
 
-export class ContactV2 {
+export class Contact {
     constructor(private data: ContactMetadata) {}
 
     getAvatarURL(): string {
@@ -29,4 +29,4 @@ export class ContactV2 {
     }
 }
 
-export type ContactsV2 = Array<ContactV2>;
+export type Contacts = Array<Contact>;

@@ -1,13 +1,13 @@
 import {
     ContactMetadata,
-    ContactsV2,
-    ContactV2,
+    Contacts,
+    Contact,
 } from '@core/model/contact/contact';
 import { ContactDTO, ContactDTOs } from '@core/model/contact/contact.dto';
 import { ContactService } from '@core/services/contact/contact.service';
 import {
-    ContactsWithBalanceV2,
-    ContactWithBalanceV2,
+    ContactsWithBalance,
+    ContactWithBalance,
 } from '@core/model/contact/contact-with-balance';
 import {
     ContactWithBalanceDTO,
@@ -29,14 +29,14 @@ export class ContactAPIService implements ContactService {
         private queryService: QueryService,
     ) {}
 
-    getContact(id: string): Observable<ContactWithBalanceV2> {
+    getContact(id: string): Observable<ContactWithBalance> {
         return this.httpClientService.get(`${this.endpoint}/${id}`).pipe(
             map(() => this.getDeterministicContactWithBalanceDTOs()[0]),
             map((contact) => this.mapContactWithBalanceV2(contact)),
         );
     }
 
-    getContacts(): Observable<ContactsV2> {
+    getContacts(): Observable<Contacts> {
         return this.httpClientService
             .get(`${this.endpoint}/without-balance`)
             .pipe(
@@ -48,7 +48,7 @@ export class ContactAPIService implements ContactService {
     getContactsWithBalance(
         pageIndex = 0,
         filters?: Filters,
-    ): Observable<ContactsWithBalanceV2> {
+    ): Observable<ContactsWithBalance> {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
         return this.httpClientService.get(`${this.endpoint}${query}`).pipe(
@@ -57,36 +57,36 @@ export class ContactAPIService implements ContactService {
         );
     }
 
-    private mapContactsV2(contacts: ContactDTOs): ContactsV2 {
+    private mapContactsV2(contacts: ContactDTOs): Contacts {
         return contacts.map((contact) => this.mapContactV2(contact));
     }
 
-    private mapContactV2(contact: ContactDTO): ContactV2 {
+    private mapContactV2(contact: ContactDTO): Contact {
         const metadata: ContactMetadata = {
             id: contact.id,
             firstname: contact.firstname,
             lastname: contact.lastname,
             avatarUrl: contact.avatarUrl,
         };
-        return new ContactV2(metadata);
+        return new Contact(metadata);
     }
 
     private mapContactsWithBalanceV2(
         contacts: ContactWithBalanceDTOs,
-    ): ContactsWithBalanceV2 {
+    ): ContactsWithBalance {
         return contacts.map((contact) => this.mapContactWithBalanceV2(contact));
     }
 
     private mapContactWithBalanceV2(
         contact: ContactWithBalanceDTO,
-    ): ContactWithBalanceV2 {
+    ): ContactWithBalance {
         const metadata: ContactMetadata = {
             id: contact.id,
             firstname: contact.firstname,
             lastname: contact.lastname,
             avatarUrl: contact.avatarUrl,
         };
-        return new ContactWithBalanceV2(metadata, contact.balance);
+        return new ContactWithBalance(metadata, contact.balance);
     }
 
     private getDeterministicContactDTOs(): ContactDTOs {

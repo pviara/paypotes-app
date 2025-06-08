@@ -21,4 +21,4 @@ export class ContactWithBalanceV2 extends ContactV2 {
     }
 }
 
-export type ContactsWithBalanceV2 = Array<ContactV2>;
+export type ContactsWithBalanceV2 = Array<ContactWithBalanceV2>;

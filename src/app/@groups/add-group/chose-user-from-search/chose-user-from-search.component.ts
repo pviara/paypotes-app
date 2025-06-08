@@ -1,9 +1,8 @@
 import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { Component, inject } from '@angular/core';
-import { Contact, Contacts } from '@core/model/contact/contact';
+import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
 import { Router } from '@angular/router';
 import { Members, Member } from '@core/model/group/member';
-import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
 
 @Component({
     selector: 'chose-user-from-search',

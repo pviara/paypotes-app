@@ -7,13 +7,13 @@ import {
     inject,
     input,
 } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
+import { ContactWithBalanceV2 } from '@core/model/contact/v2/contact-with-balance';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Expense } from '@core/model/expense/expense';
 import { generateRandomString } from '@shared/utils/generate-random-string';
+import { GroupWithBalance } from '@core/model/group/group-with-balance';
 import { ListElement } from '@core/model/list-element/list-element';
 import { Router } from '@angular/router';
-import { GroupWithBalance } from '@core/model/group/group-with-balance';
 
 @Component({
     selector: 'list-element',
@@ -50,7 +50,7 @@ export class ListElementComponent implements AfterViewInit {
         if (!element) return;
 
         const type = {
-            isContact: element instanceof Contact,
+            isContact: element instanceof ContactWithBalanceV2,
             isExpense: element instanceof Expense,
             isGroup: element instanceof GroupWithBalance,
         };

@@ -1,15 +1,14 @@
-import { Component, inject, InjectionToken } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
+import { Component, inject } from '@angular/core';
 import {
     ContactServiceProvider,
     ContactServiceToken,
 } from '@core/services/contact/contact.api-service.provider';
+import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
 import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { Member } from '@core/model/group/member';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { Router } from '@angular/router';
-import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
 
 @Component({
     selector: 'chose-contact',

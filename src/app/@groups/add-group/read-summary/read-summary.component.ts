@@ -1,7 +1,6 @@
 import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { Component, inject } from '@angular/core';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
-import { Contact } from '@core/model/contact/contact';
 import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
@@ -13,6 +12,7 @@ import {
     GroupServiceProvider,
     GroupServiceToken,
 } from '@core/services/group/group.service.provider';
+import { ContactV2 } from '@core/model/contact/v2/contact';
 
 @Component({
     selector: 'read-summary',
@@ -43,7 +43,7 @@ export class ReadSummaryComponent {
             .addGroup({
                 emoji: payload['emoji'],
                 name: payload['name'],
-                memberIds: payload['members'].map((member: Contact | User) =>
+                memberIds: payload['members'].map((member: ContactV2 | User) =>
                     member.getId(),
                 ),
             })
@@ -59,14 +59,14 @@ export class ReadSummaryComponent {
             .subscribe();
     }
 
-    getMembers(): Array<Contact | User> {
+    getMembers(): Array<ContactV2 | User> {
         const signedInUser = this.authService.signedInUser?.user;
         if (!signedInUser) {
             throw new Error('No signed in user');
         }
         return this.form
             .getFieldFrom('members')
-            .getValue<Array<Contact | User>>()
+            .getValue<Array<ContactV2 | User>>()
             .concat([signedInUser]);
     }
 

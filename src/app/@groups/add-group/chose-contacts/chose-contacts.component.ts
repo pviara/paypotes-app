@@ -1,11 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
-import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
 import { AddGroupFormToken } from '@core/services/form/form.provider';
+import { Component, inject, OnInit } from '@angular/core';
+import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
+import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
 import { getValidator, ValidatorKey } from '@core/model/form/validator';
 import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
-import { ContactsV2, ContactV2 } from '@core/model/contact/v2/contact';
 
 @Component({
     selector: 'chose-contacts',
@@ -67,7 +66,7 @@ export class ChoseContactsComponent implements OnInit {
         this.form.getFieldFrom(this.labels.contacts).setValue(contacts);
     }
 
-    private getNotAlreadyAddedContacts(): (Contact | User)[] {
+    private getNotAlreadyAddedContacts(): (ContactV2 | User)[] {
         const contacts = this.getContacts();
         const members = this.getMembers();
         const notAlreadyAddedContacts = contacts.filter((contact) =>
@@ -76,15 +75,15 @@ export class ChoseContactsComponent implements OnInit {
         return members.concat(notAlreadyAddedContacts);
     }
 
-    private getContacts(): Array<Contact> {
+    private getContacts(): ContactsV2 {
         return this.form
             .getFieldFrom(this.labels.contacts)
-            .getValue() as Array<Contact>;
+            .getValue() as ContactsV2;
     }
 
-    private getMembers(): Array<Contact | User> {
+    private getMembers(): Array<ContactV2 | User> {
         return this.form.getFieldFrom(this.labels.members).getValue() as Array<
-            Contact | User
+            ContactV2 | User
         >;
     }
 }

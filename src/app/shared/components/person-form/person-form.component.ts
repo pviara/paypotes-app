@@ -1,22 +1,12 @@
-import { Component, EventEmitter, inject, input, Output } from '@angular/core';
-import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
-import { QueryServiceProvider } from '@core/services/query/query.service.provider';
-import { User } from '@core/model/user/user';
-import {
-    UserServiceProvider,
-    UserServiceToken,
-} from '@core/services/user/user.api-service.provider';
 import { BehaviorSubject } from 'rxjs';
+import { Component, EventEmitter, inject, input, Output } from '@angular/core';
+import { User } from '@core/model/user/user';
+import { UserServiceToken } from '@core/services/user/user.api-service.provider';
 
 @Component({
     selector: 'person-form',
     templateUrl: './person-form.component.html',
     styleUrls: ['./person-form.component.scss'],
-    providers: [
-        UserServiceProvider,
-        HttpClientServiceProvider,
-        QueryServiceProvider,
-    ],
 })
 export class PersonFormComponent {
     private userService = inject(UserServiceToken);

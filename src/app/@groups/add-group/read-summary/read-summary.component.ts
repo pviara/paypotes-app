@@ -1,28 +1,18 @@
+import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { Component, inject } from '@angular/core';
+import { Contact } from '@core/model/contact/contact';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
-import { AddGroupFormToken } from '@core/services/form/form.provider';
-import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
+import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { User } from '@core/model/user/user';
-import {
-    GroupServiceProvider,
-    GroupServiceToken,
-} from '@core/services/group/group.service.provider';
-import { Contact } from '@core/model/contact/contact';
 
 @Component({
     selector: 'read-summary',
     templateUrl: './read-summary.component.html',
     styleUrls: ['./read-summary.component.scss'],
-    providers: [
-        GroupServiceProvider,
-        HttpClientServiceProvider,
-        QueryServiceProvider,
-    ],
 })
 export class ReadSummaryComponent {
     private authService = inject(AuthServiceToken);

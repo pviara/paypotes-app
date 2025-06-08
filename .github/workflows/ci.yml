@@ -1,32 +1,72 @@
 name: Node.js CI
 
 on:
-    pull_request:
-        branches: [main]
+  pull_request:
+    branches: [main]
 
 concurrency:
-    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-    cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  setup:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Git checkout
-              uses: actions/checkout@v4
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
 
-            - name: Use Node.js 22
-              uses: actions/setup-node@v4
-              with:
-                  node-version: '22.14.0'
-                  cache: 'npm'
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: 'yarn'
 
-            - name: 📦 Install dependencies
-              run: yarn install
+      - name: 📦 Install dependencies
+        run: yarn install
+  build:
+    needs: setup
+    runs-on: ubuntu-latest
 
-            - name: 👷 Build project
-              run: yarn build
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
 
-            - name: 🧑‍🔬 Run unit tests
-              run: yarn test
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: 'yarn'
+
+      - name: 📦 Use cached dependencies
+        run: yarn install
+
+      - name: 👷 Build project
+        run: yarn build
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.14.0'
+          cache: 'yarn'
+
+      - name: 📦 Use cached dependencies
+        run: yarn install
+
+      - name: 🧑‍🔬 Run unit tests
+        run: yarn test
+
+      - name: 📝 Write test summary
+        uses: test-summary/action@v2
+        with:
+          paths: |
+            test/reports/report-unit.xml
+        if: always()

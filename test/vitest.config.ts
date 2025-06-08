@@ -6,7 +6,8 @@ export default defineConfig({
     test: {
         globals: true,
         pool: 'threads',
-        reporters: ['verbose'],
+        reporters: ['verbose', 'junit'],
+        outputFile: 'test/reports/report-unit.xml',
         root: './',
         setupFiles: ['/test/angular-test-setup.ts'],
     },

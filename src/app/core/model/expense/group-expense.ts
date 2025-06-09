@@ -7,7 +7,7 @@ export class GroupExpense extends Expense {
         metadata: ExpenseMetadata,
         private group: Group,
         private balance: string,
-        private initialBalance: string,
+        private credit: string,
     ) {
         super(metadata);
     }
@@ -16,16 +16,16 @@ export class GroupExpense extends Expense {
         return this.balance;
     }
 
+    getCredit(): string {
+        return this.credit;
+    }
+
     getCreditor(): Member {
         return this.group.getMembers()[0];
     }
 
     getGroup() {
         return this.group;
-    }
-
-    getInitialBalance(): string {
-        return this.initialBalance;
     }
 
     isDebt(): boolean {

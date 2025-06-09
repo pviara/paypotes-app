@@ -20,7 +20,7 @@ export class ExpenseDescriptionComponent {
     summary = computed(() =>
         this.isDebt()
             ? `${this.expense().getCreditor().getFullName()} vous a avancé la somme de ${this.balanceToDisplay()}€ dans le groupe.`
-            : `vous avez avancé ${this.expense().getInitialBalance()}€ aux membres du groupe qui vous doivent encore ${this.balanceToDisplay()}€.`,
+            : `vous avez avancé ${this.expense().getCredit()}€ aux membres du groupe qui vous doivent encore ${this.balanceToDisplay()}€.`,
     );
 
     sign = computed(() => (this.isDebt() ? '-' : '+'));

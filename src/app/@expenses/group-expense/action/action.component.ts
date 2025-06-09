@@ -18,7 +18,9 @@ export class ActionComponent {
 
     onClick(): void {
         this.clicked = true;
-        this.confettiService.pan();
+        if (this.isDebt()) {
+            this.confettiService.pan();
+        }
         this.payback.emit();
     }
 }

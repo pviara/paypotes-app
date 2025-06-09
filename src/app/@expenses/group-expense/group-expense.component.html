@@ -17,7 +17,7 @@
         />
         <group-expense-action
             [isDebt]="expense.isDebt()"
-            (payback)="onPayback()"
+            (payback)="expense.isDebt() ? onPayback() : openPaybackDetails()"
         />
     } @else {
         <group-expense-skeleton/>

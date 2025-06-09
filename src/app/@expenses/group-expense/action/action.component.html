@@ -1,7 +1,7 @@
 <button
     #confetti
     [disabled]="clicked"
-    [ngClass]="{ 'disabled': clicked }"
+    [ngClass]="{ 'disabled': clicked, 'no-final-button': !isDebt() }"
     (click)="onClick()">
     @if (isDebt()) {
         J'ai remboursé !

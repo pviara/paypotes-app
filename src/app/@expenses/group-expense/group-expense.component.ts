@@ -101,6 +101,10 @@ export class GroupExpenseComponent {
         }
     }
 
+    openPaybackDetails(): void {
+        console.log('open payback details');
+    }
+
     private notifyPaidBack(): () => void {
         return () =>
             this.notificationService.notify({

@@ -12,11 +12,11 @@ import { generateRandomName } from '@shared/utils/generate-random-name';
 import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
 
 @Component({
-    selector: 'group-expense',
-    templateUrl: './group-expense.component.html',
-    styleUrls: ['./group-expense.component.scss'],
+    selector: 'group-expense-detail',
+    templateUrl: './group-expense-detail.component.html',
+    styleUrls: ['./group-expense-detail.component.scss'],
 })
-export class GroupExpenseComponent {
+export class GroupExpenseDetailComponent {
     private expenseService = inject(ExpenseServiceToken);
     private notificationService = inject(NotificationService);
     private route = inject(ActivatedRoute);

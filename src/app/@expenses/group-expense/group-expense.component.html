@@ -12,17 +12,13 @@
         <group-expense-images
             [expense]="expense"
         />
-        <!--
         <group-expense-description
-            [balance]="expense.getBalance()"
-            [date]="expense.getDate()"
-            [isDebt]="expense.isDebt()"
-            [name]="expense.getCounterparty().getFullName()"
+            [expense]="expense"
         />
         <group-expense-action
             [isDebt]="expense.isDebt()"
             (payback)="onPayback()"
-        /> -->
+        />
     } @else {
         <group-expense-skeleton/>
     }

@@ -6,7 +6,6 @@ import { NotificationService } from '@core/services/notification/notification.se
 import { GroupExpense } from '@core/model/expense/group-expense';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { generateRandomDate } from '@shared/utils/get-random-date';
-import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 import { Group } from '@core/model/group/group';
 import { Member } from '@core/model/group/member';
 import { generateRandomName } from '@shared/utils/generate-random-name';
@@ -29,33 +28,52 @@ export class GroupExpenseComponent {
     $expense = this.route.params.pipe(
         tap((params) => (this.expenseId = params['expenseId'])),
         switchMap(() => this.expenseService.getExpense(this.expenseId)),
-        // map(
-        //     () =>
-        //         new GroupExpense(
-        //             {
-        //                 id: generateRandomString(),
-        //                 date: generateRandomDate(),
-        //                 emoji: '⛽',
-        //                 label: 'Essence',
-        //             },
-        //             new Group({
-        //                 metadata: {
-        //                     id: generateRandomString(),
-        //                     emoji: '🌊',
-        //                     name: 'Bretagne',
-        //                 },
-        //                 members: [
-        //                     new Member({
-        //                         id: generateRandomString(),
-        //                         firstname: generateRandomName().firstname,
-        //                         lastname: generateRandomName().lastname,
-        //                         avatarUrl: getRandomAvatarUrl(),
-        //                     }),
-        //                 ],
-        //             }),
-        //             '-38,50',
-        //         ),
-        // ),
+        map(
+            () =>
+                new GroupExpense(
+                    {
+                        id: generateRandomString(),
+                        date: generateRandomDate(),
+                        emoji: '⛽',
+                        label: 'Essence',
+                    },
+                    new Group({
+                        metadata: {
+                            id: generateRandomString(),
+                            emoji: '🌊',
+                            name: 'Bretagne',
+                        },
+                        members: [
+                            new Member({
+                                id: generateRandomString(),
+                                firstname: generateRandomName().firstname,
+                                lastname: generateRandomName().lastname,
+                                avatarUrl: getRandomAvatarUrl(),
+                            }),
+                            new Member({
+                                id: generateRandomString(),
+                                firstname: generateRandomName().firstname,
+                                lastname: generateRandomName().lastname,
+                                avatarUrl: getRandomAvatarUrl(),
+                            }),
+                            new Member({
+                                id: generateRandomString(),
+                                firstname: generateRandomName().firstname,
+                                lastname: generateRandomName().lastname,
+                                avatarUrl: getRandomAvatarUrl(),
+                            }),
+                            new Member({
+                                id: generateRandomString(),
+                                firstname: generateRandomName().firstname,
+                                lastname: generateRandomName().lastname,
+                                avatarUrl: getRandomAvatarUrl(),
+                            }),
+                        ],
+                    }),
+                    '75,00',
+                    '100,00',
+                ),
+        ),
         filter((expense) => expense instanceof GroupExpense),
         tap((expense) => (this.groupId = expense.getGroup().getId())),
         shareReplay(1),

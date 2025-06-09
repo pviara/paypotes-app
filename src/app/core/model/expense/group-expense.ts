@@ -1,12 +1,13 @@
 import { Expense, ExpenseMetadata } from '@core/model/expense/expense';
 import { Group } from '@core/model/group/group';
-import { Member } from '../group/member';
+import { Member } from '@core/model/group/member';
 
 export class GroupExpense extends Expense {
     constructor(
         metadata: ExpenseMetadata,
         private group: Group,
         private balance: string,
+        private initialBalance: string,
     ) {
         super(metadata);
     }
@@ -21,6 +22,10 @@ export class GroupExpense extends Expense {
 
     getGroup() {
         return this.group;
+    }
+
+    getInitialBalance(): string {
+        return this.initialBalance;
     }
 
     isDebt(): boolean {

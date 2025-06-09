@@ -1,4 +1,5 @@
 import { Component, computed, input } from '@angular/core';
+import { GroupExpense } from '@core/model/expense/group-expense';
 
 @Component({
     selector: 'group-expense-description',
@@ -6,19 +7,21 @@ import { Component, computed, input } from '@angular/core';
     styleUrls: ['./description.component.scss'],
 })
 export class ExpenseDescriptionComponent {
-    balance = input.required<string>();
+    expense = input.required<GroupExpense>();
 
     balanceToDisplay = computed(() =>
-        this.balance().replace('-', '').replace('+', ''),
+        this.expense().getBalance().replace('-', '').replace('+', ''),
     );
-
-    date = input.required<Date>();
 
     isClaim = computed(() => !this.isDebt());
 
-    isDebt = input.required<boolean>();
+    isDebt = computed(() => this.expense().isDebt());
 
-    name = input.required<string>();
+    summary = computed(() =>
+        this.isDebt()
+            ? `${this.expense().getCreditor().getFullName()} vous a avancé la somme de ${this.balanceToDisplay()}€ dans le groupe.`
+            : `vous avez avancé ${this.expense().getInitialBalance()}€ aux membres du groupe qui vous doivent encore ${this.balanceToDisplay()}€.`,
+    );
 
     sign = computed(() => (this.isDebt() ? '-' : '+'));
 

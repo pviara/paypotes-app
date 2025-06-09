@@ -70,8 +70,16 @@ export class GroupExpenseComponent {
                             }),
                         ],
                     }),
+                    {
+                        balance: '100,00',
+                        creditor: new Member({
+                            id: generateRandomString(),
+                            firstname: generateRandomName().firstname,
+                            lastname: generateRandomName().lastname,
+                            avatarUrl: getRandomAvatarUrl(),
+                        }),
+                    },
                     '75,00',
-                    '100,00',
                 ),
         ),
         filter((expense) => expense instanceof GroupExpense),

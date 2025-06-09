@@ -1,5 +1,6 @@
-import { PairExpense, PairExpenses } from '@core/model/expense/pair-expense';
 import { Filters } from '@core/model/filters/filters';
+import { GroupExpense } from '@core/model/expense/group-expense';
+import { PairExpense, PairExpenses } from '@core/model/expense/pair-expense';
 import { Observable } from 'rxjs';
 
 export type AddGroupExpenseDTO = {
@@ -26,7 +27,7 @@ export interface ExpenseService {
         pageIndex?: number,
         filters?: Filters,
     ): Observable<PairExpenses>;
-    getExpense(id: string): Observable<PairExpense>;
+    getExpense(id: string): Observable<GroupExpense | PairExpense>;
     getExpenses(
         pageIndex?: number,
         filters?: Filters,
@@ -37,4 +38,5 @@ export interface ExpenseService {
         filters?: Filters,
     ): Observable<PairExpenses>;
     paybackPairExpense(contactId: string, expenseId: string): Observable<void>;
+    paybackGroupExpense(groupId: string, expenseId: string): Observable<void>;
 }

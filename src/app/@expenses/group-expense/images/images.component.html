@@ -1,6 +1,9 @@
 <div class="container">
-    <img [src]="'assets/images/' + avatarURL()"/>
+    <img [src]="'assets/images/' + avatarUrl()"/>
+    <div class="group-emoji">
+        {{ expense().getGroup().getEmoji() }}
+    </div>
     <div class="emoji">
-        {{ emoji() }}
+        {{ expense().getEmoji() }}
     </div>
 </div>

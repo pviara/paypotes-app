@@ -16,7 +16,7 @@
         </p>
         <div class="members">
             @for (member of getMembers(); track $index) {
-                <img [src]="'assets/images/' + member.getAvatarURL()"/>
+                <img [src]="'assets/images/' + member.getAvatarUrl()"/>
             }
         </div>
     </div>

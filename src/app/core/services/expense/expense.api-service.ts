@@ -11,14 +11,15 @@ import { generateRandomName } from '@shared/utils/generate-random-name';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
 import { getRandomEmoji } from '@shared/utils/get-random-emoji';
+import { GroupExpense } from '@core/model/expense/group-expense';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
-import { QueryService } from '@core/services/query/query.service';
 import { PairExpense, PairExpenses } from '@core/model/expense/pair-expense';
 import {
     PairExpenseDTO,
     PairExpenseDTOs,
 } from '@core/model/expense/pair-expense.dto';
+import { QueryService } from '@core/services/query/query.service';
 
 export class ExpenseAPIService implements ExpenseService {
     private readonly endpoint = '/api/expense';
@@ -76,7 +77,7 @@ export class ExpenseAPIService implements ExpenseService {
         );
     }
 
-    getExpense(id: string): Observable<PairExpense> {
+    getExpense(id: string): Observable<GroupExpense | PairExpense> {
         return this.httpClientService.get(`${this.endpoint}/${id}`).pipe(
             map(() => this.getRandomPairExpenseDTO(0)),
             map((expense) => this.mapPairExpense(expense)),
@@ -108,6 +109,12 @@ export class ExpenseAPIService implements ExpenseService {
                 map(() => this.getRandomPairExpenseDTOs()),
                 map((expenses) => this.mapPairExpenses(expenses)),
             );
+    }
+
+    paybackGroupExpense(groupId: string, expenseId: string): Observable<void> {
+        return this.httpClientService.put(
+            `${this.endpoint}/payback/group/${groupId}/${expenseId}`,
+        );
     }
 
     paybackPairExpense(contactId: string, expenseId: string): Observable<void> {

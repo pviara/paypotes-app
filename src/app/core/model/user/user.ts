@@ -8,7 +8,7 @@ export class User {
         },
     ) {}
 
-    getAvatarURL(): string {
+    getAvatarUrl(): string {
         return this.data.avatarURL;
     }
 

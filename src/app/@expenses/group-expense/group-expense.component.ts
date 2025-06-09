@@ -1,8 +1,16 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
-import { map, shareReplay, switchMap, tap } from 'rxjs';
+import { filter, map, shareReplay, switchMap, tap } from 'rxjs';
 import { NotificationService } from '@core/services/notification/notification.service';
+import { GroupExpense } from '@core/model/expense/group-expense';
+import { generateRandomString } from '@shared/utils/generate-random-string';
+import { generateRandomDate } from '@shared/utils/get-random-date';
+import { getRandomEmoji } from '@shared/utils/get-random-emoji';
+import { Group } from '@core/model/group/group';
+import { Member } from '@core/model/group/member';
+import { generateRandomName } from '@shared/utils/generate-random-name';
+import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
 
 @Component({
     selector: 'group-expense',
@@ -16,12 +24,40 @@ export class GroupExpenseComponent {
     private router = inject(Router);
 
     private expenseId = '';
-    private contactId = '';
+    private groupId = '';
 
     $expense = this.route.params.pipe(
         tap((params) => (this.expenseId = params['expenseId'])),
         switchMap(() => this.expenseService.getExpense(this.expenseId)),
-        tap((expense) => (this.contactId = expense.getCounterparty().getId())),
+        // map(
+        //     () =>
+        //         new GroupExpense(
+        //             {
+        //                 id: generateRandomString(),
+        //                 date: generateRandomDate(),
+        //                 emoji: '⛽',
+        //                 label: 'Essence',
+        //             },
+        //             new Group({
+        //                 metadata: {
+        //                     id: generateRandomString(),
+        //                     emoji: '🌊',
+        //                     name: 'Bretagne',
+        //                 },
+        //                 members: [
+        //                     new Member({
+        //                         id: generateRandomString(),
+        //                         firstname: generateRandomName().firstname,
+        //                         lastname: generateRandomName().lastname,
+        //                         avatarUrl: getRandomAvatarUrl(),
+        //                     }),
+        //                 ],
+        //             }),
+        //             '-38,50',
+        //         ),
+        // ),
+        filter((expense) => expense instanceof GroupExpense),
+        tap((expense) => (this.groupId = expense.getGroup().getId())),
         shareReplay(1),
     );
 
@@ -30,7 +66,7 @@ export class GroupExpenseComponent {
     onPayback(): void {
         if (this.expenseId) {
             this.expenseService
-                .paybackPairExpense(this.contactId, this.expenseId)
+                .paybackGroupExpense(this.groupId, this.expenseId)
                 .pipe(
                     tap(this.notifyPaidBack()),
                     tap(this.redirectToExpenses()),

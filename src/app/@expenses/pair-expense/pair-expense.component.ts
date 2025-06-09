@@ -1,8 +1,9 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, inject } from '@angular/core';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
-import { map, shareReplay, switchMap, tap } from 'rxjs';
+import { filter, map, shareReplay, switchMap, tap } from 'rxjs';
 import { NotificationService } from '@core/services/notification/notification.service';
+import { PairExpense } from '@core/model/expense/pair-expense';
 
 @Component({
     selector: 'pair-expense',
@@ -21,6 +22,7 @@ export class PairExpenseComponent {
     $expense = this.route.params.pipe(
         tap((params) => (this.expenseId = params['expenseId'])),
         switchMap(() => this.expenseService.getExpense(this.expenseId)),
+        filter((expense) => expense instanceof PairExpense),
         tap((expense) => (this.contactId = expense.getCounterparty().getId())),
         shareReplay(1),
     );

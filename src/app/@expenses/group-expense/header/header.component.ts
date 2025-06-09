@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
+import { Group } from '@core/model/group/group';
 
 @Component({
     selector: 'group-expense-header',
@@ -8,5 +8,5 @@ import { Contact } from '@core/model/contact/contact';
 })
 export class ExpenseHeaderComponent {
     date = input.required<Date>();
-    counterparty = input.required<Contact>();
+    group = input.required<Group>();
 }

@@ -8,7 +8,7 @@ export type ContactMetadata = {
 export class Contact {
     constructor(private data: ContactMetadata) {}
 
-    getAvatarURL(): string {
+    getAvatarUrl(): string {
         return this.data.avatarUrl;
     }
 

@@ -104,12 +104,12 @@ export class SummaryFormComponent {
 
     getPersonAvatarURL(): string {
         if (this.currentContextIsExpense()) {
-            return this.getPerson().getAvatarURL();
+            return this.getPerson().getAvatarUrl();
         } else {
             if (this.getIsCurrentPayer()) {
-                return this.authService.signedInUser?.user.getAvatarURL() || '';
+                return this.authService.signedInUser?.user.getAvatarUrl() || '';
             } else {
-                return this.getPerson().getAvatarURL();
+                return this.getPerson().getAvatarUrl();
             }
         }
     }

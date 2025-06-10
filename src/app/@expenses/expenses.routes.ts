@@ -1,10 +1,9 @@
 import { AddExpenseViewModule } from '@expenses/add-expense/add-expense.view-module';
 import { ExpensesComponent } from '@expenses/expenses/expenses.component';
 import { ExpensesView } from '@expenses/expenses.view';
-import { GroupExpenseDetailComponent } from '@expenses/group-expense/detail/group-expense-detail.component';
+import { GroupExpenseViewModule } from '@expenses/group-expense/group-expense.view-module';
 import { PairExpenseComponent } from '@expenses/pair-expense/pair-expense.component';
 import { Routes } from '@angular/router';
-import { GroupExpenseViewModule } from './group-expense/group-expense.view-module';
 
 export const expensesRoutes: Routes = [
     {
@@ -29,9 +28,7 @@ export const expensesRoutes: Routes = [
             },
             {
                 path: 'group',
-                component: GroupExpenseDetailComponent,
                 loadChildren: importGroupExpenseView(),
-                title: 'Dépense de groupe',
                 data: { hideMenu: true },
             },
         ],

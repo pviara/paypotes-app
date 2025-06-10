@@ -1,32 +1,34 @@
-import { ActivatedRoute, Router } from '@angular/router';
-import { Component, inject } from '@angular/core';
-import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
-import { filter, map, shareReplay, switchMap, tap } from 'rxjs';
-import { NotificationService } from '@core/services/notification/notification.service';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { GroupExpense } from '@core/model/expense/group-expense';
-import { generateRandomString } from '@shared/utils/generate-random-string';
-import { generateRandomDate } from '@shared/utils/get-random-date';
 import { Group } from '@core/model/group/group';
 import { Member } from '@core/model/group/member';
-import { generateRandomName } from '@shared/utils/generate-random-name';
+import { Persons } from '@core/model/person';
+import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
+import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
+import { generateRandomName } from '@shared/utils/generate-random-name';
+import { generateRandomString } from '@shared/utils/generate-random-string';
+import { generateRandomDate } from '@shared/utils/get-random-date';
+import { filter, map, shareReplay, switchMap, tap } from 'rxjs';
 
 @Component({
-    selector: 'group-expense-detail',
-    templateUrl: './group-expense-detail.component.html',
-    styleUrls: ['./group-expense-detail.component.scss'],
+    selector: 'group-expense-chose-members',
+    templateUrl: './group-expense-chose-members.component.html',
+    styleUrls: ['./group-expense-chose-members.component.scss'],
 })
-export class GroupExpenseDetailComponent {
+export class GroupExpenseChoseMembersComponent {
     private expenseService = inject(ExpenseServiceToken);
-    private notificationService = inject(NotificationService);
+    private groupService = inject(GroupServiceToken);
     private route = inject(ActivatedRoute);
-    private router = inject(Router);
 
     private expenseId = '';
-    private groupId = '';
 
+    members = this.groupService.getLastFetchedGroup()?.getMembers() ?? [];
+
+    // todo: add a service shared between this component and detail component, to share the same expense
     $expense = this.route.params.pipe(
-        tap((params) => (this.expenseId = params['expenseId'])),
+        map((params) => (this.expenseId = params['expenseId'])),
         switchMap(() => this.expenseService.getExpense(this.expenseId)),
         map(
             () =>
@@ -83,37 +85,19 @@ export class GroupExpenseDetailComponent {
                 ),
         ),
         filter((expense) => expense instanceof GroupExpense),
-        tap((expense) => (this.groupId = expense.getGroup().getId())),
+        tap((expense) => (this.members = expense.getGroup().getMembers())),
         shareReplay(1),
     );
 
-    $expenseLabel = this.$expense.pipe(map((expense) => expense.getLabel()));
+    @Output()
+    buttonClicked = new EventEmitter<string[]>();
 
-    onPayback(): void {
-        if (this.expenseId) {
-            this.expenseService
-                .paybackGroupExpense(this.groupId, this.expenseId)
-                .pipe(
-                    tap(this.notifyPaidBack()),
-                    tap(this.redirectToExpenses()),
-                )
-                .subscribe();
-        }
+    getPreviousRoute(): string {
+        return `/expenses/${this.expenseId}/group/detail`;
     }
 
-    openPaybackDetails(): void {
-        this.router.navigate(['expenses', 'group', this.expenseId, 'members']);
-    }
-
-    private notifyPaidBack(): () => void {
-        return () =>
-            this.notificationService.notify({
-                type: 'success',
-                message: 'Dépense remboursée !',
-            });
-    }
-
-    private redirectToExpenses(): () => void {
-        return () => this.router.navigate(['/expenses']);
+    onButtonClicked(persons: Persons): void {
+        const personIds = persons.map((person) => person.getId());
+        this.buttonClicked.emit(personIds);
     }
 }

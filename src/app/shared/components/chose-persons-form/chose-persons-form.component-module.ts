@@ -6,6 +6,7 @@ import { PersonComponent } from '@shared/components/chose-persons-form/person/pe
 
 @NgModule({
     declarations: [ChosePersonsFormComponent, PersonComponent],
+    exports: [ChosePersonsFormComponent],
     imports: [ButtonComponent, CommonModule],
 })
 export class ChosePersonsFormComponentModule {}

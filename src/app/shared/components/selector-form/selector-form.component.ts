@@ -1,6 +1,6 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
 import { Contacts, Contact } from '@core/model/contact/contact';
-import { Member } from '@core/model/group/member';
+import { Member, Members } from '@core/model/group/member';
 
 @Component({
     selector: 'selector-form',
@@ -8,7 +8,7 @@ import { Member } from '@core/model/group/member';
     styleUrls: ['./selector-form.component.scss'],
 })
 export class SelectorFormComponent {
-    persons = input<Contacts | Member[] | null>(null);
+    persons = input<Contacts | Members | null>(null);
 
     @Output()
     personSelected = new EventEmitter<Contact | Member>();

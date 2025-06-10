@@ -1,7 +1,7 @@
 import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { Component, inject, OnInit } from '@angular/core';
+import { Contact, Contacts } from '@core/model/contact/contact';
 import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
-import { Contacts, Contact } from '@core/model/contact/contact';
 import { getValidator, ValidatorKey } from '@core/model/form/validator';
 import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
@@ -20,6 +20,7 @@ export class ChoseContactsComponent implements OnInit {
 
     $contacts = this.contactService.getContacts();
 
+    // stays here
     ngOnInit(): void {
         if (!this.form.exist(this.labels.contacts)) {
             this.form.addField({
@@ -30,6 +31,7 @@ export class ChoseContactsComponent implements OnInit {
         }
     }
 
+    // goes to child component
     isContactSelected(person: Contact | User): boolean {
         const contacts = this.form
             .getFieldFrom(this.labels.contacts)
@@ -37,10 +39,12 @@ export class ChoseContactsComponent implements OnInit {
         return contacts.some((selected) => selected.getId() === person.getId());
     }
 
+    // goes to child component
     isLastFrom(contacts: Contacts, index: number): boolean {
         return index === contacts.length - 1;
     }
 
+    // stays here
     onButtonClicked(): void {
         const notAlreadyAddedContacts = this.getNotAlreadyAddedContacts();
         this.form
@@ -50,6 +54,7 @@ export class ChoseContactsComponent implements OnInit {
         this.router.navigate(['groups', 'add', 'members']);
     }
 
+    // stays here
     onPersonSelected(person: Contact | User): void {
         const contacts = this.form
             .getFieldFrom(this.labels.contacts)
@@ -66,6 +71,7 @@ export class ChoseContactsComponent implements OnInit {
         this.form.getFieldFrom(this.labels.contacts).setValue(contacts);
     }
 
+    // stays here
     private getNotAlreadyAddedContacts(): (Contact | User)[] {
         const contacts = this.getContacts();
         const members = this.getMembers();

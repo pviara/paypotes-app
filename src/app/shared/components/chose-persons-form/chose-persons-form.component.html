@@ -11,7 +11,7 @@
                 }
             </ul>
             <form-button
-                [disabled]="form.getFieldFrom(label).invalid()"
+                [disabled]="form.getFieldFrom(label).invalid() || buttonDisabled()"
                 [text]="text()"
                 (clicked)="onButtonClicked()"
             />

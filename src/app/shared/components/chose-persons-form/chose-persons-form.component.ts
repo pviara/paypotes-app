@@ -1,5 +1,6 @@
 import {
     Component,
+    computed,
     EventEmitter,
     inject,
     input,
@@ -19,6 +20,8 @@ import { Person, Persons } from '@core/model/person';
 export class ChosePersonsFormComponent implements OnInit {
     private formService = inject(FormService);
 
+    buttonDisabled = computed(() => this.disabled() ?? false);
+    disabled = input<boolean | null>(false);
     persons = input<Persons | null>(null);
     text = input.required<string>();
 

@@ -4,6 +4,7 @@
     [title]="'Qui a remboursé ?'"
 />
 <chose-persons-form
+    [disabled]="$loading | async"
     [persons]="members"
     [text]="'On m\'a remboursé !'"
     (buttonClicked)="onButtonClicked($event)"

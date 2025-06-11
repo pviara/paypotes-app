@@ -1,12 +1,12 @@
 import { Component, EventEmitter, inject, Output } from '@angular/core';
+import { ConfettiService } from '@core/services/confetti/confetti.service';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
+import { GroupExpense } from '@core/model/expense/group-expense';
 import { GroupExpenseViewService } from '@expenses/group-expense/group-expense.view-service';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { Persons } from '@core/model/person';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
-import { GroupExpense } from '@core/model/expense/group-expense';
-import { ConfettiService } from '@core/services/confetti/confetti.service';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Component({
     selector: 'group-expense-chose-members',
@@ -25,6 +25,8 @@ export class GroupExpenseChoseMembersComponent {
     expense = this.groupExpenseViewService.$fetchedExpense.getValue();
     members = this.expense?.getGroup()?.getMembers() ?? [];
 
+    $loading = new BehaviorSubject(false);
+
     @Output()
     buttonClicked = new EventEmitter<string[]>();
 
@@ -33,8 +35,12 @@ export class GroupExpenseChoseMembersComponent {
     }
 
     onButtonClicked(persons: Persons): void {
-        const personIds = persons.map((person) => person.getId());
+        this.$loading.next(true);
+        this.confettiService.pan();
+
         const expense = this.getFetchedExpense();
+        const personIds = persons.map((person) => person.getId());
+
         this.expenseService
             .paybackGroupExpense(
                 expense.getGroup().getId(),
@@ -44,7 +50,6 @@ export class GroupExpenseChoseMembersComponent {
             .pipe(
                 tap(this.notifyPaidBack()),
                 tap(this.redirectToGroupExpenses()),
-                tap(() => this.confettiService.pan()),
             )
             .subscribe();
     }

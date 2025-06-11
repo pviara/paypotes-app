@@ -13,4 +13,8 @@ export const groupExpenseRoutes: Routes = [
         component: GroupExpenseChoseMembersComponent,
         title: 'Dépense de groupe',
     },
+    {
+        path: ':expenseId',
+        redirectTo: ':expenseId/detail',
+    },
 ];

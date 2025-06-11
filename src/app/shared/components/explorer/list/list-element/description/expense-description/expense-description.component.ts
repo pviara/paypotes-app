@@ -1,19 +1,41 @@
-import { Component, computed, input } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
+import {
+    AuthServiceProvider,
+    AuthServiceToken,
+} from '@core/services/auth/auth.api-service.provider';
+import { Component, computed, inject, input } from '@angular/core';
+import { GroupExpense } from '@core/model/expense/group-expense';
+import { PairExpense } from '@core/model/expense/pair-expense';
 
 @Component({
     selector: 'expense-description',
     templateUrl: './expense-description.component.html',
     styleUrls: ['./expense-description.component.scss'],
+    providers: [AuthServiceProvider],
 })
 export class ExpenseDescriptionComponent {
-    emoji = input.required<string>();
+    private authService = inject(AuthServiceToken);
 
-    label = input.required<string>();
+    expense = input.required<GroupExpense | PairExpense>();
 
-    counterparty = input.required<Contact>();
+    emoji = computed(() => this.expense().getEmoji());
 
-    prefix = computed(() => (this.isDebt() ? 'à' : 'de'));
+    label = computed(() => this.expense().getLabel());
 
-    isDebt = input.required<boolean>();
+    counterpartySummary = computed(() => {
+        const expense = this.expense();
+        if (expense instanceof PairExpense) {
+            const counterparty = expense.getCounterparty().getFullName();
+            return expense.isDebt()
+                ? `de <span class="bold">${counterparty}</span>`
+                : `à <span class="bold">${counterparty}</span>`;
+        }
+
+        const creditor = expense.getCreditor();
+        const signedInUserIsCreditor =
+            creditor.getId() === this.authService.signedInUser?.user.getId();
+
+        return signedInUserIsCreditor
+            ? 'de <span class="bold">Vous</span> aux membres'
+            : `à <span class="bold">${creditor.getFullName()}</span>`;
+    });
 }

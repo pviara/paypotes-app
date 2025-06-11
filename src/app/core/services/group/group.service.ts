@@ -21,6 +21,5 @@ export interface GroupService {
         pageIndex?: number,
         filters?: Filters,
     ): Observable<GroupsWithBalance>;
-    getMembersOf(groupId: string): Observable<User[]>;
     getLastFetchedGroup(): GroupWithBalance | null;
 }

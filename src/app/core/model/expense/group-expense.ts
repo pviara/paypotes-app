@@ -41,3 +41,5 @@ export class GroupExpense extends Expense {
         return +this.balance.replace(',', '.');
     }
 }
+
+export type GroupExpenses = Array<GroupExpense>;

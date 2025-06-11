@@ -20,6 +20,7 @@ import { Observable, map } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
 import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
 import { generateRandomName } from '@shared/utils/generate-random-name';
+import { generateRandomBalance } from '@shared/utils/generate-random-balance';
 
 export class ContactAPIService implements ContactService {
     private readonly endpoint = '/api/contact';
@@ -125,28 +126,28 @@ export class ContactAPIService implements ContactService {
                 firstname: generateRandomName().firstname,
                 lastname: generateRandomName().lastname,
                 avatarUrl: getRandomAvatarUrl(),
-                balance: '-12,75',
+                balance: generateRandomBalance(),
             },
             {
                 id: generateRandomString(),
                 firstname: generateRandomName().firstname,
                 lastname: generateRandomName().lastname,
                 avatarUrl: getRandomAvatarUrl(),
-                balance: '-12,75',
+                balance: generateRandomBalance(),
             },
             {
                 id: generateRandomString(),
                 firstname: generateRandomName().firstname,
                 lastname: generateRandomName().lastname,
                 avatarUrl: getRandomAvatarUrl(),
-                balance: '-12,75',
+                balance: generateRandomBalance(),
             },
             {
                 id: generateRandomString(),
                 firstname: generateRandomName().firstname,
                 lastname: generateRandomName().lastname,
                 avatarUrl: getRandomAvatarUrl(),
-                balance: '-12,75',
+                balance: generateRandomBalance(),
             },
         ];
     }

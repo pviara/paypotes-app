@@ -6,11 +6,6 @@
         <h4>
             {{ label() }}
         </h4>
-        <p>
-            {{ prefix() }}
-            <span class="bold">
-                {{ counterparty().getFullName() }}
-            </span>
-        </p>
+        <p [innerHTML]="counterpartySummary()"></p>
     </div>
 </div>

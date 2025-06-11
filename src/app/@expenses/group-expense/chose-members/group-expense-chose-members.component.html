@@ -3,12 +3,8 @@
     [subhead]="'Dépense de groupe'"
     [title]="'Qui a remboursé ?'"
 />
-@if ($expense | async) {
-    <chose-persons-form
-        [persons]="members"
-        [text]="'On m\'a remboursé !'"
-        (buttonClicked)="onButtonClicked($event)"
-    />
-} @else {
-    <span class="loader"></span>
-}
+<chose-persons-form
+    [persons]="members"
+    [text]="'On m\'a remboursé !'"
+    (buttonClicked)="onButtonClicked($event)"
+/>

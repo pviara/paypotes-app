@@ -111,15 +111,21 @@ export class ExpenseAPIService implements ExpenseService {
             );
     }
 
-    paybackGroupExpense(groupId: string, expenseId: string): Observable<void> {
+    paybackGroupExpense(
+        groupId: string,
+        expenseId: string,
+        debtorIds: Array<string>,
+    ): Observable<void> {
         return this.httpClientService.put(
             `${this.endpoint}/payback/group/${groupId}/${expenseId}`,
+            { debtorIds },
         );
     }
 
     paybackPairExpense(contactId: string, expenseId: string): Observable<void> {
         return this.httpClientService.put(
             `${this.endpoint}/payback/pair/${contactId}/${expenseId}`,
+            {},
         );
     }
 

@@ -38,5 +38,9 @@ export interface ExpenseService {
         filters?: Filters,
     ): Observable<PairExpenses>;
     paybackPairExpense(contactId: string, expenseId: string): Observable<void>;
-    paybackGroupExpense(groupId: string, expenseId: string): Observable<void>;
+    paybackGroupExpense(
+        groupId: string,
+        expenseId: string,
+        debtorIds: Array<string>,
+    ): Observable<void>;
 }

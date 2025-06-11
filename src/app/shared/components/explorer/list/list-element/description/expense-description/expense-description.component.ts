@@ -1,5 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
+import { Member } from '@core/model/group/member';
 
 @Component({
     selector: 'expense-description',
@@ -11,7 +12,7 @@ export class ExpenseDescriptionComponent {
 
     label = input.required<string>();
 
-    counterparty = input.required<Contact>();
+    counterparty = input.required<Contact | Member>();
 
     prefix = computed(() => (this.isDebt() ? 'à' : 'de'));
 

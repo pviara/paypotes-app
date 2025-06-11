@@ -3,9 +3,9 @@ import { PairExpense } from '@core/model/expense/pair-expense';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'expense',
+    name: 'pairExpense',
 })
-export class ExpensePipe implements PipeTransform {
+export class PairExpensePipe implements PipeTransform {
     transform(value: ListElement): PairExpense | null {
         return value instanceof PairExpense ? (value as PairExpense) : null;
     }

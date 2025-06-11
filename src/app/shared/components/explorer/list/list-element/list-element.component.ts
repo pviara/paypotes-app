@@ -14,6 +14,7 @@ import { GroupWithBalance } from '@core/model/group/group-with-balance';
 import { ListElement } from '@core/model/list-element/list-element';
 import { PairExpense } from '@core/model/expense/pair-expense';
 import { Router } from '@angular/router';
+import { GroupExpense } from '@core/model/expense/group-expense';
 
 @Component({
     selector: 'list-element',
@@ -51,13 +52,16 @@ export class ListElementComponent implements AfterViewInit {
 
         const type = {
             isContact: element instanceof ContactWithBalance,
-            isExpense: element instanceof PairExpense,
+            isGroupExpense: element instanceof GroupExpense,
+            isPairExpense: element instanceof PairExpense,
             isGroup: element instanceof GroupWithBalance,
         };
 
         if (type.isContact) {
             this.router.navigate([`/contacts/${element.getId()}`]);
-        } else if (type.isExpense) {
+        } else if (type.isGroupExpense) {
+            this.router.navigate([`/expenses/group/${element.getId()}`]);
+        } else if (type.isPairExpense) {
             this.router.navigate([`/expenses/pair/${element.getId()}`]);
         } else if (type.isGroup) {
             this.router.navigate([`/groups/${element.getId()}`]);

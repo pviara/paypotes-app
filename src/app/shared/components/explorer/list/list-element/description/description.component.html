@@ -5,20 +5,9 @@
         [lastname]="contact.getLastname()"
     />
 }
-@if (element() | groupExpense; as expense) {
+@if ((element() | groupExpense) || (element() | pairExpense); as expense) {
     <expense-description
-        [emoji]="expense.getEmoji()"
-        [label]="expense.getLabel()"
-        [isDebt]="expense.isDebt()"
-        [counterparty]="expense.getCreditor()"
-    />
-}
-@if (element() | pairExpense; as expense) {
-    <expense-description
-        [emoji]="expense.getEmoji()"
-        [label]="expense.getLabel()"
-        [isDebt]="expense.isDebt()"
-        [counterparty]="expense.getCounterparty()"
+        [expense]="expense"
     />
 }
 @if (element() | group; as group) {

@@ -1,6 +1,6 @@
-import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { Component, inject } from '@angular/core';
 import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
+import { FormService } from '@core/services/form/form.service';
 import { Persons } from '@core/model/person';
 import { Router } from '@angular/router';
 
@@ -11,10 +11,11 @@ import { Router } from '@angular/router';
 })
 export class ChoseContactsComponent {
     private contactService = inject(ContactServiceToken);
-    private form = inject(AddGroupFormToken);
+    private formService = inject(FormService);
+    private form = this.formService.injectCurrentForm();
     private router = inject(Router);
 
-    labels = { contacts: 'contacts', members: 'members' };
+    labels = { members: 'members' };
 
     $contacts = this.contactService.getContacts();
 

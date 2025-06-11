@@ -9,12 +9,11 @@ import {
 } from '@angular/core';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
 import { Contact } from '@core/model/contact/contact';
-import { Form } from '@core/model/form/form';
 import { FormContext } from '@core/model/form/form-context';
 import { FormService } from '@core/services/form/form.service';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
-import { User } from '@core/model/user/user';
 import { Member } from '@core/model/group/member';
+import { User } from '@core/model/user/user';
 
 export type AddGroupExpenseFormValue = {
     balance: string;
@@ -43,7 +42,7 @@ export class SummaryFormComponent {
     private authService = inject(AuthServiceToken);
     private confettiService = inject(ConfettiService);
     private formService = inject(FormService);
-    private form = this.injectCurrentForm();
+    private form = this.formService.injectCurrentForm();
     private groupService = inject(GroupServiceToken);
 
     context = input.required<FormContext>();
@@ -129,11 +128,6 @@ export class SummaryFormComponent {
         } catch (error: unknown) {
             return '';
         }
-    }
-
-    private injectCurrentForm(): Form {
-        const currentFormToken = this.formService.getUsedForm();
-        return inject(currentFormToken);
     }
 
     private changeLoadingStatus(): void {

@@ -1,3 +1,4 @@
+import { BehaviorSubject, tap } from 'rxjs';
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
@@ -6,7 +7,6 @@ import { GroupExpenseViewService } from '@expenses/group-expense/group-expense.v
 import { NotificationService } from '@core/services/notification/notification.service';
 import { Persons } from '@core/model/person';
 import { Router } from '@angular/router';
-import { BehaviorSubject, tap } from 'rxjs';
 
 @Component({
     selector: 'group-expense-chose-members',
@@ -48,22 +48,26 @@ export class GroupExpenseChoseMembersComponent {
                 personIds,
             )
             .pipe(
-                tap(this.notifyPaidBack()),
+                tap(this.notifyPaidBack(personIds)),
                 tap(this.redirectToGroupExpenses()),
             )
             .subscribe();
     }
 
-    private notifyPaidBack(): () => void {
+    private notifyPaidBack(personIds: Array<string>): () => void {
         return () =>
             this.notificationService.notify({
                 type: 'success',
-                message: 'Dépense remboursée !',
+                message:
+                    personIds.length < this.members.length
+                        ? 'Dépense partiellement remboursée !'
+                        : 'Dépense remboursée !',
             });
     }
 
     private redirectToGroupExpenses(): () => void {
-        return () => this.router.navigate(['/expenses']);
+        return () =>
+            this.router.navigate(['/groups', this.expense?.getGroup().getId()]);
     }
 
     private getFetchedExpense(): GroupExpense {

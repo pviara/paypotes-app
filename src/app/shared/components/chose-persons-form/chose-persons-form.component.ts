@@ -7,7 +7,6 @@ import {
     OnInit,
     Output,
 } from '@angular/core';
-import { Form } from '@core/model/form/form';
 import { FormService } from '@core/services/form/form.service';
 import { getValidator, ValidatorKey } from '@core/model/form/validator';
 import { Person, Persons } from '@core/model/person';
@@ -25,7 +24,7 @@ export class ChosePersonsFormComponent implements OnInit {
     persons = input<Persons | null>(null);
     text = input.required<string>();
 
-    form = this.injectCurrentForm();
+    form = this.formService.injectCurrentForm();
     label = 'persons';
 
     @Output()
@@ -66,11 +65,6 @@ export class ChosePersonsFormComponent implements OnInit {
             (selected) => selected.getId() === person.getId(),
         );
         persons.splice(index, 1);
-    }
-
-    private injectCurrentForm(): Form {
-        const currentFormToken = this.formService.getUsedForm();
-        return inject(currentFormToken);
     }
 
     private initForm(): void {

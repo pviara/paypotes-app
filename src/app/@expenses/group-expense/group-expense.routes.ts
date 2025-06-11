@@ -4,7 +4,7 @@ import { GroupExpenseChoseMembersComponent } from './chose-members/group-expense
 
 export const groupExpenseRoutes: Routes = [
     {
-        path: ':expenseId/detail',
+        path: ':expenseId',
         component: GroupExpenseDetailComponent,
         title: 'Dépense de groupe',
     },
@@ -12,9 +12,6 @@ export const groupExpenseRoutes: Routes = [
         path: ':expenseId/members',
         component: GroupExpenseChoseMembersComponent,
         title: 'Dépense de groupe',
-    },
-    {
-        path: ':expenseId',
-        redirectTo: ':expenseId/detail',
+        data: { hideMenu: true },
     },
 ];

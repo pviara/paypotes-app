@@ -24,12 +24,10 @@ export const expensesRoutes: Routes = [
                 path: 'pair/:expenseId',
                 component: PairExpenseComponent,
                 title: 'Dépense',
-                data: { hideMenu: true },
             },
             {
                 path: 'group',
                 loadChildren: importGroupExpenseView(),
-                data: { hideMenu: true },
             },
         ],
     },

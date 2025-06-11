@@ -17,7 +17,7 @@ export class AppNotificationComponent {
     $notification = this.notificationService.$notification;
 
     $emptyNotificationClass = this.$notification.pipe(
-        delay(this.isBrowser() ? 5000 : 0),
+        delay(this.isBrowser() ? 3000 : 0),
         map(() => true),
         tap(() => setTimeout(() => this.notificationService.empty(), 300)),
     );

@@ -1,5 +1,5 @@
-import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { Component, inject } from '@angular/core';
+import { FormService } from '@core/services/form/form.service';
 import { Members, Member } from '@core/model/group/member';
 import { Router } from '@angular/router';
 import { Contacts, Contact } from '@core/model/contact/contact';
@@ -10,7 +10,8 @@ import { Contacts, Contact } from '@core/model/contact/contact';
     styleUrls: ['./chose-user-from-search.component.scss'],
 })
 export class ChoseUserFromSearchComponent {
-    private form = inject(AddExpenseFormToken);
+    private formService = inject(FormService);
+    private form = this.formService.injectCurrentForm();
     private router = inject(Router);
 
     private label = 'person';

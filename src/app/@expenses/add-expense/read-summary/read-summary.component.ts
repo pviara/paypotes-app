@@ -4,6 +4,7 @@ import { ExpenseServiceToken } from '@core/services/expense/expense.service.prov
 import { NotificationService } from '@core/services/notification/notification.service';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
+import { FormService } from '@core/services/form/form.service';
 
 @Component({
     selector: 'read-summary',
@@ -12,6 +13,8 @@ import { tap } from 'rxjs';
 })
 export class ReadSummaryComponent {
     private expenseService = inject(ExpenseServiceToken);
+    private formService = inject(FormService);
+    private form = this.formService.injectCurrentForm();
     private notificationService = inject(NotificationService);
     private router = inject(Router);
 
@@ -32,6 +35,7 @@ export class ReadSummaryComponent {
                     });
                     this.router.navigate(['/expenses']);
                 }),
+                tap(() => this.form.clear()),
             )
             .subscribe();
     }

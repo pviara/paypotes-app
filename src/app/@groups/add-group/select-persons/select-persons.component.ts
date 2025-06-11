@@ -1,8 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { FormService } from '@core/services/form/form.service';
 import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
-import { FormService } from '@core/services/form/form.service';
-import { Form } from '@core/model/form/form';
 
 @Component({
     selector: 'select-persons',
@@ -11,7 +10,7 @@ import { Form } from '@core/model/form/form';
 })
 export class SelectPersonsComponent implements OnInit {
     private formService = inject(FormService);
-    private form = this.injectCurrentForm();
+    private form = this.formService.injectCurrentForm();
     private router = inject(Router);
 
     private label = 'members';
@@ -41,11 +40,6 @@ export class SelectPersonsComponent implements OnInit {
             this.form.getFieldFrom(this.temporaryUsersLabel).setValue(users);
         }
         this.router.navigate(['groups', 'add', 'members', 'search']);
-    }
-
-    private injectCurrentForm(): Form {
-        const currentFormToken = this.formService.getUsedForm();
-        return inject(currentFormToken);
     }
 
     private initForm(): void {

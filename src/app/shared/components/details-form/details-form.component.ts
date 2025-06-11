@@ -11,7 +11,6 @@ import {
     EXPENSE_NAME_SUGGESTIONS,
     GROUP_NAME_SUGGESTIONS,
 } from '@shared/components/details-form/res/names-suggestions';
-import { Form } from '@core/model/form/form';
 import { FormContext } from '@core/model/form/form-context';
 import { FormService } from '@core/services/form/form.service';
 
@@ -26,7 +25,7 @@ export class DetailsFormComponent implements OnInit {
     context = input.required<FormContext>();
     currentContextIsExpense = computed(() => this.context() === 'expense');
 
-    form = this.injectCurrentForm();
+    form = this.formService.injectCurrentForm();
     labels = { isCurrentPayer: 'isCurrentPayer', name: 'name' };
 
     placeholder = computed(() => this.getRandomName());
@@ -54,11 +53,6 @@ export class DetailsFormComponent implements OnInit {
     onInput(event: Event): void {
         const { value } = event.target as HTMLInputElement;
         this.form.getFieldFrom(this.labels.name).setValue(value);
-    }
-
-    private injectCurrentForm(): Form {
-        const currentFormToken = this.formService.getUsedForm();
-        return inject(currentFormToken);
     }
 
     private getRandomName(): string {

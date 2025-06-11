@@ -1,8 +1,8 @@
-import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { Component, inject } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
+import { FormService } from '@core/services/form/form.service';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { Router } from '@angular/router';
@@ -17,10 +17,12 @@ import { User } from '@core/model/user/user';
 export class ReadSummaryComponent {
     private authService = inject(AuthServiceToken);
     private confettiService = inject(ConfettiService);
+    private formService = inject(FormService);
     private groupService = inject(GroupServiceToken);
     private notificationService = inject(NotificationService);
     private router = inject(Router);
-    form = inject(AddGroupFormToken);
+
+    form = this.formService.injectCurrentForm();
 
     loading = false;
 
@@ -45,6 +47,7 @@ export class ReadSummaryComponent {
                     });
                     this.router.navigate(['/groups']);
                 }),
+                tap(() => this.form.clear()),
             )
             .subscribe();
     }

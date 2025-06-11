@@ -6,7 +6,7 @@
 <div>
     @if ($contact | async; as contact) {
         <balance
-            [balance]="contact.formatBalance()"
+            [balance]="contact.getBalance()"
             [isDebt]="contact.isDebt()"
         />
     }

@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
 import { AddGroupFormToken } from '@core/services/form/form.provider';
+import { Component, inject, OnInit } from '@angular/core';
+import { Contacts } from '@core/model/contact/contact';
 import { getValidator, ValidatorKey } from '@core/model/form/validator';
+import { Members } from '@core/model/group/member';
 import { Router } from '@angular/router';
-import { User } from '@core/model/user/user';
 
 @Component({
     selector: 'members',
@@ -14,26 +14,24 @@ export class MembersComponent implements OnInit {
     private router = inject(Router);
     form = inject(AddGroupFormToken);
 
-    label = 'members';
+    labels = { members: 'members', persons: 'persons ' };
 
     ngOnInit(): void {
-        if (!this.form.exist(this.label)) {
+        if (!this.form.exist(this.labels.members)) {
             this.form.addField({
-                label: this.label,
+                label: this.labels.members,
                 value: [],
                 validators: [getValidator(ValidatorKey.MinLengthTwo)],
             });
         }
     }
 
-    getContacts(): Array<Contact | User> {
-        return this.form.getFieldFrom('contacts').getValue() as Array<Contact>;
+    getContacts(): Contacts {
+        return this.form.getFieldFrom(this.labels.persons).getValue<Contacts>();
     }
 
-    getMembers(): Array<Contact | User> {
-        return this.form.getFieldFrom(this.label).getValue() as Array<
-            Contact | User
-        >;
+    getMembers(): Members {
+        return this.form.getFieldFrom(this.labels.members).getValue<Members>();
     }
 
     onButtonClicked(): void {
@@ -47,7 +45,7 @@ export class MembersComponent implements OnInit {
         );
         if (memberIndex > -1) {
             members.splice(memberIndex, 1);
-            this.form.getFieldFrom(this.label).setValue(members);
+            this.form.getFieldFrom(this.labels.members).setValue(members);
         }
 
         const contacts = this.getContacts();
@@ -56,7 +54,7 @@ export class MembersComponent implements OnInit {
         );
         if (contactIndex > -1) {
             contacts.splice(contactIndex, 1);
-            this.form.getFieldFrom('contacts').setValue(contacts);
+            this.form.getFieldFrom(this.labels.persons).setValue(contacts);
         }
     }
 }

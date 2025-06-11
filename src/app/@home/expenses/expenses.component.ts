@@ -1,11 +1,11 @@
 import { BehaviorSubject, concat, map, of, tap } from 'rxjs';
 import { Component, inject } from '@angular/core';
-import { Expense } from '@core/model/expense/expense';
 import {
     ExpenseServiceProvider,
     ExpenseServiceToken,
 } from '@core/services/expense/expense.service.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
+import { PairExpenses } from '@core/model/expense/pair-expense';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 
 const MAX_EXPENSES = 6;
@@ -37,11 +37,11 @@ export class ExpensesComponent {
 
     $noExpense = new BehaviorSubject<boolean>(false);
 
-    private takeFewExpenses(): (expenses: Array<Expense>) => Array<Expense> {
+    private takeFewExpenses(): (expenses: PairExpenses) => PairExpenses {
         return (expenses) => expenses.slice(0, MAX_EXPENSES);
     }
 
-    private displayCallToActionIfNeeded(): (expenses: Array<Expense>) => void {
+    private displayCallToActionIfNeeded(): (expenses: PairExpenses) => void {
         return (expenses) => {
             if (expenses.length === 0) this.$noExpense.next(true);
         };

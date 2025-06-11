@@ -1,6 +1,6 @@
 import { Component, EventEmitter, input, Output } from '@angular/core';
 import { Contact } from '@core/model/contact/contact';
-import { User } from '@core/model/user/user';
+import { Member } from '@core/model/group/member';
 
 @Component({
     selector: 'person',
@@ -8,11 +8,11 @@ import { User } from '@core/model/user/user';
     styleUrls: ['./person.component.scss'],
 })
 export class PersonComponent {
-    person = input.required<Contact | User>();
+    person = input.required<Contact | Member>();
     last = input<boolean>(false);
 
     @Output()
-    personSelected = new EventEmitter<Contact | User>();
+    personSelected = new EventEmitter<Contact | Member>();
 
     onClicked(): void {
         this.personSelected.emit(this.person());

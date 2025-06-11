@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { Form } from '@core/model/form/form';
 import { FormService } from '@core/services/form/form.service';
 import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
@@ -11,7 +10,7 @@ import { User } from '@core/model/user/user';
 })
 export class SelectPersonComponent implements OnInit {
     private formService = inject(FormService);
-    private form = this.injectCurrentForm();
+    private form = this.formService.injectCurrentForm();
     private router = inject(Router);
 
     private label = 'person';
@@ -37,11 +36,6 @@ export class SelectPersonComponent implements OnInit {
         }
 
         this.router.navigate(['expenses', 'add', 'search']);
-    }
-
-    private injectCurrentForm(): Form {
-        const currentFormToken = this.formService.getUsedForm();
-        return inject(currentFormToken);
     }
 
     private initForm(): void {

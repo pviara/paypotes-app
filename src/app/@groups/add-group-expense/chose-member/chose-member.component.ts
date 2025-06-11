@@ -1,25 +1,15 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddGroupExpenseFormToken } from '@core/services/form/form.provider';
 import { Component, inject, OnInit } from '@angular/core';
-import {
-    GroupServiceProvider,
-    GroupServiceToken,
-} from '@core/services/group/group.service.provider';
-import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
-import { QueryServiceProvider } from '@core/services/query/query.service.provider';
-import { switchMap } from 'rxjs';
-import { User } from '@core/model/user/user';
 import { Contact } from '@core/model/contact/contact';
+import { GroupServiceToken } from '@core/services/group/group.service.provider';
+import { Members, Member } from '@core/model/group/member';
+import { User } from '@core/model/user/user';
 
 @Component({
     selector: 'chose-member',
     templateUrl: './chose-member.component.html',
     styleUrls: ['./chose-member.component.scss'],
-    providers: [
-        GroupServiceProvider,
-        HttpClientServiceProvider,
-        QueryServiceProvider,
-    ],
 })
 export class ChoseMemberComponent implements OnInit {
     private groupService = inject(GroupServiceToken);
@@ -29,11 +19,9 @@ export class ChoseMemberComponent implements OnInit {
 
     private label = 'person';
 
-    $members = this.route.params.pipe(
-        switchMap((params) =>
-            this.groupService.getMembersOf(params['groupId']),
-        ),
-    );
+    members =
+        this.groupService.getLastFetchedGroup()?.getMembers() ??
+        ([] as Members);
 
     ngOnInit(): void {
         if (!this.form.exist(this.label)) {
@@ -50,7 +38,7 @@ export class ChoseMemberComponent implements OnInit {
         return index === users.length - 1;
     }
 
-    onPersonSelected(person: Contact | User): void {
+    onPersonSelected(person: Contact | Member): void {
         this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate([
             'groups',

@@ -11,7 +11,7 @@ export class HttpClientServiceSpy
         return this.getStubOrDefault('get', of({})) as Observable<T>;
     }
 
-    patch(url: string): Observable<void> {
+    put(url: string): Observable<void> {
         return of();
     }
 

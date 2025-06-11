@@ -18,4 +18,8 @@ export class BalanceComponent {
         claim: this.isClaim(),
         debt: this.isDebt(),
     }));
+
+    balanceToDisplay = computed(() =>
+        this.balance().replace('-', '').replace('+', ''),
+    );
 }

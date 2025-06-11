@@ -1,12 +1,12 @@
-import { Expense } from '@core/model/expense/expense';
 import { ListElement } from '@core/model/list-element/list-element';
+import { PairExpense } from '@core/model/expense/pair-expense';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'expense',
 })
 export class ExpensePipe implements PipeTransform {
-    transform(value: ListElement): Expense | null {
-        return value instanceof Expense ? (value as Expense) : null;
+    transform(value: ListElement): PairExpense | null {
+        return value instanceof PairExpense ? (value as PairExpense) : null;
     }
 }

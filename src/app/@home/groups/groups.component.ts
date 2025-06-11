@@ -1,10 +1,10 @@
 import { BehaviorSubject, concat, map, of, tap } from 'rxjs';
 import { Component, inject } from '@angular/core';
-import { Group } from '@core/model/group/group';
 import {
     GroupServiceProvider,
     GroupServiceToken,
 } from '@core/services/group/group.service.provider';
+import { Groups } from '@core/model/group/group';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 
@@ -37,11 +37,11 @@ export class GroupsComponent {
 
     $noGroup = new BehaviorSubject<boolean>(false);
 
-    private takeFewGroups(): (groups: Array<Group>) => Array<Group> {
+    private takeFewGroups(): (groups: Groups) => Groups {
         return (groups) => groups.slice(0, MAX_GROUPS);
     }
 
-    private displayCallToActionIfNeeded(): (groups: Array<Group>) => void {
+    private displayCallToActionIfNeeded(): (groups: Groups) => void {
         return (groups) => {
             if (groups.length === 0) this.$noGroup.next(true);
         };

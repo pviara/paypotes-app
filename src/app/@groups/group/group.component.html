@@ -7,7 +7,7 @@
 <div>
     @if ($group | async; as group) {
         <balance
-            [balance]="group.formatBalance()"
+            [balance]="group.getBalance()"
             [isDebt]="group.isDebt()"
         />
     }

@@ -1,6 +1,5 @@
 import { BalanceFormatter } from '@shared/components/balance-form/model/balance-formatter';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { Form } from '@core/model/form/form';
 import { FormService } from '@core/services/form/form.service';
 
 @Component({
@@ -11,7 +10,7 @@ import { FormService } from '@core/services/form/form.service';
 export class BalanceFormComponent implements OnInit {
     private formService = inject(FormService);
 
-    form = this.injectCurrentForm();
+    form = this.formService.injectCurrentForm();
 
     label = 'balance';
     formatter = new BalanceFormatter();
@@ -32,11 +31,6 @@ export class BalanceFormComponent implements OnInit {
         const balance = this.formatter.getBalance();
 
         this.form.setField({ label: this.label, value: balance });
-    }
-
-    private injectCurrentForm(): Form {
-        const currentFormToken = this.formService.getUsedForm();
-        return inject(currentFormToken);
     }
 
     private initForm(): void {

@@ -1,0 +1,22 @@
+<div class="content">
+        @if (persons(); as persons) {
+            <ul>
+                @for (person of persons; track $index) {
+                    <person
+                        [person]="person"
+                        [last]="isLastFrom(persons, $index)"
+                        [selected]="isPersonSelected(person)"
+                        (personSelected)="onPersonSelected($event)"
+                    />
+                }
+            </ul>
+            <form-button
+                [disabled]="form.getFieldFrom(label).invalid() || buttonDisabled()"
+                [text]="text()"
+                (clicked)="onButtonClicked()"
+            />
+        }
+        @else {
+            <span class="loader"></span>
+        }
+    </div>

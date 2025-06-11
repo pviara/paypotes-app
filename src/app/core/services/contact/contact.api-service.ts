@@ -1,10 +1,25 @@
-import { Contact, Contacts } from '@core/model/contact/contact';
+import {
+    ContactMetadata,
+    Contacts,
+    Contact,
+} from '@core/model/contact/contact';
+import { ContactDTO, ContactDTOs } from '@core/model/contact/contact.dto';
 import { ContactService } from '@core/services/contact/contact.service';
+import {
+    ContactsWithBalance,
+    ContactWithBalance,
+} from '@core/model/contact/contact-with-balance';
+import {
+    ContactWithBalanceDTO,
+    ContactWithBalanceDTOs,
+} from '@core/model/contact/contact-with-balance.dto';
 import { Filters } from '@core/model/filters/filters';
 import { generateRandomString } from '@shared/utils/generate-random-string';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
+import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
+import { generateRandomName } from '@shared/utils/generate-random-name';
 
 export class ContactAPIService implements ContactService {
     private readonly endpoint = '/api/contact';
@@ -14,175 +29,125 @@ export class ContactAPIService implements ContactService {
         private queryService: QueryService,
     ) {}
 
-    getContact(id: string): Observable<Contact> {
+    getContact(id: string): Observable<ContactWithBalance> {
+        return this.httpClientService.get(`${this.endpoint}/${id}`).pipe(
+            map(() => this.getDeterministicContactWithBalanceDTOs()[0]),
+            map((contact) => this.mapContactWithBalanceV2(contact)),
+        );
+    }
+
+    getContacts(): Observable<Contacts> {
         return this.httpClientService
-            .get<Contact>(`${this.endpoint}/${id}`)
+            .get(`${this.endpoint}/without-balance`)
             .pipe(
-                map(
-                    () =>
-                        new Contact({
-                            id,
-                            firstname: 'Claire',
-                            lastname: 'Laroche',
-                            avatarURL: 'claire.png',
-                            balance: Math.ceil(
-                                Math.random() * (9999 - -9999 + 1) + -9999,
-                            ),
-                        }),
-                ),
+                map(() => this.getDeterministicContactDTOs()),
+                map((contacts) => this.mapContactsV2(contacts)),
             );
     }
 
-    getContacts(pageIndex = 0, filters?: Filters): Observable<Contacts> {
+    getContactsWithBalance(
+        pageIndex = 0,
+        filters?: Filters,
+    ): Observable<ContactsWithBalance> {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
-        return this.httpClientService
-            .get<Contacts>(`${this.endpoint}${query}`)
-            .pipe(map(this.getDeterministicContacts()));
+        return this.httpClientService.get(`${this.endpoint}${query}`).pipe(
+            map(() => this.getDeterministicContactWithBalanceDTOs()),
+            map((contacts) => this.mapContactsWithBalanceV2(contacts)),
+        );
     }
 
-    private getDeterministicContacts(): () => Contacts {
-        return () => [
-            new Contact({
+    private mapContactsV2(contacts: ContactDTOs): Contacts {
+        return contacts.map((contact) => this.mapContactV2(contact));
+    }
+
+    private mapContactV2(contact: ContactDTO): Contact {
+        const metadata: ContactMetadata = {
+            id: contact.id,
+            firstname: contact.firstname,
+            lastname: contact.lastname,
+            avatarUrl: contact.avatarUrl,
+        };
+        return new Contact(metadata);
+    }
+
+    private mapContactsWithBalanceV2(
+        contacts: ContactWithBalanceDTOs,
+    ): ContactsWithBalance {
+        return contacts.map((contact) => this.mapContactWithBalanceV2(contact));
+    }
+
+    private mapContactWithBalanceV2(
+        contact: ContactWithBalanceDTO,
+    ): ContactWithBalance {
+        const metadata: ContactMetadata = {
+            id: contact.id,
+            firstname: contact.firstname,
+            lastname: contact.lastname,
+            avatarUrl: contact.avatarUrl,
+        };
+        return new ContactWithBalance(metadata, contact.balance);
+    }
+
+    private getDeterministicContactDTOs(): ContactDTOs {
+        return [
+            {
                 id: generateRandomString(),
-                firstname: 'Alice',
-                lastname: 'Anderson',
-                avatarURL: 'estelle.png',
-                balance: 1456,
-            }),
-            new Contact({
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
+            },
+            {
                 id: generateRandomString(),
-                firstname: 'Bob',
-                lastname: 'Brown',
-                avatarURL: 'valentin.png',
-                balance: -7854,
-            }),
-            new Contact({
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
+            },
+            {
                 id: generateRandomString(),
-                firstname: 'Charlie',
-                lastname: 'Clark',
-                avatarURL: 'ahmed.png',
-                balance: 6743,
-            }),
-            new Contact({
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
+            },
+            {
                 id: generateRandomString(),
-                firstname: 'David',
-                lastname: 'Davis',
-                avatarURL: 'claire.png',
-                balance: -3421,
-            }),
-            new Contact({
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
+            },
+        ];
+    }
+
+    private getDeterministicContactWithBalanceDTOs(): ContactWithBalanceDTOs {
+        return [
+            {
                 id: generateRandomString(),
-                firstname: 'Emily',
-                lastname: 'Evans',
-                avatarURL: 'estelle.png',
-                balance: 2398,
-            }),
-            new Contact({
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
+                balance: '-12,75',
+            },
+            {
                 id: generateRandomString(),
-                firstname: 'Frank',
-                lastname: 'Garcia',
-                avatarURL: 'valentin.png',
-                balance: -1500,
-            }),
-            new Contact({
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
+                balance: '-12,75',
+            },
+            {
                 id: generateRandomString(),
-                firstname: 'Grace',
-                lastname: 'Harris',
-                avatarURL: 'ahmed.png',
-                balance: 522,
-            }),
-            new Contact({
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
+                balance: '-12,75',
+            },
+            {
                 id: generateRandomString(),
-                firstname: 'Hannah',
-                lastname: 'Johnson',
-                avatarURL: 'claire.png',
-                balance: -674,
-            }),
-            new Contact({
-                id: generateRandomString(),
-                firstname: 'Ivan',
-                lastname: 'King',
-                avatarURL: 'estelle.png',
-                balance: 8900,
-            }),
-            new Contact({
-                id: generateRandomString(),
-                firstname: 'Julia',
-                lastname: 'Lewis',
-                avatarURL: 'valentin.png',
-                balance: -2451,
-            }),
-            new Contact({
-                id: generateRandomString(),
-                firstname: 'Kevin',
-                lastname: 'Martinez',
-                avatarURL: 'ahmed.png',
-                balance: 6723,
-            }),
-            new Contact({
-                id: generateRandomString(),
-                firstname: 'Laura',
-                lastname: 'Nelson',
-                avatarURL: 'claire.png',
-                balance: -3150,
-            }),
-            new Contact({
-                id: generateRandomString(),
-                firstname: 'Mike',
-                lastname: 'Owen',
-                avatarURL: 'estelle.png',
-                balance: 4500,
-            }),
-            new Contact({
-                id: generateRandomString(),
-                firstname: 'Nina',
-                lastname: 'Parker',
-                avatarURL: 'valentin.png',
-                balance: -765,
-            }),
-            new Contact({
-                id: generateRandomString(),
-                firstname: 'Oscar',
-                lastname: 'Roberts',
-                avatarURL: 'ahmed.png',
-                balance: 8231,
-            }),
-            new Contact({
-                id: generateRandomString(),
-                firstname: 'Paul',
-                lastname: 'Smith',
-                avatarURL: 'claire.png',
-                balance: -9520,
-            }),
-            new Contact({
-                id: generateRandomString(),
-                firstname: 'Quincy',
-                lastname: 'Taylor',
-                avatarURL: 'estelle.png',
-                balance: 3100,
-            }),
-            new Contact({
-                id: generateRandomString(),
-                firstname: 'Rachel',
-                lastname: 'Upton',
-                avatarURL: 'valentin.png',
-                balance: -2200,
-            }),
-            new Contact({
-                id: generateRandomString(),
-                firstname: 'Steve',
-                lastname: 'Vance',
-                avatarURL: 'ahmed.png',
-                balance: 5699,
-            }),
-            new Contact({
-                id: generateRandomString(),
-                firstname: 'Tina',
-                lastname: 'White',
-                avatarURL: 'claire.png',
-                balance: -1984,
-            }),
+                firstname: generateRandomName().firstname,
+                lastname: generateRandomName().lastname,
+                avatarUrl: getRandomAvatarUrl(),
+                balance: '-12,75',
+            },
         ];
     }
 }

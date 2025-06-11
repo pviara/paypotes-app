@@ -1,0 +1,34 @@
+div {
+    margin-bottom: 4vh;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+
+    h3 {
+        display: flex;
+        justify-content: center;
+
+        font-family: 'bold';
+        font-size: 2.5rem;
+        color: #fff;
+
+        .claim,
+        .debt {
+            font-family: 'bold';
+        }
+
+        .claim {
+            color: #43ba59;
+        }
+
+        .debt {
+            color: #ba4343;
+        }
+    }
+
+    p {
+        text-align: center;
+        color: #737373;
+    }
+}

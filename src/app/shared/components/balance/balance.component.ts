@@ -16,6 +16,10 @@ export class BalanceComponent {
         debt: this.isDebt(),
     }));
 
+    balanceToDisplay = computed(() =>
+        this.balance().replace('-', '').replace('+', ''),
+    );
+
     isClaim = computed(() => !this.isDebt());
 
     isDebt = input.required<boolean>();

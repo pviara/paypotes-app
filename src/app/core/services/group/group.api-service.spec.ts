@@ -34,7 +34,7 @@ describe('GroupAPIService', () => {
 
     describe('getGroups', () => {
         it('should get groups from server', () => {
-            sut.getGroups().subscribe(() => {
+            sut.getGroupsWithBalance().subscribe(() => {
                 expect(httpClientService.calls.get.count).toBe(1);
 
                 const [call] = httpClientService.calls.get.history;
@@ -53,7 +53,7 @@ describe('GroupAPIService', () => {
                 queryService.stub('buildQueryFrom', `search=${search}`);
 
                 subscription.add(
-                    sut.getGroups(0, { search }).subscribe(() => {
+                    sut.getGroupsWithBalance(0, { search }).subscribe(() => {
                         expect(httpClientService.calls.get.count).toBe(1);
 
                         const [call] = httpClientService.calls.get.history;
@@ -74,7 +74,7 @@ describe('GroupAPIService', () => {
                 queryService.stub('buildQueryFrom', expectedQueryString);
 
                 subscription.add(
-                    sut.getGroups(pageIndex).subscribe(() => {
+                    sut.getGroupsWithBalance(pageIndex).subscribe(() => {
                         expect(httpClientService.calls.get.count).toBe(1);
 
                         const [call] = httpClientService.calls.get.history;
@@ -96,7 +96,7 @@ describe('GroupAPIService', () => {
                 queryService.stub('buildQueryFrom', expectedQueryString);
 
                 subscription.add(
-                    sut.getGroups(pageIndex, { search }).subscribe(() => {
+                    sut.getGroupsWithBalance(pageIndex, { search }).subscribe(() => {
                         expect(httpClientService.calls.get.count).toBe(1);
 
                         const [call] = httpClientService.calls.get.history;
@@ -117,7 +117,7 @@ describe('GroupAPIService', () => {
                 queryService.stub('buildQueryFrom', expectedQueryString);
 
                 subscription.add(
-                    sut.getGroups(0, { type }).subscribe(() => {
+                    sut.getGroupsWithBalance(0, { type }).subscribe(() => {
                         expect(httpClientService.calls.get.count).toBe(1);
 
                         const [call] = httpClientService.calls.get.history;

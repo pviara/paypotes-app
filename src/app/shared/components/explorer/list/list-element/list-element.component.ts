@@ -7,12 +7,12 @@ import {
     inject,
     input,
 } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
+import { ContactWithBalance } from '@core/model/contact/contact-with-balance';
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import { Expense } from '@core/model/expense/expense';
 import { generateRandomString } from '@shared/utils/generate-random-string';
-import { Group } from '@core/model/group/group';
+import { GroupWithBalance } from '@core/model/group/group-with-balance';
 import { ListElement } from '@core/model/list-element/list-element';
+import { PairExpense } from '@core/model/expense/pair-expense';
 import { Router } from '@angular/router';
 
 @Component({
@@ -47,20 +47,18 @@ export class ListElementComponent implements AfterViewInit {
 
     redirectToDetail(): void {
         const element = this.element();
-        if (!element) {
-            return;
-        }
+        if (!element) return;
 
         const type = {
-            isContact: element instanceof Contact,
-            isExpense: element instanceof Expense,
-            isGroup: element instanceof Group,
+            isContact: element instanceof ContactWithBalance,
+            isExpense: element instanceof PairExpense,
+            isGroup: element instanceof GroupWithBalance,
         };
 
         if (type.isContact) {
             this.router.navigate([`/contacts/${element.getId()}`]);
         } else if (type.isExpense) {
-            this.router.navigate([`/expenses/${element.getId()}`]);
+            this.router.navigate([`/expenses/pair/${element.getId()}`]);
         } else if (type.isGroup) {
             this.router.navigate([`/groups/${element.getId()}`]);
         }

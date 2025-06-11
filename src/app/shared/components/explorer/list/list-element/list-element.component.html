@@ -3,7 +3,7 @@
         <description [element]="element"/>
         <balance
             [isDebt]="element.isDebt()"
-            [balance]="element.formatBalance()"
+            [balance]="element.getBalance()"
         />
     } @else {
         <skeleton/>

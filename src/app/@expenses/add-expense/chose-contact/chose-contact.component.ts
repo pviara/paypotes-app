@@ -1,39 +1,30 @@
-import { Component, inject, InjectionToken } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
-import {
-    ContactServiceProvider,
-    ContactServiceToken,
-} from '@core/services/contact/contact.api-service.provider';
-import { AddExpenseFormToken } from '@core/services/form/form.provider';
-import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
-import { QueryServiceProvider } from '@core/services/query/query.service.provider';
+import { Component, inject } from '@angular/core';
+import { Contact, Contacts } from '@core/model/contact/contact';
+import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
+import { FormService } from '@core/services/form/form.service';
+import { Member } from '@core/model/group/member';
 import { Router } from '@angular/router';
-import { User } from '@core/model/user/user';
 
 @Component({
     selector: 'chose-contact',
     templateUrl: './chose-contact.component.html',
     styleUrls: ['./chose-contact.component.scss'],
-    providers: [
-        ContactServiceProvider,
-        HttpClientServiceProvider,
-        QueryServiceProvider,
-    ],
 })
 export class ChoseContactComponent {
     private contactService = inject(ContactServiceToken);
-    private form = inject(AddExpenseFormToken);
+    private formService = inject(FormService);
+    private form = this.formService.injectCurrentForm();
     private router = inject(Router);
 
     private label = 'person';
 
     $contacts = this.contactService.getContacts();
 
-    isLastFrom(contacts: Contact[], index: number): boolean {
+    isLastFrom(contacts: Contacts, index: number): boolean {
         return index === contacts.length - 1;
     }
 
-    onPersonSelected(person: Contact | User): void {
+    onPersonSelected(person: Contact | Member): void {
         this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate(['expenses', 'add', 'summary']);
     }

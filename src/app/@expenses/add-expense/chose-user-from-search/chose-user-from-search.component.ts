@@ -1,8 +1,8 @@
-import { AddExpenseFormToken } from '@core/services/form/form.provider';
 import { Component, inject } from '@angular/core';
-import { Contact, Contacts } from '@core/model/contact/contact';
+import { FormService } from '@core/services/form/form.service';
+import { Members, Member } from '@core/model/group/member';
 import { Router } from '@angular/router';
-import { User, Users } from '@core/model/user/user';
+import { Contacts, Contact } from '@core/model/contact/contact';
 
 @Component({
     selector: 'chose-user-from-search',
@@ -10,7 +10,8 @@ import { User, Users } from '@core/model/user/user';
     styleUrls: ['./chose-user-from-search.component.scss'],
 })
 export class ChoseUserFromSearchComponent {
-    private form = inject(AddExpenseFormToken);
+    private formService = inject(FormService);
+    private form = this.formService.injectCurrentForm();
     private router = inject(Router);
 
     private label = 'person';
@@ -18,9 +19,9 @@ export class ChoseUserFromSearchComponent {
 
     users = this.form
         .getFieldFrom(this.temporaryUsersLabel)
-        .getValue<Contacts | Users>();
+        .getValue<Contacts | Members>();
 
-    onPersonSelected(person: Contact | User): void {
+    onPersonSelected(person: Contact | Member): void {
         this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate(['expenses', 'add', 'summary']);
     }

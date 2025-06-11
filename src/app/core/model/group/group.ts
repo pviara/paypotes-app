@@ -1,40 +1,37 @@
+import { Members } from '@core/model/group/member';
+
+export type GroupMetadata = {
+    id: string;
+    name: string;
+    emoji: string;
+};
+
+export type GroupRootData = {
+    metadata: GroupMetadata;
+    members: Members;
+};
+
 export class Group {
-    constructor(
-        private readonly data: {
-            readonly id: string;
-            readonly name: string;
-            readonly emoji: string;
-            readonly members: Array<unknown>;
-            readonly balance: number;
-        },
-    ) {}
+    constructor(private data: GroupRootData) {}
 
     countMembers(): number {
         return this.data.members.length;
     }
 
-    formatBalance(): string {
-        return `${Math.abs(this.getBalance()).toFixed(2).replace('.', ',')}€`;
-    }
-
     getEmoji(): string {
-        return this.data.emoji;
+        return this.data.metadata.emoji;
     }
 
     getId(): string {
-        return this.data.id;
+        return this.data.metadata.id;
+    }
+
+    getMembers(): Members {
+        return this.data.members;
     }
 
     getName(): string {
-        return this.data.name;
-    }
-
-    isDebt(): boolean {
-        return this.data.balance < 0;
-    }
-
-    private getBalance(): number {
-        return this.data.balance / 100;
+        return this.data.metadata.name;
     }
 }
 

@@ -1,8 +1,8 @@
-import { AddGroupFormToken } from '@core/services/form/form.provider';
 import { Component, inject } from '@angular/core';
-import { Contact, Contacts } from '@core/model/contact/contact';
+import { Contacts, Contact } from '@core/model/contact/contact';
+import { FormService } from '@core/services/form/form.service';
 import { Router } from '@angular/router';
-import { User, Users } from '@core/model/user/user';
+import { Members, Member } from '@core/model/group/member';
 
 @Component({
     selector: 'chose-user-from-search',
@@ -10,7 +10,8 @@ import { User, Users } from '@core/model/user/user';
     styleUrls: ['./chose-user-from-search.component.scss'],
 })
 export class ChoseUserFromSearchComponent {
-    private form = inject(AddGroupFormToken);
+    private formService = inject(FormService);
+    private form = this.formService.injectCurrentForm();
     private router = inject(Router);
 
     private label = 'members';
@@ -18,13 +19,13 @@ export class ChoseUserFromSearchComponent {
 
     users = this.form
         .getFieldFrom(this.temporaryUsersLabel)
-        .getValue<Contacts | Users>();
+        .getValue<Contacts | Members>();
 
-    onPersonSelected(person: Contact | User): void {
+    onPersonSelected(person: Contact | Member): void {
         const members = this.form
             .getFieldFrom(this.label)
-            .getValue() as Array<User>;
-        members.push(person as User);
+            .getValue() as Members;
+        members.push(person as Member);
 
         this.router.navigate(['groups', 'add', 'members']);
     }

@@ -1,11 +1,12 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import {
     AddExpenseFormValue,
     AddGroupExpenseFormValue,
 } from '@shared/components/summary-form/summary-form.component';
 import { Component, inject } from '@angular/core';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
+import { FormService } from '@core/services/form/form.service';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs';
 
 @Component({
@@ -15,6 +16,8 @@ import { tap } from 'rxjs';
 })
 export class ReadSummaryComponent {
     private expenseService = inject(ExpenseServiceToken);
+    private formService = inject(FormService);
+    private form = this.formService.injectCurrentForm();
     private notificationService = inject(NotificationService);
     private route = inject(ActivatedRoute);
     private router = inject(Router);
@@ -45,6 +48,7 @@ export class ReadSummaryComponent {
                             this.getCurrentGroupId(),
                         ]);
                     }),
+                    tap(() => this.form.clear()),
                 )
                 .subscribe();
         }

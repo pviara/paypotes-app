@@ -5,6 +5,7 @@ import {
     AddExpenseFormProvider,
     AddGroupExpenseFormProvider,
     AddGroupFormProvider,
+    PaybackGroupExpenseFormProvider,
 } from '@core/services/form/form.provider';
 import { FormService } from '@core/services/form/form.service';
 import { GroupServiceProvider } from '@core/services/group/group.service.provider';
@@ -26,6 +27,7 @@ import { UserServiceProvider } from '@core/services/user/user.api-service.provid
         GroupServiceProvider,
         HttpClientServiceProvider,
         MenuService,
+        PaybackGroupExpenseFormProvider,
         QueryServiceProvider,
         UserServiceProvider,
     ],

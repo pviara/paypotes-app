@@ -11,7 +11,7 @@ export class ExpenseDescriptionComponent {
 
     label = input.required<string>();
 
-    origin = input.required<Contact>();
+    counterparty = input.required<Contact>();
 
     prefix = computed(() => (this.isDebt() ? 'à' : 'de'));
 

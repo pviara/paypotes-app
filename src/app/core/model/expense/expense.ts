@@ -1,56 +1,26 @@
-import { Contact } from '@core/model/contact/contact';
+export type ExpenseMetadata = {
+    id: string;
+    label: string;
+    emoji: string;
+    date: Date;
+};
 
 export class Expense {
-    constructor(
-        private readonly data: {
-            readonly id: string;
-            readonly label: string;
-            readonly date: Date;
-            readonly emoji: string;
-            readonly balance: number;
-            readonly origin: Contact;
-        },
-    ) {
-        this.throwIfNil(data.balance);
-    }
-
-    formatBalance(): string {
-        return `${Math.abs(this.getBalance()).toFixed(2).replace('.', ',')}€`;
-    }
+    constructor(private metadata: ExpenseMetadata) {}
 
     getDate(): Date {
-        return this.data.date;
+        return this.metadata.date;
     }
 
     getEmoji(): string {
-        return this.data.emoji;
+        return this.metadata.emoji;
     }
 
     getId(): string {
-        return this.data.id;
+        return this.metadata.id;
     }
 
     getLabel(): string {
-        return this.data.label;
-    }
-
-    getOrigin(): Contact {
-        return this.data.origin;
-    }
-
-    getBalance(): number {
-        return this.data.balance / 100;
-    }
-
-    isDebt(): boolean {
-        return this.data.balance < 0;
-    }
-
-    private throwIfNil(balance: number): void {
-        if (balance === 0) {
-            throw new Error('Balance cannot be nil');
-        }
+        return this.metadata.label;
     }
 }
-
-export type Expenses = Array<Expense>;

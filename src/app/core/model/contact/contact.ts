@@ -1,28 +1,23 @@
+export type ContactMetadata = {
+    id: string;
+    firstname: string;
+    lastname: string;
+    avatarUrl: string;
+};
+
 export class Contact {
-    constructor(
-        private readonly data: {
-            readonly id: string;
-            readonly firstname: string;
-            readonly lastname: string;
-            readonly avatarURL: string;
-            readonly balance: number;
-        },
-    ) {}
+    constructor(private data: ContactMetadata) {}
 
-    formatBalance(): string {
-        return `${Math.abs(this.getBalance()).toFixed(2).replace('.', ',')}€`;
-    }
-
-    getAvatarURL(): string {
-        return this.data.avatarURL;
-    }
-
-    getFullName(): string {
-        return `${this.getFirstname()} ${this.getLastname()}`;
+    getAvatarUrl(): string {
+        return this.data.avatarUrl;
     }
 
     getFirstname(): string {
         return this.data.firstname;
+    }
+
+    getFullName(): string {
+        return `${this.getFirstname()} ${this.getLastname()}`;
     }
 
     getId(): string {
@@ -31,14 +26,6 @@ export class Contact {
 
     getLastname(): string {
         return this.data.lastname;
-    }
-
-    isDebt(): boolean {
-        return this.data.balance < 0;
-    }
-
-    private getBalance(): number {
-        return this.data.balance / 100;
     }
 }
 

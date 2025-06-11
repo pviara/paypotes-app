@@ -237,4 +237,25 @@ describe('Form', () => {
             expect(rawValues['isCool']).toBe(true);
         });
     });
+
+    describe('clearing the form', () => {
+        it('should remove all form fields', () => {
+            sut.addField({ label: 'firstname', value: 'Pedro' });
+            sut.addField({ label: 'lastname', value: 'Pascal' });
+            sut.addField({ label: 'nickname', value: 'El Hombre' });
+            sut.addField({ label: 'isCool', value: true });
+
+            expect(sut.getFieldFrom('firstname')).toBeDefined();
+            expect(sut.getFieldFrom('lastname')).toBeDefined();
+            expect(sut.getFieldFrom('nickname')).toBeDefined();
+            expect(sut.getFieldFrom('isCool')).toBeDefined();
+
+            sut.clear();
+
+            expect(() => sut.getFieldFrom('firstname')).toThrow();
+            expect(() => sut.getFieldFrom('lastname')).toThrow();
+            expect(() => sut.getFieldFrom('nickname')).toThrow();
+            expect(() => sut.getFieldFrom('isCool')).toThrow();
+        });
+    });
 });

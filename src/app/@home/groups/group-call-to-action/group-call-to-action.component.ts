@@ -1,6 +1,6 @@
 import { Component, inject, input } from '@angular/core';
-import { Router } from '@angular/router';
 import { Group } from '@core/model/group/group';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'group-call-to-action',

@@ -56,6 +56,10 @@ export class Form {
         return Object.fromEntries(entries);
     }
 
+    clear() {
+        this.fields.clear();
+    }
+
     setField({ label, value }: FieldData): void {
         const field = this.getFieldFrom(label).setValue(value);
         this.fields.set(label, field);

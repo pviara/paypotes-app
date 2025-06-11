@@ -1,0 +1,25 @@
+<headbar
+    [route]="'/expenses'"
+    [subhead]="'Dépense de groupe'"
+    [title]="$expenseLabel | async"
+/>
+<section>
+    @if ($expense | async; as expense) {
+        <group-expense-header
+            [date]="expense.getDate()"
+            [group]="expense.getGroup()"
+        />
+        <group-expense-images
+            [expense]="expense"
+        />
+        <group-expense-description
+            [expense]="expense"
+        />
+        <group-expense-action
+            [isDebt]="expense.isDebt()"
+            (payback)="expense.isDebt() ? onPayback() : openPaybackDetails()"
+        />
+    } @else {
+        <group-expense-skeleton/>
+    }
+</section>

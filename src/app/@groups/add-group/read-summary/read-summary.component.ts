@@ -1,36 +1,28 @@
 import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { Component, inject } from '@angular/core';
-import { ConfettiService } from '@core/services/confetti/confetti.service';
 import { Contact } from '@core/model/contact/contact';
-import { AddGroupFormToken } from '@core/services/form/form.provider';
-import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
+import { ConfettiService } from '@core/services/confetti/confetti.service';
+import { FormService } from '@core/services/form/form.service';
+import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
-import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { User } from '@core/model/user/user';
-import {
-    GroupServiceProvider,
-    GroupServiceToken,
-} from '@core/services/group/group.service.provider';
 
 @Component({
     selector: 'read-summary',
     templateUrl: './read-summary.component.html',
     styleUrls: ['./read-summary.component.scss'],
-    providers: [
-        GroupServiceProvider,
-        HttpClientServiceProvider,
-        QueryServiceProvider,
-    ],
 })
 export class ReadSummaryComponent {
     private authService = inject(AuthServiceToken);
     private confettiService = inject(ConfettiService);
+    private formService = inject(FormService);
     private groupService = inject(GroupServiceToken);
     private notificationService = inject(NotificationService);
     private router = inject(Router);
-    form = inject(AddGroupFormToken);
+
+    form = this.formService.injectCurrentForm();
 
     loading = false;
 
@@ -55,6 +47,7 @@ export class ReadSummaryComponent {
                     });
                     this.router.navigate(['/groups']);
                 }),
+                tap(() => this.form.clear()),
             )
             .subscribe();
     }

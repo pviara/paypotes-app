@@ -1,6 +1,6 @@
 @if (element() | contact; as contact) {
     <contact-description
-        [avatarURL]="contact.getAvatarURL()"
+        [avatarURL]="contact.getAvatarUrl()"
         [firstname]="contact.getFirstname()"
         [lastname]="contact.getLastname()"
     />
@@ -10,7 +10,7 @@
         [emoji]="expense.getEmoji()"
         [label]="expense.getLabel()"
         [isDebt]="expense.isDebt()"
-        [origin]="expense.getOrigin()"
+        [counterparty]="expense.getCounterparty()"
     />
 }
 @if (element() | group; as group) {

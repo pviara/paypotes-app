@@ -1,5 +1,4 @@
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
-import { Form } from '@core/model/form/form';
 import { FormService } from '@core/services/form/form.service';
 
 @Component({
@@ -10,7 +9,7 @@ import { FormService } from '@core/services/form/form.service';
 export class EmojiFormComponent implements OnInit {
     private formService = inject(FormService);
 
-    form = this.injectCurrentForm();
+    form = this.formService.injectCurrentForm();
 
     label = 'emoji';
 
@@ -29,11 +28,6 @@ export class EmojiFormComponent implements OnInit {
 
     onKeyClicked(key: string): void {
         this.form.setField({ label: this.label, value: key });
-    }
-
-    private injectCurrentForm(): Form {
-        const currentFormToken = this.formService.getUsedForm();
-        return inject(currentFormToken);
     }
 
     private addFormField(): void {

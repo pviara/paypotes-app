@@ -4,26 +4,9 @@
         [subhead]="'Nouveau groupe > Membres'"
         [title]="'Choisir les contacts'"
     />
-    <div class="content">
-        @if ($contacts | async; as contacts) {
-            <ul>
-                @for (contact of contacts; track $index) {
-                    <contact
-                        [contact]="contact"
-                        [last]="isLastFrom(contacts, $index)"
-                        [selected]="isContactSelected(contact)"
-                        (contactSelected)="onPersonSelected($event)"
-                    />
-                }
-            </ul>
-            <form-button
-                [disabled]="form.getFieldFrom(labels.contacts).invalid()"
-                [text]="'Ajouter au groupe'"
-                (clicked)="onButtonClicked()"
-            />
-        }
-        @else {
-            <span class="loader"></span>
-        }
-    </div>
+    <chose-persons-form
+        [persons]="$contacts | async"
+        [text]="'Ajouter au groupe'"
+        (buttonClicked)="onButtonClicked($event)"
+    />
 </div>

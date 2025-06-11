@@ -1,4 +1,4 @@
-import { Group } from '@core/model/group/group';
+import { GroupWithBalance } from '@core/model/group/group-with-balance';
 import { ListElement } from '@core/model/list-element/list-element';
 import { Pipe, PipeTransform } from '@angular/core';
 
@@ -6,7 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
     name: 'group',
 })
 export class GroupPipe implements PipeTransform {
-    transform(value: ListElement): Group | null {
-        return value instanceof Group ? (value as Group) : null;
+    transform(value: ListElement): GroupWithBalance | null {
+        return value instanceof GroupWithBalance
+            ? (value as GroupWithBalance)
+            : null;
     }
 }

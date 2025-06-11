@@ -20,3 +20,11 @@ export const AddGroupExpenseFormProvider: Provider = {
     provide: AddGroupExpenseFormToken,
     useClass: Form,
 };
+
+export const PaybackGroupExpenseFormToken = new InjectionToken<Form>(
+    'PaybackGroupExpenseForm',
+);
+export const PaybackGroupExpenseFormProvider: Provider = {
+    provide: PaybackGroupExpenseFormToken,
+    useClass: Form,
+};

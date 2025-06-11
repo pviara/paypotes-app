@@ -1,7 +1,8 @@
 import { AddExpenseViewModule } from '@expenses/add-expense/add-expense.view-module';
-import { ExpenseComponent } from '@expenses/expense/expense.component';
 import { ExpensesComponent } from '@expenses/expenses/expenses.component';
 import { ExpensesView } from '@expenses/expenses.view';
+import { GroupExpenseViewModule } from '@expenses/group-expense/group-expense.view-module';
+import { PairExpenseComponent } from '@expenses/pair-expense/pair-expense.component';
 import { Routes } from '@angular/router';
 
 export const expensesRoutes: Routes = [
@@ -20,9 +21,13 @@ export const expensesRoutes: Routes = [
                 data: { hideMenu: true },
             },
             {
-                path: ':expenseId',
-                component: ExpenseComponent,
+                path: 'pair/:expenseId',
+                component: PairExpenseComponent,
                 title: 'Dépense',
+            },
+            {
+                path: 'group',
+                loadChildren: importGroupExpenseView(),
             },
         ],
     },
@@ -34,5 +39,16 @@ function importAddExpenseView(): () => Promise<typeof AddExpenseViewModule> {
             '@expenses/add-expense/add-expense.view-module'
         );
         return imported.AddExpenseViewModule;
+    };
+}
+
+function importGroupExpenseView(): () => Promise<
+    typeof GroupExpenseViewModule
+> {
+    return async () => {
+        const imported = await import(
+            '@expenses/group-expense/group-expense.view-module'
+        );
+        return imported.GroupExpenseViewModule;
     };
 }

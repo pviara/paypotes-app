@@ -29,6 +29,7 @@ import {
     PairExpenseDTOs,
 } from '@core/model/expense/pair-expense.dto';
 import { QueryService } from '@core/services/query/query.service';
+import { v4 } from 'uuid';
 
 export class ExpenseAPIService implements ExpenseService {
     private readonly endpoint = `${environment.API_URL}/expenses`;
@@ -39,11 +40,17 @@ export class ExpenseAPIService implements ExpenseService {
     ) {}
 
     addGroupExpense(payload: AddGroupExpenseDTO): Observable<void> {
-        return this.httpClientService.post(`${this.endpoint}/group`, payload);
+        return this.httpClientService.post(`${this.endpoint}/group`, {
+            ...payload,
+            id: v4(),
+        });
     }
 
     addPairExpense(payload: AddPairExpenseDTO): Observable<void> {
-        return this.httpClientService.post(`${this.endpoint}/pair`, payload);
+        return this.httpClientService.post(`${this.endpoint}/pair`, {
+            ...payload,
+            id: v4(),
+        });
     }
 
     getContactExpenses(

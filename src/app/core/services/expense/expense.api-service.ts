@@ -132,14 +132,14 @@ export class ExpenseAPIService implements ExpenseService {
         debtorIds: Array<string>,
     ): Observable<void> {
         return this.httpClientService.put(
-            `${this.endpoint}/payback/group/${groupId}/${expenseId}`,
+            `${this.endpoint}/group/${groupId}/${expenseId}`,
             { debtorIds },
         );
     }
 
     paybackPairExpense(contactId: string, expenseId: string): Observable<void> {
         return this.httpClientService.put(
-            `${this.endpoint}/payback/pair/${contactId}/${expenseId}`,
+            `${this.endpoint}/pair/${contactId}/${expenseId}`,
             {},
         );
     }

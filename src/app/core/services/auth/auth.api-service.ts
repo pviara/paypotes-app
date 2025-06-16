@@ -8,10 +8,10 @@ export class AuthAPIService implements AuthService {
         return {
             token: generateRandomString(30),
             user: new User({
-                avatarURL: 'avatar.png',
+                id: 'b714106e-7691-49f9-94c9-86eaea845642',
                 firstname: 'Pierre',
                 lastname: 'Viara',
-                id: generateRandomString(),
+                avatarURL: 'avatar.png',
             }),
         };
     }

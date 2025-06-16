@@ -13,7 +13,7 @@ export type AddGroupExpenseDTO = {
 
 export type AddPairExpenseDTO = {
     balance: string;
-    name: string;
+    label: string;
     emoji: string;
     isCurrentPayer: boolean;
     userId: string;

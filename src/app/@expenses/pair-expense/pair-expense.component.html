@@ -6,7 +6,7 @@
 <section>
     @if ($expense | async; as expense) {
         <pair-expense-header
-            [date]="expense.getDate()"
+            [date]="expense.getCreatedAt()"
             [counterparty]="expense.getCounterparty()"
         />
         <pair-expense-images
@@ -15,7 +15,7 @@
         />
         <pair-expense-description
             [balance]="expense.getBalance()"
-            [date]="expense.getDate()"
+            [date]="expense.getCreatedAt()"
             [isDebt]="expense.isDebt()"
             [name]="expense.getCounterparty().getFullName()"
         />

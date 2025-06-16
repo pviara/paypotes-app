@@ -34,7 +34,7 @@ export class GroupExpenseDetailComponent {
                 new GroupExpense(
                     {
                         id: generateRandomString(),
-                        date: generateRandomDate(),
+                        createdAt: generateRandomDate(),
                         emoji: '⛽',
                         label: 'Essence',
                     },

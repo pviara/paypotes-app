@@ -6,7 +6,7 @@
 <section>
     @if ($expense | async; as expense) {
         <group-expense-header
-            [date]="expense.getDate()"
+            [date]="expense.getCreatedAt()"
             [group]="expense.getGroup()"
         />
         <group-expense-images

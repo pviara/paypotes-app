@@ -136,7 +136,7 @@ export class ExpenseAPIService implements ExpenseService {
             id: generateRandomString(),
             label: `Dépense #${index}`,
             emoji: getRandomEmoji(),
-            date: generateRandomDate().toISOString(),
+            createdAt: generateRandomDate().toISOString(),
             balance: generateRandomBalance(),
             counterparty: {
                 id: generateRandomString(),
@@ -160,7 +160,7 @@ export class ExpenseAPIService implements ExpenseService {
             id: generateRandomString(),
             label: `Dépense #${index}`,
             emoji: getRandomEmoji(),
-            date: generateRandomDate().toISOString(),
+            createdAt: generateRandomDate().toISOString(),
             balance: generateRandomBalance(),
             group: {
                 id: randomGroup.getId(),
@@ -204,7 +204,7 @@ export class ExpenseAPIService implements ExpenseService {
             id: expense.id,
             label: expense.label,
             emoji: expense.emoji,
-            date: new Date(expense.date),
+            createdAt: new Date(expense.createdAt),
         };
     }
 

@@ -10,7 +10,7 @@ export type GroupExpenseDTO = {
     readonly id: string;
     readonly label: string;
     readonly emoji: string;
-    readonly date: string;
+    readonly createdAt: string;
     readonly group: GroupDTO;
     readonly credit: CreditDTO;
     readonly balance: string;

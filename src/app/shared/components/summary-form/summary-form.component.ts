@@ -13,7 +13,7 @@ import { FormContext } from '@core/model/form/form-context';
 import { FormService } from '@core/services/form/form.service';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { Member } from '@core/model/group/member';
-import { User } from '@core/model/user/user';
+import { Person } from '@core/model/person';
 
 export type AddGroupExpenseFormValue = {
     balance: string;
@@ -65,7 +65,7 @@ export class SummaryFormComponent {
                 emoji: formValue['emoji'],
                 isCurrentPayer: formValue['isCurrentPayer'],
                 name: formValue['name'],
-                userId: this.getUserId(),
+                userId: this.getPerson().getId(),
             });
         } else {
             this.buttonClicked.emit({
@@ -73,7 +73,7 @@ export class SummaryFormComponent {
                 emoji: formValue['emoji'],
                 isCurrentPayer: formValue['isCurrentPayer'],
                 name: formValue['name'],
-                userId: this.getUserId(),
+                userId: this.getPerson().getId(),
                 groupId: this.groupService.getLastFetchedGroup()?.getId() || '',
             });
         }
@@ -113,8 +113,8 @@ export class SummaryFormComponent {
         }
     }
 
-    private getPerson(): Contact | User {
-        return this.form.getFieldFrom('person').getValue<Contact | User>();
+    private getPerson(): Person {
+        return this.form.getFieldFrom('person').getValue<Person>();
     }
 
     getPersonFullname(): string {
@@ -132,15 +132,5 @@ export class SummaryFormComponent {
 
     private changeLoadingStatus(): void {
         this.loading = !this.loading;
-    }
-
-    private getUserId(): string {
-        if (this.getIsCurrentPayer()) {
-            return this.authService.signedInUser?.user.getId() || '';
-        } else {
-            return (
-                this.form.getFieldFrom('person').getValue() as User
-            ).getId();
-        }
     }
 }

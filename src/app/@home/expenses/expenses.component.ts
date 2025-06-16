@@ -5,9 +5,9 @@ import {
     ExpenseServiceToken,
 } from '@core/services/expense/expense.service.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
-import { PairExpenses } from '@core/model/expense/pair-expense';
+import { PairExpense, PairExpenses } from '@core/model/expense/pair-expense';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
-import { GroupExpenses } from '@core/model/expense/group-expense';
+import { GroupExpense, GroupExpenses } from '@core/model/expense/group-expense';
 
 const MAX_EXPENSES = 6;
 
@@ -39,13 +39,13 @@ export class ExpensesComponent {
     $noExpense = new BehaviorSubject<boolean>(false);
 
     private takeFewExpenses(): (
-        expenses: GroupExpenses | PairExpenses,
-    ) => GroupExpenses | PairExpenses {
+        expenses: (GroupExpense | PairExpense)[],
+    ) => (GroupExpense | PairExpense)[] {
         return (expenses) => expenses.slice(0, MAX_EXPENSES);
     }
 
     private displayCallToActionIfNeeded(): (
-        expenses: GroupExpenses | PairExpenses,
+        expenses: (GroupExpense | PairExpense)[],
     ) => void {
         return (expenses) => {
             if (expenses.length === 0) this.$noExpense.next(true);

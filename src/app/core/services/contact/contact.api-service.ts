@@ -13,17 +13,14 @@ import {
     ContactWithBalanceDTO,
     ContactWithBalanceDTOs,
 } from '@core/model/contact/contact-with-balance.dto';
+import { environment } from 'src/environments/environment';
 import { Filters } from '@core/model/filters/filters';
-import { generateRandomString } from '@shared/utils/generate-random-string';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
 import { QueryService } from '@core/services/query/query.service';
-import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
-import { generateRandomName } from '@shared/utils/generate-random-name';
-import { generateRandomBalance } from '@shared/utils/generate-random-balance';
 
 export class ContactAPIService implements ContactService {
-    private readonly endpoint = '/api/contact';
+    private readonly endpoint = `${environment.API_URL}/contacts`;
 
     constructor(
         private httpClientService: HttpClientService,
@@ -31,19 +28,15 @@ export class ContactAPIService implements ContactService {
     ) {}
 
     getContact(id: string): Observable<ContactWithBalance> {
-        return this.httpClientService.get(`${this.endpoint}/${id}`).pipe(
-            map(() => this.getDeterministicContactWithBalanceDTOs()[0]),
-            map((contact) => this.mapContactWithBalanceV2(contact)),
-        );
+        return this.httpClientService
+            .get<ContactWithBalanceDTO>(`${this.endpoint}/${id}`)
+            .pipe(map((contact) => this.mapContactWithBalance(contact)));
     }
 
     getContacts(): Observable<Contacts> {
         return this.httpClientService
-            .get(`${this.endpoint}/without-balance`)
-            .pipe(
-                map(() => this.getDeterministicContactDTOs()),
-                map((contacts) => this.mapContactsV2(contacts)),
-            );
+            .get<ContactDTOs>(`${this.endpoint}/without-balance`)
+            .pipe(map((contacts) => this.mapContacts(contacts)));
     }
 
     getContactsWithBalance(
@@ -52,17 +45,16 @@ export class ContactAPIService implements ContactService {
     ): Observable<ContactsWithBalance> {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
-        return this.httpClientService.get(`${this.endpoint}${query}`).pipe(
-            map(() => this.getDeterministicContactWithBalanceDTOs()),
-            map((contacts) => this.mapContactsWithBalanceV2(contacts)),
-        );
+        return this.httpClientService
+            .get<ContactWithBalanceDTOs>(`${this.endpoint}${query}`)
+            .pipe(map((contacts) => this.mapContactsWithBalance(contacts)));
     }
 
-    private mapContactsV2(contacts: ContactDTOs): Contacts {
-        return contacts.map((contact) => this.mapContactV2(contact));
+    private mapContacts(contacts: ContactDTOs): Contacts {
+        return contacts.map((contact) => this.mapContact(contact));
     }
 
-    private mapContactV2(contact: ContactDTO): Contact {
+    private mapContact(contact: ContactDTO): Contact {
         const metadata: ContactMetadata = {
             id: contact.id,
             firstname: contact.firstname,
@@ -72,13 +64,13 @@ export class ContactAPIService implements ContactService {
         return new Contact(metadata);
     }
 
-    private mapContactsWithBalanceV2(
+    private mapContactsWithBalance(
         contacts: ContactWithBalanceDTOs,
     ): ContactsWithBalance {
-        return contacts.map((contact) => this.mapContactWithBalanceV2(contact));
+        return contacts.map((contact) => this.mapContactWithBalance(contact));
     }
 
-    private mapContactWithBalanceV2(
+    private mapContactWithBalance(
         contact: ContactWithBalanceDTO,
     ): ContactWithBalance {
         const metadata: ContactMetadata = {
@@ -88,67 +80,5 @@ export class ContactAPIService implements ContactService {
             avatarUrl: contact.avatarUrl,
         };
         return new ContactWithBalance(metadata, contact.balance);
-    }
-
-    private getDeterministicContactDTOs(): ContactDTOs {
-        return [
-            {
-                id: generateRandomString(),
-                firstname: generateRandomName().firstname,
-                lastname: generateRandomName().lastname,
-                avatarUrl: getRandomAvatarUrl(),
-            },
-            {
-                id: generateRandomString(),
-                firstname: generateRandomName().firstname,
-                lastname: generateRandomName().lastname,
-                avatarUrl: getRandomAvatarUrl(),
-            },
-            {
-                id: generateRandomString(),
-                firstname: generateRandomName().firstname,
-                lastname: generateRandomName().lastname,
-                avatarUrl: getRandomAvatarUrl(),
-            },
-            {
-                id: generateRandomString(),
-                firstname: generateRandomName().firstname,
-                lastname: generateRandomName().lastname,
-                avatarUrl: getRandomAvatarUrl(),
-            },
-        ];
-    }
-
-    private getDeterministicContactWithBalanceDTOs(): ContactWithBalanceDTOs {
-        return [
-            {
-                id: generateRandomString(),
-                firstname: generateRandomName().firstname,
-                lastname: generateRandomName().lastname,
-                avatarUrl: getRandomAvatarUrl(),
-                balance: generateRandomBalance(),
-            },
-            {
-                id: generateRandomString(),
-                firstname: generateRandomName().firstname,
-                lastname: generateRandomName().lastname,
-                avatarUrl: getRandomAvatarUrl(),
-                balance: generateRandomBalance(),
-            },
-            {
-                id: generateRandomString(),
-                firstname: generateRandomName().firstname,
-                lastname: generateRandomName().lastname,
-                avatarUrl: getRandomAvatarUrl(),
-                balance: generateRandomBalance(),
-            },
-            {
-                id: generateRandomString(),
-                firstname: generateRandomName().firstname,
-                lastname: generateRandomName().lastname,
-                avatarUrl: getRandomAvatarUrl(),
-                balance: generateRandomBalance(),
-            },
-        ];
     }
 }

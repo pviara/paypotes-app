@@ -31,7 +31,7 @@ export interface ExpenseService {
     getExpenses(
         pageIndex?: number,
         filters?: Filters,
-    ): Observable<GroupExpenses | PairExpenses>;
+    ): Observable<(GroupExpense | PairExpense)[]>;
     getGroupExpenses(
         groupId: string,
         pageIndex?: number,

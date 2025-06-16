@@ -4,18 +4,23 @@ import {
     ExpenseService,
 } from '@core/services/expense/expense.service';
 import { Contact } from '@core/model/contact/contact';
-import { Filters } from '@core/model/filters/filters';
-import { generateRandomBalance } from '@shared/utils/generate-random-balance';
-import { generateRandomDate } from '@shared/utils/get-random-date';
-import { generateRandomName } from '@shared/utils/generate-random-name';
-import { generateRandomString } from '@shared/utils/generate-random-string';
-import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
-import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 import {
     Credit,
     GroupExpense,
     GroupExpenses,
 } from '@core/model/expense/group-expense';
+import {
+    CreditDTO,
+    GroupExpenseDTO,
+    GroupExpenseDTOs,
+} from '@core/model/expense/group-expense.dto';
+import { environment } from 'src/environments/environment';
+import { ExpenseMetadata } from '@core/model/expense/expense';
+import { Filters } from '@core/model/filters/filters';
+import { Group, GroupMetadata } from '@core/model/group/group';
+import { GroupDTO } from '@core/model/group/group.dto';
+import { MemberDTO } from '@core/model/group/member.dto';
+import { Member, Members } from '@core/model/group/member';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';
 import { PairExpense, PairExpenses } from '@core/model/expense/pair-expense';
@@ -24,20 +29,9 @@ import {
     PairExpenseDTOs,
 } from '@core/model/expense/pair-expense.dto';
 import { QueryService } from '@core/services/query/query.service';
-import {
-    CreditDTO,
-    GroupExpenseDTO,
-    GroupExpenseDTOs,
-} from '@core/model/expense/group-expense.dto';
-import { generateRandomGroup } from '@shared/utils/generate-random-group';
-import { Group, GroupMetadata } from '@core/model/group/group';
-import { GroupDTO } from '@core/model/group/group.dto';
-import { MemberDTO } from '@core/model/group/member.dto';
-import { Member, Members } from '@core/model/group/member';
-import { ExpenseMetadata } from '@core/model/expense/expense';
 
 export class ExpenseAPIService implements ExpenseService {
-    private readonly endpoint = '/api/expense';
+    private readonly endpoint = `${environment.API_URL}/expenses`;
 
     constructor(
         private httpClientService: HttpClientService,
@@ -63,30 +57,51 @@ export class ExpenseAPIService implements ExpenseService {
         });
 
         return this.httpClientService
-            .get(`${this.endpoint}/contact/${contactId}${query}`)
-            .pipe(
-                map(() => this.getRandomPairExpenseDTOs()),
-                map((expenses) => this.mapPairExpenses(expenses)),
-            );
+            .get<PairExpenseDTOs>(
+                `${this.endpoint}/contact/${contactId}${query}`,
+            )
+            .pipe(map((expenses) => this.mapPairExpenses(expenses)));
     }
 
     getExpense(id: string): Observable<GroupExpense | PairExpense> {
-        return this.httpClientService.get(`${this.endpoint}/${id}`).pipe(
-            map(() => this.getRandomPairExpenseDTO(0)),
-            map((expense) => this.mapPairExpense(expense)),
-        );
+        return this.httpClientService
+            .get<Record<string, unknown>>(`${this.endpoint}/${id}`)
+            .pipe(
+                map((expense) => {
+                    if (this.isGroupExpenseDTO(expense)) {
+                        return this.mapGroupExpense(expense);
+                    } else if (this.isPairExpensedDTO(expense)) {
+                        return this.mapPairExpense(expense);
+                    }
+                    throw new Error(
+                        'Received DTO does not seem to match any kind of expense',
+                    );
+                }),
+            );
     }
 
     getExpenses(
         pageIndex = 0,
         filters?: Filters,
-    ): Observable<GroupExpenses | PairExpenses> {
+    ): Observable<(GroupExpense | PairExpense)[]> {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
-        return this.httpClientService.get(`${this.endpoint}${query}`).pipe(
-            map(() => this.getRandomPairExpenseDTOs()),
-            map((expenses) => this.mapPairExpenses(expenses)),
-        );
+        return this.httpClientService
+            .get<Record<string, unknown>[]>(`${this.endpoint}${query}`)
+            .pipe(
+                map((expenses) => {
+                    const groupExpenseDtos = expenses.filter((expense) =>
+                        this.isGroupExpenseDTO(expense),
+                    );
+                    const pairExpenseDtos = expenses.filter((expense) =>
+                        this.isPairExpensedDTO(expense),
+                    );
+                    return [
+                        ...this.mapGroupExpenses(groupExpenseDtos),
+                        ...this.mapPairExpenses(pairExpenseDtos),
+                    ];
+                }),
+            );
     }
 
     getGroupExpenses(
@@ -100,11 +115,8 @@ export class ExpenseAPIService implements ExpenseService {
         });
 
         return this.httpClientService
-            .get(`${this.endpoint}/group/${groupId}${query}`)
-            .pipe(
-                map(() => this.getRandomGroupExpenseDTOs()),
-                map((expenses) => this.mapGroupExpenses(expenses)),
-            );
+            .get<GroupExpenseDTOs>(`${this.endpoint}/group/${groupId}${query}`)
+            .pipe(map((expenses) => this.mapGroupExpenses(expenses)));
     }
 
     paybackGroupExpense(
@@ -125,64 +137,16 @@ export class ExpenseAPIService implements ExpenseService {
         );
     }
 
-    private getRandomPairExpenseDTOs(): PairExpenseDTOs {
-        return Array.from({ length: 20 }).map((_, index) =>
-            this.getRandomPairExpenseDTO(index),
-        );
+    private isGroupExpenseDTO(
+        dto: Record<string, unknown>,
+    ): dto is GroupExpenseDTO {
+        return !!dto['group'];
     }
 
-    private getRandomPairExpenseDTO(index: number): PairExpenseDTO {
-        return {
-            id: generateRandomString(),
-            label: `Dépense #${index}`,
-            emoji: getRandomEmoji(),
-            createdAt: generateRandomDate().toISOString(),
-            balance: generateRandomBalance(),
-            counterparty: {
-                id: generateRandomString(),
-                firstname: generateRandomName().firstname,
-                lastname: generateRandomName().lastname,
-                avatarUrl: getRandomAvatarUrl(),
-            },
-        };
-    }
-
-    private getRandomGroupExpenseDTOs(): GroupExpenseDTOs {
-        return Array.from({ length: 20 }).map((_, index) =>
-            this.getRandomGroupExpenseDTO(index),
-        );
-    }
-
-    private getRandomGroupExpenseDTO(index: number): GroupExpenseDTO {
-        const randomGroup = generateRandomGroup();
-        const randomCreditor = randomGroup.getMembers()[0];
-        return {
-            id: generateRandomString(),
-            label: `Dépense #${index}`,
-            emoji: getRandomEmoji(),
-            createdAt: generateRandomDate().toISOString(),
-            balance: generateRandomBalance(),
-            group: {
-                id: randomGroup.getId(),
-                name: randomGroup.getName(),
-                emoji: randomGroup.getEmoji(),
-                members: randomGroup.getMembers().map((member) => ({
-                    id: member.getId(),
-                    firstname: member.getFirstname(),
-                    lastname: member.getLastname(),
-                    avatarUrl: member.getAvatarUrl(),
-                })),
-            },
-            credit: {
-                balance: generateRandomBalance(),
-                creditor: {
-                    id: randomCreditor.getId(),
-                    firstname: randomCreditor.getFirstname(),
-                    lastname: randomCreditor.getLastname(),
-                    avatarUrl: randomCreditor.getAvatarUrl(),
-                },
-            },
-        };
+    private isPairExpensedDTO(
+        dto: Record<string, unknown>,
+    ): dto is PairExpenseDTO {
+        return !!dto['counterparty'];
     }
     private mapGroupExpenses(expenses: GroupExpenseDTOs): GroupExpenses {
         return expenses.map((expense) => this.mapGroupExpense(expense));
@@ -193,7 +157,7 @@ export class ExpenseAPIService implements ExpenseService {
             this.mapMetadataFrom(expense),
             this.mapGroupFrom(expense.group),
             this.mapCreditFrom(expense.credit),
-            generateRandomBalance(),
+            expense.balance,
         );
     }
 

@@ -11,7 +11,7 @@ import { ListElements } from '@core/model/list-element/list-element';
 export class ExpensesComponent {
     private expenseService = inject(ExpenseServiceToken);
 
-    action: Action = { char: '+', route: '/expenses/add' };
+    action: Action = { char: '+', route: '/expenses/add/balance' };
 
     $expenses = new BehaviorSubject<ListElements>([]);
 

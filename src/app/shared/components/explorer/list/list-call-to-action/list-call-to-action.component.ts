@@ -10,6 +10,6 @@ export class ListCallToActionComponent {
     private router = inject(Router);
 
     redirectToForm(): void {
-        this.router.navigate(['expenses', 'add']);
+        this.router.navigate(['expenses', 'add', 'balance']);
     }
 }

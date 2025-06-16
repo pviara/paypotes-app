@@ -36,8 +36,4 @@ export const addExpenseRoutes: Routes = [
         path: 'summary',
         component: ReadSummaryComponent,
     },
-    {
-        path: '**',
-        redirectTo: 'balance',
-    },
 ];

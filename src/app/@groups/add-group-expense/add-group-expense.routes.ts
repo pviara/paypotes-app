@@ -26,8 +26,4 @@ export const addGroupExpenseRoutes: Routes = [
         path: 'summary',
         component: ReadSummaryComponent,
     },
-    {
-        path: '**',
-        redirectTo: 'balance',
-    },
 ];

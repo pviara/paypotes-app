@@ -22,6 +22,7 @@ export type AddPairExpenseDTO = {
 export interface ExpenseService {
     addGroupExpense(payload: AddGroupExpenseDTO): Observable<void>;
     addPairExpense(payload: AddPairExpenseDTO): Observable<void>;
+    computeBalance(): Observable<string>;
     getContactExpenses(
         groupId: string,
         pageIndex?: number,

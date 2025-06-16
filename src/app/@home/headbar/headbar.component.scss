@@ -8,6 +8,10 @@ header {
     align-items: center;
     animation: slighSlideInFromTop 0.5s ease-in-out;
 
+    balance {
+        flex: 2;
+    }
+
     .avatar {
         height: 11vw;
 

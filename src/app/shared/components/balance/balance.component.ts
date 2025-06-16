@@ -9,7 +9,7 @@ import { Component, computed, input } from '@angular/core';
     imports: [CommonModule],
 })
 export class BalanceComponent {
-    balance = input.required<string>();
+    balance = input<string | null>(null);
 
     balanceClass = computed(() => ({
         claim: this.isClaim(),
@@ -17,12 +17,12 @@ export class BalanceComponent {
     }));
 
     balanceToDisplay = computed(() =>
-        this.balance().replace('-', '').replace('+', ''),
+        this.balance()?.replace('-', '').replace('+', ''),
     );
 
     isClaim = computed(() => !this.isDebt());
 
-    isDebt = input.required<boolean>();
+    isDebt = input<boolean | null>(null);
 
     sign = computed(() => (this.isDebt() ? '-' : '+'));
 }

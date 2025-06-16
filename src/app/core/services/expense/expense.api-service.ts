@@ -53,6 +53,10 @@ export class ExpenseAPIService implements ExpenseService {
         });
     }
 
+    computeBalance(): Observable<string> {
+        return this.httpClientService.getText(`${this.endpoint}/balance`);
+    }
+
     getContactExpenses(
         contactId: string,
         pageIndex = 0,

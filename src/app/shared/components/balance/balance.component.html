@@ -2,7 +2,11 @@
     <h3>
         Solde général
     </h3>
-    <p class="bold">
-        <span [ngClass]="balanceClass()">{{ sign() }}</span>{{ balanceToDisplay() }}€
-    </p>
+    @if (balance()) {
+        <p class="bold">
+            <span [ngClass]="balanceClass()">{{ sign() }}</span>{{ balanceToDisplay() }}€
+        </p>
+    } @else {
+        <skeleton/>
+    }
 </section>

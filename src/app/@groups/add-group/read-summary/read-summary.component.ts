@@ -31,7 +31,7 @@ export class ReadSummaryComponent {
 
         this.changeLoadingStatus();
         const payload = this.form.raw();
-        const actorId = this.authService.getSignedInUser().getId();
+        const actorId = this.authService.getActor().getId();
 
         this.groupService
             .createGroup({
@@ -55,7 +55,7 @@ export class ReadSummaryComponent {
     }
 
     getMembers(): Array<Contact | User> {
-        const actor = this.authService.getSignedInUser();
+        const actor = this.authService.getActor();
         if (!actor) throw new Error('No signed in user');
         return this.form
             .getFieldFrom('members')

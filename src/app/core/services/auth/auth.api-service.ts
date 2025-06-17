@@ -2,7 +2,7 @@ import { AuthService } from './auth.service';
 import { User } from '@core/model/user/user';
 
 export class AuthAPIService implements AuthService {
-    getSignedInUser(): User {
+    getActor(): User {
         return new User({
             id: 'b714106e-7691-49f9-94c9-86eaea845642',
             firstname: 'Clark',

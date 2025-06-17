@@ -109,7 +109,7 @@ export class SummaryFormComponent {
         try {
             return this.form.getFieldFrom('person').getValue<Person>();
         } catch (error: unknown) {
-            const user = this.authService.getSignedInUser();
+            const user = this.authService.getActor();
             if (user) return user;
             throw new Error(
                 'User cannot be found when trying to retrieve form person',

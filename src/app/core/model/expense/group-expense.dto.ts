@@ -1,9 +1,9 @@
 import { GroupDTO } from '@core/model/group/group.dto';
 import { MemberDTO } from '@core/model/group/member.dto';
 
-export type CreditDTO = {
+export type PaymentDTO = {
     balance: string;
-    creditor: MemberDTO;
+    member: MemberDTO;
 };
 
 export type GroupExpenseDTO = {
@@ -12,7 +12,7 @@ export type GroupExpenseDTO = {
     readonly emoji: string;
     readonly createdAt: string;
     readonly group: GroupDTO;
-    readonly credit: CreditDTO;
+    readonly payment: PaymentDTO;
     readonly balance: string;
 };
 

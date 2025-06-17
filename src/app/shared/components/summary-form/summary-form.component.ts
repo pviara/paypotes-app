@@ -102,29 +102,25 @@ export class SummaryFormComponent {
     }
 
     getPersonAvatarURL(): string {
-        if (this.currentContextIsExpense()) {
-            return this.getPerson().getAvatarUrl();
-        } else {
-            if (this.getIsCurrentPayer()) {
-                return this.authService.signedInUser?.user.getAvatarUrl() || '';
-            } else {
-                return this.getPerson().getAvatarUrl();
-            }
-        }
+        return this.getPerson().getAvatarUrl();
     }
 
     private getPerson(): Person {
-        return this.form.getFieldFrom('person').getValue<Person>();
+        try {
+            return this.form.getFieldFrom('person').getValue<Person>();
+        } catch (error: unknown) {
+            const user = this.authService.signedInUser?.user;
+            if (user) return user;
+            throw new Error(
+                'User cannot be found when trying to retrieve form person',
+            );
+        }
     }
 
     getPersonFullname(): string {
         try {
-            const person = this.form
-                .getFieldFrom('person')
-                .getValue<Contact | Member>();
-            return person instanceof Member || person instanceof Contact
-                ? person.getFullName()
-                : '';
+            const person = this.getPerson();
+            return person.getFullName();
         } catch (error: unknown) {
             return '';
         }

@@ -11,7 +11,8 @@ export class AuthAPIService implements AuthService {
                 id: 'b714106e-7691-49f9-94c9-86eaea845642',
                 firstname: 'Pierre',
                 lastname: 'Viara',
-                avatarURL: 'avatar.png',
+                avatarUrl:
+                    'https://gravatar.com/avatar/6d47aeeb1c5ea9a4f9f7ea7ecc36a721?s=800&d=mp&r=x',
             }),
         };
     }

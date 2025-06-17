@@ -35,7 +35,7 @@ export class ExpenseDescriptionComponent {
             creditor.getId() === this.authService.signedInUser?.user.getId();
 
         return signedInUserIsCreditor
-            ? 'de <span class="bold">Vous</span> aux membres'
+            ? `de <span class="bold">vous</span> dans <span class="bold">${expense.getGroup().getName()}</span>`
             : `à <span class="bold">${creditor.getFullName()}</span>`;
     });
 }

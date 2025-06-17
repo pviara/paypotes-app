@@ -1,13 +1,13 @@
 import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { Component, inject } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
+import { Contact, Contacts } from '@core/model/contact/contact';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
 import { FormService } from '@core/services/form/form.service';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { NotificationService } from '@core/services/notification/notification.service';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
-import { User } from '@core/model/user/user';
+import { User, Users } from '@core/model/user/user';
 
 @Component({
     selector: 'read-summary',
@@ -32,12 +32,12 @@ export class ReadSummaryComponent {
         this.changeLoadingStatus();
         const payload = this.form.raw();
         this.groupService
-            .addGroup({
+            .createGroup({
                 emoji: payload['emoji'],
                 name: payload['name'],
-                memberIds: payload['members'].map((member: Contact | User) =>
-                    member.getId(),
-                ),
+                userIds: payload['members']
+                    .map((member: Contact | User) => member.getId())
+                    .concat([this.authService.signedInUser?.user.getId()]),
             })
             .pipe(
                 tap(() => {
@@ -54,21 +54,19 @@ export class ReadSummaryComponent {
 
     getMembers(): Array<Contact | User> {
         const signedInUser = this.authService.signedInUser?.user;
-        if (!signedInUser) {
-            throw new Error('No signed in user');
-        }
+        if (!signedInUser) throw new Error('No signed in user');
         return this.form
             .getFieldFrom('members')
-            .getValue<Array<Contact | User>>()
+            .getValue<Contacts | Users>()
             .concat([signedInUser]);
     }
 
     getEmoji(): string {
-        return (this.form.getFieldFrom('emoji').getValue() as string) || '';
+        return this.form.getFieldFrom('emoji').getValue<string>();
     }
 
     getName(): string {
-        return (this.form.getFieldFrom('name').getValue() as string) || '';
+        return this.form.getFieldFrom('name').getValue<string>();
     }
 
     private changeLoadingStatus(): void {

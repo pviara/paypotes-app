@@ -16,6 +16,7 @@ import { HttpClientService } from '@core/services/http-client/http-client.servic
 import { MemberDTO } from '@core/model/group/member.dto';
 import { Members, Member } from '@core/model/group/member';
 import { QueryService } from '@core/services/query/query.service';
+import { v4 } from 'uuid';
 
 export class GroupAPIService implements GroupService {
     private readonly endpoint = `${environment.API_URL}/groups`;
@@ -27,8 +28,11 @@ export class GroupAPIService implements GroupService {
         private queryService: QueryService,
     ) {}
 
-    addGroup(payload: AddGroupDTO): Observable<void> {
-        return this.httpClientService.post(this.endpoint, payload);
+    createGroup(payload: AddGroupDTO): Observable<void> {
+        return this.httpClientService.post(this.endpoint, {
+            ...payload,
+            id: v4(),
+        });
     }
 
     getGroup(id: string): Observable<GroupWithBalance> {

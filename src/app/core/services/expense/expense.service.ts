@@ -5,7 +5,7 @@ import { PairExpense, PairExpenses } from '@core/model/expense/pair-expense';
 
 export type AddGroupExpenseDTO = {
     balance: string;
-    name: string;
+    label: string;
     emoji: string;
     memberId: string;
     groupId: string;

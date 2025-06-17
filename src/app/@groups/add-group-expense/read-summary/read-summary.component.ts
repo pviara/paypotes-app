@@ -33,7 +33,7 @@ export class ReadSummaryComponent {
                 .addGroupExpense({
                     balance: formValue.balance,
                     emoji: formValue.emoji,
-                    name: formValue.name,
+                    label: formValue.name,
                     groupId: formValue.groupId,
                     memberId: formValue.userId,
                 })

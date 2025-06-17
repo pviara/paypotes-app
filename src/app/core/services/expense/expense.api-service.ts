@@ -10,7 +10,7 @@ import {
     GroupExpenses,
 } from '@core/model/expense/group-expense';
 import {
-    CreditDTO,
+    PaymentDTO,
     GroupExpenseDTO,
     GroupExpenseDTOs,
 } from '@core/model/expense/group-expense.dto';
@@ -167,7 +167,7 @@ export class ExpenseAPIService implements ExpenseService {
         return new GroupExpense(
             this.mapMetadataFrom(expense),
             this.mapGroupFrom(expense.group),
-            this.mapCreditFrom(expense.credit),
+            this.mapCreditFrom(expense.payment),
             expense.balance,
         );
     }
@@ -206,10 +206,10 @@ export class ExpenseAPIService implements ExpenseService {
         });
     }
 
-    private mapCreditFrom(credit: CreditDTO): Credit {
+    private mapCreditFrom(payment: PaymentDTO): Credit {
         return {
-            balance: credit.balance,
-            creditor: this.mapMemberFrom(credit.creditor),
+            balance: payment.balance,
+            creditor: this.mapMemberFrom(payment.member),
         };
     }
 

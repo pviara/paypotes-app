@@ -29,60 +29,6 @@ export class GroupExpenseDetailComponent {
     $expense = this.route.params.pipe(
         map((params) => params['expenseId']),
         switchMap((expenseId) => this.expenseService.getExpense(expenseId)),
-        map(
-            () =>
-                new GroupExpense(
-                    {
-                        id: generateRandomString(),
-                        createdAt: generateRandomDate(),
-                        emoji: '⛽',
-                        label: 'Essence',
-                    },
-                    new Group({
-                        metadata: {
-                            id: generateRandomString(),
-                            emoji: '🌊',
-                            name: 'Bretagne',
-                        },
-                        members: [
-                            new Member({
-                                id: generateRandomString(),
-                                firstname: generateRandomName().firstname,
-                                lastname: generateRandomName().lastname,
-                                avatarUrl: getRandomAvatarUrl(),
-                            }),
-                            new Member({
-                                id: generateRandomString(),
-                                firstname: generateRandomName().firstname,
-                                lastname: generateRandomName().lastname,
-                                avatarUrl: getRandomAvatarUrl(),
-                            }),
-                            new Member({
-                                id: generateRandomString(),
-                                firstname: generateRandomName().firstname,
-                                lastname: generateRandomName().lastname,
-                                avatarUrl: getRandomAvatarUrl(),
-                            }),
-                            new Member({
-                                id: generateRandomString(),
-                                firstname: generateRandomName().firstname,
-                                lastname: generateRandomName().lastname,
-                                avatarUrl: getRandomAvatarUrl(),
-                            }),
-                        ],
-                    }),
-                    {
-                        balance: '100,00',
-                        creditor: new Member({
-                            id: generateRandomString(),
-                            firstname: generateRandomName().firstname,
-                            lastname: generateRandomName().lastname,
-                            avatarUrl: getRandomAvatarUrl(),
-                        }),
-                    },
-                    '75,00',
-                ),
-        ),
         filter((expense) => expense instanceof GroupExpense),
         tap((expense) =>
             this.groupExpenseViewService.$fetchedExpense.next(expense),
@@ -104,7 +50,6 @@ export class GroupExpenseDetailComponent {
                 .pipe(
                     tap(this.notifyPaidBack()),
                     tap(this.redirectToGroupExpenses()),
-                    tap(() => this.confettiService.pan()),
                 )
                 .subscribe();
         }
@@ -130,7 +75,8 @@ export class GroupExpenseDetailComponent {
 
     private redirectToGroupExpenses(): () => void {
         const expense = this.getFetchedExpense();
-        return () => this.router.navigate(['/groups', '']);
+        return () =>
+            this.router.navigate(['/groups', expense.getGroup().getId()]);
     }
 
     private getFetchedExpense(): GroupExpense {

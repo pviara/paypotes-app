@@ -32,7 +32,7 @@ export class ExpenseDescriptionComponent {
 
         const creditor = expense.getCreditor();
         const signedInUserIsCreditor =
-            creditor.getId() === this.authService.signedInUser?.user.getId();
+            creditor.getId() === this.authService.getSignedInUser().getId();
 
         return signedInUserIsCreditor
             ? `de <span class="bold">vous</span> dans <span class="bold">${expense.getGroup().getName()}</span>`

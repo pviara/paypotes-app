@@ -56,9 +56,8 @@ export class ChoseMemberComponent implements OnInit {
     }
 
     private getMembersExcludingActor(group: GroupWithBalance): Members {
-        return group.getMembersExcluding(
-            this.authService.signedInUser?.user.getId() ?? '',
-        );
+        const actorId = this.authService.getSignedInUser().getId();
+        return group.getMembersExcluding(actorId);
     }
 
     private addFormField(): void {

@@ -31,13 +31,15 @@ export class ReadSummaryComponent {
 
         this.changeLoadingStatus();
         const payload = this.form.raw();
+        const actorId = this.authService.getSignedInUser().getId();
+
         this.groupService
             .createGroup({
                 emoji: payload['emoji'],
                 name: payload['name'],
                 userIds: payload['members']
                     .map((member: Contact | User) => member.getId())
-                    .concat([this.authService.signedInUser?.user.getId()]),
+                    .concat([actorId]),
             })
             .pipe(
                 tap(() => {
@@ -53,12 +55,12 @@ export class ReadSummaryComponent {
     }
 
     getMembers(): Array<Contact | User> {
-        const signedInUser = this.authService.signedInUser?.user;
-        if (!signedInUser) throw new Error('No signed in user');
+        const actor = this.authService.getSignedInUser();
+        if (!actor) throw new Error('No signed in user');
         return this.form
             .getFieldFrom('members')
             .getValue<Contacts | Users>()
-            .concat([signedInUser]);
+            .concat([actor]);
     }
 
     getEmoji(): string {

@@ -38,13 +38,20 @@ export class SelectPersonsComponent implements OnInit {
     }
 
     onUsersFound(users: Users): void {
+        const members = this.form.getFieldFrom(this.label).getValue<Persons>();
+        const notAlreadyAddedPersons = users.filter(
+            (user) => !this.alreadyAddedIn(members, user),
+        );
+
         if (!this.form.exist(this.temporaryUsersLabel)) {
             this.form.addField({
                 label: this.temporaryUsersLabel,
-                value: users,
+                value: notAlreadyAddedPersons,
             });
         } else {
-            this.form.getFieldFrom(this.temporaryUsersLabel).setValue(users);
+            this.form
+                .getFieldFrom(this.temporaryUsersLabel)
+                .setValue(notAlreadyAddedPersons);
         }
         this.router.navigate(['groups', 'add', 'members', 'search']);
     }

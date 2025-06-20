@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { Contact, Contacts } from '@core/model/contact/contact';
+import { Contacts } from '@core/model/contact/contact';
 import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
 import { FormService } from '@core/services/form/form.service';
-import { Member } from '@core/model/group/member';
+import { Person } from '@core/model/person';
 import { Router } from '@angular/router';
 
 @Component({
@@ -24,7 +24,7 @@ export class ChoseContactComponent {
         return index === contacts.length - 1;
     }
 
-    onPersonSelected(person: Contact | Member): void {
+    onPersonSelected(person: Person): void {
         this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate(['expenses', 'add', 'summary']);
     }

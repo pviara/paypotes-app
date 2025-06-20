@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormService } from '@core/services/form/form.service';
-import { Members, Member } from '@core/model/group/member';
+import { Person, Persons } from '@core/model/person';
 import { Router } from '@angular/router';
-import { Contacts, Contact } from '@core/model/contact/contact';
 
 @Component({
     selector: 'chose-user-from-search',
@@ -19,9 +18,9 @@ export class ChoseUserFromSearchComponent {
 
     users = this.form
         .getFieldFrom(this.temporaryUsersLabel)
-        .getValue<Contacts | Members>();
+        .getValue<Persons>();
 
-    onPersonSelected(person: Contact | Member): void {
+    onPersonSelected(person: Person): void {
         this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate(['expenses', 'add', 'summary']);
     }

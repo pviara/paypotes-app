@@ -1,3 +1,4 @@
+import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { BehaviorSubject, tap } from 'rxjs';
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./group-expense-chose-members.component.scss'],
 })
 export class GroupExpenseChoseMembersComponent {
+    private authService = inject(AuthServiceToken);
     private confettiService = inject(ConfettiService);
     private expenseService = inject(ExpenseServiceToken);
     private groupExpenseViewService = inject(GroupExpenseViewService);
@@ -23,7 +25,10 @@ export class GroupExpenseChoseMembersComponent {
     private expenseId = '';
 
     expense = this.groupExpenseViewService.$fetchedExpense.getValue();
-    members = this.expense?.getGroup()?.getMembers() ?? [];
+    members =
+        this.expense
+            ?.getGroup()
+            ?.getMembersExcluding(this.authService.getActor().getId()) ?? [];
 
     $loading = new BehaviorSubject(false);
 

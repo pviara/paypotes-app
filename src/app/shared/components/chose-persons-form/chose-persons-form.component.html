@@ -1,5 +1,14 @@
 <div class="content">
-        @if (persons(); as persons) {
+    @if (persons(); as persons) {
+        @if (noPerson()) {
+            <div>
+                <img src="assets/icons/no-content.png"/>
+                <p>
+                    <span class="bold">Oups !</span>
+                    Vous avez ajouté tous vos contacts ou vous n'en avez aucun.
+                </p>
+            </div>
+        } @else {
             <ul>
                 @for (person of persons; track $index) {
                     <person
@@ -16,7 +25,7 @@
                 (clicked)="onButtonClicked()"
             />
         }
-        @else {
-            <span class="loader"></span>
-        }
+    } @else {
+        <span class="loader"></span>
+    }
     </div>

@@ -1,5 +1,6 @@
 import { GroupDTO } from '@core/model/group/group.dto';
 import { MemberDTO } from '@core/model/group/member.dto';
+import { StakeholderDTOs } from '@core/model/expense/stakeholder.dto';
 
 export type PaymentDTO = {
     balance: string;
@@ -11,9 +12,10 @@ export type GroupExpenseDTO = {
     readonly label: string;
     readonly emoji: string;
     readonly createdAt: string;
+    readonly balance: string;
     readonly group: GroupDTO;
     readonly payment: PaymentDTO;
-    readonly balance: string;
+    readonly stakeholders: StakeholderDTOs;
 };
 
 export type GroupExpenseDTOs = Array<GroupExpenseDTO>;

@@ -25,10 +25,10 @@ export class GroupExpenseChoseMembersComponent {
     private expenseId = '';
 
     expense = this.groupExpenseViewService.$fetchedExpense.getValue();
-    members =
+    debtors =
         this.expense
-            ?.getGroup()
-            ?.getMembersExcluding(this.authService.getActor().getId()) ?? [];
+            ?.getStakeholdersExcluding(this.authService.getActor().getId())
+            .filter((stakeholder) => stakeholder.isActive()) || [];
 
     $loading = new BehaviorSubject(false);
 
@@ -64,7 +64,7 @@ export class GroupExpenseChoseMembersComponent {
             this.notificationService.notify({
                 type: 'success',
                 message:
-                    personIds.length < this.members.length
+                    personIds.length < this.debtors.length
                         ? 'Dépense partiellement remboursée !'
                         : 'Dépense remboursée !',
             });

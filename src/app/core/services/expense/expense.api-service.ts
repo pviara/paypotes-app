@@ -30,6 +30,15 @@ import {
 } from '@core/model/expense/pair-expense.dto';
 import { QueryService } from '@core/services/query/query.service';
 import { v4 } from 'uuid';
+import {
+    StakeholderDTO,
+    StakeholderDTOs,
+} from '@core/model/expense/stakeholder.dto';
+import {
+    Stakeholder,
+    StakeholderMetadata,
+    Stakeholders,
+} from '@core/model/expense/stakeholder';
 
 export class ExpenseAPIService implements ExpenseService {
     private readonly endpoint = `${environment.API_URL}/expenses`;
@@ -166,10 +175,25 @@ export class ExpenseAPIService implements ExpenseService {
     private mapGroupExpense(expense: GroupExpenseDTO): GroupExpense {
         return new GroupExpense(
             this.mapMetadataFrom(expense),
+            expense.balance,
             this.mapGroupFrom(expense.group),
             this.mapCreditFrom(expense.payment),
-            expense.balance,
+            this.mapStakeholdersFrom(expense.stakeholders),
         );
+    }
+
+    private mapStakeholdersFrom(dtos: StakeholderDTOs): Stakeholders {
+        return dtos.map((stakeholder) => this.mapStakeholderFrom(stakeholder));
+    }
+
+    private mapStakeholderFrom(dto: StakeholderDTO): Stakeholder {
+        const metadata: StakeholderMetadata = {
+            id: dto.id,
+            firstname: dto.firstname,
+            lastname: dto.lastname,
+            avatarUrl: dto.avatarUrl,
+        };
+        return new Stakeholder(metadata, dto.share);
     }
 
     private mapMetadataFrom(

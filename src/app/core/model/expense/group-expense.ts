@@ -1,6 +1,7 @@
 import { Expense, ExpenseMetadata } from '@core/model/expense/expense';
 import { Group } from '@core/model/group/group';
 import { Member } from '@core/model/group/member';
+import { Stakeholders } from '@core/model/expense/stakeholder';
 
 export type Credit = {
     balance: string;
@@ -10,9 +11,10 @@ export type Credit = {
 export class GroupExpense extends Expense {
     constructor(
         metadata: ExpenseMetadata,
+        private balance: string,
         private group: Group,
         private credit: Credit,
-        private balance: string,
+        private stakeholders: Stakeholders,
     ) {
         super(metadata);
     }
@@ -31,6 +33,12 @@ export class GroupExpense extends Expense {
 
     getGroup() {
         return this.group;
+    }
+
+    getStakeholdersExcluding(stakeholderId: string): Stakeholders {
+        return this.stakeholders.filter(
+            (stakeholder) => stakeholder.getId() !== stakeholderId,
+        );
     }
 
     isDebt(): boolean {

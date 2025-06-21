@@ -35,9 +35,17 @@
             padding-left: 10%;
         }
 
-        h3 {
-            font-size: 1.2rem;
-            color: #fff;
+        .text {
+            width: 130px;
+
+            h3 {
+                font-size: 1.2rem;
+                color: #fff;
+
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
 
         p {

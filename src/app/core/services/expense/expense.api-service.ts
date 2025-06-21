@@ -29,7 +29,6 @@ import {
     PairExpenseDTOs,
 } from '@core/model/expense/pair-expense.dto';
 import { QueryService } from '@core/services/query/query.service';
-import { v4 } from 'uuid';
 import {
     StakeholderDTO,
     StakeholderDTOs,
@@ -39,6 +38,7 @@ import {
     StakeholderMetadata,
     Stakeholders,
 } from '@core/model/expense/stakeholder';
+import { v4 } from 'uuid';
 
 export class ExpenseAPIService implements ExpenseService {
     private readonly endpoint = `${environment.API_URL}/expenses`;

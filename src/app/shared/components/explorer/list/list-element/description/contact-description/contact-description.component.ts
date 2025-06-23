@@ -9,7 +9,7 @@ import { DOCUMENT } from '@angular/common';
 export class ContactDescriptionComponent {
     private document = inject(DOCUMENT);
 
-    avatarURL = input.required<string>();
+    avatarUrl = input.required<string>();
 
     firstname = input.required<string>();
 

@@ -30,6 +30,12 @@ export class Group {
         return this.data.members;
     }
 
+    getMembersExcluding(memberId: string): Members {
+        return this.data.members.filter(
+            (member) => member.getId() !== memberId,
+        );
+    }
+
     getName(): string {
         return this.data.metadata.name;
     }

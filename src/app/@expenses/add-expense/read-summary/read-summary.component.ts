@@ -24,7 +24,7 @@ export class ReadSummaryComponent {
                 balance: formValue.balance,
                 emoji: formValue.emoji,
                 isCurrentPayer: formValue.isCurrentPayer,
-                name: formValue.name,
+                label: formValue.name,
                 userId: formValue.userId,
             })
             .pipe(

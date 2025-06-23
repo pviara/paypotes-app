@@ -1,7 +1,7 @@
 <header>
     <balance
-        [balance]="'-12,89'"
-        [isDebt]="true"
+        [balance]="$balance | async"
+        [isDebt]="$isDebt | async"
     />
     <img
         class="avatar"

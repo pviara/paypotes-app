@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ContactServiceToken } from '@core/services/contact/contact.api-service.provider';
 import { FormService } from '@core/services/form/form.service';
+import { map } from 'rxjs';
 import { Persons } from '@core/model/person';
 import { Router } from '@angular/router';
 
@@ -17,13 +18,18 @@ export class ChoseContactsComponent {
 
     labels = { members: 'members' };
 
-    $contacts = this.contactService.getContacts();
+    $contacts = this.contactService
+        .getContacts()
+        .pipe(map((contacts) => this.filterNotAlreadyAdded(contacts)));
 
     onButtonClicked(persons: Persons): void {
         const notAlreadyAddedPersons = this.filterNotAlreadyAdded(persons);
-        this.form
+        const members = this.form
             .getFieldFrom(this.labels.members)
-            .setValue(notAlreadyAddedPersons);
+            .getValue<Persons>();
+
+        const newMembers = members.concat(notAlreadyAddedPersons);
+        this.form.getFieldFrom(this.labels.members).setValue(newMembers);
 
         this.router.navigate(['groups', 'add', 'members']);
     }
@@ -33,9 +39,8 @@ export class ChoseContactsComponent {
             .getFieldFrom(this.labels.members)
             .getValue<Persons>();
 
-        const notAlreadyAddedContacts = persons.filter((contact) =>
+        return persons.filter((contact) =>
             addedMembers.every((member) => member.getId() !== contact.getId()),
         );
-        return addedMembers.concat(notAlreadyAddedContacts);
     }
 }

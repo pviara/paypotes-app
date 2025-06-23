@@ -88,6 +88,6 @@ export class DetailsFormComponent implements OnInit {
     private getIsCurrentPayerFormValue(): boolean | undefined {
         return this.form
             .getFieldFrom(this.labels.isCurrentPayer)
-            .getValue() as boolean;
+            .getValue<boolean>();
     }
 }

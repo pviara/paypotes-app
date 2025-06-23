@@ -4,12 +4,12 @@ export class User {
             readonly id: string;
             readonly firstname: string;
             readonly lastname: string;
-            readonly avatarURL: string;
+            readonly avatarUrl: string;
         },
     ) {}
 
     getAvatarUrl(): string {
-        return this.data.avatarURL;
+        return this.data.avatarUrl;
     }
 
     getFullName(): string {

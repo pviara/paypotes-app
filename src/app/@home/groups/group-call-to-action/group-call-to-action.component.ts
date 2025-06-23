@@ -17,6 +17,6 @@ export class GroupCallToActionComponent {
     }
 
     redirectToForm(): void {
-        this.router.navigate(['groups', 'add']);
+        this.router.navigate(['groups', 'add', 'balance']);
     }
 }

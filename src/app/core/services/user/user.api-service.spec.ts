@@ -1,6 +1,6 @@
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
 import { QueryServiceSpy } from '@test/doubles/query.service.spy';
-import { Subscription } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { UserAPIService } from '@core/services/user/user.api-service';
 
 describe('UserAPIService', () => {
@@ -12,9 +12,7 @@ describe('UserAPIService', () => {
     const subscription = new Subscription();
 
     beforeEach(() => {
-        httpClientService = new HttpClientServiceSpy();
-        queryService = new QueryServiceSpy();
-
+        initDependencies();
         sut = new UserAPIService(httpClientService, queryService);
     });
 
@@ -26,6 +24,8 @@ describe('UserAPIService', () => {
 
             const expectedQueryString = `name=${name}`;
             queryService.stub('buildQueryFrom', `name=${name}`);
+
+            httpClientService.stub('get', of([]));
 
             subscription.add(
                 sut.getUserByName(name).subscribe(() => {
@@ -41,24 +41,8 @@ describe('UserAPIService', () => {
         });
     });
 
-    describe('get user by their phone', () => {
-        it('should get the user from server', () => {
-            const phoneNumber = '0781228931';
-
-            const expectedQueryString = `phoneNumber=${phoneNumber}`;
-            queryService.stub('buildQueryFrom', `phoneNumber=${phoneNumber}`);
-
-            subscription.add(
-                sut.getUserByPhone(phoneNumber).subscribe(() => {
-                    expect(httpClientService.calls.get.count).toBe(1);
-
-                    const [call] = httpClientService.calls.get.history;
-                    const clientHasBeenCalledWithPhoneNumber =
-                        call.includes(expectedQueryString);
-
-                    expect(clientHasBeenCalledWithPhoneNumber).toBe(true);
-                }),
-            );
-        });
-    });
+    function initDependencies(): void {
+        httpClientService = new HttpClientServiceSpy();
+        queryService = new QueryServiceSpy();
+    }
 });

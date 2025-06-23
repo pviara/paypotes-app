@@ -2,14 +2,14 @@ export type ExpenseMetadata = {
     id: string;
     label: string;
     emoji: string;
-    date: Date;
+    createdAt: Date;
 };
 
 export class Expense {
     constructor(private metadata: ExpenseMetadata) {}
 
-    getDate(): Date {
-        return this.metadata.date;
+    getCreatedAt(): Date {
+        return this.metadata.createdAt;
     }
 
     getEmoji(): string {

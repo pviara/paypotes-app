@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { Component, EventEmitter, inject, input, Output } from '@angular/core';
-import { User } from '@core/model/user/user';
+import { User, Users } from '@core/model/user/user';
 import { UserServiceToken } from '@core/services/user/user.api-service.provider';
 
 @Component({
@@ -22,7 +22,7 @@ export class PersonFormComponent {
     userFound = new EventEmitter<User>();
 
     @Output()
-    usersFound = new EventEmitter<User[]>();
+    usersFound = new EventEmitter<Users>();
 
     onSearching(name: string): void {
         this.$searching.next(true);

@@ -6,6 +6,6 @@ import { Component, input } from '@angular/core';
     styleUrls: ['./images.component.scss'],
 })
 export class ExpenseImagesComponent {
-    avatarURL = input.required<string>();
+    avatarUrl = input.required<string>();
     emoji = input.required<string>();
 }

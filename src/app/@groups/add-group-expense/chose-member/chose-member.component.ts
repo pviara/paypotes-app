@@ -1,9 +1,11 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddGroupExpenseFormToken } from '@core/services/form/form.provider';
+import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { Component, inject, OnInit } from '@angular/core';
-import { Contact } from '@core/model/contact/contact';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
-import { Members, Member } from '@core/model/group/member';
+import { GroupWithBalance } from '@core/model/group/group-with-balance';
+import { Members } from '@core/model/group/member';
+import { Person } from '@core/model/person';
 import { User } from '@core/model/user/user';
 
 @Component({
@@ -12,6 +14,7 @@ import { User } from '@core/model/user/user';
     styleUrls: ['./chose-member.component.scss'],
 })
 export class ChoseMemberComponent implements OnInit {
+    private authService = inject(AuthServiceToken);
     private groupService = inject(GroupServiceToken);
     private form = inject(AddGroupExpenseFormToken);
     private route = inject(ActivatedRoute);
@@ -19,9 +22,7 @@ export class ChoseMemberComponent implements OnInit {
 
     private label = 'person';
 
-    members =
-        this.groupService.getLastFetchedGroup()?.getMembers() ??
-        ([] as Members);
+    members = this.getMembers();
 
     ngOnInit(): void {
         if (!this.form.exist(this.label)) {
@@ -38,7 +39,7 @@ export class ChoseMemberComponent implements OnInit {
         return index === users.length - 1;
     }
 
-    onPersonSelected(person: Contact | Member): void {
+    onPersonSelected(person: Person): void {
         this.form.getFieldFrom(this.label).setValue(person);
         this.router.navigate([
             'groups',
@@ -46,6 +47,17 @@ export class ChoseMemberComponent implements OnInit {
             'add-expense',
             'summary',
         ]);
+    }
+
+    private getMembers(): Members {
+        const group = this.groupService.getLastFetchedGroup();
+        if (group) return this.getMembersExcludingActor(group);
+        return [];
+    }
+
+    private getMembersExcludingActor(group: GroupWithBalance): Members {
+        const actorId = this.authService.getActor().getId();
+        return group.getMembersExcluding(actorId);
     }
 
     private addFormField(): void {

@@ -21,7 +21,7 @@ export class GroupComponent {
 
     action: Action = {
         char: '+',
-        route: `/groups/${this.getCurrentGroupId()}/add-expense`,
+        route: `/groups/${this.getCurrentGroupId()}/add-expense/balance`,
     };
 
     $group = this.route.params.pipe(

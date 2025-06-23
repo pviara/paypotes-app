@@ -5,7 +5,7 @@ import { PairExpense, PairExpenses } from '@core/model/expense/pair-expense';
 
 export type AddGroupExpenseDTO = {
     balance: string;
-    name: string;
+    label: string;
     emoji: string;
     memberId: string;
     groupId: string;
@@ -13,7 +13,7 @@ export type AddGroupExpenseDTO = {
 
 export type AddPairExpenseDTO = {
     balance: string;
-    name: string;
+    label: string;
     emoji: string;
     isCurrentPayer: boolean;
     userId: string;
@@ -22,6 +22,7 @@ export type AddPairExpenseDTO = {
 export interface ExpenseService {
     addGroupExpense(payload: AddGroupExpenseDTO): Observable<void>;
     addPairExpense(payload: AddPairExpenseDTO): Observable<void>;
+    computeBalance(): Observable<string>;
     getContactExpenses(
         groupId: string,
         pageIndex?: number,
@@ -31,7 +32,7 @@ export interface ExpenseService {
     getExpenses(
         pageIndex?: number,
         filters?: Filters,
-    ): Observable<GroupExpenses | PairExpenses>;
+    ): Observable<(GroupExpense | PairExpense)[]>;
     getGroupExpenses(
         groupId: string,
         pageIndex?: number,

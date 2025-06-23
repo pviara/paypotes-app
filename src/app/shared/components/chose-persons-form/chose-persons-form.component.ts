@@ -21,6 +21,7 @@ export class ChosePersonsFormComponent implements OnInit {
 
     buttonDisabled = computed(() => this.disabled() ?? false);
     disabled = input<boolean | null>(false);
+    noPerson = computed(() => (this.persons()?.length || 0) === 0);
     persons = input<Persons | null>(null);
     text = input.required<string>();
 

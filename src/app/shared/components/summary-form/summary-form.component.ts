@@ -13,7 +13,7 @@ import { FormContext } from '@core/model/form/form-context';
 import { FormService } from '@core/services/form/form.service';
 import { GroupServiceToken } from '@core/services/group/group.service.provider';
 import { Member } from '@core/model/group/member';
-import { User } from '@core/model/user/user';
+import { Person } from '@core/model/person';
 
 export type AddGroupExpenseFormValue = {
     balance: string;
@@ -65,7 +65,7 @@ export class SummaryFormComponent {
                 emoji: formValue['emoji'],
                 isCurrentPayer: formValue['isCurrentPayer'],
                 name: formValue['name'],
-                userId: this.getUserId(),
+                userId: this.getPerson().getId(),
             });
         } else {
             this.buttonClicked.emit({
@@ -73,7 +73,7 @@ export class SummaryFormComponent {
                 emoji: formValue['emoji'],
                 isCurrentPayer: formValue['isCurrentPayer'],
                 name: formValue['name'],
-                userId: this.getUserId(),
+                userId: this.getPerson().getId(),
                 groupId: this.groupService.getLastFetchedGroup()?.getId() || '',
             });
         }
@@ -102,29 +102,25 @@ export class SummaryFormComponent {
     }
 
     getPersonAvatarURL(): string {
-        if (this.currentContextIsExpense()) {
-            return this.getPerson().getAvatarUrl();
-        } else {
-            if (this.getIsCurrentPayer()) {
-                return this.authService.signedInUser?.user.getAvatarUrl() || '';
-            } else {
-                return this.getPerson().getAvatarUrl();
-            }
-        }
+        return this.getPerson().getAvatarUrl();
     }
 
-    private getPerson(): Contact | User {
-        return this.form.getFieldFrom('person').getValue<Contact | User>();
+    private getPerson(): Person {
+        try {
+            return this.form.getFieldFrom('person').getValue<Person>();
+        } catch (error: unknown) {
+            const user = this.authService.getActor();
+            if (user) return user;
+            throw new Error(
+                'User cannot be found when trying to retrieve form person',
+            );
+        }
     }
 
     getPersonFullname(): string {
         try {
-            const person = this.form
-                .getFieldFrom('person')
-                .getValue<Contact | Member>();
-            return person instanceof Member || person instanceof Contact
-                ? person.getFullName()
-                : '';
+            const person = this.getPerson();
+            return person.getFullName();
         } catch (error: unknown) {
             return '';
         }
@@ -132,15 +128,5 @@ export class SummaryFormComponent {
 
     private changeLoadingStatus(): void {
         this.loading = !this.loading;
-    }
-
-    private getUserId(): string {
-        if (this.getIsCurrentPayer()) {
-            return this.authService.signedInUser?.user.getId() || '';
-        } else {
-            return (
-                this.form.getFieldFrom('person').getValue() as User
-            ).getId();
-        }
     }
 }

@@ -5,16 +5,15 @@ import {
 } from '@core/model/group/group-with-balance';
 import { Groups } from '@core/model/group/group';
 import { Observable } from 'rxjs';
-import { User } from '@core/model/user/user';
 
 export type AddGroupDTO = {
     name: string;
     emoji: string;
-    memberIds: Array<string>;
+    userIds: Array<string>;
 };
 
 export interface GroupService {
-    addGroup(payload: AddGroupDTO): Observable<void>;
+    createGroup(payload: AddGroupDTO): Observable<void>;
     getGroup(id: string): Observable<GroupWithBalance>;
     getGroups(): Observable<Groups>;
     getGroupsWithBalance(

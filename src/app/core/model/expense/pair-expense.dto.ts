@@ -4,7 +4,7 @@ export type PairExpenseDTO = {
     readonly id: string;
     readonly label: string;
     readonly emoji: string;
-    readonly date: string;
+    readonly createdAt: string;
     readonly balance: string;
     readonly counterparty: ContactDTO;
 };

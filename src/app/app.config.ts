@@ -11,7 +11,7 @@ import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideHttpClient(withFetch(), withInterceptors([fakeHttpInterceptor])),
+        provideHttpClient(withFetch()),
         provideRouter(routes),
         provideServiceWorker('ngsw-worker.js', {
             enabled: !isDevMode(),

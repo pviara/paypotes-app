@@ -3,7 +3,7 @@
         <span [ngClass]="balanceClass()">{{ sign() }}</span>{{ balanceToDisplay() }}€
     </h3>
     <p>
-        Le <span class="bold">{{ expense().getDate() | formatDate }}</span>,
+        Le <span class="bold">{{ expense().getCreatedAt() | formatDate }}</span>,
             {{ summary() }}
     </p>
 </div>

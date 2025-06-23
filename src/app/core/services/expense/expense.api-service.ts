@@ -168,6 +168,7 @@ export class ExpenseAPIService implements ExpenseService {
     ): dto is PairExpenseDTO {
         return !!dto['counterparty'];
     }
+
     private mapGroupExpenses(expenses: GroupExpenseDTOs): GroupExpenses {
         return expenses.map((expense) => this.mapGroupExpense(expense));
     }

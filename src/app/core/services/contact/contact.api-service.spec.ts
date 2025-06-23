@@ -1,7 +1,7 @@
 import { ContactAPIService } from '@core/services/contact/contact.api-service';
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
+import { of, Subscription } from 'rxjs';
 import { QueryServiceSpy } from '@test/doubles/query.service.spy';
-import { Subscription } from 'rxjs';
 
 describe('ContactAPIService', () => {
     let sut: ContactAPIService;
@@ -12,8 +12,8 @@ describe('ContactAPIService', () => {
     const subscription = new Subscription();
 
     beforeEach(() => {
-        httpClientService = new HttpClientServiceSpy();
-        queryService = new QueryServiceSpy();
+        initDependencies();
+        httpClientService.stub('get', of([]));
 
         sut = new ContactAPIService(httpClientService, queryService);
     });
@@ -118,4 +118,9 @@ describe('ContactAPIService', () => {
             );
         });
     });
+
+    function initDependencies(): void {
+        httpClientService = new HttpClientServiceSpy();
+        queryService = new QueryServiceSpy();
+    }
 });

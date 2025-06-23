@@ -1,7 +1,10 @@
 import { GroupAPIService } from '@core/services/group/group.api-service';
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
+import { of, Subscription } from 'rxjs';
 import { QueryServiceSpy } from '@test/doubles/query.service.spy';
-import { Subscription } from 'rxjs';
+import { GroupDTO } from '@core/model/group/group.dto';
+import { generateRandomString } from '@shared/utils/generate-random-string';
+import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 
 describe('GroupAPIService', () => {
     let sut: GroupAPIService;
@@ -12,15 +15,23 @@ describe('GroupAPIService', () => {
     const subscription = new Subscription();
 
     beforeEach(() => {
-        httpClientService = new HttpClientServiceSpy();
-        queryService = new QueryServiceSpy();
-
+        initDependencies();
         sut = new GroupAPIService(httpClientService, queryService);
     });
 
     afterAll(() => subscription.unsubscribe());
 
     describe('getGroup', () => {
+        beforeEach(() => {
+            const dummyDTO: GroupDTO = {
+                id: generateRandomString(),
+                name: 'group',
+                emoji: getRandomEmoji(),
+                members: [],
+            };
+            httpClientService.stub('get', of(dummyDTO));
+        });
+
         it('should get group from server', () => {
             const groupId = 'group_id';
             sut.getGroup(groupId).subscribe(() => {
@@ -33,6 +44,10 @@ describe('GroupAPIService', () => {
     });
 
     describe('getGroups', () => {
+        beforeEach(() => {
+            httpClientService.stub('get', of([]));
+        });
+
         it('should get groups from server', () => {
             sut.getGroupsWithBalance().subscribe(() => {
                 expect(httpClientService.calls.get.count).toBe(1);
@@ -96,15 +111,17 @@ describe('GroupAPIService', () => {
                 queryService.stub('buildQueryFrom', expectedQueryString);
 
                 subscription.add(
-                    sut.getGroupsWithBalance(pageIndex, { search }).subscribe(() => {
-                        expect(httpClientService.calls.get.count).toBe(1);
+                    sut
+                        .getGroupsWithBalance(pageIndex, { search })
+                        .subscribe(() => {
+                            expect(httpClientService.calls.get.count).toBe(1);
 
-                        const [call] = httpClientService.calls.get.history;
-                        const clientCalledWithSearchAndPage =
-                            call.includes(expectedQueryString);
+                            const [call] = httpClientService.calls.get.history;
+                            const clientCalledWithSearchAndPage =
+                                call.includes(expectedQueryString);
 
-                        expect(clientCalledWithSearchAndPage).toBe(true);
-                    }),
+                            expect(clientCalledWithSearchAndPage).toBe(true);
+                        }),
                 );
             });
         });
@@ -130,4 +147,9 @@ describe('GroupAPIService', () => {
             });
         });
     });
+
+    function initDependencies(): void {
+        httpClientService = new HttpClientServiceSpy();
+        queryService = new QueryServiceSpy();
+    }
 });

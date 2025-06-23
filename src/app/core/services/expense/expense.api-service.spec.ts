@@ -1,7 +1,12 @@
 import { ExpenseAPIService } from '@core/services/expense/expense.api-service';
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
+import { generateRandomString } from '@shared/utils/generate-random-string';
+import { getRandomEmoji } from '@shared/utils/get-random-emoji';
+import { generateRandomSmallNumber } from '@shared/utils/generate-random-number';
+import { getRandomAvatarUrl } from '@shared/utils/generate-random-avatar-url';
+import { of, Subscription } from 'rxjs';
+import { PairExpenseDTO } from '@core/model/expense/pair-expense.dto';
 import { QueryServiceSpy } from '@test/doubles/query.service.spy';
-import { Subscription } from 'rxjs';
 
 describe('ExpenseAPIService', () => {
     let sut: ExpenseAPIService;
@@ -12,15 +17,17 @@ describe('ExpenseAPIService', () => {
     const subscription = new Subscription();
 
     beforeEach(() => {
-        httpClientService = new HttpClientServiceSpy();
-        queryService = new QueryServiceSpy();
-
+        initDependencies();
         sut = new ExpenseAPIService(httpClientService, queryService);
     });
 
     afterAll(() => subscription.unsubscribe());
 
     describe('getContactExpenses', () => {
+        beforeEach(() => {
+            httpClientService.stub('get', of([]));
+        });
+
         it('should get contact expenses from server', () => {
             const contactId = 'contactId';
 
@@ -42,6 +49,23 @@ describe('ExpenseAPIService', () => {
     });
 
     describe('getExpense', () => {
+        beforeEach(() => {
+            const dummyExpense: PairExpenseDTO = {
+                id: generateRandomString(),
+                label: 'expense',
+                emoji: getRandomEmoji(),
+                createdAt: new Date('2025-12-28').toISOString(),
+                balance: generateRandomSmallNumber().toFixed(2),
+                counterparty: {
+                    id: generateRandomString(),
+                    firstname: 'Peter',
+                    lastname: 'Parker',
+                    avatarUrl: getRandomAvatarUrl(),
+                },
+            };
+            httpClientService.stub('get', of(dummyExpense));
+        });
+
         it('should get expense from server', () => {
             const expenseId = 'expenseId';
 
@@ -60,6 +84,10 @@ describe('ExpenseAPIService', () => {
     });
 
     describe('getExpenses', () => {
+        beforeEach(() => {
+            httpClientService.stub('get', of([]));
+        });
+
         it('should get expenses from server', () => {
             subscription.add(
                 sut.getExpenses().subscribe(() => {
@@ -161,6 +189,10 @@ describe('ExpenseAPIService', () => {
     });
 
     describe('getGroupExpenses', () => {
+        beforeEach(() => {
+            httpClientService.stub('get', of([]));
+        });
+
         it('should get group expenses from server', () => {
             const groupId = 'groupId';
 
@@ -178,4 +210,9 @@ describe('ExpenseAPIService', () => {
             });
         });
     });
+
+    function initDependencies(): void {
+        httpClientService = new HttpClientServiceSpy();
+        queryService = new QueryServiceSpy();
+    }
 });

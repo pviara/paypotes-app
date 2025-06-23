@@ -3,6 +3,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
+import { FormService } from '@core/services/form/form.service';
 import { GroupExpense } from '@core/model/expense/group-expense';
 import { GroupExpenseViewService } from '@expenses/group-expense/group-expense.view-service';
 import { NotificationService } from '@core/services/notification/notification.service';
@@ -18,6 +19,8 @@ export class GroupExpenseChoseMembersComponent {
     private authService = inject(AuthServiceToken);
     private confettiService = inject(ConfettiService);
     private expenseService = inject(ExpenseServiceToken);
+    private formService = inject(FormService);
+    private form = this.formService.injectCurrentForm();
     private groupExpenseViewService = inject(GroupExpenseViewService);
     private notificationService = inject(NotificationService);
     private router = inject(Router);
@@ -55,6 +58,7 @@ export class GroupExpenseChoseMembersComponent {
             .pipe(
                 tap(this.notifyPaidBack(personIds)),
                 tap(this.redirectToGroupExpenses()),
+                tap(() => this.form.clear()),
             )
             .subscribe();
     }

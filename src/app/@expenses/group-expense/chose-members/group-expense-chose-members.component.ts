@@ -9,6 +9,7 @@ import { GroupExpenseViewService } from '@expenses/group-expense/group-expense.v
 import { NotificationService } from '@core/services/notification/notification.service';
 import { Persons } from '@core/model/person';
 import { Router } from '@angular/router';
+import { Stakeholders } from '@core/model/expense/stakeholder';
 
 @Component({
     selector: 'group-expense-chose-members',
@@ -28,10 +29,7 @@ export class GroupExpenseChoseMembersComponent {
     private expenseId = '';
 
     expense = this.groupExpenseViewService.$fetchedExpense.getValue();
-    debtors =
-        this.expense
-            ?.getStakeholdersExcluding(this.authService.getActor().getId())
-            .filter((stakeholder) => stakeholder.isActive()) || [];
+    debtors = this.getExpenseActiveDebtors();
 
     $loading = new BehaviorSubject(false);
 
@@ -61,6 +59,14 @@ export class GroupExpenseChoseMembersComponent {
                 tap(() => this.form.clear()),
             )
             .subscribe();
+    }
+
+    private getExpenseActiveDebtors(): Stakeholders {
+        return (
+            this.expense
+                ?.getStakeholdersExcluding(this.authService.getActor().getId())
+                .filter((stakeholder) => stakeholder.isActive()) || []
+        );
     }
 
     private notifyPaidBack(personIds: Array<string>): () => void {

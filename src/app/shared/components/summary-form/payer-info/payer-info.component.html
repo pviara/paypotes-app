@@ -1,11 +1,11 @@
 <p>
     @if (currentContextIsExpense()) {
         @if (isCurrentPayer()) {
-            Vous avez avancé à
-            <br>
+            Vous avez payé pour vous et
             <span class="bold">
                 {{ fullname() }}
             </span>
+            la somme de
         } @else {
             <span class="bold">
                 {{ fullname() }}
@@ -16,7 +16,7 @@
     }
     @else {
         @if (isCurrentPayer()) {
-            Vous avez avancé aux membres du groupe
+            Vous avez payé pour vous et les autres membres la somme de
             <br>
         } @else {
             <span class="bold">

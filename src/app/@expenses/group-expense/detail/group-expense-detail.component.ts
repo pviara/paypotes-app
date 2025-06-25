@@ -1,20 +1,23 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
-import { NotificationService } from '@core/services/notification/notification.service';
+import { FormService } from '@core/services/form/form.service';
 import { GroupExpense } from '@core/model/expense/group-expense';
 import { GroupExpenseViewService } from '../group-expense.view-service';
+import { NotificationService } from '@core/services/notification/notification.service';
 
 @Component({
     selector: 'group-expense-detail',
     templateUrl: './group-expense-detail.component.html',
     styleUrls: ['./group-expense-detail.component.scss'],
 })
-export class GroupExpenseDetailComponent {
+export class GroupExpenseDetailComponent implements OnInit {
     private confettiService = inject(ConfettiService);
     private expenseService = inject(ExpenseServiceToken);
+    private formService = inject(FormService);
+    private form = this.formService.injectCurrentForm();
     private groupExpenseViewService = inject(GroupExpenseViewService);
     private notificationService = inject(NotificationService);
     private route = inject(ActivatedRoute);
@@ -32,6 +35,10 @@ export class GroupExpenseDetailComponent {
     );
 
     $expenseLabel = this.$expense.pipe(map((expense) => expense.getLabel()));
+
+    ngOnInit(): void {
+        this.form.clear();
+    }
 
     onPayback(): void {
         const expense = this.getFetchedExpense();

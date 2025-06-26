@@ -34,9 +34,7 @@ export class PersonFormComponent {
             if (users.length === 0) {
                 this.$searching.next(false);
                 this.error = 'Aucun utilisateur trouvé';
-            }
-
-            if (users.length > 1) this.usersFound.emit(users);
+            } else if (users.length > 1) this.usersFound.emit(users);
             else this.userFound.emit(users[0]);
         });
     }

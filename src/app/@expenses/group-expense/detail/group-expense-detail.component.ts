@@ -2,6 +2,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, filter, map, shareReplay, switchMap, tap } from 'rxjs';
 import { Component, inject, OnInit } from '@angular/core';
 import { ConfettiService } from '@core/services/confetti/confetti.service';
+import { Expense } from '@core/model/expense/expense';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { FormService } from '@core/services/form/form.service';
 import { GroupExpense } from '@core/model/expense/group-expense';
@@ -24,8 +25,10 @@ export class GroupExpenseDetailComponent implements OnInit {
     private router = inject(Router);
 
     $expense = this.route.params.pipe(
-        map((params) => params['expenseId']),
-        switchMap((expenseId) => this.expenseService.getExpense(expenseId)),
+        switchMap((params) =>
+            this.expenseService.getExpense(params['expenseId']),
+        ),
+        tap(this.redirectIfNotGroupExpense()),
         catchError(() => this.router.navigate(['expenses'])),
         filter((expense) => expense instanceof GroupExpense),
         tap((expense) =>
@@ -74,6 +77,13 @@ export class GroupExpenseDetailComponent implements OnInit {
                 type: 'success',
                 message: 'Dépense remboursée !',
             });
+    }
+
+    private redirectIfNotGroupExpense(): (expense: Expense) => void {
+        return (expense: Expense) => {
+            if (!(expense instanceof GroupExpense))
+                this.router.navigate(['/expenses']);
+        };
     }
 
     private redirectToGroupExpenses(): () => void {

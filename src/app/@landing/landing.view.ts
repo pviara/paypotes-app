@@ -3,6 +3,7 @@ import { Gradient } from 'whatamesh';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { version } from '../../../package.json';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'landing',
@@ -21,5 +22,9 @@ export class LandingView implements AfterViewInit {
             const gradient = new Gradient();
             gradient.initGradient('#gradient');
         }
+    }
+
+    getGoogleSignInLink(): string {
+        return `${environment.API_URL}/auth/google`;
     }
 }

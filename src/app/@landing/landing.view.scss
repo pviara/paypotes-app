@@ -45,31 +45,37 @@
             animation: slighSlideInFromRight 1s ease-in-out;
         }
 
-        button {
-            width: 80%;
+        a {
+            display: block;
+            width: 100%;
 
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            button {
+                margin: auto;
+                width: 80%;
 
-            padding: 4%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-            border: none;
-            border-radius: 2rem;
+                padding: 4%;
 
-            background: #5000b8;
-            background: linear-gradient(180deg, #28005f 0%, #5000b8 100%);
+                border: none;
+                border-radius: 2rem;
 
-            font-family: 'regular';
-            font-size: 1rem;
-            color: #fff;
+                background: #5000b8;
+                background: linear-gradient(180deg, #28005f 0%, #5000b8 100%);
 
-            img {
-                margin-right: 0.5rem;
-                width: 20px;
+                font-family: 'regular';
+                font-size: 1rem;
+                color: #fff;
+
+                img {
+                    margin-right: 0.5rem;
+                    width: 20px;
+                }
+
+                animation: slighSlideInFromBottom 1s ease-in-out;
             }
-
-            animation: slighSlideInFromBottom 1s ease-in-out;
         }
     }
 

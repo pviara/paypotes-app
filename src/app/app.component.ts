@@ -1,4 +1,4 @@
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { AppNotificationComponent } from 'src/app/notification/app-notification.component';
 import { AppMenuComponentModule } from 'src/app/menu/app-menu-component.module';
 import {
@@ -8,7 +8,7 @@ import {
 import { Component, inject, OnInit } from '@angular/core';
 import { ContactsViewModule } from '@contacts/contacts.view-module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
-import { filter, switchMap } from 'rxjs';
+import { filter, switchMap, tap } from 'rxjs';
 import { HomeViewModule } from '@home/home.view-module';
 
 @Component({
@@ -29,6 +29,7 @@ import { HomeViewModule } from '@home/home.view-module';
 export class AppComponent implements OnInit {
     private authService = inject(AuthServiceToken);
     private route = inject(ActivatedRoute);
+    private router = inject(Router);
 
     ngOnInit(): void {
         this.route.queryParams
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit {
                 switchMap(({ token }) =>
                     this.authService.getUserFromToken(token),
                 ),
+                tap(() => this.router.navigate(['/home'])),
             )
             .subscribe();
     }

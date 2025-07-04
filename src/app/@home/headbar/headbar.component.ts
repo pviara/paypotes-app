@@ -1,3 +1,7 @@
+import {
+    AuthServiceProvider,
+    AuthServiceToken,
+} from '@core/services/auth/auth.api-service.provider';
 import { Component, inject } from '@angular/core';
 import {
     ExpenseServiceProvider,
@@ -12,13 +16,17 @@ import { QueryServiceProvider } from '@core/services/query/query.service.provide
     templateUrl: './headbar.component.html',
     styleUrls: ['./headbar.component.scss'],
     providers: [
+        AuthServiceProvider,
         ExpenseServiceProvider,
         HttpClientServiceProvider,
         QueryServiceProvider,
     ],
 })
 export class HeadbarComponent {
+    private authService = inject(AuthServiceToken);
     private expenseService = inject(ExpenseServiceToken);
+
+    avatarUrl = this.authService.actor.getAvatarUrl();
 
     $balance = this.expenseService.computeBalance();
 

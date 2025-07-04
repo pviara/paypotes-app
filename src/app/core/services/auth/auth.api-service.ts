@@ -18,7 +18,13 @@ export class AuthAPIService implements AuthService {
     );
 
     get actor(): User {
-        return this.getUserFromStorage();
+        const actor = this.getUserFromStorage();
+        return new User({
+            id: actor.data['id'],
+            firstname: actor.data['firstname'],
+            lastname: actor.data['lastname'],
+            avatarUrl: actor.data['avatarUrl'],
+        });
     }
 
     set actor(value: User) {
@@ -63,7 +69,7 @@ export class AuthAPIService implements AuthService {
             );
     }
 
-    private getUserFromStorage(): User {
+    private getUserFromStorage(): { data: Record<string, string> } {
         if (isPlatformBrowser(this.platformId)) {
             const fromStorage = localStorage.getItem(
                 SIGNED_IN_USER_STORAGE_KEY,

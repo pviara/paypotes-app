@@ -20,7 +20,7 @@ export class DefaultHttpClientService implements HttpClientService {
 
     getText(url: string, options?: RequestOptions): Observable<string> {
         return this.httpClient
-            .get(url, { responseType: 'text' })
+            .get(url, { responseType: 'text', ...options })
             .pipe(delay(isPlatformBrowser(this.platformId) ? 700 : 0));
     }
 
@@ -30,7 +30,7 @@ export class DefaultHttpClientService implements HttpClientService {
         options?: RequestOptions,
     ): Observable<void> {
         return this.httpClient
-            .put<void>(url, payload)
+            .put<void>(url, payload, options)
             .pipe(delay(isPlatformBrowser(this.platformId) ? 700 : 0));
     }
 
@@ -40,7 +40,7 @@ export class DefaultHttpClientService implements HttpClientService {
         options?: RequestOptions,
     ): Observable<void> {
         return this.httpClient
-            .post<void>(url, payload)
+            .post<void>(url, payload, options)
             .pipe(delay(isPlatformBrowser(this.platformId) ? 700 : 0));
     }
 }

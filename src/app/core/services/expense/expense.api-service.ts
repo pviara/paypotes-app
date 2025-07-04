@@ -3,6 +3,7 @@ import {
     AddPairExpenseDTO,
     ExpenseService,
 } from '@core/services/expense/expense.service';
+import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { Contact } from '@core/model/contact/contact';
 import {
     Credit,
@@ -39,8 +40,11 @@ import {
     Stakeholders,
 } from '@core/model/expense/stakeholder';
 import { v4 } from 'uuid';
+import { inject } from '@angular/core';
 
 export class ExpenseAPIService implements ExpenseService {
+    private authService = inject(AuthServiceToken);
+
     private readonly endpoint = `${environment.API_URL}/expenses`;
 
     constructor(
@@ -49,21 +53,35 @@ export class ExpenseAPIService implements ExpenseService {
     ) {}
 
     addGroupExpense(payload: AddGroupExpenseDTO): Observable<void> {
-        return this.httpClientService.post(`${this.endpoint}/group`, {
-            ...payload,
-            id: v4(),
-        });
+        return this.httpClientService.post(
+            `${this.endpoint}/group`,
+            {
+                ...payload,
+                id: v4(),
+            },
+            {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            },
+        );
     }
 
     addPairExpense(payload: AddPairExpenseDTO): Observable<void> {
-        return this.httpClientService.post(`${this.endpoint}/pair`, {
-            ...payload,
-            id: v4(),
-        });
+        return this.httpClientService.post(
+            `${this.endpoint}/pair`,
+            {
+                ...payload,
+                id: v4(),
+            },
+            {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            },
+        );
     }
 
     computeBalance(): Observable<string> {
-        return this.httpClientService.getText(`${this.endpoint}/balance`);
+        return this.httpClientService.getText(`${this.endpoint}/balance`, {
+            headers: { Authorization: `Bearer ${this.authService.token}` },
+        });
     }
 
     getContactExpenses(
@@ -79,13 +97,20 @@ export class ExpenseAPIService implements ExpenseService {
         return this.httpClientService
             .get<PairExpenseDTOs>(
                 `${this.endpoint}/contact/${contactId}${query}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${this.authService.token}`,
+                    },
+                },
             )
             .pipe(map((expenses) => this.mapPairExpenses(expenses)));
     }
 
     getExpense(id: string): Observable<GroupExpense | PairExpense> {
         return this.httpClientService
-            .get<Record<string, unknown>>(`${this.endpoint}/${id}`)
+            .get<Record<string, unknown>>(`${this.endpoint}/${id}`, {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            })
             .pipe(
                 map((expense) => {
                     if (this.isGroupExpenseDTO(expense)) {
@@ -107,7 +132,9 @@ export class ExpenseAPIService implements ExpenseService {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
         return this.httpClientService
-            .get<Record<string, unknown>[]>(`${this.endpoint}${query}`)
+            .get<Record<string, unknown>[]>(`${this.endpoint}${query}`, {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            })
             .pipe(
                 map((expenses) => {
                     const groupExpenseDtos = expenses.filter((expense) =>
@@ -135,7 +162,14 @@ export class ExpenseAPIService implements ExpenseService {
         });
 
         return this.httpClientService
-            .get<GroupExpenseDTOs>(`${this.endpoint}/group/${groupId}${query}`)
+            .get<GroupExpenseDTOs>(
+                `${this.endpoint}/group/${groupId}${query}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${this.authService.token}`,
+                    },
+                },
+            )
             .pipe(map((expenses) => this.mapGroupExpenses(expenses)));
     }
 
@@ -147,6 +181,9 @@ export class ExpenseAPIService implements ExpenseService {
         return this.httpClientService.put(
             `${this.endpoint}/group/${groupId}/${expenseId}`,
             { debtorIds },
+            {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            },
         );
     }
 
@@ -154,6 +191,9 @@ export class ExpenseAPIService implements ExpenseService {
         return this.httpClientService.put(
             `${this.endpoint}/pair/${contactId}/${expenseId}`,
             {},
+            {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            },
         );
     }
 

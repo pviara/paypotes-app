@@ -1,7 +1,10 @@
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { AppNotificationComponent } from 'src/app/notification/app-notification.component';
 import { AppMenuComponentModule } from 'src/app/menu/app-menu-component.module';
-import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
+import {
+    AuthServiceProvider,
+    AuthServiceToken,
+} from '@core/services/auth/auth.api-service.provider';
 import { Component, inject, OnInit } from '@angular/core';
 import { ContactsViewModule } from '@contacts/contacts.view-module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
@@ -21,6 +24,7 @@ import { HomeViewModule } from '@home/home.view-module';
     ],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
+    providers: [AuthServiceProvider],
 })
 export class AppComponent implements OnInit {
     private authService = inject(AuthServiceToken);

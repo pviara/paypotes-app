@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, PLATFORM_ID, inject } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Gradient } from 'whatamesh';
 import { isPlatformBrowser } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { version } from '../../../package.json';
-import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'landing',

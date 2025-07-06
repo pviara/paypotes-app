@@ -1,5 +1,22 @@
 <main>
     <canvas id="gradient"></canvas>
+    <section>
+        <div class="top-part">
+            <div class="logo">
+                <img src="assets/icons/coin.png"/>
+            </div>
+            <div class="title">
+                <h1 class="hyperbold">PayPotes</h1>
+                <h2>Soyez sympa, rendez l'argent.</h2>
+            </div>
+        </div>
+        <a [href]="getGoogleSignInLink()">
+            <button>
+                <img src="assets/icons/google.svg"/>
+                Connexion avec&nbsp;<span class="bold">Google</span>
+            </button>
+        </a>
+    </section>
     <p>
         <span class="bold">PayPotes</span> alpha-v{{ version }}
     </p>

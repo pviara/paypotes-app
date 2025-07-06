@@ -17,6 +17,94 @@ main {
         --gradient-color-4: #120d21;
     }
 
+    section {
+        width: 100%;
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10vh;
+
+        .top-part {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 3vh;
+
+            .logo {
+                width: 30vw;
+                height: 30vw;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                border-radius: 2rem;
+                border: 1px solid #211c2b;
+                background: linear-gradient(150deg, #110c1a, #271e39);
+
+                img {
+                    width: 18vw;
+                    height: 18vw;
+                }
+            }
+
+            .title {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 1vh;
+
+                h1 {
+                    font-size: 2.5rem;
+                    background: -webkit-linear-gradient(#eee, #333);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+
+                h2 {
+                    color: #ffffff3d;
+                }
+            }
+        }
+
+        a {
+            width: 100%;
+
+            display: flex;
+            justify-content: center;
+
+            text-decoration: none;
+
+            button {
+                width: 70%;
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                padding: 3%;
+
+                border-radius: 2rem;
+                border: 1px solid #483f65;
+                background: none;
+
+                color: #cfcbdf;
+
+                img {
+                    margin-right: 2vw;
+
+                    width: 4vw;
+                    height: 4vw;
+                }
+            }
+        }
+    }
+
     p {
         z-index: 1;
 
@@ -44,12 +132,12 @@ main {
 
             &:first-child {
                 bottom: -130px;
-                height: 300px;
+                height: 250px;
             }
 
             &:last-child {
                 bottom: -50px;
-                height: 300px;
+                height: 250px;
             }
         }
     }

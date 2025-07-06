@@ -17,6 +17,19 @@ main {
         --gradient-color-4: #120d21;
     }
 
+    p {
+        z-index: 1;
+
+        position: absolute;
+        bottom: 3%;
+
+        width: 100%;
+
+        font-size: 0.7rem;
+        text-align: center;
+        color: #f1e7ff2d;
+    }
+
     .ellipses {
         display: flex;
         justify-content: center;

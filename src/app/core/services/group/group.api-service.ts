@@ -1,4 +1,5 @@
 import { AddGroupDTO, GroupService } from '@core/services/group/group.service';
+import { AuthService } from '@core/services/auth/auth.service';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Filters } from '@core/model/filters/filters';
@@ -13,6 +14,7 @@ import {
     GroupWithBalance,
 } from '@core/model/group/group-with-balance';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
+import { inject } from '@angular/core';
 import { MemberDTO } from '@core/model/group/member.dto';
 import { Members, Member } from '@core/model/group/member';
 import { QueryService } from '@core/services/query/query.service';
@@ -24,20 +26,29 @@ export class GroupAPIService implements GroupService {
     lastFetchedGroup = new BehaviorSubject<GroupWithBalance | null>(null);
 
     constructor(
+        private authService: AuthService,
         private httpClientService: HttpClientService,
         private queryService: QueryService,
     ) {}
 
     createGroup(payload: AddGroupDTO): Observable<void> {
-        return this.httpClientService.post(this.endpoint, {
-            ...payload,
-            id: v4(),
-        });
+        return this.httpClientService.post(
+            this.endpoint,
+            {
+                ...payload,
+                id: v4(),
+            },
+            {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            },
+        );
     }
 
     getGroup(id: string): Observable<GroupWithBalance> {
         return this.httpClientService
-            .get<GroupWithBalanceDTO>(`${this.endpoint}/${id}`)
+            .get<GroupWithBalanceDTO>(`${this.endpoint}/${id}`, {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            })
             .pipe(
                 map((group) => this.mapGroupWithBalanceFrom(group)),
                 tap((group) => this.lastFetchedGroup.next(group)),
@@ -46,7 +57,9 @@ export class GroupAPIService implements GroupService {
 
     getGroups(): Observable<Groups> {
         return this.httpClientService
-            .get<GroupDTOs>(`${this.endpoint}/without-balance`)
+            .get<GroupDTOs>(`${this.endpoint}/without-balance`, {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            })
             .pipe(map((groups) => this.mapGroupsFrom(groups)));
     }
 
@@ -57,7 +70,9 @@ export class GroupAPIService implements GroupService {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
         return this.httpClientService
-            .get<GroupWithBalanceDTOs>(`${this.endpoint}${query}`)
+            .get<GroupWithBalanceDTOs>(`${this.endpoint}${query}`, {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            })
             .pipe(map((groups) => this.mapGroupsWithBalance(groups)));
     }
 

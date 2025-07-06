@@ -1,3 +1,5 @@
+import { AuthService } from '@core/services/auth/auth.service';
+import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { ExpenseAPIService } from '@core/services/expense/expense.api-service';
 import { ExpenseService } from '@core/services/expense/expense.service';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
@@ -11,12 +13,13 @@ export const ExpenseServiceToken = new InjectionToken<ExpenseService>(
 );
 
 const expenseServiceFactory = (
+    authService: AuthService,
     httpClientService: HttpClientService,
     queryService: QueryService,
-) => new ExpenseAPIService(httpClientService, queryService);
+) => new ExpenseAPIService(authService, httpClientService, queryService);
 
 export const ExpenseServiceProvider: Provider = {
     provide: ExpenseServiceToken,
     useFactory: expenseServiceFactory,
-    deps: [HttpClientServiceToken, QueryServiceToken],
+    deps: [AuthServiceToken, HttpClientServiceToken, QueryServiceToken],
 };

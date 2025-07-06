@@ -1,11 +1,15 @@
-import { AppMenuComponent } from 'src/app/menu/app-menu.component';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { AppNotificationComponent } from 'src/app/notification/app-notification.component';
-import { Component } from '@angular/core';
+import { AppMenuComponentModule } from 'src/app/menu/app-menu-component.module';
+import {
+    AuthServiceProvider,
+    AuthServiceToken,
+} from '@core/services/auth/auth.api-service.provider';
+import { Component, inject, OnInit } from '@angular/core';
 import { ContactsViewModule } from '@contacts/contacts.view-module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
+import { filter, switchMap, tap } from 'rxjs';
 import { HomeViewModule } from '@home/home.view-module';
-import { RouterOutlet } from '@angular/router';
-import { AppMenuComponentModule } from './menu/app-menu-component.module';
 
 @Component({
     selector: 'app-root',
@@ -20,5 +24,22 @@ import { AppMenuComponentModule } from './menu/app-menu-component.module';
     ],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
+    providers: [AuthServiceProvider],
 })
-export class AppComponent {}
+export class AppComponent implements OnInit {
+    private authService = inject(AuthServiceToken);
+    private route = inject(ActivatedRoute);
+    private router = inject(Router);
+
+    ngOnInit(): void {
+        this.route.queryParams
+            .pipe(
+                filter(({ token }) => !!token),
+                switchMap(({ token }) =>
+                    this.authService.getUserFromToken(token),
+                ),
+                tap(() => this.router.navigate(['/home'])),
+            )
+            .subscribe();
+    }
+}

@@ -1,8 +1,23 @@
 import { Observable } from 'rxjs';
 
+export type RequestOptions = {
+    headers: {
+        Authorization: string;
+    };
+};
+
+// todo -> remove ?: in options once it is fully implemented
 export interface HttpClientService {
-    get<T>(url: string): Observable<T>;
-    getText(url: string): Observable<string>;
-    put(url: string, payload: unknown): Observable<void>;
-    post(url: string, payload: unknown): Observable<void>;
+    get<T>(url: string, options?: RequestOptions): Observable<T>;
+    getText(url: string, options?: RequestOptions): Observable<string>;
+    put(
+        url: string,
+        payload: unknown,
+        options?: RequestOptions,
+    ): Observable<void>;
+    post(
+        url: string,
+        payload: unknown,
+        options?: RequestOptions,
+    ): Observable<void>;
 }

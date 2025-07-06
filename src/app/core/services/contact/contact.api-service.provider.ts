@@ -1,3 +1,5 @@
+import { AuthService } from '@core/services/auth/auth.service';
+import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { ContactAPIService } from '@core/services/contact/contact.api-service';
 import { ContactService } from '@core/services/contact/contact.service';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
@@ -11,12 +13,13 @@ export const ContactServiceToken = new InjectionToken<ContactService>(
 );
 
 const contactServiceFactory = (
+    authService: AuthService,
     httpClientService: HttpClientService,
     queryService: QueryService,
-) => new ContactAPIService(httpClientService, queryService);
+) => new ContactAPIService(authService, httpClientService, queryService);
 
 export const ContactServiceProvider: Provider = {
     provide: ContactServiceToken,
     useFactory: contactServiceFactory,
-    deps: [HttpClientServiceToken, QueryServiceToken],
+    deps: [AuthServiceToken, HttpClientServiceToken, QueryServiceToken],
 };

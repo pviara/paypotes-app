@@ -1,22 +1,31 @@
-<div class="container">
+<main>
     <canvas id="gradient"></canvas>
     <section>
-        <!-- <div class="logo" routerLink="/home">
-            <img
-                draggable="false"
-                src="assets/images/paypot-logo.png"
-            />
-            <h1>
-                PayPot
-            </h1>
-        </div> -->
-        <p>
-            <span class="bold">Paypot</span> alpha-v{{ version }}
-        </p>
-        <button
-            routerLink="/home">
-            <img src="assets/icons/google.svg"/>
-            Se connecter avec&nbsp;<span class="bold">Google</span>
-        </button>
+        <div class="top-part">
+            <div class="logo">
+                <img src="assets/icons/coin.png"/>
+            </div>
+            <div class="title">
+                <h1 class="hyperbold">PayPotes</h1>
+                <h2>Soyez sympa, rendez l'argent.</h2>
+            </div>
+        </div>
+        <a [href]="getGoogleSignInLink()">
+            <button [disabled]="$loading | async" [class.disabled]="$loading | async">
+                <img src="assets/icons/google.svg"/>
+                @if ($loading | async) {
+                    Chargement...
+                } @else {
+                    Connexion avec&nbsp;<span class="bold">Google</span>
+                }
+            </button>
+        </a>
     </section>
-</div>
+    <p>
+        <span class="bold">PayPotes</span> alpha-v{{ version }}
+    </p>
+    <div class="ellipses">
+        <div></div>
+        <div></div>
+    </div>
+</main>

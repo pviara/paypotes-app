@@ -1,3 +1,4 @@
+import { AuthService } from '@core/services/auth/auth.service';
 import {
     ContactMetadata,
     Contacts,
@@ -23,19 +24,24 @@ export class ContactAPIService implements ContactService {
     private readonly endpoint = `${environment.API_URL}/contacts`;
 
     constructor(
+        private authService: AuthService,
         private httpClientService: HttpClientService,
         private queryService: QueryService,
     ) {}
 
     getContact(id: string): Observable<ContactWithBalance> {
         return this.httpClientService
-            .get<ContactWithBalanceDTO>(`${this.endpoint}/${id}`)
+            .get<ContactWithBalanceDTO>(`${this.endpoint}/${id}`, {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            })
             .pipe(map((contact) => this.mapContactWithBalance(contact)));
     }
 
     getContacts(): Observable<Contacts> {
         return this.httpClientService
-            .get<ContactDTOs>(`${this.endpoint}/without-balance`)
+            .get<ContactDTOs>(`${this.endpoint}/without-balance`, {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            })
             .pipe(map((contacts) => this.mapContacts(contacts)));
     }
 
@@ -46,7 +52,9 @@ export class ContactAPIService implements ContactService {
         const query = this.queryService.buildQueryFrom({ pageIndex, filters });
 
         return this.httpClientService
-            .get<ContactWithBalanceDTOs>(`${this.endpoint}${query}`)
+            .get<ContactWithBalanceDTOs>(`${this.endpoint}${query}`, {
+                headers: { Authorization: `Bearer ${this.authService.token}` },
+            })
             .pipe(map((contacts) => this.mapContactsWithBalance(contacts)));
     }
 

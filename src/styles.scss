@@ -14,6 +14,11 @@
 }
 
 @font-face {
+    font-family: 'hyperbold';
+    src: url('./assets/fonts/Inter-Bold.ttf');
+}
+
+@font-face {
     font-family: 'logo';
     src: url('./assets/fonts/Modak-Regular.ttf');
 }
@@ -25,6 +30,9 @@ body {
     height: 100vh;
 
     background-color: #121212;
+
+    overflow: hidden;
+    scrollbar-width: none;
 }
 
 h1,
@@ -44,6 +52,10 @@ span {
 
     &.bold {
         font-family: 'bold';
+    }
+
+    &.hyperbold {
+        font-family: 'hyperbold';
     }
 }
 

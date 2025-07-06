@@ -1,5 +1,8 @@
+import { Observable } from 'rxjs';
 import { User } from '@core/model/user/user';
 
 export interface AuthService {
-    getActor(): User;
+    get actor(): User;
+    get token(): string;
+    getUserFromToken(token: string): Observable<User>;
 }

@@ -11,9 +11,13 @@
             </div>
         </div>
         <a [href]="getGoogleSignInLink()">
-            <button>
+            <button [disabled]="$loading | async" [class.disabled]="$loading | async">
                 <img src="assets/icons/google.svg"/>
-                Connexion avec&nbsp;<span class="bold">Google</span>
+                @if ($loading | async) {
+                    Chargement...
+                } @else {
+                    Connexion avec&nbsp;<span class="bold">Google</span>
+                }
             </button>
         </a>
     </section>

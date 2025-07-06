@@ -101,6 +101,10 @@ main {
                     width: 4vw;
                     height: 4vw;
                 }
+
+                &.disabled {
+                    animation: glowing 3s infinite;
+                }
             }
         }
     }

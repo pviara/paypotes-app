@@ -1,3 +1,4 @@
+import { AuthServiceSpy } from '@test/doubles/auth.service.spy';
 import { ExpenseAPIService } from '@core/services/expense/expense.api-service';
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
 import { generateRandomString } from '@shared/utils/generate-random-string';
@@ -11,6 +12,7 @@ import { QueryServiceSpy } from '@test/doubles/query.service.spy';
 describe('ExpenseAPIService', () => {
     let sut: ExpenseAPIService;
 
+    let authService: AuthServiceSpy;
     let httpClientService: HttpClientServiceSpy;
     let queryService: QueryServiceSpy;
 
@@ -18,7 +20,11 @@ describe('ExpenseAPIService', () => {
 
     beforeEach(() => {
         initDependencies();
-        sut = new ExpenseAPIService(httpClientService, queryService);
+        sut = new ExpenseAPIService(
+            authService,
+            httpClientService,
+            queryService,
+        );
     });
 
     afterAll(() => subscription.unsubscribe());
@@ -212,6 +218,7 @@ describe('ExpenseAPIService', () => {
     });
 
     function initDependencies(): void {
+        authService = new AuthServiceSpy();
         httpClientService = new HttpClientServiceSpy();
         queryService = new QueryServiceSpy();
     }

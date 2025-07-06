@@ -3,7 +3,7 @@ import {
     AddPairExpenseDTO,
     ExpenseService,
 } from '@core/services/expense/expense.service';
-import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
+import { AuthService } from '@core/services/auth/auth.service';
 import { Contact } from '@core/model/contact/contact';
 import {
     Credit,
@@ -40,14 +40,12 @@ import {
     Stakeholders,
 } from '@core/model/expense/stakeholder';
 import { v4 } from 'uuid';
-import { inject } from '@angular/core';
 
 export class ExpenseAPIService implements ExpenseService {
-    private authService = inject(AuthServiceToken);
-
     private readonly endpoint = `${environment.API_URL}/expenses`;
 
     constructor(
+        private authService: AuthService,
         private httpClientService: HttpClientService,
         private queryService: QueryService,
     ) {}

@@ -1,7 +1,6 @@
-import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
+import { AuthService } from '@core/services/auth/auth.service';
 import { environment } from 'src/environments/environment';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
-import { inject } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { QueryService } from '../query/query.service';
 import { User, Users } from '@core/model/user/user';
@@ -9,11 +8,10 @@ import { UserDTO, UserDTOs } from '@core/model/user/user.dto';
 import { UserService } from '@core/services/user/user.service';
 
 export class UserAPIService implements UserService {
-    private authService = inject(AuthServiceToken);
-
     private readonly endpoint = `${environment.API_URL}/users`;
 
     constructor(
+        private authService: AuthService,
         private httpClientService: HttpClientService,
         private queryService: QueryService,
     ) {}

@@ -1,3 +1,4 @@
+import { AuthServiceSpy } from '@test/doubles/auth.service.spy';
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
 import { QueryServiceSpy } from '@test/doubles/query.service.spy';
 import { of, Subscription } from 'rxjs';
@@ -6,6 +7,7 @@ import { UserAPIService } from '@core/services/user/user.api-service';
 describe('UserAPIService', () => {
     let sut: UserAPIService;
 
+    let authService: AuthServiceSpy;
     let httpClientService: HttpClientServiceSpy;
     let queryService: QueryServiceSpy;
 
@@ -13,7 +15,7 @@ describe('UserAPIService', () => {
 
     beforeEach(() => {
         initDependencies();
-        sut = new UserAPIService(httpClientService, queryService);
+        sut = new UserAPIService(authService, httpClientService, queryService);
     });
 
     afterAll(() => subscription.unsubscribe());
@@ -42,6 +44,7 @@ describe('UserAPIService', () => {
     });
 
     function initDependencies(): void {
+        authService = new AuthServiceSpy();
         httpClientService = new HttpClientServiceSpy();
         queryService = new QueryServiceSpy();
     }

@@ -1,6 +1,6 @@
 {
-    "name": "paypot-app",
-    "short_name": "paypot-app",
+    "name": "PayPotes",
+    "short_name": "PayPotes",
     "theme_color": "#121212",
     "background_color": "#121212",
     "display": "standalone",

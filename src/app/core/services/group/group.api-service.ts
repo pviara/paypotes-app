@@ -1,5 +1,5 @@
 import { AddGroupDTO, GroupService } from '@core/services/group/group.service';
-import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
+import { AuthService } from '@core/services/auth/auth.service';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Filters } from '@core/model/filters/filters';
@@ -21,13 +21,12 @@ import { QueryService } from '@core/services/query/query.service';
 import { v4 } from 'uuid';
 
 export class GroupAPIService implements GroupService {
-    private authService = inject(AuthServiceToken);
-
     private readonly endpoint = `${environment.API_URL}/groups`;
 
     lastFetchedGroup = new BehaviorSubject<GroupWithBalance | null>(null);
 
     constructor(
+        private authService: AuthService,
         private httpClientService: HttpClientService,
         private queryService: QueryService,
     ) {}

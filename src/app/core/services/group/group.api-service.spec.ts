@@ -1,3 +1,4 @@
+import { AuthServiceSpy } from '@test/doubles/auth.service.spy';
 import { GroupAPIService } from '@core/services/group/group.api-service';
 import { HttpClientServiceSpy } from '@test/doubles/http-client.service.spy';
 import { of, Subscription } from 'rxjs';
@@ -9,6 +10,7 @@ import { getRandomEmoji } from '@shared/utils/get-random-emoji';
 describe('GroupAPIService', () => {
     let sut: GroupAPIService;
 
+    let authService: AuthServiceSpy;
     let httpClientService: HttpClientServiceSpy;
     let queryService: QueryServiceSpy;
 
@@ -16,7 +18,7 @@ describe('GroupAPIService', () => {
 
     beforeEach(() => {
         initDependencies();
-        sut = new GroupAPIService(httpClientService, queryService);
+        sut = new GroupAPIService(authService, httpClientService, queryService);
     });
 
     afterAll(() => subscription.unsubscribe());
@@ -149,6 +151,7 @@ describe('GroupAPIService', () => {
     });
 
     function initDependencies(): void {
+        authService = new AuthServiceSpy();
         httpClientService = new HttpClientServiceSpy();
         queryService = new QueryServiceSpy();
     }

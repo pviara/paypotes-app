@@ -63,7 +63,6 @@ export class AuthAPIService implements AuthService {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .pipe(
-                tap(() => console.log('logged')),
                 tap(() => (this.token = token)),
                 tap((user) => (this.actor = user)),
             );

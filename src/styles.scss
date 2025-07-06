@@ -25,6 +25,12 @@ body {
     height: 100vh;
 
     background-color: #121212;
+
+    overflow: hidden;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 h1,

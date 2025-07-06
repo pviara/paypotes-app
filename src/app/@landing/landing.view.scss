@@ -1,83 +1,7 @@
-.container {
+main {
     height: 100%;
 
-    p {
-        color: #fff;
-    }
-
-    section {
-        height: 100%;
-
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 3vh;
-
-        .logo {
-            position: relative;
-
-            img {
-                position: absolute;
-                top: -30%;
-                left: -40%;
-
-                height: 8rem;
-                text-shadow: #000000 0px 0px 10px;
-
-                animation: slighSlideInFromLeft 1s ease-in-out forwards;
-            }
-        }
-
-        h1 {
-            margin-left: 17%;
-
-            font-family: 'logo';
-            font-size: 4rem;
-            color: #14093d;
-
-            text-shadow:
-                2px 0 #9062f4,
-                -2px 0 #9062f4,
-                0 2px #9062f4,
-                0 -2px #d7c4ff;
-
-            animation: slighSlideInFromRight 1s ease-in-out;
-        }
-
-        a {
-            display: block;
-            width: 100%;
-
-            button {
-                margin: auto;
-                width: 80%;
-
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                padding: 4%;
-
-                border: none;
-                border-radius: 2rem;
-
-                background: #5000b8;
-                background: linear-gradient(180deg, #28005f 0%, #5000b8 100%);
-
-                font-family: 'regular';
-                font-size: 1rem;
-                color: #fff;
-
-                img {
-                    margin-right: 0.5rem;
-                    width: 20px;
-                }
-
-                animation: slighSlideInFromBottom 1s ease-in-out;
-            }
-        }
-    }
+    overflow: hidden;
 
     #gradient {
         z-index: -1;
@@ -87,21 +11,33 @@
 
         width: 100%;
         height: 100%;
-        --gradient-color-1: #000000;
-        --gradient-color-2: #000000;
+        --gradient-color-1: #120d21;
+        --gradient-color-2: #120d21;
         --gradient-color-3: #000000;
-        --gradient-color-4: #0f0023; //27005a
+        --gradient-color-4: #120d21;
     }
-}
 
-@keyframes levitation {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-    100% {
-        transform: translateY(0);
+    .ellipses {
+        display: flex;
+        justify-content: center;
+
+        div {
+            position: absolute;
+
+            width: 120%;
+
+            background: linear-gradient(180deg, #8687e314, #120f1b);
+            clip-path: ellipse(50% 50% at 50% 50%);
+
+            &:first-child {
+                bottom: -130px;
+                height: 300px;
+            }
+
+            &:last-child {
+                bottom: -50px;
+                height: 300px;
+            }
+        }
     }
 }

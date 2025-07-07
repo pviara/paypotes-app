@@ -68,6 +68,10 @@ export class AuthAPIService implements AuthService {
             );
     }
 
+    isAuthenticated(): boolean {
+        return !!this.actor;
+    }
+
     private getUserFromStorage(): { data: Record<string, string> } {
         if (isPlatformBrowser(this.platformId)) {
             const fromStorage = localStorage.getItem(

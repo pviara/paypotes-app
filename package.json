@@ -1,6 +1,6 @@
 {
     "name": "paypot-app",
-    "version": "0.23.1",
+    "version": "0.23.2",
     "type": "module",
     "scripts": {
         "format": "prettier --write \"{src,test}/**/*.{js,json,ts,scss}\"",

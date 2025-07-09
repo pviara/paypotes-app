@@ -1,9 +1,10 @@
+import { authenticatedGuard } from '@core/guards/authenticated.guard';
 import { ContactsViewModule } from '@contacts/contacts.view-module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { GroupsViewModule } from '@groups/groups.view-module';
 import { HomeView } from '@home/home.view';
-import { landingGuard } from '@landing/landing.guard';
 import { LandingView } from '@landing/landing.view';
+import { notAuthenticatedGuard } from '@core/guards/not-authenticated.guard';
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -11,24 +12,32 @@ export const routes: Routes = [
         path: '',
         component: LandingView,
         data: { hideMenu: true },
-        canActivate: [landingGuard],
+        canActivate: [notAuthenticatedGuard],
     },
     {
         path: 'home',
         component: HomeView,
         data: { fixMenu: true },
+        canActivate: [authenticatedGuard],
     },
     {
         path: 'contacts',
         loadChildren: importContactsView(),
+        canActivateChild: [authenticatedGuard],
     },
     {
         path: 'expenses',
         loadChildren: importExpensesView(),
+        canActivateChild: [authenticatedGuard],
     },
     {
         path: 'groups',
         loadChildren: importGroupsView(),
+        canActivateChild: [authenticatedGuard],
+    },
+    {
+        path: '**',
+        redirectTo: '',
     },
 ];
 

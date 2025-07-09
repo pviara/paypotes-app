@@ -14,7 +14,6 @@ import { SharedModule } from '@shared/shared.module';
 import { ChosePersonsFormComponentModule } from '../../shared/components/chose-persons-form/chose-persons-form.component-module';
 import { FormService } from '@core/services/form/form.service';
 import { PaybackGroupExpenseFormToken } from '@core/services/form/form.provider';
-import { ServicesModule } from '@core/services/services.module';
 
 @NgModule({
     declarations: [
@@ -32,7 +31,6 @@ import { ServicesModule } from '@core/services/services.module';
         RouterModule.forChild(groupExpenseRoutes),
         SharedModule,
         ChosePersonsFormComponentModule,
-        ServicesModule,
     ],
 })
 export class GroupExpenseViewModule {

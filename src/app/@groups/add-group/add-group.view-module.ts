@@ -11,7 +11,6 @@ import { ReadSummaryComponentModule } from '@groups/add-group/read-summary/read-
 import { RouterModule } from '@angular/router';
 import { SelectEmojiComponentModule } from '@groups/add-group/select-emoji/select-emoji.component-module';
 import { SelectPersonsComponentModule } from '@groups/add-group/select-persons/select-persons.component-module';
-import { ServicesModule } from '@core/services/services.module';
 
 @NgModule({
     declarations: [AddGroupView],
@@ -24,7 +23,6 @@ import { ServicesModule } from '@core/services/services.module';
         RouterModule.forChild(addGroupRoutes),
         SelectEmojiComponentModule,
         SelectPersonsComponentModule,
-        ServicesModule,
     ],
 })
 export class AddGroupViewModule {

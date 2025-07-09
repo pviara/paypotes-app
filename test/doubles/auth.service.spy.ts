@@ -24,6 +24,10 @@ export class AuthServiceSpy extends Spy<AuthService> implements AuthService {
             count: 0,
             history: [] as Array<string>,
         },
+        isAuthenticated: {
+            count: 0,
+            history: [],
+        },
     };
 
     get actor(): User {
@@ -39,5 +43,9 @@ export class AuthServiceSpy extends Spy<AuthService> implements AuthService {
     getUserFromToken(token: string): Observable<User> {
         this.saveCall('getUserFromToken', token);
         return of(this.DEFAULT_USER);
+    }
+
+    isAuthenticated(): boolean {
+        return false;
     }
 }

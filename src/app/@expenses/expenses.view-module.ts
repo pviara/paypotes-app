@@ -7,7 +7,6 @@ import { GroupExpenseViewService } from '@expenses/group-expense/group-expense.v
 import { NgModule } from '@angular/core';
 import { PairExpenseComponentModule } from '@expenses/pair-expense/pair-expense.component-module';
 import { RouterModule } from '@angular/router';
-import { ServicesModule } from '@core/services/services.module';
 
 @NgModule({
     declarations: [ExpensesView],
@@ -18,7 +17,6 @@ import { ServicesModule } from '@core/services/services.module';
         GroupExpenseViewModule,
         PairExpenseComponentModule,
         RouterModule.forChild(expensesRoutes),
-        ServicesModule,
     ],
     providers: [GroupExpenseViewService],
 })

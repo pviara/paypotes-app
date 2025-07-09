@@ -10,7 +10,6 @@ import { ReadSummaryComponentModule } from '@expenses/add-expense/read-summary/r
 import { RouterModule } from '@angular/router';
 import { SelectEmojiComponentModule } from '@expenses/add-expense/select-emoji/select-emoji.component-module';
 import { SelectPersonComponentModule } from '@expenses/add-expense/select-person/select-person.component-module';
-import { ServicesModule } from '@core/services/services.module';
 import { SetBalanceComponentModule } from '@expenses/add-expense/set-balance/set-balance.component-module';
 
 @NgModule({
@@ -23,7 +22,6 @@ import { SetBalanceComponentModule } from '@expenses/add-expense/set-balance/set
         RouterModule.forChild(addExpenseRoutes),
         SelectEmojiComponentModule,
         SelectPersonComponentModule,
-        ServicesModule,
         SetBalanceComponentModule,
     ],
 })

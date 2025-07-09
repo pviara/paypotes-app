@@ -2,14 +2,16 @@ import { ContactsViewModule } from '@contacts/contacts.view-module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { GroupsViewModule } from '@groups/groups.view-module';
 import { HomeView } from '@home/home.view';
-import { Routes } from '@angular/router';
+import { landingGuard } from '@landing/landing.guard';
 import { LandingView } from '@landing/landing.view';
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
     {
         path: '',
         component: LandingView,
         data: { hideMenu: true },
+        canActivate: [landingGuard],
     },
     {
         path: 'home',

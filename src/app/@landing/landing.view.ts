@@ -1,4 +1,4 @@
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
     AfterViewInit,
     Component,
@@ -7,11 +7,11 @@ import {
     inject,
 } from '@angular/core';
 import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
+import { BehaviorSubject, catchError, filter, of, switchMap, tap } from 'rxjs';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Gradient } from 'whatamesh';
 import { version } from '../../../package.json';
-import { BehaviorSubject, catchError, filter, of, switchMap, tap } from 'rxjs';
 
 @Component({
     selector: 'landing',
@@ -24,6 +24,7 @@ export class LandingView implements AfterViewInit, OnInit {
     private authService = inject(AuthServiceToken);
     private platformId = inject(PLATFORM_ID);
     private route = inject(ActivatedRoute);
+    private router = inject(Router);
 
     readonly version = version;
 
@@ -39,13 +40,10 @@ export class LandingView implements AfterViewInit, OnInit {
     ngOnInit(): void {
         this.route.queryParams
             .pipe(
-                filter(({ token }) => !!token),
-                tap((token) => {
-                    if (token) this.$loading.next(true);
-                }),
                 switchMap(({ token }) =>
                     this.authService.getUserFromToken(token),
                 ),
+                tap(() => this.router.navigate(['/home'])),
                 catchError(() => {
                     this.$loading.next(false);
                     return of(null);

@@ -69,7 +69,7 @@ export class AuthAPIService implements AuthService {
     }
 
     isAuthenticated(): boolean {
-        return !!this.actor;
+        return !!this.actor && this.isNotFakeUser(this.actor);
     }
 
     private getUserFromStorage(): { data: Record<string, string> } {
@@ -94,5 +94,9 @@ export class AuthAPIService implements AuthService {
             return '';
         }
         throw this.notPlatformBrowserError;
+    }
+
+    private isNotFakeUser(user: User): boolean {
+        return user.getId() !== FAKE_USER.data.id;
     }
 }

@@ -25,7 +25,7 @@ jobs:
                       export PATH="$PATH:/home/reginald/.nvm/versions/node/v22.14.0/bin/"
                       export NVM_DIR=~/.nvm
                       source ~/.nvm/nvm.sh
-                      nvm install 20.11.1
+                      nvm install 22.14.0
                       cd ~/dev/repos/paypot/paypot-app
                       git checkout main
                       git fetch --all

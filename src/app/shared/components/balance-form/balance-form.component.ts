@@ -6,6 +6,7 @@ import { FormService } from '@core/services/form/form.service';
     selector: 'balance-form',
     templateUrl: './balance-form.component.html',
     styleUrls: ['./balance-form.component.scss'],
+    standalone: false,
 })
 export class BalanceFormComponent implements OnInit {
     private formService = inject(FormService);

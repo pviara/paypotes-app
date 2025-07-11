@@ -13,6 +13,7 @@ import { tap } from 'rxjs';
     selector: 'read-summary',
     templateUrl: './read-summary.component.html',
     styleUrls: ['./read-summary.component.scss'],
+    standalone: false,
 })
 export class ReadSummaryComponent {
     private expenseService = inject(ExpenseServiceToken);

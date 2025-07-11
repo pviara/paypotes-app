@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
     selector: 'fill-expense-details',
     templateUrl: './fill-details.component.html',
     styleUrls: ['./fill-details.component.scss'],
+    standalone: false,
 })
 export class FillDetailsComponent {
     private router = inject(Router);

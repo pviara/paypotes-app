@@ -6,6 +6,7 @@ import { GroupExpense } from '@core/model/expense/group-expense';
     selector: 'group-expense-images',
     templateUrl: './images.component.html',
     styleUrls: ['./images.component.scss'],
+    standalone: false,
 })
 export class ExpenseImagesComponent {
     private authService = inject(AuthServiceToken);

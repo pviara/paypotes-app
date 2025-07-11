@@ -15,6 +15,7 @@ const MAX_EXPENSES = 6;
     selector: 'expenses',
     templateUrl: './expenses.component.html',
     styleUrls: ['./expenses.component.scss'],
+    standalone: false,
     providers: [
         ExpenseServiceProvider,
         HttpClientServiceProvider,

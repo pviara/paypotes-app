@@ -7,6 +7,7 @@ import { ListElements } from '@core/model/list-element/list-element';
 
 @Component({
     templateUrl: './expenses.component.html',
+    standalone: false,
 })
 export class ExpensesComponent {
     private expenseService = inject(ExpenseServiceToken);

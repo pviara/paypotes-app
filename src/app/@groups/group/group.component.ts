@@ -20,6 +20,7 @@ import { ListElements } from '@core/model/list-element/list-element';
     selector: 'group',
     templateUrl: './group.component.html',
     styleUrls: ['./group.component.scss'],
+    standalone: false,
 })
 export class GroupComponent {
     private expenseService = inject(ExpenseServiceToken);

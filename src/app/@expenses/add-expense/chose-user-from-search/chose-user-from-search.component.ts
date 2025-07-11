@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
     selector: 'chose-user-from-search',
     templateUrl: './chose-user-from-search.component.html',
     styleUrls: ['./chose-user-from-search.component.scss'],
+    standalone: false,
 })
 export class ChoseUserFromSearchComponent {
     private formService = inject(FormService);

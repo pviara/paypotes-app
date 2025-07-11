@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
     selector: 'select-group-emoji',
     templateUrl: './select-emoji.component.html',
     styleUrls: ['./select-emoji.component.scss'],
+    standalone: false,
 })
 export class SelectEmojiComponent {
     private router = inject(Router);

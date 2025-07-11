@@ -5,6 +5,7 @@ import { FormService } from '@core/services/form/form.service';
     selector: 'emoji-form',
     templateUrl: './emoji-form.component.html',
     styleUrls: ['./emoji-form.component.scss'],
+    standalone: false,
 })
 export class EmojiFormComponent implements OnInit {
     private formService = inject(FormService);

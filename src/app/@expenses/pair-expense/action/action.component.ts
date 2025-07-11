@@ -5,6 +5,7 @@ import { ConfettiService } from '@core/services/confetti/confetti.service';
     selector: 'pair-expense-action',
     templateUrl: './action.component.html',
     styleUrls: ['./action.component.scss'],
+    standalone: false,
 })
 export class ActionComponent {
     private confettiService = inject(ConfettiService);

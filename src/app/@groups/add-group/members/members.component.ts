@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
     selector: 'members',
     templateUrl: './members.component.html',
     styleUrls: ['./members.component.scss'],
+    standalone: false,
 })
 export class MembersComponent implements OnInit {
     private router = inject(Router);

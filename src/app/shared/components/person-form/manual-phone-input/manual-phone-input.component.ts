@@ -5,6 +5,7 @@ import { mapPhoneNumberOutOf } from '@shared/components/person-form/manual-phone
     selector: 'manual-phone-input',
     templateUrl: './manual-phone-input.component.html',
     styleUrls: ['./manual-phone-input.component.scss'],
+    standalone: false,
 })
 export class ManualPhoneInputComponent {
     isLoading = input<boolean>(false);

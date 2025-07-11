@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'formatDate',
+    standalone: false,
 })
 export class FormatDatePipe implements PipeTransform {
     private readonly days = [

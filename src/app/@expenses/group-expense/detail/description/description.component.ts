@@ -5,6 +5,7 @@ import { GroupExpense } from '@core/model/expense/group-expense';
     selector: 'group-expense-description',
     templateUrl: './description.component.html',
     styleUrls: ['./description.component.scss'],
+    standalone: false,
 })
 export class ExpenseDescriptionComponent {
     expense = input.required<GroupExpense>();

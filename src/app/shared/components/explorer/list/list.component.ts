@@ -6,6 +6,7 @@ import { ListElements } from '@core/model/list-element/list-element';
     selector: 'list',
     templateUrl: './list.component.html',
     styleUrls: ['./list.component.scss'],
+    standalone: false,
 })
 export class ListComponent {
     private lastScrollTop = 0;

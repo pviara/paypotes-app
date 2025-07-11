@@ -5,6 +5,7 @@ import { FormContext } from '@core/model/form/form-context';
     selector: 'payer-info',
     templateUrl: './payer-info.component.html',
     styleUrls: ['./payer-info.component.scss'],
+    standalone: false,
 })
 export class PayerInfoComponent {
     context = input.required<FormContext>();

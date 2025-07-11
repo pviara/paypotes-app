@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
     selector: 'groups',
     templateUrl: './groups.view.html',
     styleUrls: ['./groups.view.scss'],
+    standalone: false,
 })
 export class GroupsView {}

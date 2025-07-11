@@ -4,6 +4,7 @@ import { Component, input } from '@angular/core';
     selector: 'pair-expense-images',
     templateUrl: './images.component.html',
     styleUrls: ['./images.component.scss'],
+    standalone: false,
 })
 export class ExpenseImagesComponent {
     avatarUrl = input.required<string>();

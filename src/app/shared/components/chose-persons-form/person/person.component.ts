@@ -5,6 +5,7 @@ import { Person } from '@core/model/person';
     selector: 'person',
     templateUrl: './person.component.html',
     styleUrls: ['./person.component.scss'],
+    standalone: false,
 })
 export class PersonComponent {
     person = input.required<Person>();

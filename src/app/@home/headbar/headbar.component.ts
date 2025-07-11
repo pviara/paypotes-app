@@ -7,6 +7,7 @@ import { map } from 'rxjs';
     selector: 'headbar',
     templateUrl: './headbar.component.html',
     styleUrls: ['./headbar.component.scss'],
+    standalone: false,
 })
 export class HeadbarComponent {
     private authService = inject(AuthServiceToken);

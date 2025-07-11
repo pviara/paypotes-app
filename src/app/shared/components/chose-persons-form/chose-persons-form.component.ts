@@ -15,6 +15,7 @@ import { Person, Persons } from '@core/model/person';
     selector: 'chose-persons-form',
     templateUrl: './chose-persons-form.component.html',
     styleUrls: ['./chose-persons-form.component.scss'],
+    standalone: false,
 })
 export class ChosePersonsFormComponent implements OnInit {
     private formService = inject(FormService);

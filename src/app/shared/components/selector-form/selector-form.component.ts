@@ -5,6 +5,7 @@ import { Person, Persons } from '@core/model/person';
     selector: 'selector-form',
     templateUrl: './selector-form.component.html',
     styleUrls: ['./selector-form.component.scss'],
+    standalone: false,
 })
 export class SelectorFormComponent {
     persons = input<Persons | null>(null);

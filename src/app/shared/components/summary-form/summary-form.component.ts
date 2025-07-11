@@ -37,6 +37,7 @@ export type AddExpenseFormValue =
     selector: 'summary-form',
     templateUrl: './summary-form.component.html',
     styleUrls: ['./summary-form.component.scss'],
+    standalone: false,
 })
 export class SummaryFormComponent {
     private authService = inject(AuthServiceToken);

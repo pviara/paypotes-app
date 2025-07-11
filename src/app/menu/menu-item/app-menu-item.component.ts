@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
     selector: 'app-menu-item',
     templateUrl: './app-menu-item.component.html',
     styleUrls: ['./app-menu-item.component.scss'],
+    standalone: false,
 })
 export class AppMenuItemComponent {
     private router = inject(Router);

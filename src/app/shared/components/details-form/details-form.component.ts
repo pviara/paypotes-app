@@ -18,6 +18,7 @@ import { FormService } from '@core/services/form/form.service';
     selector: 'details-form',
     templateUrl: './details-form.component.html',
     styleUrls: ['./details-form.component.scss'],
+    standalone: false,
 })
 export class DetailsFormComponent implements OnInit {
     private formService = inject(FormService);

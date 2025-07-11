@@ -5,6 +5,7 @@ import { Component, inject } from '@angular/core';
     selector: 'set-balance',
     templateUrl: './set-balance.component.html',
     styleUrls: ['./set-balance.component.scss'],
+    standalone: false,
 })
 export class SetBalanceComponent {
     private route = inject(ActivatedRoute);

@@ -10,6 +10,7 @@ type FilterForm = {
     selector: 'emoji-keyboard',
     templateUrl: './keyboard.component.html',
     styleUrls: ['./keyboard.component.scss'],
+    standalone: false,
 })
 export class KeyboardComponent implements OnInit {
     private formBuilder = inject(FormBuilder);

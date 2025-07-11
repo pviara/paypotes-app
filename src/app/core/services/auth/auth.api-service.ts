@@ -13,21 +13,20 @@ export class AuthAPIService implements AuthService {
     private platformId = inject(PLATFORM_ID);
 
     private readonly endpoint = `${environment.API_URL}/auth`;
-    private notPlatformBrowserError = new Error(
-        'Current platform is not browser and thus signed in user cannot be retrieved',
-    );
 
-    get actor(): User {
+    get actor(): User | null {
         const actor = this.getUserFromStorage();
-        return new User({
-            id: actor.data['id'],
-            firstname: actor.data['firstname'],
-            lastname: actor.data['lastname'],
-            avatarUrl: actor.data['avatarUrl'],
-        });
+        return actor
+            ? new User({
+                  id: actor.data['id'],
+                  firstname: actor.data['firstname'],
+                  lastname: actor.data['lastname'],
+                  avatarUrl: actor.data['avatarUrl'],
+              })
+            : null;
     }
 
-    set actor(value: User) {
+    set actor(value: User | null) {
         if (isPlatformBrowser(this.platformId) && value) {
             localStorage.setItem(
                 SIGNED_IN_USER_STORAGE_KEY,
@@ -39,11 +38,11 @@ export class AuthAPIService implements AuthService {
         }
     }
 
-    get token(): string {
+    get token(): string | null {
         return this.getTokenFromStorage();
     }
 
-    set token(value: string) {
+    set token(value: string | null) {
         if (isPlatformBrowser(this.platformId) && value) {
             localStorage.setItem(
                 SIGNED_IN_USER_STORAGE_KEY,
@@ -56,6 +55,14 @@ export class AuthAPIService implements AuthService {
     }
 
     constructor(private httpClientService: HttpClientService) {}
+
+    getActorAvatarUrlOrDefault(): string {
+        return this.actor?.getAvatarUrl() ?? '';
+    }
+
+    getActorIdOrDefault(): string {
+        return this.actor?.getId() ?? '';
+    }
 
     getUserFromToken(token: string): Observable<User> {
         return this.httpClientService
@@ -72,28 +79,26 @@ export class AuthAPIService implements AuthService {
         return !!this.actor && this.isNotFakeUser(this.actor);
     }
 
-    private getUserFromStorage(): { data: Record<string, string> } {
+    private getUserFromStorage(): { data: Record<string, string> } | null {
         if (isPlatformBrowser(this.platformId)) {
             const fromStorage = localStorage.getItem(
                 SIGNED_IN_USER_STORAGE_KEY,
             );
 
             if (fromStorage) return JSON.parse(fromStorage)['user'];
-            return FAKE_USER;
         }
-        throw this.notPlatformBrowserError;
+        return null;
     }
 
-    private getTokenFromStorage(): string {
+    private getTokenFromStorage(): string | null {
         if (isPlatformBrowser(this.platformId)) {
             const fromStorage = localStorage.getItem(
                 SIGNED_IN_USER_STORAGE_KEY,
             );
 
             if (fromStorage) return JSON.parse(fromStorage)['token'];
-            return '';
         }
-        throw this.notPlatformBrowserError;
+        return null;
     }
 
     private isNotFakeUser(user: User): boolean {

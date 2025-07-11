@@ -3,7 +3,7 @@ import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-export const landingGuard: CanActivateFn = (): Observable<boolean> => {
+export const notAuthenticatedGuard: CanActivateFn = (): Observable<boolean> => {
     const authService = inject(AuthServiceToken);
     const router = inject(Router);
 

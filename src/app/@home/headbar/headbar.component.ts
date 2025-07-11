@@ -26,7 +26,7 @@ export class HeadbarComponent {
     private authService = inject(AuthServiceToken);
     private expenseService = inject(ExpenseServiceToken);
 
-    avatarUrl = this.authService.actor.getAvatarUrl();
+    avatarUrl = this.authService.getActorAvatarUrlOrDefault();
 
     $balance = this.expenseService.computeBalance();
 

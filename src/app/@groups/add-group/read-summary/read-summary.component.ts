@@ -13,6 +13,7 @@ import { User, Users } from '@core/model/user/user';
     selector: 'read-summary',
     templateUrl: './read-summary.component.html',
     styleUrls: ['./read-summary.component.scss'],
+    standalone: false,
 })
 export class ReadSummaryComponent {
     private authService = inject(AuthServiceToken);

@@ -8,6 +8,7 @@ import { ListElements } from '@core/model/list-element/list-element';
     selector: 'contacts',
     templateUrl: './contacts.component.html',
     styleUrls: ['./contacts.component.scss'],
+    standalone: false,
 })
 export class ContactsComponent {
     private contactService = inject(ContactServiceToken);

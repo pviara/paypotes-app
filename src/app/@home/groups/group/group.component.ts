@@ -5,6 +5,7 @@ import { Group } from '@core/model/group/group';
     selector: 'group',
     templateUrl: './group.component.html',
     styleUrls: ['./group.component.scss'],
+    standalone: false,
 })
 export class GroupComponent {
     group = input<Group | null>();

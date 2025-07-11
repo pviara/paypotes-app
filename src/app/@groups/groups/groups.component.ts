@@ -9,6 +9,7 @@ import { ListElements } from '@core/model/list-element/list-element';
     selector: 'groups',
     templateUrl: './groups.component.html',
     styleUrls: ['./groups.component.scss'],
+    standalone: false,
 })
 export class GroupsComponent {
     private groupService = inject(GroupServiceToken);

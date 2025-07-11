@@ -7,6 +7,7 @@ import { PairExpense } from '@core/model/expense/pair-expense';
     selector: 'expense-description',
     templateUrl: './expense-description.component.html',
     styleUrls: ['./expense-description.component.scss'],
+    standalone: false,
 })
 export class ExpenseDescriptionComponent {
     private authService = inject(AuthServiceToken);

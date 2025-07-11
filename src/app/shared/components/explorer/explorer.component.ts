@@ -9,6 +9,7 @@ const SKELETONS = Array.from({ length: 20 }).map(() => null);
     selector: 'explorer',
     templateUrl: './explorer.component.html',
     styleUrls: ['./explorer.component.scss'],
+    standalone: false,
 })
 export class ExplorerComponent implements OnInit {
     private nextPageIndex = 0;

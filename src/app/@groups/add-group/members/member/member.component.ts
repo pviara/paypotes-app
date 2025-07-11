@@ -6,6 +6,7 @@ import { Member } from '@core/model/group/member';
     selector: 'member',
     templateUrl: './member.component.html',
     styleUrls: ['./member.component.scss'],
+    standalone: false,
 })
 export class MemberComponent {
     data = input.required<Contact | Member>();

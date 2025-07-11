@@ -20,6 +20,7 @@ import { GroupExpense } from '@core/model/expense/group-expense';
     selector: 'list-element',
     templateUrl: './list-element.component.html',
     styleUrls: ['./list-element.component.scss'],
+    standalone: false,
 })
 export class ListElementComponent implements AfterViewInit {
     private document = inject(DOCUMENT);

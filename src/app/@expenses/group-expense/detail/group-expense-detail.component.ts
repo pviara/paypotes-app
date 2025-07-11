@@ -13,6 +13,7 @@ import { NotificationService } from '@core/services/notification/notification.se
     selector: 'group-expense-detail',
     templateUrl: './group-expense-detail.component.html',
     styleUrls: ['./group-expense-detail.component.scss'],
+    standalone: false,
 })
 export class GroupExpenseDetailComponent implements OnInit {
     private confettiService = inject(ConfettiService);

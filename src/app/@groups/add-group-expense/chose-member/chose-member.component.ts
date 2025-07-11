@@ -12,6 +12,7 @@ import { User } from '@core/model/user/user';
     selector: 'chose-member',
     templateUrl: './chose-member.component.html',
     styleUrls: ['./chose-member.component.scss'],
+    standalone: false,
 })
 export class ChoseMemberComponent implements OnInit {
     private authService = inject(AuthServiceToken);

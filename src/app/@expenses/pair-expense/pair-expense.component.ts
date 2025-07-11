@@ -10,6 +10,7 @@ import { PairExpense } from '@core/model/expense/pair-expense';
     selector: 'pair-expense',
     templateUrl: './pair-expense.component.html',
     styleUrls: ['./pair-expense.component.scss'],
+    standalone: false,
 })
 export class PairExpenseComponent {
     private expenseService = inject(ExpenseServiceToken);

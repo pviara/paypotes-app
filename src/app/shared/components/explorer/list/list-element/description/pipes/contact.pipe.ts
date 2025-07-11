@@ -4,6 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'contact',
+    standalone: false,
 })
 export class ContactPipe implements PipeTransform {
     transform(value: ListElement): ContactWithBalance | null {

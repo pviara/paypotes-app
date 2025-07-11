@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
     selector: 'group-call-to-action',
     templateUrl: './group-call-to-action.component.html',
     styleUrls: ['./group-call-to-action.component.scss'],
+    standalone: false,
 })
 export class GroupCallToActionComponent {
     private router = inject(Router);

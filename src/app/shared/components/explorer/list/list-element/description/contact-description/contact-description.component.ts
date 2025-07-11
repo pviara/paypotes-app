@@ -5,6 +5,7 @@ import { DOCUMENT } from '@angular/common';
     selector: 'contact-description',
     templateUrl: './contact-description.component.html',
     styleUrls: ['./contact-description.component.scss'],
+    standalone: false,
 })
 export class ContactDescriptionComponent {
     private document = inject(DOCUMENT);

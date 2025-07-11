@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
     selector: 'list-call-to-action',
     templateUrl: './list-call-to-action.component.html',
     styleUrls: ['./list-call-to-action.component.scss'],
+    standalone: false,
 })
 export class ListCallToActionComponent {
     private router = inject(Router);

@@ -4,6 +4,7 @@ import { Component, input } from '@angular/core';
     selector: 'balance-displayer',
     templateUrl: './displayer.component.html',
     styleUrls: ['./displayer.component.scss'],
+    standalone: false,
 })
 export class DisplayerComponent {
     balance = input<unknown>();

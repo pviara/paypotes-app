@@ -5,6 +5,7 @@ import { Contact } from '@core/model/contact/contact';
     selector: 'pair-expense-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
+    standalone: false,
 })
 export class ExpenseHeaderComponent {
     date = input.required<Date>();

@@ -4,6 +4,7 @@ import { Component, EventEmitter, input, Output } from '@angular/core';
     selector: 'balance-keyboard',
     templateUrl: './keyboard.component.html',
     styleUrls: ['./keyboard.component.scss'],
+    standalone: false,
 })
 export class KeyboardComponent {
     keyboard = input.required<string[]>();

@@ -4,6 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
     name: 'groupExpense',
+    standalone: false,
 })
 export class GroupExpensePipe implements PipeTransform {
     transform(value: ListElement): GroupExpense | null {

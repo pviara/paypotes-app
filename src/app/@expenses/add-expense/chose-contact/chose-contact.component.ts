@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
     selector: 'chose-contact',
     templateUrl: './chose-contact.component.html',
     styleUrls: ['./chose-contact.component.scss'],
+    standalone: false,
 })
 export class ChoseContactComponent {
     private contactService = inject(ContactServiceToken);

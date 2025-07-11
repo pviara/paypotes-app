@@ -4,6 +4,7 @@ import { Component, input } from '@angular/core';
     selector: 'group-description',
     templateUrl: './group-description.component.html',
     styleUrls: ['./group-description.component.scss'],
+    standalone: false,
 })
 export class GroupDescriptionComponent {
     emoji = input.required<string>();

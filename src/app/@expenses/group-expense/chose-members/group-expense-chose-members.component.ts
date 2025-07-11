@@ -15,6 +15,7 @@ import { Stakeholders } from '@core/model/expense/stakeholder';
     selector: 'group-expense-chose-members',
     templateUrl: './group-expense-chose-members.component.html',
     styleUrls: ['./group-expense-chose-members.component.scss'],
+    standalone: false,
 })
 export class GroupExpenseChoseMembersComponent {
     private authService = inject(AuthServiceToken);

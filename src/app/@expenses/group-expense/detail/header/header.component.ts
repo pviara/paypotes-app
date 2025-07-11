@@ -5,6 +5,7 @@ import { Group } from '@core/model/group/group';
     selector: 'group-expense-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
+    standalone: false,
 })
 export class ExpenseHeaderComponent {
     date = input.required<Date>();

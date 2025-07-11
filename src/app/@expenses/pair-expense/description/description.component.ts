@@ -4,6 +4,7 @@ import { Component, computed, input } from '@angular/core';
     selector: 'pair-expense-description',
     templateUrl: './description.component.html',
     styleUrls: ['./description.component.scss'],
+    standalone: false,
 })
 export class ExpenseDescriptionComponent {
     balance = input.required<string>();

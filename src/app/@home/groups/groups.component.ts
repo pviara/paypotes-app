@@ -14,6 +14,7 @@ const MAX_GROUPS = 6;
     selector: 'groups',
     templateUrl: './groups.component.html',
     styleUrls: ['./groups.component.scss'],
+    standalone: false,
     providers: [
         GroupServiceProvider,
         HttpClientServiceProvider,

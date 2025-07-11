@@ -7,6 +7,7 @@ import { User } from '@core/model/user/user';
     selector: 'select-person',
     templateUrl: './select-person.component.html',
     styleUrls: ['./select-person.component.scss'],
+    standalone: false,
 })
 export class SelectPersonComponent implements OnInit {
     private formService = inject(FormService);

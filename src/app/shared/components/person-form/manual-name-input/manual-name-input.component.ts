@@ -13,6 +13,7 @@ import { FormBuilder, Validators } from '@angular/forms';
     selector: 'manual-name-input',
     templateUrl: './manual-name-input.component.html',
     styleUrls: ['./manual-name-input.component.scss'],
+    standalone: false,
 })
 export class ManualNameInputComponent implements OnInit {
     private formBuilder = inject(FormBuilder);

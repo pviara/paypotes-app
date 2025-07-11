@@ -4,5 +4,6 @@ import { Component } from '@angular/core';
     selector: 'group-expense-skeleton',
     templateUrl: './skeleton.component.html',
     styleUrls: ['./skeleton.component.scss'],
+    standalone: false,
 })
 export class ExpenseSkeletonComponent {}

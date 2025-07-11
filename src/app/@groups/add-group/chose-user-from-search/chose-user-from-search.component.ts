@@ -8,6 +8,7 @@ import { Person, Persons } from '@core/model/person';
     selector: 'chose-user-from-search',
     templateUrl: './chose-user-from-search.component.html',
     styleUrls: ['./chose-user-from-search.component.scss'],
+    standalone: false,
 })
 export class ChoseUserFromSearchComponent implements OnInit {
     private formService = inject(FormService);

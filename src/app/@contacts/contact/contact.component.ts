@@ -19,6 +19,7 @@ import { ListElements } from '@core/model/list-element/list-element';
     selector: 'contact',
     templateUrl: './contact.component.html',
     styleUrls: ['./contact.component.scss'],
+    standalone: false,
 })
 export class ContactComponent {
     private expenseService = inject(ExpenseServiceToken);

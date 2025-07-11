@@ -5,6 +5,7 @@ import { Component, inject } from '@angular/core';
     selector: 'select-emoji',
     templateUrl: './select-emoji.component.html',
     styleUrls: ['./select-emoji.component.scss'],
+    standalone: false,
 })
 export class SelectEmojiComponent {
     private route = inject(ActivatedRoute);

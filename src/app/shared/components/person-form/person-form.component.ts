@@ -7,6 +7,7 @@ import { UserServiceToken } from '@core/services/user/user.api-service.provider'
     selector: 'person-form',
     templateUrl: './person-form.component.html',
     styleUrls: ['./person-form.component.scss'],
+    standalone: false,
 })
 export class PersonFormComponent {
     private userService = inject(UserServiceToken);

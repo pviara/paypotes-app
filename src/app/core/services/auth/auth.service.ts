@@ -7,5 +7,5 @@ export interface AuthService {
     getActorAvatarUrlOrDefault(): string;
     getActorIdOrDefault(): string;
     getUserFrom(token: string): Observable<User>;
-    isAuthenticated(): boolean;
+    isAuthenticated(): Observable<boolean>;
 }

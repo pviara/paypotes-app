@@ -65,6 +65,7 @@ export class AuthAPIService implements AuthService {
     }
 
     constructor(private httpClientService: HttpClientService) {
+        // todo: use this code in guard instead of auth service constructor
         if (this.token)
             this.getResponseFromGettingUserFrom(this.token).subscribe();
         else if (this.actor) {
@@ -92,8 +93,8 @@ export class AuthAPIService implements AuthService {
             );
     }
 
-    isAuthenticated(): boolean {
-        return !!this.actor;
+    isAuthenticated(): Observable<boolean> {
+        return of(!!this.actor);
     }
 
     private getUserFromStorage(): { data: Record<string, string> } | null {

@@ -1,18 +1,17 @@
 import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { map, Observable, of } from 'rxjs';
 
 export const authenticatedGuard: CanActivateFn = (): Observable<boolean> => {
     const authService = inject(AuthServiceToken);
     const router = inject(Router);
 
-    try {
-        if (!authService.isAuthenticated()) {
+    return authService.isAuthenticated().pipe(
+        map((isAuthenticated) => {
+            if (isAuthenticated) return true;
             router.navigate(['/']);
-            return of(false);
-        }
-    } catch (error: unknown) {}
-
-    return of(true);
+            return false;
+        }),
+    );
 };

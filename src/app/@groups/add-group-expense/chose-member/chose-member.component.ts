@@ -56,7 +56,7 @@ export class ChoseMemberComponent implements OnInit {
     }
 
     private getMembersExcludingActor(group: GroupWithBalance): Members {
-        const actorId = this.authService.actor.getId();
+        const actorId = this.authService.getActorIdOrDefault();
         return group.getMembersExcluding(actorId);
     }
 

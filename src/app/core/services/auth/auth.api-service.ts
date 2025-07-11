@@ -1,63 +1,88 @@
 import { AuthService } from '@core/services/auth/auth.service';
+import { catchError, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { FAKE_USER } from '@core/model/user/fake-user';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
+import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Observable, tap } from 'rxjs';
+import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
 
 const SIGNED_IN_USER_STORAGE_KEY = 'signed_in_user';
 
 export class AuthAPIService implements AuthService {
     private platformId = inject(PLATFORM_ID);
+    private router = inject(Router);
 
     private readonly endpoint = `${environment.API_URL}/auth`;
-    private notPlatformBrowserError = new Error(
-        'Current platform is not browser and thus signed in user cannot be retrieved',
-    );
 
-    get actor(): User {
-        const actor = this.getUserFromStorage();
-        return new User({
-            id: actor.data['id'],
-            firstname: actor.data['firstname'],
-            lastname: actor.data['lastname'],
-            avatarUrl: actor.data['avatarUrl'],
-        });
+    get actor(): User | null {
+        const user = this.getUserFromStorage();
+        return user
+            ? new User({
+                  id: user.data['id'],
+                  firstname: user.data['firstname'],
+                  lastname: user.data['lastname'],
+                  avatarUrl: user.data['avatarUrl'],
+              })
+            : null;
     }
 
-    set actor(value: User) {
-        if (isPlatformBrowser(this.platformId) && value) {
-            localStorage.setItem(
-                SIGNED_IN_USER_STORAGE_KEY,
-                JSON.stringify({
-                    token: this.token,
-                    user: value,
-                }),
-            );
+    set actor(value: User | null) {
+        if (isPlatformBrowser(this.platformId)) {
+            if (value) {
+                localStorage.setItem(
+                    SIGNED_IN_USER_STORAGE_KEY,
+                    JSON.stringify({
+                        token: this.token,
+                        user: value,
+                    }),
+                );
+            } else {
+                localStorage.removeItem(SIGNED_IN_USER_STORAGE_KEY);
+            }
         }
     }
 
-    get token(): string {
+    get token(): string | null {
         return this.getTokenFromStorage();
     }
 
-    set token(value: string) {
-        if (isPlatformBrowser(this.platformId) && value) {
-            localStorage.setItem(
-                SIGNED_IN_USER_STORAGE_KEY,
-                JSON.stringify({
-                    token: value,
-                    user: this.actor,
-                }),
-            );
+    set token(value: string | null) {
+        if (isPlatformBrowser(this.platformId)) {
+            if (value) {
+                localStorage.setItem(
+                    SIGNED_IN_USER_STORAGE_KEY,
+                    JSON.stringify({
+                        token: value,
+                        user: this.actor,
+                    }),
+                );
+            } else {
+                localStorage.removeItem(SIGNED_IN_USER_STORAGE_KEY);
+            }
         }
     }
 
-    constructor(private httpClientService: HttpClientService) {}
+    constructor(private httpClientService: HttpClientService) {
+        // todo: use this code in guard instead of auth service constructor
+        if (this.token)
+            this.getResponseFromGettingUserFrom(this.token).subscribe();
+        else if (this.actor) {
+            this.actor = null;
+            this.router.navigate(['/']);
+        }
+    }
 
-    getUserFromToken(token: string): Observable<User> {
+    getActorAvatarUrlOrDefault(): string {
+        return this.actor?.getAvatarUrl() ?? '';
+    }
+
+    getActorIdOrDefault(): string {
+        return this.actor?.getId() ?? '';
+    }
+
+    getUserFrom(token: string): Observable<User> {
         return this.httpClientService
             .get<User>(this.endpoint, {
                 headers: { Authorization: `Bearer ${token}` },
@@ -68,35 +93,50 @@ export class AuthAPIService implements AuthService {
             );
     }
 
-    isAuthenticated(): boolean {
-        return !!this.actor && this.isNotFakeUser(this.actor);
+    isAuthenticated(): Observable<boolean> {
+        return of(!!this.actor);
     }
 
-    private getUserFromStorage(): { data: Record<string, string> } {
+    private getUserFromStorage(): { data: Record<string, string> } | null {
         if (isPlatformBrowser(this.platformId)) {
             const fromStorage = localStorage.getItem(
                 SIGNED_IN_USER_STORAGE_KEY,
             );
 
             if (fromStorage) return JSON.parse(fromStorage)['user'];
-            return FAKE_USER;
         }
-        throw this.notPlatformBrowserError;
+        return null;
     }
 
-    private getTokenFromStorage(): string {
+    private getTokenFromStorage(): string | null {
         if (isPlatformBrowser(this.platformId)) {
             const fromStorage = localStorage.getItem(
                 SIGNED_IN_USER_STORAGE_KEY,
             );
 
             if (fromStorage) return JSON.parse(fromStorage)['token'];
-            return '';
         }
-        throw this.notPlatformBrowserError;
+        return null;
     }
 
-    private isNotFakeUser(user: User): boolean {
-        return user.getId() !== FAKE_USER.data.id;
+    private getResponseFromGettingUserFrom(
+        token: string,
+    ): Observable<HttpResponse<unknown> | null> {
+        return this.httpClientService
+            .get<HttpResponse<unknown>>(this.endpoint, {
+                headers: { Authorization: `Bearer ${token}` },
+                observeResponse: true,
+            })
+            .pipe(
+                catchError((response: HttpResponse<unknown>) => {
+                    if (response.status === HttpStatusCode.Unauthorized) {
+                        console.log(response);
+                        this.actor = null;
+                        this.token = null;
+                        this.router.navigate(['/']);
+                    }
+                    return of(null);
+                }),
+            );
     }
 }

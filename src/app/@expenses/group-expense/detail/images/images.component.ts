@@ -13,7 +13,7 @@ export class ExpenseImagesComponent {
     avatarUrl = computed(() =>
         this.expense().isDebt()
             ? this.expense().getCreditor().getAvatarUrl()
-            : this.authService.actor.getAvatarUrl(),
+            : this.authService.getActorAvatarUrlOrDefault(),
     );
 
     expense = input.required<GroupExpense>();

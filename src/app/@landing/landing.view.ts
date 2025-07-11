@@ -28,7 +28,7 @@ export class LandingView implements AfterViewInit, OnInit {
 
     readonly version = version;
 
-    $loading = new BehaviorSubject(true);
+    $loading = new BehaviorSubject(false);
 
     ngAfterViewInit(): void {
         if (isPlatformBrowser(this.platformId)) {
@@ -38,18 +38,20 @@ export class LandingView implements AfterViewInit, OnInit {
     }
 
     ngOnInit(): void {
-        this.route.queryParams
-            .pipe(
-                switchMap(({ token }) =>
-                    this.authService.getUserFromToken(token),
-                ),
-                tap(() => this.router.navigate(['/home'])),
-                catchError(() => {
-                    this.$loading.next(false);
-                    return of(null);
-                }),
-            )
-            .subscribe();
+        const { token } = this.route.snapshot.queryParams;
+        if (token) {
+            this.$loading.next(true);
+            this.authService
+                .getUserFrom(token)
+                .pipe(
+                    tap(() => this.router.navigate(['/home'])),
+                    catchError(() => {
+                        this.$loading.next(false);
+                        return of(null);
+                    }),
+                )
+                .subscribe();
+        }
     }
 
     getGoogleSignInLink(): string {

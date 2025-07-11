@@ -31,7 +31,7 @@ export class ReadSummaryComponent {
 
         this.changeLoadingStatus();
         const payload = this.form.raw();
-        const actorId = this.authService.actor.getId();
+        const actorId = this.authService.getActorIdOrDefault();
 
         this.groupService
             .createGroup({
@@ -56,6 +56,8 @@ export class ReadSummaryComponent {
 
     getMembers(): Array<Contact | User> {
         const actor = this.authService.actor;
+        if (!actor) throw new Error('No actor found in auth service');
+
         return this.form
             .getFieldFrom('members')
             .getValue<Contacts | Users>()

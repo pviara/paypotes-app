@@ -64,7 +64,9 @@ export class GroupExpenseChoseMembersComponent {
     private getExpenseActiveDebtors(): Stakeholders {
         return (
             this.expense
-                ?.getStakeholdersExcluding(this.authService.actor.getId())
+                ?.getStakeholdersExcluding(
+                    this.authService.getActorIdOrDefault(),
+                )
                 .filter((stakeholder) => stakeholder.isActive()) || []
         );
     }

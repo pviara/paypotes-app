@@ -4,20 +4,20 @@ export type RequestOptions = {
     headers: {
         Authorization: string;
     };
+    observeResponse?: boolean;
 };
 
-// todo -> remove ?: in options once it is fully implemented
 export interface HttpClientService {
-    get<T>(url: string, options?: RequestOptions): Observable<T>;
-    getText(url: string, options?: RequestOptions): Observable<string>;
+    get<T>(url: string, options: RequestOptions): Observable<T>;
+    getText(url: string, options: RequestOptions): Observable<string>;
     put(
         url: string,
         payload: unknown,
-        options?: RequestOptions,
+        options: RequestOptions,
     ): Observable<void>;
     post(
         url: string,
         payload: unknown,
-        options?: RequestOptions,
+        options: RequestOptions,
     ): Observable<void>;
 }

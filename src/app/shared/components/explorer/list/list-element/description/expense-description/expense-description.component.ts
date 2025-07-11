@@ -1,7 +1,4 @@
-import {
-    AuthServiceProvider,
-    AuthServiceToken,
-} from '@core/services/auth/auth.api-service.provider';
+import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { Component, computed, inject, input } from '@angular/core';
 import { GroupExpense } from '@core/model/expense/group-expense';
 import { PairExpense } from '@core/model/expense/pair-expense';
@@ -10,7 +7,6 @@ import { PairExpense } from '@core/model/expense/pair-expense';
     selector: 'expense-description',
     templateUrl: './expense-description.component.html',
     styleUrls: ['./expense-description.component.scss'],
-    providers: [AuthServiceProvider],
 })
 export class ExpenseDescriptionComponent {
     private authService = inject(AuthServiceToken);
@@ -32,7 +28,7 @@ export class ExpenseDescriptionComponent {
 
         const creditor = expense.getCreditor();
         const actorIsCreditor =
-            creditor.getId() === this.authService.actor.getId();
+            creditor.getId() === this.authService.getActorIdOrDefault();
 
         return actorIsCreditor
             ? `de <span class="bold">vous</span> dans <span class="bold">${expense.getGroup().getName()}</span>`

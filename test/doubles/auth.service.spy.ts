@@ -16,11 +16,15 @@ export class AuthServiceSpy extends Spy<AuthService> implements AuthService {
             count: 0,
             history: [],
         },
-        token: {
+        getActorAvatarUrlOrDefault: {
             count: 0,
             history: [],
         },
-        getUserFromToken: {
+        getActorIdOrDefault: {
+            count: 0,
+            history: [],
+        },
+        getUserFrom: {
             count: 0,
             history: [] as Array<string>,
         },
@@ -28,24 +32,38 @@ export class AuthServiceSpy extends Spy<AuthService> implements AuthService {
             count: 0,
             history: [],
         },
+        token: {
+            count: 0,
+            history: [],
+        },
     };
 
-    get actor(): User {
-        this.saveCall('actor', null);
-        return this.DEFAULT_USER;
+    get actor(): User | null {
+        this.saveCall('actor', undefined);
+        return this.getStubOrDefault('actor', null) as User | null;
     }
 
-    get token(): string {
-        this.saveCall('token', null);
-        return '';
+    get token(): string | null {
+        this.saveCall('token', undefined);
+        return this.getStubOrDefault('token', null) as string | null;
+    }
+
+    getActorAvatarUrlOrDefault(): string {
+        this.saveCall('getActorAvatarUrlOrDefault', undefined);
+        return this.getStubOrDefault('getActorAvatarUrlOrDefault', '');
+    }
+
+    getActorIdOrDefault(): string {
+        this.saveCall('getActorIdOrDefault', undefined);
+        return this.getStubOrDefault('getActorIdOrDefault', '');
     }
 
     getUserFrom(token: string): Observable<User> {
-        this.saveCall('getUserFromToken', token);
-        return of(this.DEFAULT_USER);
+        this.saveCall('getUserFrom', token);
+        return this.getStubOrDefault('getUserFrom', of(this.DEFAULT_USER));
     }
 
-    isAuthenticated(): boolean {
-        return false;
+    isAuthenticated(): Observable<boolean> {
+        return of(false);
     }
 }

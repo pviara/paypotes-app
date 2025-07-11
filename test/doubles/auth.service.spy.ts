@@ -40,7 +40,7 @@ export class AuthServiceSpy extends Spy<AuthService> implements AuthService {
         return '';
     }
 
-    getUserFromToken(token: string): Observable<User> {
+    getUserFrom(token: string): Observable<User> {
         this.saveCall('getUserFromToken', token);
         return of(this.DEFAULT_USER);
     }

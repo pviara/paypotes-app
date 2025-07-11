@@ -6,6 +6,6 @@ export interface AuthService {
     get token(): string | null;
     getActorAvatarUrlOrDefault(): string;
     getActorIdOrDefault(): string;
-    getUserFromToken(token: string): Observable<User>;
+    getUserFrom(token: string): Observable<User>;
     isAuthenticated(): boolean;
 }

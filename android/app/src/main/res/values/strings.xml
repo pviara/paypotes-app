@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">paypot-app</string>
+    <string name="title_activity_main">paypot-app</string>
+    <string name="package_name">paypot.pviara.dev</string>
+    <string name="custom_url_scheme">paypot.pviara.dev</string>
+</resources>

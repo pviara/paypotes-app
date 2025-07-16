@@ -7,7 +7,8 @@ import {
     inject,
 } from '@angular/core';
 import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
-import { BehaviorSubject, catchError, filter, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, tap } from 'rxjs';
+import { Capacitor } from '@capacitor/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Gradient } from 'whatamesh';
@@ -55,6 +56,7 @@ export class LandingView implements AfterViewInit, OnInit {
     }
 
     getGoogleSignInLink(): string {
+        if (Capacitor.isNativePlatform()) return ``;
         return `${environment.API_URL}/auth/google`;
     }
 }

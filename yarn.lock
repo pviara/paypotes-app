@@ -1283,6 +1283,11 @@
   resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-7.4.2.tgz#8fa1b6fbedfbb8506df3444dddaea75cc09ee8a9"
   integrity sha512-FZ7M9NwFkljR7EP5eXiE32mAIfZNcYw2CzRMCG3rQu0u0ZaIoeOeq5/oK4YcDnGpNmu8jpngKJqZ+9OiSQSwDg==
 
+"@capacitor/browser@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@capacitor/browser/-/browser-7.0.1.tgz#efcf3ec0bdc9e580f49db26ae982509b354d478a"
+  integrity sha512-N6KEVLw2enTnourQzYJLvAkSds2Ed21zqsvHnSImrVDenzX8fUj032kMt4EdewmxfxiEwRa911BT1VOPBi0fEA==
+
 "@capacitor/cli@^7.4.2":
   version "7.4.2"
   resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-7.4.2.tgz#bfd4672b811423cd2c70f1ec609ec6be229919c4"

@@ -13,6 +13,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Gradient } from 'whatamesh';
 import { version } from '../../../package.json';
+import { Browser } from '@capacitor/browser';
 
 @Component({
     selector: 'landing',
@@ -26,6 +27,9 @@ export class LandingView implements AfterViewInit, OnInit {
     private platformId = inject(PLATFORM_ID);
     private route = inject(ActivatedRoute);
     private router = inject(Router);
+    
+  private GOOGLE_IOS_CLIENT_ID = 'VOTRE_ID_CLIENT_IOS.apps.googleusercontent.com';
+  private GOOGLE_REVERSED_IOS_CLIENT_ID = 'com.googleusercontent.apps.VOTRE_ID_CLIENT_IOS';
 
     readonly version = version;
 
@@ -55,8 +59,8 @@ export class LandingView implements AfterViewInit, OnInit {
         }
     }
 
-    getGoogleSignInLink(): string {
-        if (Capacitor.isNativePlatform()) return ``;
-        return `${environment.API_URL}/auth/google`;
+    signIn(): void {
+        if (Capacitor.isNativePlatform()) return;
+        window.location.href = `${environment.API_URL}/auth/google`;
     }
 }

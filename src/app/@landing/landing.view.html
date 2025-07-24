@@ -10,16 +10,17 @@
                 <h2>Soyez sympa, rendez l'argent.</h2>
             </div>
         </div>
-        <a [href]="getGoogleSignInLink()">
-            <button [disabled]="$loading | async" [class.disabled]="$loading | async">
-                <img src="assets/icons/google.svg"/>
-                @if ($loading | async) {
-                    Chargement...
-                } @else {
-                    Se connecter avec&nbsp;<span class="bold">Google</span>
-                }
-            </button>
-        </a>
+        <button
+            [class.disabled]="$loading | async"
+            [disabled]="$loading | async"
+            (click)="signIn()">
+            <img src="assets/icons/google.svg"/>
+            @if ($loading | async) {
+                Chargement...
+            } @else {
+                Se connecter avec&nbsp;<span class="bold">Google</span>
+            }
+        </button>
     </section>
     <p>
         <span class="bold">PayPotes</span> alpha-v{{ version }}

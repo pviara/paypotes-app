@@ -1,5 +1,5 @@
 import { AuthService } from '@core/services/auth/auth.service';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
+import { SignedInUser } from '@core/model/user/signed-in-user';
 
 const SIGNED_IN_USER_STORAGE_KEY = 'signed_in_user';
 
@@ -74,6 +75,15 @@ export class AuthAPIService implements AuthService {
         }
     }
 
+    signInWith(idToken: string): Observable<User> {
+        return this.httpClientService
+            .post<SignedInUser>(this.endpoint, { idToken }, {})
+            .pipe(
+                switchMap(({ token }) => this.getUserFrom(token)),
+                tap(() => this.router.navigate(['/home'])),
+            );
+    }
+
     getActorAvatarUrlOrDefault(): string {
         return this.actor?.getAvatarUrl() ?? '';
     }
@@ -130,7 +140,6 @@ export class AuthAPIService implements AuthService {
             .pipe(
                 catchError((response: HttpResponse<unknown>) => {
                     if (response.status === HttpStatusCode.Unauthorized) {
-                        console.log(response);
                         this.actor = null;
                         this.token = null;
                         this.router.navigate(['/']);

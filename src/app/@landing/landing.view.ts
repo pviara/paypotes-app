@@ -7,10 +7,15 @@ import {
     inject,
 } from '@angular/core';
 import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
-import { BehaviorSubject, catchError, filter, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, tap } from 'rxjs';
+import { Capacitor } from '@capacitor/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { environment } from 'src/environments/environment';
+import {
+    GoogleLoginResponseOnline,
+    SocialLogin,
+} from '@capgo/capacitor-social-login';
 import { Gradient } from 'whatamesh';
+import { NotificationService } from '@core/services/notification/notification.service';
 import { version } from '../../../package.json';
 
 @Component({
@@ -22,9 +27,13 @@ import { version } from '../../../package.json';
 })
 export class LandingView implements AfterViewInit, OnInit {
     private authService = inject(AuthServiceToken);
+    private notificationService = inject(NotificationService);
     private platformId = inject(PLATFORM_ID);
     private route = inject(ActivatedRoute);
     private router = inject(Router);
+
+    private GOOGLE_IOS_CLIENT_ID =
+        '347622651055-9l6rrkau7lmvscr1eoag0m1nd2sjcjht.apps.googleusercontent.com';
 
     readonly version = version;
 
@@ -54,7 +63,41 @@ export class LandingView implements AfterViewInit, OnInit {
         }
     }
 
-    getGoogleSignInLink(): string {
-        return `${environment.API_URL}/auth/google`;
+    async signIn(): Promise<void> {
+        if (Capacitor.isNativePlatform()) {
+            this.$loading.next(true);
+
+            const { idToken } = await this.signInWithGoogle();
+            this.authService
+                .signInWith(idToken ?? '')
+                .pipe(
+                    catchError((error) => {
+                        this.notificationService.notify({
+                            type: 'error',
+                            message: 'La connexion a échoué',
+                        });
+                        this.$loading.next(false);
+                        return of(error);
+                    }),
+                )
+                .subscribe();
+        }
+    }
+
+    private async signInWithGoogle(): Promise<GoogleLoginResponseOnline> {
+        await SocialLogin.initialize({
+            google: {
+                iOSClientId: this.GOOGLE_IOS_CLIENT_ID,
+                mode: 'online',
+            },
+        });
+        const { result } = await SocialLogin.login({
+            provider: 'google',
+            options: {
+                scopes: ['email', 'profile'],
+            },
+        });
+
+        return <GoogleLoginResponseOnline>result;
     }
 }

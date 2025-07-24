@@ -4,20 +4,20 @@ export type RequestOptions = {
     headers: {
         Authorization: string;
     };
-    observeResponse?: boolean;
+    observeResponse: boolean;
 };
 
 export interface HttpClientService {
-    get<T>(url: string, options: RequestOptions): Observable<T>;
-    getText(url: string, options: RequestOptions): Observable<string>;
+    get<T>(url: string, options: Partial<RequestOptions>): Observable<T>;
+    getText(url: string, options: Partial<RequestOptions>): Observable<string>;
     put(
         url: string,
         payload: unknown,
-        options: RequestOptions,
+        options: Partial<RequestOptions>,
     ): Observable<void>;
-    post(
+    post<T = void>(
         url: string,
         payload: unknown,
-        options: RequestOptions,
-    ): Observable<void>;
+        options: Partial<RequestOptions>,
+    ): Observable<T>;
 }

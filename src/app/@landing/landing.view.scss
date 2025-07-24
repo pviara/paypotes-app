@@ -74,22 +74,13 @@ main {
             }
         }
 
-        a {
-            z-index: 1;
-
-            width: 100%;
-
-            display: flex;
-            justify-content: center;
-
-            text-decoration: none;
-
             button {
                 width: 80%;
 
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                align-self: center;
 
                 padding: 3%;
 
@@ -111,7 +102,6 @@ main {
                     animation: glowing 3s infinite;
                 }
             }
-        }
     }
 
     p {

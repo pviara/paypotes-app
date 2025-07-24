@@ -12,13 +12,13 @@ export class DefaultHttpClientService implements HttpClientService {
 
     constructor(private httpClient: HttpClient) {}
 
-    get<T>(url: string, options: RequestOptions): Observable<T> {
+    get<T>(url: string, options: Partial<RequestOptions>): Observable<T> {
         return this.httpClient
             .get<T>(url, this.buildOptionsFrom(options))
             .pipe(delay(isPlatformBrowser(this.platformId) ? 700 : 0));
     }
 
-    getText(url: string, options: RequestOptions): Observable<string> {
+    getText(url: string, options: Partial<RequestOptions>): Observable<string> {
         return this.httpClient
             .get(url, {
                 responseType: 'text',
@@ -30,27 +30,27 @@ export class DefaultHttpClientService implements HttpClientService {
     put(
         url: string,
         payload: unknown,
-        options: RequestOptions,
+        options: Partial<RequestOptions>,
     ): Observable<void> {
         return this.httpClient
             .put<void>(url, payload, this.buildOptionsFrom(options))
             .pipe(delay(isPlatformBrowser(this.platformId) ? 700 : 0));
     }
 
-    post(
+    post<T = void>(
         url: string,
         payload: unknown,
-        options: RequestOptions,
-    ): Observable<void> {
+        options: Partial<RequestOptions>,
+    ): Observable<T> {
         return this.httpClient
-            .post<void>(url, payload, this.buildOptionsFrom(options))
+            .post<T>(url, payload, this.buildOptionsFrom(options))
             .pipe(delay(isPlatformBrowser(this.platformId) ? 700 : 0));
     }
 
     private buildOptionsFrom({
         headers,
         observeResponse,
-    }: RequestOptions): Record<string, any> {
+    }: Partial<RequestOptions>): Record<string, any> {
         const options: Record<string, any> = { headers };
         if (observeResponse) options['observe'] = 'response';
 

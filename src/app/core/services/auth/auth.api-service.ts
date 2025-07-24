@@ -1,5 +1,5 @@
 import { AuthService } from '@core/services/auth/auth.service';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, Observable, of, switchMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
@@ -74,6 +74,15 @@ export class AuthAPIService implements AuthService {
         }
     }
 
+    signInWith(idToken: string): Observable<User> {
+        return this.httpClientService
+            .post<string>(this.endpoint, { idToken }, {})
+            .pipe(
+                switchMap((token) => this.getUserFrom(token)),
+                tap(() => this.router.navigate(['/home'])),
+            );
+    }
+
     getActorAvatarUrlOrDefault(): string {
         return this.actor?.getAvatarUrl() ?? '';
     }
@@ -130,7 +139,6 @@ export class AuthAPIService implements AuthService {
             .pipe(
                 catchError((response: HttpResponse<unknown>) => {
                     if (response.status === HttpStatusCode.Unauthorized) {
-                        console.log(response);
                         this.actor = null;
                         this.token = null;
                         this.router.navigate(['/']);

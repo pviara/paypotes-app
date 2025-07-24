@@ -8,4 +8,5 @@ export interface AuthService {
     getActorIdOrDefault(): string;
     getUserFrom(token: string): Observable<User>;
     isAuthenticated(): Observable<boolean>;
+    signInWith(idToken: string): Observable<User>;
 }

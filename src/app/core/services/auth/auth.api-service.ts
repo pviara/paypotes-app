@@ -7,6 +7,7 @@ import { inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { User } from '@core/model/user/user';
+import { SignedInUser } from '@core/model/user/signed-in-user';
 
 const SIGNED_IN_USER_STORAGE_KEY = 'signed_in_user';
 
@@ -76,9 +77,9 @@ export class AuthAPIService implements AuthService {
 
     signInWith(idToken: string): Observable<User> {
         return this.httpClientService
-            .post<string>(this.endpoint, { idToken }, {})
+            .post<SignedInUser>(this.endpoint, { idToken }, {})
             .pipe(
-                switchMap((token) => this.getUserFrom(token)),
+                switchMap(({ token }) => this.getUserFrom(token)),
                 tap(() => this.router.navigate(['/home'])),
             );
     }

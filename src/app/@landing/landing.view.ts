@@ -7,7 +7,7 @@ import {
     inject,
 } from '@angular/core';
 import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
-import { BehaviorSubject, catchError, of, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 import { Capacitor } from '@capacitor/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {

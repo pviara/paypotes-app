@@ -1333,6 +1333,11 @@
   resolved "https://registry.yarnpkg.com/@capacitor/keyboard/-/keyboard-7.0.1.tgz#edf212528cd1587494ceb1d260868c1a9540aed1"
   integrity sha512-Gi064vOARMac+x9/DmEFeywN9oAETMf3OYsMuYm9gA8SvdsDJ3QJqMoFnSEIORYXe21Jzt2SIEdLlpT65P/b2g==
 
+"@capacitor/screen-orientation@^7.0.1":
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/@capacitor/screen-orientation/-/screen-orientation-7.0.1.tgz#e23672034700515126883cf97eb2a598fde4d48f"
+  integrity sha512-6s2CLPAy7xFCzAXtj///xR1/BqqsX0NBt1BkhffPAh6jOs3n3CZsbh+YnPEptyeBBUtpsWWOE9rrvgtvy6iKJg==
+
 "@capgo/capacitor-social-login@^7.8.2":
   version "7.8.2"
   resolved "https://registry.yarnpkg.com/@capgo/capacitor-social-login/-/capacitor-social-login-7.8.2.tgz#25a68f2d6806c20ec1c92a253ff2544f233a0486"

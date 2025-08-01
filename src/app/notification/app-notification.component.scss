@@ -25,6 +25,10 @@ div {
     transition-property: opacity;
     transition-duration: 0.3s;
 
+    &.iphone {
+        top: 7%;
+    }
+
     &.empty {
         animation: slighSlideOutToBottom 0.3s;
     }

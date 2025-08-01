@@ -1,4 +1,4 @@
-<header>
+<header [class.iphone]="$isDeviceIPhone | async">
     <balance
         [balance]="$balance | async"
         [isDebt]="$isDebt | async"

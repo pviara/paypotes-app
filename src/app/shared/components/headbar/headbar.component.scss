@@ -9,6 +9,10 @@ header {
 
     animation: slighSlideInFromTop 0.5s ease-in-out;
 
+    &.iphone {
+        margin-top: 16%;
+    }
+
     div {
         display: flex;
         align-items: center;

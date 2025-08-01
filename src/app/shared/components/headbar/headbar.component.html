@@ -1,4 +1,4 @@
-<header>
+<header [class.iphone]="$isDeviceIPhone | async">
     <div>
         <back-button
             [route]="route()"

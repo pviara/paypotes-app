@@ -1,6 +1,7 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { delay, map, tap } from 'rxjs';
+import { DeviceService } from '@core/services/device/device.service';
 import { NotificationService } from '@core/services/notification/notification.service';
 
 @Component({
@@ -11,8 +12,11 @@ import { NotificationService } from '@core/services/notification/notification.se
     imports: [CommonModule],
 })
 export class AppNotificationComponent {
+    private deviceService = inject(DeviceService);
     private notificationService = inject(NotificationService);
     private platformId = inject(PLATFORM_ID);
+
+    $isDeviceIPhone = this.deviceService.$isDeviceIPhone;
 
     $notification = this.notificationService.$notification;
 

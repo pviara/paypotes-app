@@ -10,6 +10,7 @@ import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider'
 import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 import { Capacitor } from '@capacitor/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { environment } from 'src/environments/environment';
 import {
     GoogleLoginResponseOnline,
     SocialLogin,
@@ -81,6 +82,8 @@ export class LandingView implements AfterViewInit, OnInit {
                     }),
                 )
                 .subscribe();
+        } else if (isPlatformBrowser(this.platformId)) {
+            window.location.href = `${environment.API_URL}/auth/google`;
         }
     }
 

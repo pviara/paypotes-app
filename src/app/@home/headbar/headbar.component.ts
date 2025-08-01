@@ -1,5 +1,6 @@
 import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider';
 import { Component, inject } from '@angular/core';
+import { DeviceService } from '@core/services/device/device.service';
 import { ExpenseServiceToken } from '@core/services/expense/expense.service.provider';
 import { map } from 'rxjs';
 
@@ -11,6 +12,7 @@ import { map } from 'rxjs';
 })
 export class HeadbarComponent {
     private authService = inject(AuthServiceToken);
+    private deviceService = inject(DeviceService);
     private expenseService = inject(ExpenseServiceToken);
 
     avatarUrl = this.authService.getActorAvatarUrlOrDefault();
@@ -20,4 +22,6 @@ export class HeadbarComponent {
     $isDebt = this.$balance.pipe(
         map((balance) => (balance.includes('-') ? true : false)),
     );
+
+    $isDeviceIPhone = this.deviceService.$isDeviceIPhone;
 }

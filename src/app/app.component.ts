@@ -6,6 +6,7 @@ import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { HomeViewModule } from '@home/home.view-module';
 import { RouterOutlet } from '@angular/router';
 import { ScreenOrientation } from '@capacitor/screen-orientation';
+import { Capacitor } from '@capacitor/core';
 
 @Component({
     selector: 'app-root',
@@ -23,6 +24,7 @@ import { ScreenOrientation } from '@capacitor/screen-orientation';
 })
 export class AppComponent implements OnInit {
     async ngOnInit(): Promise<void> {
-        await ScreenOrientation.lock({ orientation: 'portrait' });
+        if (Capacitor.getPlatform() !== 'web')
+            await ScreenOrientation.lock({ orientation: 'portrait' });
     }
 }

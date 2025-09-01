@@ -64,7 +64,7 @@ export class SelectPersonsComponent implements OnInit {
     private addFormField(): void {
         this.form.addField({
             label: this.label,
-            value: '',
+            value: [],
         });
     }
 

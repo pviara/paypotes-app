@@ -55,7 +55,8 @@ export class ExplorerComponent implements OnInit {
     }
 
     private areNoElement(): (elements: ListElements) => boolean {
-        return (elements) => elements.length === 0;
+        return (elements) =>
+            elements.length === 0 && !this.savedFilters?.search;
     }
 
     private resetNextPageIndex(): void {

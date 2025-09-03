@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import {
     Component,
     computed,
@@ -54,7 +55,7 @@ export class DetailsFormComponent implements OnInit {
 
     onKeyboardEnter(event: Event): void {
         event.preventDefault();
-        Keyboard.hide();
+        if (Capacitor.getPlatform() !== 'web') Keyboard.hide();
     }
 
     onInput(event: Event): void {

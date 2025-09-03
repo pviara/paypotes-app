@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import {
     Component,
     EventEmitter,
@@ -76,7 +77,7 @@ export class FiltersComponent implements OnChanges, OnInit {
 
     onKeyboardEnter(event: Event): void {
         event.preventDefault();
-        Keyboard.hide();
+        if (Capacitor.getPlatform() !== 'web') Keyboard.hide();
     }
 
     onSelect(option: ExpenseTypeOption): void {

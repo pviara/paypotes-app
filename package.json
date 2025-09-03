@@ -1,6 +1,6 @@
 {
     "name": "paypot-app",
-    "version": "0.24.6",
+    "version": "1.0.0",
     "type": "module",
     "scripts": {
         "format": "prettier --write \"{src,test}/**/*.{js,json,ts,scss}\"",
@@ -29,6 +29,7 @@
         "@angular/service-worker": "^20.1.0",
         "@angular/ssr": "^20.1.0",
         "@capacitor/android": "^7.4.2",
+        "@capacitor/assets": "^3.0.5",
         "@capacitor/browser": "^7.0.1",
         "@capacitor/cli": "^7.4.2",
         "@capacitor/core": "^7.4.2",

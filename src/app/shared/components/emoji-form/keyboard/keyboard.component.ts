@@ -1,3 +1,4 @@
+import { Capacitor } from '@capacitor/core';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { EmojiFinder } from '@core/model/emoji-finder/emoji-finder';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -40,7 +41,7 @@ export class KeyboardComponent implements OnInit {
 
     onKeyboardEnter(event: Event): void {
         event.preventDefault();
-        Keyboard.hide();
+        if (Capacitor.getPlatform() !== 'web') Keyboard.hide();
     }
 
     onKeyClicked(key: string): void {

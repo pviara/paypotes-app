@@ -1,4 +1,7 @@
-import { HttpClientService } from '@core/services/http-client/http-client.service';
+import {
+    HttpClientService,
+    RequestOptions,
+} from '@core/services/http-client/http-client.service';
 import { Observable, of } from 'rxjs';
 import { Spy } from '@test/model/spy';
 
@@ -21,7 +24,7 @@ export class HttpClientServiceSpy
         },
         post: {
             count: 0,
-            history: [] as Array<string>,
+            history: [] as Array<[string, unknown, Partial<RequestOptions>]>,
         },
     };
 
@@ -39,8 +42,12 @@ export class HttpClientServiceSpy
         return of();
     }
 
-    post(url: string): Observable<void> {
-        this.saveCall('post', url);
+    post<T = void>(
+        url: string,
+        payload: unknown,
+        options: Partial<RequestOptions>,
+    ): Observable<T> {
+        this.saveCall('post', [url, payload, options]);
         return of();
     }
 }

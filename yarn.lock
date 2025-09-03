@@ -1328,10 +1328,10 @@
   resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-7.4.2.tgz#6fd0ae440ee70512b3523b1d6ff6bf5f9f425577"
   integrity sha512-Edd4aZ6IJi4O/7dJIsSIuuo6LXvVVP5V++0Vs1w5bWOGbGhWZXLF0lt0KGFgSUxTuyL6xURGUygkD6dCp35QAQ==
 
-"@capacitor/keyboard@^7.0.1":
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/@capacitor/keyboard/-/keyboard-7.0.1.tgz#edf212528cd1587494ceb1d260868c1a9540aed1"
-  integrity sha512-Gi064vOARMac+x9/DmEFeywN9oAETMf3OYsMuYm9gA8SvdsDJ3QJqMoFnSEIORYXe21Jzt2SIEdLlpT65P/b2g==
+"@capacitor/keyboard@^7.0.2":
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/keyboard/-/keyboard-7.0.2.tgz#fb806c736252a375f9e1de64c393bccc1c9e59c9"
+  integrity sha512-9We5BY1mu+QWOReDukr+6HxA4Bh0mKBU0txFtwXJdjBohttMYWJzB+dQf4oHrX8odiU2Cm/BfDdAU2wV06Cyig==
 
 "@capacitor/screen-orientation@^7.0.1":
   version "7.0.1"

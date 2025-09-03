@@ -16,6 +16,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Filters } from '@core/model/filters/filters';
+import { Keyboard } from '@capacitor/keyboard';
 
 type ExpenseType = '' | 'claim' | 'debt';
 
@@ -71,6 +72,11 @@ export class FiltersComponent implements OnChanges, OnInit {
 
     ngOnInit(): void {
         this.initForm();
+    }
+
+    onKeyboardEnter(event: Event): void {
+        event.preventDefault();
+        Keyboard.hide();
     }
 
     onSelect(option: ExpenseTypeOption): void {

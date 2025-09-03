@@ -13,6 +13,7 @@ import {
 } from '@shared/components/details-form/res/names-suggestions';
 import { FormContext } from '@core/model/form/form-context';
 import { FormService } from '@core/services/form/form.service';
+import { Keyboard } from '@capacitor/keyboard';
 
 @Component({
     selector: 'details-form',
@@ -49,6 +50,11 @@ export class DetailsFormComponent implements OnInit {
                 this.form.getFieldFrom('person').setValue('');
             } catch (e) {}
         }
+    }
+
+    onKeyboardEnter(event: Event): void {
+        event.preventDefault();
+        Keyboard.hide();
     }
 
     onInput(event: Event): void {

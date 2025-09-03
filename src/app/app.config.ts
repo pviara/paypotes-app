@@ -6,6 +6,7 @@ import {
 } from '@core/services/form/form.provider';
 import { AuthServiceProvider } from '@core/services/auth/auth.api-service.provider';
 import { ContactServiceProvider } from '@core/services/contact/contact.api-service.provider';
+import { DeviceService } from '@core/services/device/device.service';
 import { ExpenseServiceProvider } from '@core/services/expense/expense.service.provider';
 import { FormService } from '@core/services/form/form.service';
 import { GroupServiceProvider } from '@core/services/group/group.service.provider';
@@ -23,6 +24,7 @@ export const appConfig: ApplicationConfig = {
     providers: [
         AuthServiceProvider,
         ContactServiceProvider,
+        DeviceService,
         ExpenseServiceProvider,
         AddExpenseFormProvider,
         AddGroupExpenseFormProvider,

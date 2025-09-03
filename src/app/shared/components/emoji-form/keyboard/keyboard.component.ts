@@ -1,6 +1,8 @@
+import { Capacitor } from '@capacitor/core';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { EmojiFinder } from '@core/model/emoji-finder/emoji-finder';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Keyboard } from '@capacitor/keyboard';
 
 type FilterForm = {
     search: FormControl<string>;
@@ -35,6 +37,11 @@ export class KeyboardComponent implements OnInit {
         this.form.valueChanges.subscribe(({ search }) => {
             this.filteredKeyboard = this.emojiFinder.filterFor(search || '');
         });
+    }
+
+    onKeyboardEnter(event: Event): void {
+        event.preventDefault();
+        if (Capacitor.getPlatform() !== 'web') Keyboard.hide();
     }
 
     onKeyClicked(key: string): void {

@@ -1,4 +1,4 @@
-<form>
+<form (keydown.enter)="onKeyboardEnter($event)">
     <div class="content">
         <manual-name-input
             [error]="error"

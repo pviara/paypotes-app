@@ -1,5 +1,7 @@
+import { Capacitor } from '@capacitor/core';
 import { BehaviorSubject } from 'rxjs';
 import { Component, EventEmitter, inject, input, Output } from '@angular/core';
+import { Keyboard } from '@capacitor/keyboard';
 import { User, Users } from '@core/model/user/user';
 import { UserServiceToken } from '@core/services/user/user.api-service.provider';
 
@@ -24,6 +26,11 @@ export class PersonFormComponent {
 
     @Output()
     usersFound = new EventEmitter<Users>();
+
+    onKeyboardEnter(event: Event): void {
+        event.preventDefault();
+        if (Capacitor.getPlatform() !== 'web') Keyboard.hide();
+    }
 
     onSearching(name: string): void {
         this.$searching.next(true);

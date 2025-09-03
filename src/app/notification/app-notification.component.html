@@ -1,7 +1,8 @@
 @if ($notification | async; as notification) {
     <div
         [class.empty]="$emptyNotificationClass | async"
-        [class.error]="notification.type === 'error'">
+        [class.error]="notification.type === 'error'"
+        [class.iphone]="$isDeviceIPhone | async">
         {{ notification.message }}
     </div>
 }

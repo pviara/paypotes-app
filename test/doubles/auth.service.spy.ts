@@ -36,6 +36,10 @@ export class AuthServiceSpy extends Spy<AuthService> implements AuthService {
             count: 0,
             history: [],
         },
+        signInWith: {
+            count: 0,
+            history: [],
+        },
     };
 
     get actor(): User | null {
@@ -65,5 +69,9 @@ export class AuthServiceSpy extends Spy<AuthService> implements AuthService {
 
     isAuthenticated(): Observable<boolean> {
         return of(false);
+    }
+
+    signInWith(idToken: string): Observable<User> {
+        return of();
     }
 }

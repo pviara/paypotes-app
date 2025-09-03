@@ -1,6 +1,7 @@
-<form [formGroup]="form">
+<form [formGroup]="form" (keydown.enter)="onKeyboardEnter($event)">
     <input
         type="text"
+        enterkeyhint="search"
         placeholder="Rechercher..."
         formControlName="search"
     />

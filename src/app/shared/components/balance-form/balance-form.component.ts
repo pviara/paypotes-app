@@ -1,6 +1,8 @@
 import { BalanceFormatter } from '@shared/components/balance-form/model/balance-formatter';
+import { Capacitor } from '@capacitor/core';
 import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { FormService } from '@core/services/form/form.service';
+import { Keyboard } from '@capacitor/keyboard';
 
 @Component({
     selector: 'balance-form',
@@ -25,6 +27,11 @@ export class BalanceFormComponent implements OnInit {
 
     onButtonClicked(): void {
         this.buttonClicked.emit();
+    }
+
+    onKeyboardEnter(event: Event): void {
+        event.preventDefault();
+        if (Capacitor.getPlatform() !== 'web') Keyboard.hide();
     }
 
     onKeyClicked(key: string): void {

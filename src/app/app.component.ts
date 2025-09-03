@@ -1,10 +1,13 @@
+import { AfterViewInit, Component, ElementRef, viewChild } from '@angular/core';
 import { AppNotificationComponent } from 'src/app/notification/app-notification.component';
 import { AppMenuComponentModule } from 'src/app/menu/app-menu-component.module';
-import { Component } from '@angular/core';
 import { ContactsViewModule } from '@contacts/contacts.view-module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { HomeViewModule } from '@home/home.view-module';
 import { RouterOutlet } from '@angular/router';
+import { ScreenOrientation } from '@capacitor/screen-orientation';
+import { Capacitor } from '@capacitor/core';
+import { KeyboardControlDirective } from './keyboard-control.directive';
 
 @Component({
     selector: 'app-root',
@@ -16,8 +19,15 @@ import { RouterOutlet } from '@angular/router';
         ExpensesViewModule,
         HomeViewModule,
         RouterOutlet,
+        KeyboardControlDirective,
     ],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {}
+export class AppComponent implements AfterViewInit {
+    async ngAfterViewInit(): Promise<void> {
+        if (Capacitor.getPlatform() !== 'web') {
+            await ScreenOrientation.lock({ orientation: 'portrait' });
+        }
+    }
+}

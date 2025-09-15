@@ -3,7 +3,7 @@ import { EMOJIS } from '@core/model/emojis';
 export class EmojiFinder {
     private readonly keywords = EMOJIS;
 
-    filterFor(keyword: string): string[] {
+    filterFor(keyword: string): Array<string> {
         const emojis = Object.keys(this.keywords);
         if (!keyword) {
             return emojis;
@@ -15,13 +15,13 @@ export class EmojiFinder {
         });
     }
 
-    getAllEmojis(): string[] {
+    getAllEmojis(): Array<string> {
         return Object.keys(this.keywords);
     }
 
-    private doMatch(keyword: string, emojiKeywords: string[]): boolean {
+    private doMatch(keyword: string, emojiKeywords: Array<string>): boolean {
         return emojiKeywords.some((emojiKeyword) =>
-            emojiKeyword.includes(keyword),
+            emojiKeyword.toLowerCase().includes(keyword.toLowerCase()),
         );
     }
 }

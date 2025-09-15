@@ -9,9 +9,8 @@ describe('EmojiFinder', () => {
     });
 
     it.each([
-        [['foot', 'balle', 'rond'], ['⚽']],
-        [['basket', 'balle', 'rond'], ['🏀']],
-        [['us'], ['🏉']],
+        [['burger'], ['🍔']],
+        [['steak'], ['🥩']],
     ])('should find matching emojis for given keywords', (keywords, emojis) => {
         for (const keyword of keywords) {
             const returnedEmojis = sut.filterFor(keyword);

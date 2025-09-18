@@ -56,6 +56,10 @@ export class LandingView implements AfterViewInit, OnInit {
                 .pipe(
                     tap(() => this.router.navigate(['/home'])),
                     catchError(() => {
+                        this.notificationService.notify({
+                            type: 'error',
+                            message: 'Échec de connexion. Veuillez réessayer.',
+                        });
                         this.$loading.next(false);
                         return of(null);
                     }),

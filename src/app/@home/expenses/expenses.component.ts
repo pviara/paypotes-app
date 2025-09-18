@@ -5,11 +5,11 @@ import {
     ExpenseServiceToken,
 } from '@core/services/expense/expense.service.provider';
 import { HttpClientServiceProvider } from '@core/services/http-client/http-client.service.provider';
-import { PairExpense, PairExpenses } from '@core/model/expense/pair-expense';
+import { PairExpense } from '@core/model/expense/pair-expense';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
-import { GroupExpense, GroupExpenses } from '@core/model/expense/group-expense';
+import { GroupExpense } from '@core/model/expense/group-expense';
 
-const MAX_EXPENSES = 6;
+const MAX_EXPENSES = 5;
 
 @Component({
     selector: 'expenses',

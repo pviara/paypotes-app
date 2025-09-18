@@ -117,7 +117,7 @@ export class ExpenseAPIService implements ExpenseService {
                         return this.mapPairExpense(expense);
                     }
                     throw new Error(
-                        'Received DTO does not seem to match any kind of expense',
+                        `Received DTO "${expense['id']}" does not seem to match any kind of expense`,
                     );
                 }),
             );
@@ -134,18 +134,17 @@ export class ExpenseAPIService implements ExpenseService {
                 headers: { Authorization: `Bearer ${this.authService.token}` },
             })
             .pipe(
-                map((expenses) => {
-                    const groupExpenseDtos = expenses.filter((expense) =>
-                        this.isGroupExpenseDTO(expense),
-                    );
-                    const pairExpenseDtos = expenses.filter((expense) =>
-                        this.isPairExpensedDTO(expense),
-                    );
-                    return [
-                        ...this.mapGroupExpenses(groupExpenseDtos),
-                        ...this.mapPairExpenses(pairExpenseDtos),
-                    ];
-                }),
+                map((expenses) =>
+                    expenses.map((expense) => {
+                        if (this.isGroupExpenseDTO(expense))
+                            return this.mapGroupExpense(expense);
+                        if (this.isPairExpensedDTO(expense))
+                            return this.mapPairExpense(expense);
+                        throw new Error(
+                            `Received DTO "${expense['id']}" does not seem to match any kind of expense`,
+                        );
+                    }),
+                ),
             );
     }
 

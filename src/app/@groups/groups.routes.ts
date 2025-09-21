@@ -29,6 +29,7 @@ export const groupsRoutes: Routes = [
                 path: ':groupId',
                 component: GroupComponent,
                 title: 'Groupe',
+                data: { hideMenu: true },
             },
         ],
     },

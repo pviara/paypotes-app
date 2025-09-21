@@ -15,7 +15,7 @@ export class DefaultHttpClientService implements HttpClientService {
     get<T>(url: string, options: Partial<RequestOptions>): Observable<T> {
         return this.httpClient
             .get<T>(url, this.buildOptionsFrom(options))
-            .pipe(delay(isPlatformBrowser(this.platformId) ? 700 : 0));
+            .pipe(delay(isPlatformBrowser(this.platformId) ? 400 : 0));
     }
 
     getText(url: string, options: Partial<RequestOptions>): Observable<string> {
@@ -24,7 +24,7 @@ export class DefaultHttpClientService implements HttpClientService {
                 responseType: 'text',
                 ...this.buildOptionsFrom(options),
             })
-            .pipe(delay(isPlatformBrowser(this.platformId) ? 700 : 0));
+            .pipe(delay(isPlatformBrowser(this.platformId) ? 400 : 0));
     }
 
     put(
@@ -34,7 +34,7 @@ export class DefaultHttpClientService implements HttpClientService {
     ): Observable<void> {
         return this.httpClient
             .put<void>(url, payload, this.buildOptionsFrom(options))
-            .pipe(delay(isPlatformBrowser(this.platformId) ? 700 : 0));
+            .pipe(delay(isPlatformBrowser(this.platformId) ? 400 : 0));
     }
 
     post<T = void>(
@@ -44,7 +44,7 @@ export class DefaultHttpClientService implements HttpClientService {
     ): Observable<T> {
         return this.httpClient
             .post<T>(url, payload, this.buildOptionsFrom(options))
-            .pipe(delay(isPlatformBrowser(this.platformId) ? 700 : 0));
+            .pipe(delay(isPlatformBrowser(this.platformId) ? 400 : 0));
     }
 
     private buildOptionsFrom({

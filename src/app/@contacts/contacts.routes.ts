@@ -17,6 +17,7 @@ export const contactRoutes: Routes = [
                 path: ':contactId',
                 component: ContactComponent,
                 title: 'Contact',
+                data: { hideMenu: true },
             },
         ],
     },

@@ -86,14 +86,14 @@ export class ExpenseAPIService implements ExpenseService {
         contactId: string,
         pageIndex = 0,
         filters?: Filters,
-    ): Observable<PairExpenses> {
+    ): Observable<(GroupExpense | PairExpense)[]> {
         const query = this.queryService.buildQueryFrom({
             pageIndex,
             filters,
         });
 
         return this.httpClientService
-            .get<PairExpenseDTOs>(
+            .get<Record<string, unknown>[]>(
                 `${this.endpoint}/contact/${contactId}${query}`,
                 {
                     headers: {
@@ -101,7 +101,7 @@ export class ExpenseAPIService implements ExpenseService {
                     },
                 },
             )
-            .pipe(map((expenses) => this.mapPairExpenses(expenses)));
+            .pipe(map(this.mapExpenses()));
     }
 
     getExpense(id: string): Observable<GroupExpense | PairExpense> {
@@ -133,19 +133,7 @@ export class ExpenseAPIService implements ExpenseService {
             .get<Record<string, unknown>[]>(`${this.endpoint}${query}`, {
                 headers: { Authorization: `Bearer ${this.authService.token}` },
             })
-            .pipe(
-                map((expenses) =>
-                    expenses.map((expense) => {
-                        if (this.isGroupExpenseDTO(expense))
-                            return this.mapGroupExpense(expense);
-                        if (this.isPairExpensedDTO(expense))
-                            return this.mapPairExpense(expense);
-                        throw new Error(
-                            `Received DTO "${expense['id']}" does not seem to match any kind of expense`,
-                        );
-                    }),
-                ),
-            );
+            .pipe(map(this.mapExpenses()));
     }
 
     getGroupExpenses(
@@ -192,6 +180,21 @@ export class ExpenseAPIService implements ExpenseService {
                 headers: { Authorization: `Bearer ${this.authService.token}` },
             },
         );
+    }
+
+    private mapExpenses(): (
+        expenses: Record<string, unknown>[],
+    ) => (GroupExpense | PairExpense)[] {
+        return (expenses) =>
+            expenses.map((expense) => {
+                if (this.isGroupExpenseDTO(expense))
+                    return this.mapGroupExpense(expense);
+                if (this.isPairExpensedDTO(expense))
+                    return this.mapPairExpense(expense);
+                throw new Error(
+                    `Received DTO "${expense['id']}" does not seem to match any kind of expense`,
+                );
+            });
     }
 
     private isGroupExpenseDTO(

@@ -1,9 +1,9 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-    appId: 'paypot.pviara.dev',
-    appName: 'paypot-app',
-    webDir: 'dist/paypot-app/browser',
+    appId: 'paypotes.pviara.dev',
+    appName: 'paypotes-app',
+    webDir: 'dist/paypotes-app/browser',
     plugins: {
         Keyboard: {
             resize: 'body',

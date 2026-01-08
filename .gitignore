@@ -47,3 +47,6 @@ reports/
 # Capacitor
 android
 ios
+
+# Environment
+.env

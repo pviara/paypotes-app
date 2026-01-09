@@ -1,6 +1,6 @@
 {
     "name": "paypotes-app",
-    "version": "1.3.3",
+    "version": "1.3.4",
     "type": "module",
     "scripts": {
         "format": "prettier --write \"{src,test}/**/*.{js,json,ts,scss}\"",
@@ -13,7 +13,7 @@
         "watch": "ng build --watch --configuration development",
         "test": "vitest run --config ./test/vitest.config.ts",
         "test:watch": "vitest --config ./test/vitest.config.ts",
-        "serve:ssr:paypot": "node dist/paypotes-app/server/server.mjs",
+        "serve:ssr:paypotes": "node dist/paypotes-app/server/server.mjs",
         "update:deps": "yarn add -D npm-check-updates yarn-audit-fix; npx npm-check-updates --target minor --upgrade; yarn install; npx yarn-audit-fix; yarn remove npm-check-updates yarn-audit-fix; echo \\\\n🚨\\[\\033[32m\\] Do not forget to upgrade manually express package."
     },
     "private": true,

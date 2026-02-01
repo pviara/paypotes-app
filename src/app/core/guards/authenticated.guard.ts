@@ -10,7 +10,7 @@ export const authenticatedGuard: CanActivateFn = (): Observable<boolean> => {
     return authService.isAuthenticated().pipe(
         map((isAuthenticated) => {
             if (isAuthenticated) return true;
-            router.navigate(['/']);
+            router.navigate(['/'], { queryParamsHandling: 'preserve' });
             return false;
         }),
     );

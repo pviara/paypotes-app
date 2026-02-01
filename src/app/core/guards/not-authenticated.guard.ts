@@ -11,7 +11,7 @@ export const notAuthenticatedGuard: CanActivateFn = (): Observable<boolean> => {
         map((isAuthenticated) => !isAuthenticated),
         map((isNotAuthenticated) => {
             if (isNotAuthenticated) return true;
-            router.navigate(['/home']);
+            router.navigate(['/home'], { queryParamsHandling: 'preserve' });
             return false;
         }),
     );

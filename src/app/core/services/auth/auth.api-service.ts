@@ -71,7 +71,7 @@ export class AuthAPIService implements AuthService {
             this.getResponseFromGettingUserFrom(this.token).subscribe();
         else if (this.actor) {
             this.actor = null;
-            this.router.navigate(['/']);
+            this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
         }
     }
 
@@ -142,7 +142,7 @@ export class AuthAPIService implements AuthService {
                     if (response.status === HttpStatusCode.Unauthorized) {
                         this.actor = null;
                         this.token = null;
-                        this.router.navigate(['/']);
+                        this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
                     }
                     return of(null);
                 }),

@@ -1,5 +1,5 @@
 import { AuthService } from '@core/services/auth/auth.service';
-import { environment } from 'src/environments/environment';
+import { environment } from '@environments/environment';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { map, Observable } from 'rxjs';
 import { QueryService } from '../query/query.service';

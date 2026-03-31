@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, viewChild } from '@angular/core';
-import { AppNotificationComponent } from 'src/app/notification/app-notification.component';
-import { AppMenuComponentModule } from 'src/app/menu/app-menu-component.module';
+import { AppNotificationComponent } from '@app/notification/app-notification.component';
+import { AppMenuComponentModule } from '@app/menu/app-menu-component.module';
 import { ContactsViewModule } from '@contacts/contacts.view-module';
 import { ExpensesViewModule } from '@expenses/expenses.view-module';
 import { HomeViewModule } from '@home/home.view-module';

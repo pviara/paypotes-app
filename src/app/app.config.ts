@@ -15,7 +15,7 @@ import { MenuService } from '@core/services/menu/menu.service';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
-import { routes } from 'src/app/app.routes';
+import { routes } from '@app/app.routes';
 import { QueryServiceProvider } from '@core/services/query/query.service.provider';
 import { UserServiceProvider } from '@core/services/user/user.api-service.provider';
 import { ApplicationConfig, isDevMode } from '@angular/core';

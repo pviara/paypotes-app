@@ -14,7 +14,7 @@ import {
     ContactWithBalanceDTO,
     ContactWithBalanceDTOs,
 } from '@core/model/contact/contact-with-balance.dto';
-import { environment } from 'src/environments/environment';
+import { environment } from '@environments/environment';
 import { Filters } from '@core/model/filters/filters';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { Observable, map } from 'rxjs';

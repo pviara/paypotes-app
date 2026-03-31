@@ -10,7 +10,7 @@ import { AuthServiceToken } from '@core/services/auth/auth.api-service.provider'
 import { BehaviorSubject, catchError, of, tap } from 'rxjs';
 import { Capacitor } from '@capacitor/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { environment } from 'src/environments/environment';
+import { environment } from '@environments/environment';
 import {
     GoogleLoginResponseOnline,
     SocialLogin,

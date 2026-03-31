@@ -1,6 +1,6 @@
 import { AuthService } from '@core/services/auth/auth.service';
 import { catchError, Observable, of, switchMap, tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '@environments/environment';
 import { HttpClientService } from '@core/services/http-client/http-client.service';
 import { HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { inject, PLATFORM_ID } from '@angular/core';
@@ -142,7 +142,9 @@ export class AuthAPIService implements AuthService {
                     if (response.status === HttpStatusCode.Unauthorized) {
                         this.actor = null;
                         this.token = null;
-                        this.router.navigate(['/'], { queryParamsHandling: 'preserve' });
+                        this.router.navigate(['/'], {
+                            queryParamsHandling: 'preserve',
+                        });
                     }
                     return of(null);
                 }),

@@ -15,7 +15,7 @@ import {
     GroupExpenseDTO,
     GroupExpenseDTOs,
 } from '@core/model/expense/group-expense.dto';
-import { environment } from 'src/environments/environment';
+import { environment } from '@environments/environment';
 import { ExpenseMetadata } from '@core/model/expense/expense';
 import { Filters } from '@core/model/filters/filters';
 import { Group, GroupMetadata } from '@core/model/group/group';

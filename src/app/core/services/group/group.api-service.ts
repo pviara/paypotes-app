@@ -1,7 +1,7 @@
 import { AddGroupDTO, GroupService } from '@core/services/group/group.service';
 import { AuthService } from '@core/services/auth/auth.service';
 import { BehaviorSubject, Observable, map, tap } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '@environments/environment';
 import { Filters } from '@core/model/filters/filters';
 import { GroupMetadata, Groups, Group } from '@core/model/group/group';
 import { GroupDTO, GroupDTOs } from '@core/model/group/group.dto';

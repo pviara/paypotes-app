@@ -14,22 +14,22 @@
         "sourceMap": true,
         "declaration": false,
         "experimentalDecorators": true,
-        "moduleResolution": "node",
         "importHelpers": true,
         "target": "ES2022",
-        "module": "ES2022",
+        "module": "preserve",
         "useDefineForClassFields": false,
         "lib": ["ES2022", "dom"],
-        "baseUrl": ".",
         "paths": {
-            "@contacts/*": ["src/app/@contacts/*"],
-            "@core/*": ["src/app/core/*"],
-            "@expenses/*": ["src/app/@expenses/*"],
-            "@groups/*": ["src/app/@groups/*"],
-            "@home/*": ["src/app/@home/*"],
-            "@landing/*": ["src/app/@landing/*"],
-            "@shared/*": ["src/app/shared/*"],
-            "@test/*": ["test/*"]
+            "@app/*": ["./src/app/*"],
+            "@contacts/*": ["./src/app/@contacts/*"],
+            "@core/*": ["./src/app/core/*"],
+            "@environments/*": ["./src/environments/*"],
+            "@expenses/*": ["./src/app/@expenses/*"],
+            "@groups/*": ["./src/app/@groups/*"],
+            "@home/*": ["./src/app/@home/*"],
+            "@landing/*": ["./src/app/@landing/*"],
+            "@shared/*": ["./src/app/shared/*"],
+            "@test/*": ["./test/*"]
         }
     },
     "angularCompilerOptions": {

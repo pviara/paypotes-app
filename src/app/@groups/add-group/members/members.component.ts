@@ -22,7 +22,7 @@ export class MembersComponent implements OnInit {
             this.form.addField({
                 label: this.labels.members,
                 value: [],
-                validators: [getValidator(ValidatorKey.MinLengthTwo)],
+                validators: [getValidator(ValidatorKey.MinLengthOne)],
             });
         }
     }

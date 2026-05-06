@@ -1,6 +1,6 @@
 {
     "name": "paypotes-app",
-    "version": "2.0.1",
+    "version": "2.1.0",
     "type": "module",
     "scripts": {
         "format": "prettier --write \"{src,test}/**/*.{js,json,ts,scss}\"",
